@@ -15,6 +15,6 @@ namespace Bazooka.Core
         ///     Removes an installed package from the system
         /// </summary>
         /// <param name="info">Package installation info</param>
-        void Remove(PackageInfo info, ICollection<string> repositories);
+        void Remove(PackageInfo info, ICollection<string> repositories, Dictionary<string, string> additionalParams);
     }
 }

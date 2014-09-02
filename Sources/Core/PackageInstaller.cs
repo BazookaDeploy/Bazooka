@@ -24,13 +24,13 @@ namespace Bazooka.Core
         ///     Installs the specified package into the specified directory
         /// </summary>
         /// <param name="info"></param>
-        public void Install(PackageInfo info,ICollection<string> repositories)
+        public void Install(PackageInfo info, ICollection<string> repositories, Dictionary<string, string> parameters)
         {
-            DownloadPackage(info,repositories);
+            DownloadPackage(info, repositories);
 
             ApplyTransformations(info);
 
-            ExecuteInstallScript(info);
+            ExecuteInstallScript(info, parameters);
 
             Logger.Log("Application installed");
         }
@@ -39,14 +39,14 @@ namespace Bazooka.Core
         ///     Searches for an install script and executes it passing the configuration as parameter
         /// </summary>
         /// <param name="info">Pacakge installation informations</param>
-        private void ExecuteInstallScript(PackageInfo info)
+        private void ExecuteInstallScript(PackageInfo info, Dictionary<string, string> parameters)
         {
             var file = Path.Combine(info.InstallationDirectory, "install.ps1");
 
             if (File.Exists(file))
             {
                 Logger.Log("Executing install script ... ");
-                PowershellHelpers.Execute(info.InstallationDirectory, "install.ps1", info.Configuration);
+                PowershellHelpers.Execute(info.InstallationDirectory, "install.ps1", info.Configuration, Logger, parameters);
             }
         }
 
@@ -110,7 +110,7 @@ namespace Bazooka.Core
         ///     Downloads the specified package and installs it in the configured folder
         /// </summary>
         /// <param name="info">Pacakge informations</param>
-        private void DownloadPackage(PackageInfo info,ICollection<string> repositories)
+        private void DownloadPackage(PackageInfo info, ICollection<string> repositories)
         {
             Logger.Log("Downloading package ... ");
 

@@ -16,6 +16,6 @@ namespace Bazooka.Core
         ///     Installs a specified package in the specified directory
         /// </summary>
         /// <param name="info">Info about hte package beng installed</param>
-        void Install(PackageInfo info, ICollection<string> repositories);
+        void Install(PackageInfo info, ICollection<string> repositories,Dictionary<string,string> additionalParams);
     }
 }

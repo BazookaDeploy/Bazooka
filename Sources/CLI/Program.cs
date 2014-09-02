@@ -40,7 +40,10 @@ namespace Bazooka.CLI
 
                         var PackageInstaller = new PackageInstaller();
                         PackageInstaller.Logger = new ConsoleLogger();
-                        PackageInstaller.Install(packageInfo, new string[] { ((InstallOptions)invokedVerbInstance).Repository });
+                        var additionalParams = ((InstallOptions)invokedVerbInstance).AdditionalParameters.Split(';');
+                        var paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+
+                        PackageInstaller.Install(packageInfo, new string[] { ((InstallOptions)invokedVerbInstance).Repository }, paramDictionary);
 
                     }
                     break;
@@ -52,7 +55,11 @@ namespace Bazooka.CLI
 
                         var packageRemover = new PackageRemover();
                         packageRemover.Logger = new ConsoleLogger();
-                        packageRemover.Remove(packageInfo, new string[] { ((InstallOptions)invokedVerbInstance).Repository });
+
+                        var additionalParams = ((InstallOptions)invokedVerbInstance).AdditionalParameters.Split(';');
+                        var paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+
+                        packageRemover.Remove(packageInfo, new string[] { ((InstallOptions)invokedVerbInstance).Repository },paramDictionary);
                     }
                     break;
             }

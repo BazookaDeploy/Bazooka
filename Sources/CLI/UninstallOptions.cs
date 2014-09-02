@@ -32,5 +32,11 @@ namespace Bazooka.CLI
         /// </summary>
         [Option('c', "configuration", Required = true, HelpText = "Configuration to use to uninstall application")]
         public string Configuration { get; set; }
+
+        /// <summary>
+        ///     Specifies additional parameters to pass to scripts
+        /// </summary>
+        [Option('p', "parameters", Required = true, HelpText = "Parameters to pass to scripts")]
+        public string AdditionalParameters { get; set; }
     }
 }

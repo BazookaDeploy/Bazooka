@@ -23,9 +23,9 @@ namespace Bazooka.Core
         ///     Removes an installed package from the system
         /// </summary>
         /// <param name="info"></param>
-        public void Remove(PackageInfo info, ICollection<string> repositories)
+        public void Remove(PackageInfo info, ICollection<string> repositories, Dictionary<string, string> parameters)
         {
-            ExecuteRemoveScript(info);
+            ExecuteRemoveScript(info,parameters);
 
             DeleteFiles(info,repositories);
 
@@ -63,13 +63,13 @@ namespace Bazooka.Core
             Logger.Log("Installed files deleted");
         }
 
-        private void ExecuteRemoveScript(PackageInfo installed)
+        private void ExecuteRemoveScript(PackageInfo installed, Dictionary<string, string> parameters)
         {
             if (File.Exists(Path.Combine(installed.InstallationDirectory, "Uninstall.ps1")))
             {
                 Logger.Log("Executing uninstall script ... ");
 
-                PowershellHelpers.Execute(installed.InstallationDirectory, "Uninstall.ps1", installed.Configuration);
+                PowershellHelpers.Execute(installed.InstallationDirectory, "Uninstall.ps1", installed.Configuration,Logger, parameters);
             }
         }
     }

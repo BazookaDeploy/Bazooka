@@ -38,5 +38,11 @@ namespace Bazooka.CLI
         /// </summary>
         [Option('r', "repository", Required = true, HelpText = "Repository to use to install the application")]
         public string Repository { get; set; }
+
+        /// <summary>
+        ///     Specifies additional parameters to pass to scripts
+        /// </summary>
+        [Option('p', "parameters", Required = true, HelpText = "Parameters to pass to scripts")]
+        public string AdditionalParameters { get; set; }
     }
 }
