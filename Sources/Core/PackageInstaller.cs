@@ -91,6 +91,7 @@ namespace Bazooka.Core
                         bool succeeded = transformation.Apply(document);
                         if (succeeded)
                         {
+                            File.Delete(file);
                             using (var fileStream = File.OpenWrite(file))
                             {
                                 document.Save(fileStream);
