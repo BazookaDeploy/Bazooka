@@ -53,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomPathResolver.cs" />
+    <Compile Include="Dto\ExecutionResult.cs" />
+    <Compile Include="Dto\InstallDto.cs" />
+    <Compile Include="Dto\UninstallDto.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="InexistentPackageException.cs" />
     <Compile Include="IPackageInstaller.cs" />

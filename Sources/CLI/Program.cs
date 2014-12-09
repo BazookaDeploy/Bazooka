@@ -56,10 +56,10 @@ namespace Bazooka.CLI
                         var packageRemover = new PackageRemover();
                         packageRemover.Logger = new ConsoleLogger();
 
-                        var additionalParams = ((InstallOptions)invokedVerbInstance).AdditionalParameters.Split(';');
+                        var additionalParams = ((UninstallOptions)invokedVerbInstance).AdditionalParameters.Split(';');
                         var paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
 
-                        packageRemover.Remove(packageInfo, new string[] { ((InstallOptions)invokedVerbInstance).Repository },paramDictionary);
+                        packageRemover.Remove(packageInfo, new string[] { ((UninstallOptions)invokedVerbInstance).Directory }, paramDictionary);
                     }
                     break;
             }
