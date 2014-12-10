@@ -53,6 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.4.0.2.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -153,6 +156,8 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="bower.json" />
+    <Content Include="package.json" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <PropertyGroup>
