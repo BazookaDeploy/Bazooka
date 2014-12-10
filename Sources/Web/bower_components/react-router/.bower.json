@@ -1,0 +1,39 @@
+{
+  "name": "react-router",
+  "version": "0.11.4",
+  "homepage": "https://github.com/rackt/react-router",
+  "authors": [
+    "Ryan Florence",
+    "Michael Jackson"
+  ],
+  "description": "A complete routing library for React.js",
+  "main": "dist/react-router.js",
+  "keywords": [
+    "react",
+    "router"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "specs",
+    "modules",
+    "examples",
+    "script",
+    "CONTRIBUTING.md",
+    "karma.conf.js",
+    "package.json",
+    "webpack.config.js"
+  ],
+  "_release": "0.11.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.11.4",
+    "commit": "87166eb5885fa08d1d46237671d6309579db5993"
+  },
+  "_source": "git://github.com/rpflorence/react-nested-router.git",
+  "_target": "~0.11.4",
+  "_originalSource": "react-router",
+  "_direct": true
+}
