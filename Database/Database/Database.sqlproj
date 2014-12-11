@@ -58,4 +58,10 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Applications.sql" />
+    <Build Include="Enviroments.sql" />
+    <Build Include="DeployUnits.sql" />
+    <Build Include="DeployUnitsParameters.sql" />
+  </ItemGroup>
 </Project>
