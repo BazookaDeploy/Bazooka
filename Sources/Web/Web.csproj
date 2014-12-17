@@ -139,6 +139,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\App.js" />
+    <Content Include="App\Applications\AppPage.js" />
     <Content Include="App\browser-bundle.js" />
     <Content Include="App\Home\Homepage.js" />
     <Content Include="App\index.js" />

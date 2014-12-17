@@ -2,9 +2,7 @@
 
 var HomePage = React.createClass({
     render: function () {
-        return (<div className="commentBox">
-        Hello, world! I am a CommentBox.
-      </div>);
+        return (<div>Welcome to the Homepage</div>);
     }
 });
 
