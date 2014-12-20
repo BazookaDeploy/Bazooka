@@ -12,6 +12,8 @@
     "bootstrap": "^3.3.1",
     "envify": "^3.2.0",
     "flux": "^2.0.1",
+    "keymirror": "^0.1.0",
+    "object-assign": "^2.0.0",
     "react": "^0.12.1",
     "react-bootstrap": "^0.13.0",
     "react-router": "^0.11.5"
