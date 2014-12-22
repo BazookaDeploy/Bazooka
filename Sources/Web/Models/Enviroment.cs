@@ -11,6 +11,8 @@ namespace Web.Models
 
         public int ApplicationId { get; set; }
 
+        public virtual Application Application {get; set;}
+
         public string Configuration { get; set; }
 
         public string Description { get; set; }
