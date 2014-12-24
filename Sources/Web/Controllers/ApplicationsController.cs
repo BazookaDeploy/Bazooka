@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿using NHibernate;
+using NHibernate.Linq;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class ApplicationsController : ApiController
     {
-        private DataContext db = new DataContext();
+        private ISession db = WebApiApplication.Store.OpenSession();
 
         // GET: api/Applications
         public IQueryable<Application> GetApplications()
         {
-            return db.Applications;
+            return db.Query<Application>();
         }
 
         protected override void Dispose(bool disposing)

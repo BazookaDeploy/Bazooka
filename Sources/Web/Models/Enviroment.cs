@@ -7,14 +7,14 @@ namespace Web.Models
 {
     public class Enviroment
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
-        public int ApplicationId { get; set; }
+        public virtual int ApplicationId { get; set; }
 
-        public virtual Application Application {get; set;}
+        public virtual string Configuration { get; set; }
 
-        public string Configuration { get; set; }
+        public virtual string Description { get; set; }
 
-        public string Description { get; set; }
+        public virtual IList<DeployUnit> DeployUnits { get; set; }
     }
 }

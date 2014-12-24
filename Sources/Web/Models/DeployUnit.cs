@@ -7,33 +7,31 @@ namespace Web.Models
 {
     public class DeployUnit
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
-        public int EnviromentId { get; set; }
+        public virtual int EnviromentId { get; set; }
 
-        public virtual Enviroment Enviroment { get; set; }
+        public virtual string Name { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Machine { get; set; }
 
-        public string Machine { get; set; }
+        public virtual string PackageName { get; set; }
 
-        public string PackageName { get; set; }
+        public virtual string Directory { get; set; }
 
-        public string Directory { get; set; }
+        public virtual IList<Parameter> AdditionalParameters { get; set; }
 
-        public ICollection<Parameter> AdditionalParameters { get; set; }
+        public virtual IList<DeployLog> Logs { get; set; }
     }
 
     public class Parameter
     {
-        public int ParameterId { get; set; }
+        public virtual int ParameterId { get; set; }
 
-        public int DeployUnitId { get; set; }
+        public virtual int DeployUnitId { get; set; }
 
-        public virtual DeployUnit DeployUnit { get; set; }
+        public virtual string Name { get; set; }
 
-        public string Name { get; set; }
-
-        public string Value { get; set; }
+        public virtual string Value { get; set; }
     }
 }

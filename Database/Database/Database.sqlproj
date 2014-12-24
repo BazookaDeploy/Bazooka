@@ -63,5 +63,9 @@
     <Build Include="Enviroments.sql" />
     <Build Include="DeployUnits.sql" />
     <Build Include="DeployUnitsParameters.sql" />
+    <Build Include="DeployLogs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Database.refactorlog" />
   </ItemGroup>
 </Project>
