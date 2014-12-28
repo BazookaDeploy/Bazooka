@@ -151,11 +151,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Actions\ApplicationActionsCreator.js" />
     <Content Include="App\App.js" />
     <Content Include="App\Applications\AppPage.js" />
     <Content Include="App\browser-bundle.js" />
+    <Content Include="App\Constants\ApplicationsConstants.js" />
+    <Content Include="App\Dispatchers\ApplicationDispatcher.js" />
     <Content Include="App\Home\Homepage.js" />
     <Content Include="App\index.js" />
+    <Content Include="App\Stores\ApplicationStore.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -178,6 +182,7 @@
     <Content Include="packages.config" />
     <Content Include="bower.json" />
     <Content Include="package.json" />
+    <Content Include="App\browser-bundle.js.map" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <PropertyGroup>

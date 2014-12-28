@@ -19,12 +19,17 @@ namespace Web
             config.DataBaseIntegration(db =>
             {
                 db.Dialect<MsSql2008Dialect>();
-                db.ConnectionStringName = "Persistence";
+                db.ConnectionStringName = "DataContext";
             });
 
             var mapper = new ModelMapper();
             mapper.AddMapping<ApplicationMap>();
+            mapper.AddMapping<EnviromentMap>();
+            mapper.AddMapping<DeployUnitMap>();
+            mapper.AddMapping<ParameterMap>();
+            mapper.AddMapping<DeployLogMap>();
 
+            config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 
             Store = config.BuildSessionFactory();
 

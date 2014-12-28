@@ -11,9 +11,15 @@ namespace Web.Controllers
         private ISession db = WebApiApplication.Store.OpenSession();
 
         // GET: api/Applications
-        public IQueryable<Application> GetApplications()
+        public IQueryable<Application> Get()
         {
             return db.Query<Application>();
+        }
+
+        public void Post(string name) {
+            var Application = new Application() { Name = name };
+            db.Save(Application);
+            db.Flush();
         }
 
         protected override void Dispose(bool disposing)
