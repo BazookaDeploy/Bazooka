@@ -1,5 +1,5 @@
-var ApplicationDispatcher = require('../Dispatchers/ApplicationDispatcher');
-var ActionTypes = require('../Constants/ApplicationsConstants').ActionTypes;
+var ApplicationDispatcher = require('../Base/Dispatcher');
+var ActionTypes = require('./Constants').ActionTypes;
 var reqwest = require("reqwest");
 
 module.exports = {

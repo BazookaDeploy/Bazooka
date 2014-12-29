@@ -1,25 +1,29 @@
 ﻿using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Web.Mapping;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class ApplicationsController : ApiController
     {
-        private ISession db = WebApiApplication.Store.OpenSession();
+        private ReadContext db =new ReadContext();
 
         // GET: api/Applications
-        public IQueryable<Application> Get()
+        public ICollection<ApplicationDto> Get()
         {
-            return db.Query<Application>();
+            return db.Applications.ToList();
         }
 
         public void Post(string name) {
-            var Application = new Application() { Name = name };
-            db.Save(Application);
-            db.Flush();
+            using (var session=WebApiApplication.Store.OpenSession()){
+                var Application = new Application() { Name = name };
+                session.Save(Application);
+                session.Flush();
+            };
         }
 
         protected override void Dispose(bool disposing)

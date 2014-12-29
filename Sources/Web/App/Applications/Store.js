@@ -1,5 +1,5 @@
-var ApplicationDispatcher = require("../Dispatchers/ApplicationDispatcher");
-var ApplicationConstants = require("../Constants/ApplicationsConstants");
+var Dispatcher = require("../Base/Dispatcher");
+var ApplicationConstants = require("./Constants");
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
 
@@ -27,7 +27,7 @@ var ApplicationsStore = assign({}, EventEmitter.prototype, {
   }
 });
 
-ApplicationsStore.dispatchToken = ApplicationDispatcher.register(function(payload) {
+ApplicationsStore.dispatchToken = Dispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {

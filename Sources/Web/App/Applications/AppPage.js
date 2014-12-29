@@ -1,9 +1,10 @@
 var React = require("react");
-var Actions = require("../Actions/ApplicationActionsCreator");
-var Store = require("../Stores/ApplicationStore");
+var Actions = require("./ActionsCreator");
+var Store = require("./Store");
 var Modal = require("react-bootstrap/Modal");
 var ModalTrigger = require("react-bootstrap/ModalTrigger");
-
+var Router = require('react-router');
+var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var CreateDialog = React.createClass({
   create:function(){
@@ -37,7 +38,7 @@ var CreateDialog = React.createClass({
 
 var AppLine = React.createClass({
   render: function(){
-    return(<div><b>{this.props.Application.Name}</b></div>)
+    return(<div><b>{this.props.Application.Name}</b><Link to="enviroments" params={{applicationId: this.props.Application.Id}}>Go to</Link></div>)
   }
 });
 
