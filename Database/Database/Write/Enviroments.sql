@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Enviroments]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [ApplicationId] INT NOT NULL, 
     [Configuration] NVARCHAR(50) NOT NULL, 
     [Description] NVARCHAR(50) NOT NULL, 

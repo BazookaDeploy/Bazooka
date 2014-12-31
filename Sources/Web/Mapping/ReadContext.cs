@@ -14,10 +14,13 @@ namespace Web.Mapping
 
         public DbSet<ApplicationDto> Applications { get; set; }
 
+        public DbSet<EnviromentDto> Enviroments { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("rd");
             modelBuilder.Configurations.Add(new ApplicationDtoConfiguration());
+            modelBuilder.Configurations.Add(new EnviromentDtoConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
@@ -25,6 +28,14 @@ namespace Web.Mapping
     public class ApplicationDtoConfiguration :EntityTypeConfiguration<ApplicationDto> {
         public ApplicationDtoConfiguration() {
             ToTable("Applications");
+        }
+    }
+
+    public class EnviromentDtoConfiguration : EntityTypeConfiguration<EnviromentDto>
+    {
+        public EnviromentDtoConfiguration()
+        {
+            ToTable("Enviroments");
         }
     }
 }

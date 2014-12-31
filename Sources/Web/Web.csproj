@@ -135,6 +135,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
+    <Compile Include="Controllers\EnviromentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -150,6 +151,7 @@
     <Compile Include="Models\DeployLog.cs" />
     <Compile Include="Models\Enviroment.cs" />
     <Compile Include="Models\DeployUnit.cs" />
+    <Compile Include="Models\EnviromentDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -160,7 +162,10 @@
     <Content Include="App\Applications\Store.js" />
     <Content Include="App\Base\Dispatcher.js" />
     <Content Include="App\browser-bundle.js" />
+    <Content Include="App\Enviroments\ActionsCreator.js" />
+    <Content Include="App\Enviroments\Constants.js" />
     <Content Include="App\Enviroments\EnviromentPage.js" />
+    <Content Include="App\Enviroments\Store.js" />
     <Content Include="App\Home\Homepage.js" />
     <Content Include="App\index.js" />
     <Content Include="favicon.ico" />
