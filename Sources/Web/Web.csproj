@@ -135,6 +135,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
+    <Compile Include="Controllers\DeployUnitsController.cs" />
     <Compile Include="Controllers\EnviromentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -149,6 +150,8 @@
     <Compile Include="Models\Application.cs" />
     <Compile Include="Models\ApplicationDto.cs" />
     <Compile Include="Models\DeployLog.cs" />
+    <Compile Include="Models\DeployUnitDto.cs" />
+    <Compile Include="Models\DeployUnitParameterDto.cs" />
     <Compile Include="Models\Enviroment.cs" />
     <Compile Include="Models\DeployUnit.cs" />
     <Compile Include="Models\EnviromentDto.cs" />
@@ -162,6 +165,10 @@
     <Content Include="App\Applications\Store.js" />
     <Content Include="App\Base\Dispatcher.js" />
     <Content Include="App\browser-bundle.js" />
+    <Content Include="App\DeployUnits\ActionsCreator.js" />
+    <Content Include="App\DeployUnits\Constants.js" />
+    <Content Include="App\DeployUnits\DeployUnitsPage.js" />
+    <Content Include="App\DeployUnits\Store.js" />
     <Content Include="App\Enviroments\ActionsCreator.js" />
     <Content Include="App\Enviroments\Constants.js" />
     <Content Include="App\Enviroments\EnviromentPage.js" />

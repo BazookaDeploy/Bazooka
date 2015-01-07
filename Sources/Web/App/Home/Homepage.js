@@ -2,7 +2,7 @@
 
 var HomePage = React.createClass({
     render: function () {
-        return (<div>Welcome to the Homepage</div>);
+        return (<div>Welcome to Bazooka</div>);
     }
 });
 

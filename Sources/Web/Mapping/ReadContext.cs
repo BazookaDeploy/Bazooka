@@ -16,11 +16,17 @@ namespace Web.Mapping
 
         public DbSet<EnviromentDto> Enviroments { get; set; }
 
+        public DbSet<DeployUnitDto> DeployUnits { get; set; }
+
+        public DbSet<DeployUnitParameterDto> DeployUnitsPrameters { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("rd");
             modelBuilder.Configurations.Add(new ApplicationDtoConfiguration());
             modelBuilder.Configurations.Add(new EnviromentDtoConfiguration());
+            modelBuilder.Configurations.Add(new DeployUnitDtoConfiguration());
+            modelBuilder.Configurations.Add(new DeployUnitParameterDtoConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
@@ -36,6 +42,22 @@ namespace Web.Mapping
         public EnviromentDtoConfiguration()
         {
             ToTable("Enviroments");
+        }
+    }
+
+    public class DeployUnitDtoConfiguration : EntityTypeConfiguration<DeployUnitDto>
+    {
+        public DeployUnitDtoConfiguration()
+        {
+            ToTable("DeployUnits");
+        }
+    }
+
+    public class DeployUnitParameterDtoConfiguration : EntityTypeConfiguration<DeployUnitParameterDto>
+    {
+        public DeployUnitParameterDtoConfiguration()
+        {
+            ToTable("DeployUnitsParameters");
         }
     }
 }

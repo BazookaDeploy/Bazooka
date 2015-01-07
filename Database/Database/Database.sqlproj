@@ -59,6 +59,7 @@
     <Folder Include="Properties" />
     <Folder Include="Write" />
     <Folder Include="Read" />
+    <Folder Include="Snapshots" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Write\Applications.sql" />
@@ -68,6 +69,8 @@
     <Build Include="Read\Applications.sql" />
     <Build Include="Read\rd.sql" />
     <Build Include="Read\Enviroments.sql" />
+    <Build Include="Read\DeployUnits.sql" />
+    <Build Include="Read\DeployUnitsParameters.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
@@ -77,5 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />
+    <None Include="Snapshots\Database_20150107_23-41-15.dacpac" />
   </ItemGroup>
 </Project>
