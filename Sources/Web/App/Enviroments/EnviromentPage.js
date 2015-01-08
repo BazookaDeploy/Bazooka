@@ -65,7 +65,7 @@ var EnviromentsPage = React.createClass({
   },
 
   render: function () {
-    var envs = this.state.envs.map(function(a){return(<Enviroments  Enviroment={a}></Enviroments>)});
+    var envs = this.state.envs.map(a => (<Enviroments Enviroment={a}/>));
 
     return(<div>
       <h2>Enviroments</h2>
