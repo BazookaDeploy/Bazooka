@@ -50,6 +50,9 @@ namespace Web.Mapping
         public DeployUnitDtoConfiguration()
         {
             ToTable("DeployUnits");
+            HasMany<DeployUnitParameterDto>(x => x.Parameters)
+                .WithRequired()
+                .HasForeignKey(x => x.DeployUnitId);
         }
     }
 

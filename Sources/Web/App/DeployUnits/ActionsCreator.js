@@ -17,7 +17,7 @@ module.exports = {
     }))
   },
 
-  createDeployUnit:function(enviromentId, name, machine, packageName, directory){
+  createDeployUnit:function(enviromentId, name, machine, packageName, directory,repository, params){
     var promise = reqwest({
       url:"/api/deployUnits",
       type:'json',
@@ -28,7 +28,9 @@ module.exports = {
         Name:name,
         Machine:machine,
         PackageName:packageName,
-        Directory:directory
+        Directory:directory,
+        Repository: repository,
+        AdditionalParameters : params
       })
     });
 

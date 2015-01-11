@@ -20,7 +20,7 @@ namespace Web.Mapping
                     map.Column("Id");
                 });
 
-            Property(x => x.Name, x => x.Length(200));
+            Property(x => x.Key, x => { x.Length(200); x.Column("Name"); });
             Property(x => x.Value, x => x.Length(200));
             Property(x => x.DeployUnitId, x => x.NotNullable(true));
         }

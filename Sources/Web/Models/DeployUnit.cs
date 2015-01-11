@@ -19,6 +19,10 @@ namespace Web.Models
 
         public virtual string Directory { get; set; }
 
+        public virtual string Repository { get; set; }
+
+        public virtual string CurrentlyDeployedVersion { get; set; }
+
         public virtual IList<Parameter> AdditionalParameters { get; set; }
 
         public virtual IList<DeployLog> Logs { get; set; }
@@ -30,7 +34,7 @@ namespace Web.Models
 
         public virtual int DeployUnitId { get; set; }
 
-        public virtual string Name { get; set; }
+        public virtual string Key { get; set; }
 
         public virtual string Value { get; set; }
     }

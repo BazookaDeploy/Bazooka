@@ -22,7 +22,17 @@ namespace Web.Controllers
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
+                var parameters = unit.AdditionalParameters;
+                unit.AdditionalParameters = null;
+
                 session.Save(unit);
+                foreach (var p in parameters)
+                {
+                    p.DeployUnitId = unit.Id;
+                }
+                unit.AdditionalParameters = parameters;
+                session.SaveOrUpdate(unit);
+
                 session.Flush();
             };
         }

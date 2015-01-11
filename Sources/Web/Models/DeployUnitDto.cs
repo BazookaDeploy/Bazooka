@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace Web.Models
 {
     public class DeployUnitDto
@@ -15,5 +16,11 @@ namespace Web.Models
         public virtual string PackageName { get; set; }
 
         public virtual string Directory { get; set; }
+
+        public virtual string Repository { get; set; }
+
+        public virtual string CurrentlyDeployedVersion { get; set; }
+
+        public virtual ICollection<DeployUnitParameterDto> Parameters { get; set; }
     }
 }
