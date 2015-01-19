@@ -41,7 +41,12 @@ namespace Bazooka.CLI
                         var PackageInstaller = new PackageInstaller();
                         PackageInstaller.Logger = new ConsoleLogger();
                         var additionalParams = ((InstallOptions)invokedVerbInstance).AdditionalParameters.Split(';');
-                        var paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+                        var paramDictionary = new Dictionary<string, string>();
+
+                        if (additionalParams.Length > 0)
+                        {
+                            paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+                        }
 
                         PackageInstaller.Install(packageInfo, new string[] { ((InstallOptions)invokedVerbInstance).Repository }, paramDictionary);
 
@@ -52,12 +57,19 @@ namespace Bazooka.CLI
                         var packageInfo = new PackageInfo();
                         packageInfo.Name = ((UninstallOptions)invokedVerbInstance).Application;
                         packageInfo.Version = ((UninstallOptions)invokedVerbInstance).Version;
+                        packageInfo.InstallationDirectory = ((UninstallOptions)invokedVerbInstance).Directory;
+                        packageInfo.Configuration = ((UninstallOptions)invokedVerbInstance).Configuration;
 
                         var packageRemover = new PackageRemover();
                         packageRemover.Logger = new ConsoleLogger();
 
                         var additionalParams = ((UninstallOptions)invokedVerbInstance).AdditionalParameters.Split(';');
-                        var paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+                        var paramDictionary = new Dictionary<string, string>();
+
+                        if (additionalParams.Length > 0)
+                        {
+                            paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+                        }
 
                         packageRemover.Remove(packageInfo, new string[] { ((UninstallOptions)invokedVerbInstance).Directory }, paramDictionary);
                     }
