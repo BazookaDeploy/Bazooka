@@ -15,17 +15,16 @@ namespace Bazooka.CLI
             object invokedVerbInstance = null;
 
             var options = new Options();
-            if (!CommandLine.Parser.Default.ParseArguments(args, options,
+            var result = CommandLine.Parser.Default.ParseArgumentsStrict(args, options,
               (verb, subOptions) =>
               {
                   // if parsing succeeds the verb name and correct instance
                   // will be passed to onVerbCommand delegate (string,object)
                   invokedVerb = verb;
                   invokedVerbInstance = subOptions;
-              }))
-            {
-                Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);
-            }
+              });
+
+
 
             switch (invokedVerb)
             {
