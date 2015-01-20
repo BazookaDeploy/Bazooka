@@ -26,6 +26,7 @@ namespace Bazooka.CLI
         [VerbOption("uninstall", HelpText = "Uninstall application on system")]
         public UninstallOptions UninstallVerb {get; set;}
 
+
         [HelpVerbOption]
         public string GetUsage(string verb)
         {
