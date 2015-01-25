@@ -21,6 +21,12 @@ namespace Bazooka.CLI
         public InstallOptions InstallVerb { get; set; }
 
         /// <summary>
+        ///     Removes an pap
+        /// </summary>
+        [VerbOption("blast", HelpText = "Removes application on system")]
+        public BlastOptions BlastVerb { get; set; }
+
+        /// <summary>
         ///     Uninstalls an installed app
         /// </summary>
         [VerbOption("uninstall", HelpText = "Uninstall application on system")]

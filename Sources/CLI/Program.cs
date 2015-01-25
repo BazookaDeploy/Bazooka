@@ -1,6 +1,7 @@
 ﻿using Bazooka.Core;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,47 @@ namespace Bazooka.CLI
                         }
 
                         PackageInstaller.Install(packageInfo, new string[] { ((InstallOptions)invokedVerbInstance).Repository }, paramDictionary);
+
+                    }
+                    break;
+                case "blast":
+                    {
+                        //serach directory for packages
+                        var files = Directory.GetFiles(((BlastOptions)invokedVerbInstance).Directory, "*.nupkg");
+
+                        if (files.Count() == 0)
+                        {
+                            Console.WriteLine("No package found");
+                            break;
+                        }
+
+
+                        if (files.Count() > 1)
+                        {
+                            Console.WriteLine("More than one package present");
+                            break;
+                        }
+
+                        var packageInfo = new PackageInfo();
+                        packageInfo.Name = PackageHelpers.ExtractPackageName(files.First());
+                        packageInfo.Version = PackageHelpers.ExtractPackageVersion(files.First());
+                        packageInfo.InstallationDirectory = ((BlastOptions)invokedVerbInstance).Directory;
+                        packageInfo.Configuration = "";
+
+                        var packageRemover = new PackageRemover();
+                        packageRemover.Logger = new ConsoleLogger();
+
+                        var additionalParams = ((BlastOptions)invokedVerbInstance).AdditionalParameters.Split(';');
+                        var paramDictionary = new Dictionary<string, string>();
+
+                        if (additionalParams.Length > 0)
+                        {
+                            paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+                        }
+
+                        packageRemover.Remove(packageInfo, new string[] { ((BlastOptions)invokedVerbInstance).Directory }, paramDictionary);
+                        // if multiples found erro
+                        //uninstall the remaining one
 
                     }
                     break;

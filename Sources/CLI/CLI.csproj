@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="BlastOptions.cs" />
     <Compile Include="InstallOptions.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
