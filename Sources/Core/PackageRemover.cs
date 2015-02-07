@@ -60,6 +60,8 @@ namespace Bazooka.Core
                 File.Delete(config);
             }
 
+            MachineCache.Default.Clear();
+
             Logger.Log("Installed files deleted");
         }
 

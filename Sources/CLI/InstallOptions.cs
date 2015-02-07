@@ -42,7 +42,7 @@ namespace Bazooka.CLI
         /// <summary>
         ///     Specifies additional parameters to pass to scripts
         /// </summary>
-        [Option('p', "parameters", Required = true, HelpText = "Parameters to pass to scripts")]
-        public string AdditionalParameters { get; set; }
+        [OptionArray('p', "parameters", Required = true, HelpText = "Parameters to pass to scripts")]
+        public string[] AdditionalParameters { get; set; }
     }
 }

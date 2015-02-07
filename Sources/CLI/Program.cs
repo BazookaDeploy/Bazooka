@@ -40,12 +40,12 @@ namespace Bazooka.CLI
 
                         var PackageInstaller = new PackageInstaller();
                         PackageInstaller.Logger = new ConsoleLogger();
-                        var additionalParams = ((InstallOptions)invokedVerbInstance).AdditionalParameters.Split(';');
+                        var additionalParams = ((InstallOptions)invokedVerbInstance).AdditionalParameters;
                         var paramDictionary = new Dictionary<string, string>();
 
                         if (additionalParams.Length > 0)
                         {
-                            paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+                            paramDictionary = additionalParams.ToDictionary(x => x.Substring(0, x.IndexOf("=") - 1), x => x.Substring( x.IndexOf("=")+1));
                         }
 
                         PackageInstaller.Install(packageInfo, new string[] { ((InstallOptions)invokedVerbInstance).Repository }, paramDictionary);
@@ -79,12 +79,12 @@ namespace Bazooka.CLI
                         var packageRemover = new PackageRemover();
                         packageRemover.Logger = new ConsoleLogger();
 
-                        var additionalParams = ((BlastOptions)invokedVerbInstance).AdditionalParameters.Split(';');
+                        var additionalParams = ((BlastOptions)invokedVerbInstance).AdditionalParameters;
                         var paramDictionary = new Dictionary<string, string>();
 
                         if (additionalParams.Length > 0)
                         {
-                            paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+                            paramDictionary = additionalParams.ToDictionary(x => x.Substring(0, x.IndexOf("=") - 1), x => x.Substring(x.IndexOf("=") + 1));
                         }
 
                         packageRemover.Remove(packageInfo, new string[] { ((BlastOptions)invokedVerbInstance).Directory }, paramDictionary);
@@ -104,12 +104,12 @@ namespace Bazooka.CLI
                         var packageRemover = new PackageRemover();
                         packageRemover.Logger = new ConsoleLogger();
 
-                        var additionalParams = ((UninstallOptions)invokedVerbInstance).AdditionalParameters.Split(';');
+                        var additionalParams = ((UninstallOptions)invokedVerbInstance).AdditionalParameters;
                         var paramDictionary = new Dictionary<string, string>();
 
                         if (additionalParams.Length > 0)
                         {
-                            paramDictionary = additionalParams.ToDictionary(x => x.Split('=')[0], x => x.Split('=')[1]);
+                            paramDictionary = additionalParams.ToDictionary(x => x.Substring(0, x.IndexOf("=") - 1), x => x.Substring(x.IndexOf("=") + 1));
                         }
 
                         packageRemover.Remove(packageInfo, new string[] { ((UninstallOptions)invokedVerbInstance).Directory }, paramDictionary);
