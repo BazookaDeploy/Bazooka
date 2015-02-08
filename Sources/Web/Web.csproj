@@ -143,14 +143,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mapping\ApplicationMap.cs" />
-    <Compile Include="Mapping\DeployLogMap.cs" />
+    <Compile Include="Mapping\DeploymentMap.cs" />
     <Compile Include="Mapping\DeployUnitMap.cs" />
     <Compile Include="Mapping\EnviromentMap.cs" />
     <Compile Include="Mapping\ParameterMap.cs" />
     <Compile Include="Mapping\ReadContext.cs" />
     <Compile Include="Models\Application.cs" />
     <Compile Include="Models\ApplicationDto.cs" />
-    <Compile Include="Models\DeployLog.cs" />
+    <Compile Include="Models\Deployment.cs" />
     <Compile Include="Models\DeployUnitDto.cs" />
     <Compile Include="Models\DeployUnitParameterDto.cs" />
     <Compile Include="Models\Enviroment.cs" />

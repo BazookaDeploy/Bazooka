@@ -8,9 +8,9 @@ using Web.Models;
 
 namespace Web.Mapping
 {
-    public class DeployLogMap : ClassMapping<DeployLog>
+    public class DeploymentMap : ClassMapping<Deployment>
     {
-        public DeployLogMap()
+        public DeploymentMap()
         {
             Table("DeployLogs");
             Schema("dbo");
@@ -22,8 +22,11 @@ namespace Web.Mapping
                 });
 
             Property(x => x.Log, x => x.Length(4000));
-            Property(x => x.StartDate, x => x.NotNullable(true));
-            Property(x => x.DeployUnitId, x => x.NotNullable(true));
+            Property(x => x.StartDate, x => x.NotNullable(false));
+            Property(x => x.EndDate, x => x.NotNullable(false));
+            Property(x => x.EnviromentId, x => x.NotNullable(true));
+            Property(x => x.Status, x => x.NotNullable(true));
+            Property(x => x.Version, x => x.NotNullable(true));
         }
     }
 }

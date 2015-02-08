@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Write\Applications.sql" />
-    <Build Include="Write\DeployLogs.sql" />
+    <Build Include="Write\Deployments.sql" />
     <Build Include="Write\DeployUnitsParameters.sql" />
     <Build Include="Write\Enviroments.sql" />
     <Build Include="Read\Applications.sql" />

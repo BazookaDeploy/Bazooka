@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,29 +16,39 @@ namespace Web.Controllers
 
         public async Task<object> Deploy(int enviromentId, string version)
         {
-            // check if all needed agents are responding else abort immediately 
-            List<DeployUnitDto> agents = new List<DeployUnitDto>();
-            using (var dbContext = new ReadContext()) {
-                agents = dbContext.DeployUnits.Where(x => x.EnviromentId == enviromentId).ToList();
-            }
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var deploy = new Deployment()
+                {
+                    EnviromentId = enviromentId,
+                    Status = Status.Queud,
+                    Version = version
+                };
 
-            var availability = agents.Select(x => x.Machine).Select(x => CheckAvailability(x));
-            var results = await Task.WhenAll(availability);
-            if (results.Any(x => x == null))
+                session.Save(deploy);
+                session.Flush();
+            };
+
+            try
+            {
+                var url = ConfigurationManager.AppSettings["controllerUrl"];
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var response = httpClient.GetAsync(url).Result;
+                    return new
+                    {
+                        Success = true
+                    };
+                }
+
+            }
+            catch (Exception e)
             {
                 return new
                 {
                     Success = false
                 };
             }
-
- 
-            // if a version is currently deployed uninstall it
-            // install the new version in this enviroment
-            return new
-            {
-                Success = true
-            };
         }
 
         public async Task<string> CheckAvailability(string url)

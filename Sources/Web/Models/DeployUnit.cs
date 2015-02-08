@@ -25,7 +25,7 @@ namespace Web.Models
 
         public virtual IList<Parameter> AdditionalParameters { get; set; }
 
-        public virtual IList<DeployLog> Logs { get; set; }
+        public virtual IList<Deployment> Logs { get; set; }
     }
 
     public class Parameter

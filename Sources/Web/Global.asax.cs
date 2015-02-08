@@ -27,7 +27,7 @@ namespace Web
             mapper.AddMapping<EnviromentMap>();
             mapper.AddMapping<DeployUnitMap>();
             mapper.AddMapping<ParameterMap>();
-            mapper.AddMapping<DeployLogMap>();
+            mapper.AddMapping<DeploymentMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 
