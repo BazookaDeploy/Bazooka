@@ -132,7 +132,7 @@ namespace Bazooka.Core
             var manager = new PackageManager(
                 globalRepo,
                 new CustomPathResolver() { BasePath = info.InstallationDirectory },
-                new PhysicalFileSystem(info.InstallationDirectory));
+                new OverWritingPhysicalFilesystem(info.InstallationDirectory));
 
             manager.InstallPackage(package, false, true);
 
