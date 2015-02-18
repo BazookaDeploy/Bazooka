@@ -1,4 +1,4 @@
-﻿using Bazooka.Core;
+using Bazooka.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,7 +96,7 @@ namespace Bazooka.CLI
                 case "update":
                     {
                         //serach directory for packages
-                        var files = Directory.GetFiles(((BlastOptions)invokedVerbInstance).Directory, "*.nupkg");
+                        var files = Directory.GetFiles(((UpdateOptions)invokedVerbInstance).Directory, "*.nupkg");
 
                         if (files.Count() == 0)
                         {
@@ -112,10 +112,10 @@ namespace Bazooka.CLI
                         }
 
                         var packageInfo = new PackageInfo();
-                        packageInfo.Name = PackageHelpers.ExtractPackageName(files.First());
-                        packageInfo.Version = PackageHelpers.ExtractPackageVersion(files.First());
+                        packageInfo.Name = PackageHelpers.ExtractPackageName(files.First()).Trim();
+                        packageInfo.Version = PackageHelpers.ExtractPackageVersion(files.First()).Trim();
                         packageInfo.InstallationDirectory = ((UpdateOptions)invokedVerbInstance).Directory;
-                        packageInfo.Configuration = ((UpdateOptions)invokedVerbInstance).Configuration;
+                        packageInfo.Configuration = ((UpdateOptions)invokedVerbInstance).Configuration;     
 
                         var packageRemover = new PackageRemover();
                         packageRemover.Logger = new ConsoleLogger();
