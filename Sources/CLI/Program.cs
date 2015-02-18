@@ -71,7 +71,8 @@ namespace Bazooka.CLI
                         }
 
                         var packageInfo = new PackageInfo();
-                        packageInfo.Name = PackageHelpers.ExtractPackageName(files.First());
+                        var filename = PackageHelpers.ExtractPackageName(files.First()).Trim();
+                        packageInfo.Name = filename.Substring(filename.LastIndexOf("\\") + 1);
                         packageInfo.Version = PackageHelpers.ExtractPackageVersion(files.First());
                         packageInfo.InstallationDirectory = ((BlastOptions)invokedVerbInstance).Directory;
                         packageInfo.Configuration = "";
@@ -112,7 +113,8 @@ namespace Bazooka.CLI
                         }
 
                         var packageInfo = new PackageInfo();
-                        packageInfo.Name = PackageHelpers.ExtractPackageName(files.First()).Trim();
+                        var filename = PackageHelpers.ExtractPackageName(files.First()).Trim();
+                        packageInfo.Name = filename.Substring(filename.LastIndexOf("\\")+1);
                         packageInfo.Version = PackageHelpers.ExtractPackageVersion(files.First()).Trim();
                         packageInfo.InstallationDirectory = ((UpdateOptions)invokedVerbInstance).Directory;
                         packageInfo.Configuration = ((UpdateOptions)invokedVerbInstance).Configuration;     
