@@ -1,4 +1,4 @@
-﻿using CommandLine;
+using CommandLine;
 using CommandLine.Text;
 using System;
 using System.Collections.Generic;
@@ -31,6 +31,10 @@ namespace Bazooka.CLI
         /// </summary>
         [VerbOption("uninstall", HelpText = "Uninstall application on system")]
         public UninstallOptions UninstallVerb {get; set;}
+
+        [VerbOption("update", HelpText = "Updates application on system")]
+        public UpdateOptions UpdateVerb { get; set; }
+
 
 
         [HelpVerbOption]
