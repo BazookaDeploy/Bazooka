@@ -26,13 +26,11 @@
             Pipeline pipeline = runspace.CreatePipeline();
 
             Command myCommand = new Command(Path.Combine(folder, file));
-            CommandParameter testParam = new CommandParameter("-configuration", configuration);
 
             foreach (var param in parameters.Keys) {
                 myCommand.Parameters.Add(new CommandParameter("-" + param, parameters[param]));
             }
 
-            myCommand.Parameters.Add(testParam);
             pipeline.Commands.Add(myCommand);
 
             var results = pipeline.Invoke();
