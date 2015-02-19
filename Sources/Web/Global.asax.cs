@@ -2,6 +2,8 @@
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Mapping.ByCode;
+using NServiceBus;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -13,6 +15,8 @@ namespace Web
     {
         public static ISessionFactory Store { get; set; }
 
+        public static IBus Bus { get; set; }
+
         protected void Application_Start()
         {
             var config = new NHibernate.Cfg.Configuration();
@@ -21,6 +25,16 @@ namespace Web
                 db.Dialect<MsSql2008Dialect>();
                 db.ConnectionStringName = "DataContext";
             });
+
+            var busConfig = new BusConfiguration();
+            busConfig.EndpointName("Bazooka.web");
+            busConfig.UseSerialization<JsonSerializer>();
+            busConfig.EnableInstallers();
+            busConfig.Conventions().DefiningCommandsAs(x => x.GetInterfaces().Contains(typeof(ICommand)));
+            busConfig.UsePersistence<InMemoryPersistence>();
+
+            Bus = NServiceBus.Bus.Create(busConfig).Start();
+
 
             var mapper = new ModelMapper();
             mapper.AddMapping<ApplicationMap>();
