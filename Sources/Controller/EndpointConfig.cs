@@ -4,6 +4,7 @@ namespace Controller
     using NServiceBus;
     using NServiceBus.Persistence;
     using NServiceBus.Persistence.Legacy;
+    using System.Linq;
 
     /*
 		This class configures this endpoint as a Server. More information about how to configure the NServiceBus host
