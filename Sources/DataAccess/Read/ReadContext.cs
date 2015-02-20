@@ -4,9 +4,8 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
-using Web.Models;
 
-namespace Web.Mapping
+namespace DataAccess.Read
 {
     public class ReadContext : DbContext
     {

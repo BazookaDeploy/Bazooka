@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-namespace Web.Models
+namespace DataAccess.Read
 {
     public class DeployUnitDto
     {

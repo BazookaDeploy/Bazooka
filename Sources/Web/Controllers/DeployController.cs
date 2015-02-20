@@ -1,4 +1,5 @@
 ﻿using Bazooka.Core.Commands;
+using DataAccess.Write;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,8 +8,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Web.Mapping;
-using Web.Models;
 
 namespace Web.Controllers
 {

@@ -145,20 +145,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mapping\ApplicationMap.cs" />
-    <Compile Include="Mapping\DeploymentMap.cs" />
-    <Compile Include="Mapping\DeployUnitMap.cs" />
-    <Compile Include="Mapping\EnviromentMap.cs" />
-    <Compile Include="Mapping\ParameterMap.cs" />
-    <Compile Include="Mapping\ReadContext.cs" />
-    <Compile Include="Models\Application.cs" />
-    <Compile Include="Models\ApplicationDto.cs" />
-    <Compile Include="Models\Deployment.cs" />
-    <Compile Include="Models\DeployUnitDto.cs" />
-    <Compile Include="Models\DeployUnitParameterDto.cs" />
-    <Compile Include="Models\Enviroment.cs" />
-    <Compile Include="Models\DeployUnit.cs" />
-    <Compile Include="Models\EnviromentDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +187,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{990effdd-93fb-4193-acaf-b78f457c56ae}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{ca4b41ab-f2f5-46f9-9f77-de6cd7668c61}</Project>
+      <Name>DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

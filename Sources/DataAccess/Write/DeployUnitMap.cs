@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Web.Models;
 
-namespace Web.Mapping
+namespace DataAccess.Write
 {
     public class DeployUnitMap : ClassMapping<DeployUnit>
     {
