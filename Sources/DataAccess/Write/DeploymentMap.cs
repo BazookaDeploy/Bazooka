@@ -10,7 +10,7 @@ namespace DataAccess.Write
     {
         public DeploymentMap()
         {
-            Table("DeployLogs");
+            Table("Deployments");
             Schema("dbo");
             Id<int>(x => x.Id,
                 map =>

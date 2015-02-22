@@ -13,7 +13,7 @@ namespace Web.Controllers
 {
     public class DeployController : ApiController
     {
-
+        [HttpGet]
         public void Deploy(int enviromentId, string version)
         {
             using (var session = WebApiApplication.Store.OpenSession())

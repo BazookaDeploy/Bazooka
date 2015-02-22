@@ -12,6 +12,10 @@ namespace Web.Controllers
     {
         private ReadContext db = new ReadContext();
 
+        public ICollection<EnviromentDto> Get()
+        {
+            return db.Enviroments.ToList();
+        }
 
         public ICollection<EnviromentDto> Get(int id)
         {

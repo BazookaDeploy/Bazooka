@@ -3,6 +3,20 @@ var ActionTypes = require('./Constants').ActionTypes;
 var reqwest = require("reqwest");
 
 module.exports = {
+  updateAllEnviroments : function(){
+    reqwest({
+      url:"/api/enviroments/",
+      type:'json',
+      contentType: 'application/json',
+      method:"get"
+    }).then((x => {
+      ApplicationDispatcher.handleServerAction({
+        type: ActionTypes.UPDATE_ENVIROMENTS,
+        apps: x
+      });
+    }))
+  },
+
   updateEnviroments : function(applicationId){
     reqwest({
       url:"/api/enviroments/"+applicationId,

@@ -14,5 +14,7 @@ namespace DataAccess.Read
         public string Configuration { get; set; }
 
         public string Description { get; set; }
+
+        public string Name { get; set; }
     }
 }

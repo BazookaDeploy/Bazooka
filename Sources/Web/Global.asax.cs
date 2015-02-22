@@ -31,7 +31,7 @@ namespace Web
             busConfig.EndpointName("Bazooka.web");
             busConfig.UseSerialization<JsonSerializer>();
             busConfig.EnableInstallers();
-            busConfig.Conventions().DefiningCommandsAs(x => x.GetInterfaces().Contains(typeof(ICommand)));
+            busConfig.Conventions().DefiningCommandsAs(x => x.GetInterfaces().Contains(typeof(Bazooka.Core.Commands.ICommand)));
             busConfig.UsePersistence<InMemoryPersistence>();
 
             Bus = NServiceBus.Bus.Create(busConfig).Start();
