@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Read\ApplicationDto.cs" />
+    <Compile Include="Read\DeploymentDto.cs" />
     <Compile Include="Read\DeployUnitDto.cs" />
     <Compile Include="Read\DeployUnitParameterDto.cs" />
     <Compile Include="Read\EnviromentDto.cs" />

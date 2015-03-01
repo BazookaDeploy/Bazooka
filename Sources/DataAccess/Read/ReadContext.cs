@@ -19,6 +19,10 @@ namespace DataAccess.Read
 
         public DbSet<DeployUnitParameterDto> DeployUnitsPrameters { get; set; }
 
+        public DbSet<DeploymentDto> Deployments { get; set; }
+
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("rd");
@@ -26,6 +30,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new EnviromentDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployUnitDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployUnitParameterDtoConfiguration());
+            modelBuilder.Configurations.Add(new DeploymentDtoConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
@@ -60,6 +65,14 @@ namespace DataAccess.Read
         public DeployUnitParameterDtoConfiguration()
         {
             ToTable("DeployUnitsParameters");
+        }
+    }
+
+    public class DeploymentDtoConfiguration : EntityTypeConfiguration<DeploymentDto>
+    {
+        public DeploymentDtoConfiguration()
+        {
+            ToTable("Deployments");
         }
     }
 }

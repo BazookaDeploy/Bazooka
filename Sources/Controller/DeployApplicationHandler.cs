@@ -24,7 +24,7 @@
                 dep.StartDate = DateTime.UtcNow;
                 dep.Status = Status.Running;
                 version = dep.Version;
-                dep.Log = "Deploy started";
+                dep.Log = "Deploy started \r\n";
                 envId = dep.EnviromentId;
                 session.Update(dep);
                 session.Flush();
@@ -112,6 +112,8 @@
 
         private ICollection<string> Install(DeployUnitDto unit, string version, string config)
         {
+            var address = unit.Machine;
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(unit.Machine);

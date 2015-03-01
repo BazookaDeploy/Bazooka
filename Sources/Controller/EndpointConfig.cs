@@ -41,11 +41,17 @@ namespace Controller
             Store = config.BuildSessionFactory();
 
 
-            configuration.UsePersistence<MsmqPersistence>() ;
+            configuration.UseTransport<MsmqTransport>();
+            configuration.UsePersistence<InMemoryPersistence>();
+            configuration.UsePersistence<MsmqPersistence>().For(Storage.Subscriptions);
+            configuration.Transactions()
+                         .DisableDistributedTransactions()
+                         .DoNotWrapHandlersExecutionInATransactionScope()
+                         .Disable();
             configuration.EndpointName("bazooka.controller");
             configuration.UseSerialization<JsonSerializer>();
             configuration.EnableInstallers();
-            configuration.Conventions().DefiningCommandsAs(x => x.GetInterfaces().Contains(typeof(ICommand)));
+            configuration.Conventions().DefiningCommandsAs(x => x.GetInterfaces().Contains(typeof(Bazooka.Core.Commands.ICommand)));
             
 
         }

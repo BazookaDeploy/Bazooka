@@ -139,6 +139,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
     <Compile Include="Controllers\DeployController.cs" />
+    <Compile Include="Controllers\DeploymentController.cs" />
     <Compile Include="Controllers\DeployUnitsController.cs" />
     <Compile Include="Controllers\EnviromentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
