@@ -1,10 +1,11 @@
 ﻿using Microsoft.Owin.Hosting;
 using System;
 using System.ServiceProcess;
+using Topshelf;
 
 namespace Agent
 {
-    public partial class Service : ServiceBase
+    public partial class Service : ServiceControl
     {
 
         private IDisposable _server = null;
@@ -14,19 +15,20 @@ namespace Agent
             InitializeComponent();
         }
 
-        protected override void OnStart(string[] args)
+        public bool Start(HostControl hostControl)
         {
             var baseAddress = System.Configuration.ConfigurationManager.AppSettings["address"];
             _server = WebApp.Start<Startup>(url: baseAddress);
+            return true;
         }
 
-        protected override void OnStop()
+        public bool Stop(HostControl hostControl)
         {
             if (_server != null)
             {
                 _server.Dispose();
             }
-            base.OnStop();
+            return true;
         }
     }
 }

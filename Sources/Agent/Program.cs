@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using Topshelf;
 
 namespace Agent
 {
@@ -14,12 +15,15 @@ namespace Agent
         /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new Service() 
-            };
-            ServiceBase.Run(ServicesToRun);
+            var host = HostFactory.New(x =>                               
+            {
+                x.Service<Service>();
+                x.ApplyCommandLine();
+                x.SetDescription("Bazooka agent");
+                x.SetDisplayName("AgentSmith");
+                x.StartAutomaticallyDelayed();
+            });
+            host.Run();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Web.Controllers
 
         public IQueryable<DeploymentDto> Get()
         {
-            return db.Deployments;
+            return db.Deployments.OrderByDescending(x => x.StartDate ?? DateTime.UtcNow);
         }
 
 
