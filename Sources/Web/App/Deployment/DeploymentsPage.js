@@ -49,7 +49,9 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
           <h5>Deployed Version : {this.state.deployments.Version}</h5>
           <span>Deployment started at : {this.state.deployments.StartDate} and ended at {this.state.deployments.EndDate}</span>
           <h4>Logs:</h4>
-          {this.state.deployments.Logs}
+          <span dangerouslySetInnerHTML={{
+            __html: (this.state.deployments.Log||"").replace(/(?:\r\n|\r|\n)/g, '<br />') 
+          }} ></span>
         </ul>
         </div>)
       },

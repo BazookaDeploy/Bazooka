@@ -40,7 +40,7 @@
                     try
                     {
                         var res = new List<string>();
-                        if (unit.CurrentlyDeployedVersion == null)
+                        if (unit.CurrentlyDeployedVersion != null)
                         {
                             var ret = Update(unit, version, config);
                             using (var session = EndpointConfig.Store.OpenSession())
@@ -118,7 +118,7 @@
             {
                 client.BaseAddress = new Uri(unit.Machine);
 
-                var result = client.PostAsJsonAsync("/api/deploy/install", new
+                var result2 = client.PostAsJsonAsync("/api/deploy/install", new
                 {
                     Application = unit.PackageName,
                     Version = version,
@@ -126,11 +126,13 @@
                     Configuration = config,
                     Repository = unit.Repository,
                     AdditionalParameters = unit.Parameters
-                }).Result;
+                });
+                
+                var result = result2.Result;
+                var response = result.Content.ReadAsStringAsync().Result;
 
-
-                var response = JsonConvert.DeserializeObject<ExecutionResult>(result.Content.ReadAsStringAsync().Result);
-                return new string[] { response.Log };
+                var response2 = JsonConvert.DeserializeObject<ExecutionResult>(response);
+                return new string[] { response2.Log, response2.Exception };
             }
         }
 
@@ -141,7 +143,7 @@
             {
                 client.BaseAddress = new Uri(unit.Machine);
 
-                var result = client.PostAsJsonAsync("/api/deploy/update", new
+                var result2 = client.PostAsJsonAsync("/api/deploy/update", new
                 {
                     Application = unit.PackageName,
                     Version = version,
@@ -149,11 +151,13 @@
                     Configuration = config,
                     Repository = unit.Repository,
                     AdditionalParameters = unit.Parameters
-                }).Result;
+                });
 
+                var result = result2.Result;
+                var response = result.Content.ReadAsStringAsync().Result;
 
-                var response = JsonConvert.DeserializeObject<ExecutionResult>(result.Content.ReadAsStringAsync().Result);
-                return new string[] { response.Log };
+                var response2 = JsonConvert.DeserializeObject<ExecutionResult>(response);
+                return new string[] { response2.Log, response2.Exception };
             }
         }
     }

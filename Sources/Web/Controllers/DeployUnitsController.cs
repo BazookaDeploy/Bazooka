@@ -13,9 +13,9 @@ namespace Web.Controllers
         private ReadContext db = new ReadContext();
 
         // GET: api/Applications
-        public ICollection<DeployUnitDto> Get()
+        public ICollection<DeployUnitDto> Get(int id)
         {
-            return db.DeployUnits.ToList();
+            return db.DeployUnits.Where(x => x.EnviromentId == id).ToList();
         }
 
         public void Post(DeployUnit unit)
