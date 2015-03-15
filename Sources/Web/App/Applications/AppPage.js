@@ -38,7 +38,7 @@ var CreateDialog = React.createClass({
 
 var AppLine = React.createClass({
   render: function(){
-    return(<div><b>{this.props.Application.Name}</b><Link to="enviroments" params={{applicationId: this.props.Application.Id}}>Go to</Link></div>)
+    return(<tr><td><Link to="enviroments" params={{applicationId: this.props.Application.Id}}><b>{this.props.Application.Name}</b></Link></td></tr>)
   }
 });
 
@@ -61,14 +61,20 @@ var AppPage = React.createClass({
   render: function () {
     var apps = this.state.apps.map(function(a){return(<AppLine Application={a}></AppLine>)});
 
-    return (<div>Welcome to the App page
+    return (<div>Welcome to the App page &nbsp;
       <ModalTrigger modal={<CreateDialog />}>
-        <button className='btn'>Crea</button>
+        <button className='btn btn-primary'>Create new Application</button>
       </ModalTrigger>
 
 
-      <h3>Lista</h3>
-      {apps}
+      <h3>Existing applications</h3>
+
+      <table className="table table-hovered table-bordered table-striped">
+        <thead><tr><th>Application</th></tr></thead>
+        <tbody>
+          {apps}
+        </tbody>
+      </table>
     </div>);
   },
 

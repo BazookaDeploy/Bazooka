@@ -6,15 +6,19 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
   var DeploymentRow = React.createClass({
     render:function(){
+
+      var status ="";
       if(this.props.Deployment.Status==0){
-        return(<li><Link to="deployment" params={{Id : this.props.Deployment.Id}}>{this.props.Deployment.Name} - {this.props.Deployment.Configuration} - Status: Queued </Link></li>);
+        status = "Queued";
       } else if(this.props.Deployment.Status==1){
-        return(<li><Link to="deployment" params={{Id : this.props.Deployment.Id}}>{this.props.Deployment.Name} - {this.props.Deployment.Configuration} - Status: Running </Link></li>);
+        status = "Running";
       } else if(this.props.Deployment.Status==2){
-        return(<li><Link to="deployment" params={{Id : this.props.Deployment.Id}}>{this.props.Deployment.Name} - {this.props.Deployment.Configuration} - Status: Ended</Link></li>);
+        status = "Ended";
       } else{
-        return(<li><Link to="deployment" params={{Id : this.props.Deployment.Id}}>{this.props.Deployment.Name} - {this.props.Deployment.Configuration} - Status: Failed</Link></li>);
+        status = "Failed";;
       }
+
+      return(<tr><td>{status}</td><td><Link to="deployment" params={{Id : this.props.Deployment.Id}}>{this.props.Deployment.Name}</Link></td> <td>{this.props.Deployment.Configuration}</td></tr>);
     }
   });
 
@@ -42,12 +46,15 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 
       return(<div>
-        <h2>Deployments</h2>
-        <ul>
+        <h2>Deployments:</h2>
+        <table className="table table-border table-hover">
+          <thead><tr><th>Status</th><th>Application</th><th>Enviroment</th></tr></thead>
+          <tbody>
           {this.state.deployments.map(x => (
               <DeploymentRow Deployment={x} />
             ))}
-        </ul>
+          </tbody>
+        </table>
         </div>)
       },
 

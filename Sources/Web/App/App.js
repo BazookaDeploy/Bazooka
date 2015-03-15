@@ -17,7 +17,7 @@ var App = React.createClass({
               <li><Link to="apps">Applications</Link></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
-              <li><a>Profile</a></li>
+              <li><a>Hello {window.Profile}</a></li>
             </ul>
           </div>
         </div>

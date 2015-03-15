@@ -1,4 +1,6 @@
-﻿using Bazooka.Core.Commands;
+﻿using Bazooka.Core;
+using Bazooka.Core.Commands;
+using DataAccess.Read;
 using DataAccess.Write;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,24 @@ namespace Web.Controllers
 {
     public class DeployController : ApiController
     {
+
+        private ReadContext db = new ReadContext();
+
+        [HttpGet]
+        public ICollection<string> Search(int enviromentId) {
+            var repos = db.DeployUnits
+                          .Where(x => x.EnviromentId == enviromentId)
+                          .Select(x => x.Repository)
+                          .ToList();
+
+            var package = db.DeployUnits
+                          .Where(x => x.EnviromentId == enviromentId)
+                          .Select(x => x.PackageName)
+                          .First();
+
+            return PackageSearcher.Search(repos,package);
+        }
+
         [HttpGet]
         public void Deploy(int enviromentId, string version)
         {
@@ -33,6 +53,16 @@ namespace Web.Controllers
                     DeploymentId = deploy.Id
                 });
             };
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

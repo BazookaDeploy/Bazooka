@@ -8,6 +8,11 @@
     <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
+    <script type="text/javascript">
+        window.Profile = "@User.Identity.Name" ;
+    </script>
+
+
         @RenderBody()
 
     <script src="~/App/browser-bundle.js"></script>
