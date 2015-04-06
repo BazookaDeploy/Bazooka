@@ -11,6 +11,10 @@ namespace DataAccess.Read
 
         public virtual string Name { get; set; }
 
+        public virtual string ApplicationName { get; set; }
+
+        public virtual string EnviromentName { get; set; }
+
         public virtual string Machine { get; set; }
 
         public virtual string PackageName { get; set; }
