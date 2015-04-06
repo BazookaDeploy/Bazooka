@@ -1,6 +1,7 @@
 ﻿using DataAccess.Read;
 using DataAccess.Write;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -20,6 +21,16 @@ namespace Web.Controllers
         public ICollection<EnviromentDto> Get(int id)
         {
             return db.Enviroments.Where(x => x.ApplicationId == id).ToList();
+        }
+
+        [HttpGet,Route("api/enviroments/grouped")]
+        public ICollection GroupedEnviroments()
+        {
+            return db.Enviroments.GroupBy(x => x.Name, (key, ele) => new
+            {
+                Application = key,
+                Enviroments = ele.ToList()
+            }).ToList();
         }
 
         public void Post(Enviroment env)

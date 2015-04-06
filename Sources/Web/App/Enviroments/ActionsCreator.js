@@ -3,51 +3,65 @@ var ActionTypes = require('./Constants').ActionTypes;
 var reqwest = require("reqwest");
 
 module.exports = {
-  updateAllEnviroments : function(){
-    reqwest({
-      url:"/api/enviroments/",
-      type:'json',
-      contentType: 'application/json',
-      method:"get"
-    }).then((x => {
-      ApplicationDispatcher.handleServerAction({
-        type: ActionTypes.UPDATE_ENVIROMENTS,
-        apps: x
-      });
-    }))
-  },
+	updateAllEnviroments: function() {
+		reqwest({
+			url: "/api/enviroments/",
+			type: 'json',
+			contentType: 'application/json',
+			method: "get"
+		}).then((x => {
+			ApplicationDispatcher.handleServerAction({
+				type: ActionTypes.UPDATE_ENVIROMENTS,
+				apps: x
+			});
+		}))
+	},
 
-  updateEnviroments : function(applicationId){
-    reqwest({
-      url:"/api/enviroments/"+applicationId,
-      type:'json',
-      contentType: 'application/json',
-      method:"get"
-    }).then((x => {
-      ApplicationDispatcher.handleServerAction({
-        type: ActionTypes.UPDATE_ENVIROMENTS,
-        apps: x
-      });
-    }))
-  },
+	updateGroupedEnviroments: function() {
+		reqwest({
+			url: "/api/enviroments/grouped/",
+			type: 'json',
+			contentType: 'application/json',
+			method: "get"
+		}).then((x => {
+			ApplicationDispatcher.handleServerAction({
+				type: ActionTypes.UPDATE_GROUPENVIROMENTS,
+				apps: x
+			});
+		}))
+	},
 
-  createEnviroment:function(applicationId, name, description){
-    var promise = reqwest({
-      url:"/api/enviroments",
-      type:'json',
-      contentType: 'application/json',
-      method:"post",
-      data: JSON.stringify({
-        ApplicationId: applicationId,
-        Configuration:name,
-        Description:description
-      })
-    });
+	updateEnviroments: function(applicationId) {
+		reqwest({
+			url: "/api/enviroments/" + applicationId,
+			type: 'json',
+			contentType: 'application/json',
+			method: "get"
+		}).then((x => {
+			ApplicationDispatcher.handleServerAction({
+				type: ActionTypes.UPDATE_ENVIROMENTS,
+				apps: x
+			});
+		}))
+	},
 
-    promise.then(x => {
-      module.exports.updateEnviroments(applicationId);
-    });
+	createEnviroment: function(applicationId, name, description) {
+		var promise = reqwest({
+			url: "/api/enviroments",
+			type: 'json',
+			contentType: 'application/json',
+			method: "post",
+			data: JSON.stringify({
+				ApplicationId: applicationId,
+				Configuration: name,
+				Description: description
+			})
+		});
 
-    return promise;
-  }
+		promise.then(x => {
+			module.exports.updateEnviroments(applicationId);
+		});
+
+		return promise;
+	}
 };

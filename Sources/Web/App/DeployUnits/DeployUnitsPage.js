@@ -158,21 +158,21 @@ var CreateDialog = React.createClass({
     },
 
     render: function () {
-
       return(<div>
-        <h2>Deploy Units</h2>
-        <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} />}>
-          <button className='btn'>Create</button>
-        </ModalTrigger>
-
-        <ul>
-          {this.state.envs.map(x => (
-            <li>{x.Name}
-            <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} Env={x}/>}>
-              <button className='btn'>Edit</button>
-            </ModalTrigger></li>
-            ))}
-        </ul>
+        <table className="table table-bordered table-striped">
+          <thead><tr><th>Enviroments
+            <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} />}>
+              <button className='btn btn-xs btn-primary pull-right'>New</button>
+            </ModalTrigger></th></tr></thead>
+          <tbody>
+            {this.state.envs.map(x => (
+              <tr><td>{x.Name}
+              <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} Env={x}/>}>
+                <button className='btn btn-xs pull-right'>Modify</button>
+              </ModalTrigger></td></tr>
+              ))}
+          </tbody>
+        </table>
         </div>)
       },
 

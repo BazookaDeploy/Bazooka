@@ -42,7 +42,7 @@ var CreateDialog = React.createClass({
 
 var Enviroments = React.createClass({
   render:function(){
-    return (<div>{this.props.Enviroment.Configuration}<Link to="deployunits" params={{enviromentId: this.props.Enviroment.Id}}>Go to</Link></div>)
+    return (<tr><td><Link to="deployunits" params={{enviromentId: this.props.Enviroment.Id}}>{this.props.Enviroment.Configuration}</Link></td></tr>)
   }
 });
 
@@ -68,12 +68,14 @@ var EnviromentsPage = React.createClass({
     var envs = this.state.envs.map(a => (<Enviroments Enviroment={a}/>));
 
     return(<div>
-      <h2>Enviroments</h2>
-      <ModalTrigger modal={<CreateDialog Application={this.getParams().applicationId} />}>
-        <button className='btn'>Create</button>
-      </ModalTrigger>
-      <br />
-      {envs}
+      <table className="table table-striped table-bordered">
+      <thead><tr><th>Enviroments <ModalTrigger modal={<CreateDialog Application={this.getParams().applicationId} />}>
+        <button className='btn btn-primary btn-xs pull-right'>Create</button>
+      </ModalTrigger></th></tr></thead>
+      <tbody>
+        {envs}
+      </tbody>
+      </table>
       </div>)
   },
 

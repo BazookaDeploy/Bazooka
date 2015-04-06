@@ -29,8 +29,8 @@ var CreateDialog = React.createClass({
         </form>
       </div>
       <div className="modal-footer">
+      <button className="btn" onClick={this.props.onRequestHide}>Close</button>
         <button className="btn btn-primary" onClick={this.create}>Create</button>
-        <button className="btn" onClick={this.props.onRequestHide}>Close</button>
       </div>
     </Modal>);
   }
@@ -61,16 +61,12 @@ var AppPage = React.createClass({
   render: function () {
     var apps = this.state.apps.map(function(a){return(<AppLine Application={a}></AppLine>)});
 
-    return (<div>Welcome to the App page &nbsp;
-      <ModalTrigger modal={<CreateDialog />}>
-        <button className='btn btn-primary'>Create new Application</button>
-      </ModalTrigger>
-
-
-      <h3>Existing applications</h3>
-
+    return (<div>
+      <h3>Existing applications       </h3>
       <table className="table table-hovered table-bordered table-striped">
-        <thead><tr><th>Application</th></tr></thead>
+        <thead><tr><th>Application <ModalTrigger modal={<CreateDialog />}>
+                <button className='btn btn-primary btn-xs pull-right'>Create new Application</button>
+              </ModalTrigger></th></tr></thead>
         <tbody>
           {apps}
         </tbody>

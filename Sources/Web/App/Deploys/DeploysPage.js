@@ -16,8 +16,10 @@ var DeployDialog = React.createClass({
   },
 
   render:function(){
+    var title = "Start deploy " + this.props.Enviroment.Name + " - " + this.props.Enviroment.Configuration;
+
     return(
-      <Modal {...this.props} title="Start deploy">
+      <Modal {...this.props} title={title}>
       <div className="modal-body">
         <form role="form">
           <div className="form-group">
@@ -27,8 +29,8 @@ var DeployDialog = React.createClass({
         </form>
       </div>
       <div className="modal-footer">
-        <button className="btn btn-primary" onClick={this.create}>Deploy</button>
         <button className="btn" onClick={this.props.onRequestHide}>Close</button>
+        <button className="btn btn-primary" onClick={this.create}>Deploy</button>
       </div>
       </Modal>);
     }
@@ -37,13 +39,13 @@ var DeployDialog = React.createClass({
   var DeploysPage = React.createClass({
     getInitialState: function() {
       return {
-        deploys : Store.getAll()
+        deploys : Store.getGrouped()
       };
     },
 
     componentDidMount: function() {
       Store.addChangeListener(this._onChange);
-      EnviromentActions.updateAllEnviroments();
+      EnviromentActions.updateGroupedEnviroments();
     },
 
     componentWillUnmount: function() {
@@ -55,20 +57,27 @@ var DeployDialog = React.createClass({
       return(<div>
         <h2>Available deploys</h2>
 
-        <ul>
           {this.state.deploys.map(x => (
-            <li>{x.Name} - {x.Configuration}
-            <ModalTrigger modal={<DeployDialog Enviroment={x}/>}>
-              <button className='btn'>Deploy</button>
-            </ModalTrigger></li>
+            <div>
+              <h4>{x.Application}</h4>
+              <ul>
+                {x.Enviroments.map(z => (
+                  <li>{z.Configuration} -
+                    <ModalTrigger modal={<DeployDialog Enviroment={z}/>}>
+                      <button className='btn btn-primary btn-xs'>Deploy</button>
+                    </ModalTrigger>
+                  </li>
+                ))}
+              </ul>
+          </div>
             ))}
-        </ul>
         </div>)
       },
 
       _onChange: function(){
+        debugger;
         this.setState({
-          deploys : Store.getAll()
+          deploys : Store.getGrouped()
         })
       }
     });
