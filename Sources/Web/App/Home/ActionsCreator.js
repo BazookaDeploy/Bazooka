@@ -11,7 +11,7 @@ module.exports = {
       method:"get"
     }).then((x => {
       ApplicationDispatcher.handleServerAction({
-        type: ActionTypes.UPDATE_ENVIROMENTS,
+        type: ActionTypes.UPDATE_STATUS,
         apps: x
       });
     }))

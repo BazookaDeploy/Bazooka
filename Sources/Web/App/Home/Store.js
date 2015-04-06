@@ -31,7 +31,7 @@ EnviromentsStore.dispatchToken = Dispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {
-    case ActionTypes.UPDATE_ENVIROMENTS:
+    case ActionTypes.UPDATE_STATUS:
       _addEnviroments(action.apps);
       EnviromentsStore.emitChange();
       break;

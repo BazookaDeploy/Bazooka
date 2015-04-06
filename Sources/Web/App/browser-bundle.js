@@ -883,7 +883,7 @@
 	      method:"get"
 	    }).then((function(x)  {
 	      ApplicationDispatcher.handleServerAction({
-	        type: ActionTypes.UPDATE_ENVIROMENTS,
+	        type: ActionTypes.UPDATE_STATUS,
 	        apps: x
 	      });
 	    }))
@@ -931,7 +931,7 @@
 	  var action = payload.action;
 	
 	  switch(action.type) {
-	    case ActionTypes.UPDATE_ENVIROMENTS:
+	    case ActionTypes.UPDATE_STATUS:
 	      _addEnviroments(action.apps);
 	      EnviromentsStore.emitChange();
 	      break;
@@ -3342,7 +3342,7 @@
 	
 	module.exports = {
 	  ActionTypes : keyMirror({
-	    UPDATE_ENVIROMENTS: null
+	    UPDATE_STATUS: null
 	  })
 	}
 
