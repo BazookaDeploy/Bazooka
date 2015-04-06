@@ -207,7 +207,10 @@
     <Content Include="App\Enviroments\Constants.js" />
     <Content Include="App\Enviroments\EnviromentPage.js" />
     <Content Include="App\Enviroments\Store.js" />
+    <Content Include="App\Home\ActionsCreator.js" />
+    <Content Include="App\Home\Constants.js" />
     <Content Include="App\Home\Homepage.js" />
+    <Content Include="App\Home\Store.js" />
     <Content Include="App\index.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
