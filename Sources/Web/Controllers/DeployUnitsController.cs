@@ -18,6 +18,20 @@ namespace Web.Controllers
             return db.DeployUnits.Where(x => x.EnviromentId == id).ToList();
         }
 
+
+        public void Put(DeployUnit unit)
+        {
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                foreach (var p in unit.AdditionalParameters)
+                {
+                    p.DeployUnitId = unit.Id;
+                }
+                session.SaveOrUpdate(unit);
+                session.Flush();
+            };
+        }
+
         public void Post(DeployUnit unit)
         {
             using (var session = WebApiApplication.Store.OpenSession())

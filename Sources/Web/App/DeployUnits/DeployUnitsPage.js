@@ -12,6 +12,7 @@ var CreateDialog = React.createClass({
 
   getInitialState: function() {
     if(this.props.Env!=null){
+      debugger;
       return {
         name:this.props.Env.Name,
         machine:this.props.Env.Machine,
@@ -46,6 +47,22 @@ var CreateDialog = React.createClass({
       this.state.packageName.length != 0 &&
       this.state.repository.length != 0 &&
       this.state.directory.length != 0){
+
+debugger;
+
+      if(this.props.Env.Id!=null){
+        Actions.modifyDeployUnit(
+          this.props.Env.Id,
+          this.props.Enviroment,
+          this.state.name,
+          this.state.machine,
+          this.state.packageName,
+          this.state.directory,
+          this.state.repository,
+          this.state.params)
+               .then(x => this.props.onRequestHide());
+               return;
+      }
 
       Actions.createDeployUnit(
         this.props.Enviroment,
