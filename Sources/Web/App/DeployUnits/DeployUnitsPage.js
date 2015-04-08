@@ -12,7 +12,6 @@ var CreateDialog = React.createClass({
 
   getInitialState: function() {
     if(this.props.Env!=null){
-      debugger;
       return {
         name:this.props.Env.Name,
         machine:this.props.Env.Machine,
@@ -48,9 +47,7 @@ var CreateDialog = React.createClass({
       this.state.repository.length != 0 &&
       this.state.directory.length != 0){
 
-debugger;
-
-      if(this.props.Env.Id!=null){
+      if(this.props.Env!=null){
         Actions.modifyDeployUnit(
           this.props.Env.Id,
           this.props.Enviroment,
@@ -138,14 +135,21 @@ debugger;
         </form>
         <h5>Additional Params</h5>
           <ul>
-            {this.state.params.map(a => (<li>{a.Name} = {a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}>Elimina</button></li>))}
+            {this.state.params.map(a => (<li>{a.Name} = {a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}><i className="glyphicon glyphicon-trash"></i></button></li>))}
           </ul>
-        <div className="form-group">
-          <label htmlFor="Key">Key</label>
-          <input type="text" className="form-control" id="Key" placeholder="Key" valueLink={this.linkState('key')} />
-          <label htmlFor="Value">Value</label>
-          <input type="text" className="form-control" id="Value" placeholder="Value" valueLink={this.linkState('value')} />
-          <button className="btn btn-primary" onClick={this.addParameter} >Add Parameter</button>
+        <div className="form-group row">
+          <div className="col-md-3">
+            <label htmlFor="Key">Key</label>
+            <input type="text" className="form-control" id="Key" placeholder="Key" valueLink={this.linkState('key')} />
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="Value">Value</label>
+            <input type="text" className="form-control" id="Value" placeholder="Value" valueLink={this.linkState('value')} />
+          </div>
+          <div className="col-md-4">
+            <br />
+            <button className="btn btn-primary" onClick={this.addParameter} >Add Parameter</button>
+          </div>
         </div>
       </div>
       <div className="modal-footer">

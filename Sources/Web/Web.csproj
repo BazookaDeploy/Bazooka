@@ -242,7 +242,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="bower.json" />
     <Content Include="package.json" />
     <Content Include="App\browser-bundle.js.map" />
     <None Include="Project_Readme.html" />
