@@ -7,6 +7,22 @@ var ModalTrigger = require("react-bootstrap/ModalTrigger");
 
 
 var DeployDialog = React.createClass({
+  getInitialState: function() {
+    return {
+      loading : true,
+      versions:[]
+    };
+  },
+
+  componentDidMount: function() {
+    Actions.getVersions(this.props.Enviroment.Id).then(x => {
+      this.setState({
+        loading : false,
+        versions : x
+      })
+    });
+  },
+
   create:function(){
     var version = this.refs.Version.getDOMNode().value;
     if(version!=null){
@@ -18,13 +34,21 @@ var DeployDialog = React.createClass({
   render:function(){
     var title = "Start deploy " + this.props.Enviroment.Name + " - " + this.props.Enviroment.Configuration;
 
+    var versions = this.state.versions.map(x => (<option>{x}</option>));
+
     return(
       <Modal {...this.props} title={title}>
       <div className="modal-body">
         <form role="form">
           <div className="form-group">
             <label htmlFor="Version">Version</label>
-            <input type="text" className="form-control" id="Version" ref="Version" placeholder="Version"  />
+            {
+              this.state.loading ?
+                <span><br />Loading available versions ... </span> :
+                <select className="form-control" id="Version" ref="Version" placeholder="Version">
+                  {versions}
+                </select>
+            }
           </div>
         </form>
       </div>
