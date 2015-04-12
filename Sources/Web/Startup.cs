@@ -9,8 +9,9 @@ using System.Linq;
 using System.Web;
 using Web.App_Start;
 using Web.Models;
-
-
+using Hangfire;
+using Hangfire.SqlServer;
+using Hangfire.SqlServer.Msmq;
 [assembly: OwinStartupAttribute(typeof(Web.Startup))]
 namespace Web
 {
@@ -19,6 +20,11 @@ namespace Web
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+
+            app.UseHangfire(config =>
+            {
+                config.UseSqlServerStorage("DataContext").UseMsmqQueues(@".\private$\hangfire-0");
+            });
         }
 
              // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864

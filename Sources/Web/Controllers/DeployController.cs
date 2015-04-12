@@ -2,6 +2,8 @@
 using Bazooka.Core.Commands;
 using DataAccess.Read;
 using DataAccess.Write;
+using Hangfire;
+using Jobs;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -48,10 +50,7 @@ namespace Web.Controllers
                 session.Save(deploy);
                 session.Flush();
 
-                WebApiApplication.Bus.Send("bazooka.controller", new DeployApplication()
-                {
-                    DeploymentId = deploy.Id
-                });
+                BackgroundJob.Enqueue(() => DeployJob.Execute(deploy.Id));
             };
         }
 

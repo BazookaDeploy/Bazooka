@@ -1,26 +1,38 @@
-﻿namespace Controller
+﻿namespace Jobs
 {
-    using Bazooka.Core.Commands;
     using Bazooka.Core.Dto;
     using DataAccess.Read;
     using DataAccess.Write;
     using Newtonsoft.Json;
-    using NServiceBus;
+    using NHibernate;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
 
-    public class DeployApplicationHandler : IHandleMessages<DeployApplication>
+    /// <summary>
+    ///     Job to deploy an application. It must be shared between web and controller so it has been 
+    ///     extracted to a common project
+    /// </summary>
+    public class DeployJob
     {
-        public void Handle(DeployApplication message)
+        /// <summary>
+        ///     Nhibernate store to use to save the data    
+        /// </summary>
+        public static ISessionFactory Store { get; set; }
+
+        /// <summary>
+        ///     Execute the job deployn the specified deployment
+        /// </summary>
+        /// <param name="deploymentId">Deployment identifier</param>
+        public static void Execute(int deploymentId)
         {
             int envId;
             string version;
             string config;
-            using (var session = EndpointConfig.Store.OpenSession())
+            using (var session = Store.OpenSession())
             {
-                var dep = session.Load<Deployment>(message.DeploymentId);
+                var dep = session.Load<Deployment>(deploymentId);
                 dep.StartDate = DateTime.UtcNow;
                 dep.Status = Status.Running;
                 version = dep.Version;
@@ -43,9 +55,9 @@
                         if (unit.CurrentlyDeployedVersion != null)
                         {
                             var ret = Update(unit, version, config);
-                            using (var session = EndpointConfig.Store.OpenSession())
+                            using (var session = Store.OpenSession())
                             {
-                                var dep = session.Load<Deployment>(message.DeploymentId);
+                                var dep = session.Load<Deployment>(deploymentId);
                                 foreach (var mess in ret)
                                 {
                                     dep.Log += mess;
@@ -57,9 +69,9 @@
                         else
                         {
                             var ret = Install(unit, version, config);
-                            using (var session = EndpointConfig.Store.OpenSession())
+                            using (var session = Store.OpenSession())
                             {
-                                var dep = session.Load<Deployment>(message.DeploymentId);
+                                var dep = session.Load<Deployment>(deploymentId);
                                 foreach (var mess in ret)
                                 {
                                     dep.Log += mess;
@@ -71,9 +83,9 @@
                     }
                     catch (Exception e)
                     {
-                        using (var session = EndpointConfig.Store.OpenSession())
+                        using (var session = Store.OpenSession())
                         {
-                            var dep = session.Load<Deployment>(message.DeploymentId);
+                            var dep = session.Load<Deployment>(deploymentId);
                             dep.EndDate = DateTime.UtcNow;
                             dep.Status = Status.Failed;
                             dep.Log += e.Message;
@@ -84,7 +96,7 @@
                         return;
                     }
 
-                    using (var session = EndpointConfig.Store.OpenSession())
+                    using (var session = Store.OpenSession())
                     {
                         var deployUnit = session.Load<DeployUnit>(unit.Id);
                         deployUnit.CurrentlyDeployedVersion = version;
@@ -95,9 +107,9 @@
 
             }
 
-            using (var session = EndpointConfig.Store.OpenSession())
+            using (var session = Store.OpenSession())
             {
-                var dep = session.Load<Deployment>(message.DeploymentId);
+                var dep = session.Load<Deployment>(deploymentId);
                 dep.EndDate = DateTime.UtcNow;
                 dep.Status = Status.Ended;
                 dep.Log += "Deploy ended";
@@ -110,7 +122,7 @@
 
 
 
-        private ICollection<string> Install(DeployUnitDto unit, string version, string config)
+        private static ICollection<string> Install(DeployUnitDto unit, string version, string config)
         {
             var address = unit.Machine;
 
@@ -127,7 +139,7 @@
                     Repository = unit.Repository,
                     AdditionalParameters = unit.Parameters
                 });
-                
+
                 var result = result2.Result;
                 var response = result.Content.ReadAsStringAsync().Result;
 
@@ -137,7 +149,7 @@
         }
 
 
-        private ICollection<string> Update(DeployUnitDto unit, string version, string config)
+        private static ICollection<string> Update(DeployUnitDto unit, string version, string config)
         {
             using (var client = new HttpClient())
             {
