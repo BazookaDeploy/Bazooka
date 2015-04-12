@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Management.Automation;
     using System.Management.Automation.Host;
     using System.Management.Automation.Runspaces;
@@ -14,10 +15,10 @@
 
     public static class PowershellHelpers
     {
-        public static void Execute(string folder, string file, string configuration, ILogger log, Dictionary<string,string> parameters)
+        public static void Execute(string folder, string file, string configuration, ILogger log, Dictionary<string, string> parameters)
         {
             RunspaceConfiguration runspaceConfiguration = RunspaceConfiguration.Create();
-            Runspace runspace = RunspaceFactory.CreateRunspace(new Host(),runspaceConfiguration);
+            Runspace runspace = RunspaceFactory.CreateRunspace(new Host(), runspaceConfiguration);
             runspace.Open();
             runspace.SessionStateProxy.Path.SetLocation(folder);
 
@@ -27,7 +28,8 @@
 
             Command myCommand = new Command(Path.Combine(folder, file));
 
-            foreach (var param in parameters.Keys) {
+            foreach (var param in parameters.Keys)
+            {
                 myCommand.Parameters.Add(new CommandParameter("-" + param, parameters[param]));
             }
 
@@ -39,6 +41,30 @@
             {
                 log.Log(item.ToString());
             }
+        }
+
+        /// <summary>
+        ///     Determines if a powershell script is valid( at least sintactically)
+        /// </summary>
+        /// <param name="script">Powershell script to parse</param>
+        /// <returns>Script validity</returns>
+        public static bool Validate(string script)
+        {
+            var list = new Collection<PSParseError>();
+            var result = System.Management.Automation.PSParser.Tokenize(script, out list);
+            return list.Count == 0;
+        }
+
+        /// <summary>
+        ///     Get list of parse errors in a powershell script
+        /// </summary>
+        /// <param name="script">Script to parse</param>
+        /// <returns>List of errors</returns>
+        public static ICollection<string> GetParseErrors(string script)
+        {
+            var list = new Collection<PSParseError>();
+            var result = System.Management.Automation.PSParser.Tokenize(script, out list);
+            return list.Select(x => x.ToString()).ToList();
         }
     }
 
