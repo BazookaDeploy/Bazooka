@@ -107,6 +107,15 @@ var CreateDialog = React.createClass({
     });
   },
 
+
+  testAgent : function(){
+    Actions.testAgent(this.state.machine).then(x => {
+      alert("Agent responding");
+    }).fail(x =>{
+        alert("Agent not responding");
+    })
+  },
+
   render:function(){
     return(
       <Modal {...this.props} title="Create new deploy unit">
@@ -118,7 +127,14 @@ var CreateDialog = React.createClass({
           </div>
           <div className="form-group">
             <label htmlFor="Machine">Machine</label>
-            <input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('machine')} />
+              <div className="input-group">
+                <input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('machine')} />
+                <span className="input-group-btn">
+                  <button className="btn btn-primary" onClick={this.testAgent} >Test</button>
+                </span>
+              </div>
+
+
           </div>
           <div className="form-group">
             <label htmlFor="PackageName">PackageName</label>

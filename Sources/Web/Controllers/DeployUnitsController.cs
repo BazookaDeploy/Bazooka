@@ -3,6 +3,7 @@ using DataAccess.Write;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -48,6 +49,17 @@ namespace Web.Controllers
                 session.SaveOrUpdate(unit);
 
                 session.Flush();
+            };
+        }
+
+        [HttpGet, Route("api/DeployUnits/test")]
+        public object Test(string url)
+        {
+            var client = new HttpClient();
+            var res = client.GetAsync(url + "/api/health/ping").Result;
+            return new
+            {
+                Success = res.IsSuccessStatusCode
             };
         }
 

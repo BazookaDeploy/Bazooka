@@ -3,74 +3,83 @@ var ActionTypes = require('./Constants').ActionTypes;
 var reqwest = require("reqwest");
 
 module.exports = {
-	updateDeployUnits: function(enviromentId) {
-		reqwest({
-			url: "/api/deployUnits/" + enviromentId,
-			type: 'json',
-			contentType: 'application/json',
-			method: "get"
-		}).then((x => {
-			Dispatcher.handleServerAction({
-				type: ActionTypes.UPDATE_DEPLOYUNITS,
-				apps: x
-			});
-		}))
-	},
+  testAgent: function(url) {
+    return reqwest({
+      url: "/api/deployUnits/test?url=" + url,
+      type: 'json',
+      contentType: 'application/json',
+      method: "get"
+    })
+  },
 
-	modifyDeployUnit: function(deployUnitId, enviromentId, name, machine,
-		packageName, directory, repository, params) {
-		var promise = reqwest({
-			url: "/api/deployUnits",
-			type: 'json',
-			contentType: 'application/json',
-			method: "put",
-			data: JSON.stringify({
-				Id: deployUnitId,
-				EnviromentId: enviromentId,
-				Name: name,
-				Machine: machine,
-				PackageName: packageName,
-				Directory: directory,
-				Repository: repository,
-				AdditionalParameters: params.map(x => {
-					x.Key = x.Name;
-					return x;
-				})
-			})
-		});
+  updateDeployUnits: function(enviromentId) {
+    reqwest({
+      url: "/api/deployUnits/" + enviromentId,
+      type: 'json',
+      contentType: 'application/json',
+      method: "get"
+    }).then((x => {
+      Dispatcher.handleServerAction({
+        type: ActionTypes.UPDATE_DEPLOYUNITS,
+        apps: x
+      });
+    }))
+  },
 
-		promise.then(x => {
-			module.exports.updateDeployUnits(enviromentId);
-		});
+  modifyDeployUnit: function(deployUnitId, enviromentId, name, machine,
+    packageName, directory, repository, params) {
+    var promise = reqwest({
+      url: "/api/deployUnits",
+      type: 'json',
+      contentType: 'application/json',
+      method: "put",
+      data: JSON.stringify({
+        Id: deployUnitId,
+        EnviromentId: enviromentId,
+        Name: name,
+        Machine: machine,
+        PackageName: packageName,
+        Directory: directory,
+        Repository: repository,
+        AdditionalParameters: params.map(x => {
+          x.Key = x.Name;
+          return x;
+        })
+      })
+    });
 
-		return promise;
-	},
+    promise.then(x => {
+      module.exports.updateDeployUnits(enviromentId);
+    });
 
-	createDeployUnit: function(enviromentId, name, machine, packageName,
-		directory, repository, params) {
-		var promise = reqwest({
-			url: "/api/deployUnits",
-			type: 'json',
-			contentType: 'application/json',
-			method: "post",
-			data: JSON.stringify({
-				EnviromentId: enviromentId,
-				Name: name,
-				Machine: machine,
-				PackageName: packageName,
-				Directory: directory,
-				Repository: repository,
-				AdditionalParameters: params.map(x => {
-					x.Key = x.Name;
-					return x;
-				})
-			})
-		});
+    return promise;
+  },
 
-		promise.then(x => {
-			module.exports.updateDeployUnits(enviromentId);
-		});
+  createDeployUnit: function(enviromentId, name, machine, packageName,
+    directory, repository, params) {
+    var promise = reqwest({
+      url: "/api/deployUnits",
+      type: 'json',
+      contentType: 'application/json',
+      method: "post",
+      data: JSON.stringify({
+        EnviromentId: enviromentId,
+        Name: name,
+        Machine: machine,
+        PackageName: packageName,
+        Directory: directory,
+        Repository: repository,
+        AdditionalParameters: params.map(x => {
+          x.Key = x.Name;
+          return x;
+        })
+      })
+    });
 
-		return promise;
-	}
+    promise.then(x => {
+      module.exports.updateDeployUnits(enviromentId);
+    });
+
+    return promise;
+  }
 };
