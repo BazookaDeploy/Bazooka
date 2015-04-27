@@ -14,7 +14,7 @@ module.exports = {
 
   updateDeployUnits: function(enviromentId) {
     reqwest({
-      url: "/api/deployUnits/" + enviromentId,
+      url: "/api/DeployUnits/Units/?id=" + enviromentId,
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -26,8 +26,22 @@ module.exports = {
     }))
   },
 
+  updateDeployUnit: function(deployUnitId) {
+    reqwest({
+      url: "/api/DeployUnits/DeployUnit/?id=" + deployUnitId,
+      type: 'json',
+      contentType: 'application/json',
+      method: "get"
+    }).then((x => {
+      Dispatcher.handleServerAction({
+        type: ActionTypes.UPDATE_DEPLOYUNIT,
+        apps: x
+      });
+    }))
+  },
+
   modifyDeployUnit: function(deployUnitId, enviromentId, name, machine,
-    packageName, directory, repository, params) {
+    packageName, directory, repository, params,uninstallationScript,installationScript,configFile,configTransform) {
     var promise = reqwest({
       url: "/api/deployUnits",
       type: 'json',
@@ -41,6 +55,10 @@ module.exports = {
         PackageName: packageName,
         Directory: directory,
         Repository: repository,
+        UninstallScript : uninstallationScript,
+        InstallScript:installationScript,
+        ConfigurationFile:configFile,
+        ConfigurationTransform:configTransform,
         AdditionalParameters: params.map(x => {
           x.Key = x.Name;
           return x;

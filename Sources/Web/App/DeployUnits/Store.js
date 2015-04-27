@@ -12,6 +12,10 @@ function _addDeployUnits(raw) {
   _deployUnits=raw;
 }
 
+function _addDeployUnit(raw) {
+  _deployUnits=_deployUnits.concat(raw);
+}
+
 var DeployUnitsStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -24,6 +28,11 @@ var DeployUnitsStore = assign({}, EventEmitter.prototype, {
   },
   getAll: function() {
     return _deployUnits;
+  },
+  getSingle:function(id){
+    if(_deployUnits==null){return null;}
+
+    return _deployUnits.filter(x=> x.Id == id)[0];
   }
 });
 
@@ -35,6 +44,11 @@ DeployUnitsStore.dispatchToken = Dispatcher.register(function(payload) {
       _addDeployUnits(action.apps);
       DeployUnitsStore.emitChange();
       break;
+
+      case ActionTypes.UPDATE_DEPLOYUNIT:
+        _addDeployUnit(action.apps);
+        DeployUnitsStore.emitChange();
+        break;
 
       default:
       }

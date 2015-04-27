@@ -53,7 +53,7 @@
                 packageRemover.Logger = logger;
 
                 var additionalParams = installOptions.AdditionalParameters;
-                packageRemover.Remove(packageInfo, new string[] { installOptions.Directory }, additionalParams);
+                packageRemover.Remove(packageInfo, new string[] { installOptions.Directory }, additionalParams,installOptions.UninstallScript);
 
 
 
@@ -64,7 +64,7 @@
                 packageInfo2.Version = installOptions.Version;
                 var PackageInstaller = new PackageInstaller();
                 PackageInstaller.Logger = logger;
-                PackageInstaller.Install(packageInfo2, new string[] { installOptions.Repository }, installOptions.AdditionalParameters);
+                PackageInstaller.Install(packageInfo2, new string[] { installOptions.Repository }, installOptions.AdditionalParameters, installOptions.InstallScript, installOptions.ConfigurationFile, installOptions.ConfigurationTransform);
                 return new ExecutionResult()
                 {
                     Success = true,
@@ -98,7 +98,7 @@
                 var PackageInstaller = new PackageInstaller();
                 PackageInstaller.Logger = logger;
 
-                PackageInstaller.Install(packageInfo, new string[] { installOptions.Repository }, installOptions.AdditionalParameters);
+                PackageInstaller.Install(packageInfo, new string[] { installOptions.Repository }, installOptions.AdditionalParameters, installOptions.InstallScript, installOptions.ConfigurationFile, installOptions.ConfigurationTransform);
 
                 return new ExecutionResult()
                 {
@@ -128,7 +128,7 @@
                 packageInfo.Version = uninstallOptions.Version;
                 var packageRemover = new PackageRemover();
                 packageRemover.Logger = logger;
-                packageRemover.Remove(packageInfo, new string[] { uninstallOptions.Directory }, uninstallOptions.AdditionalParameters);
+                packageRemover.Remove(packageInfo, new string[] { uninstallOptions.Directory }, uninstallOptions.AdditionalParameters, uninstallOptions.UninstallScript);
 
                 return new ExecutionResult()
                 {

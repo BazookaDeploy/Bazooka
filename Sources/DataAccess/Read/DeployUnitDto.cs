@@ -25,6 +25,26 @@ namespace DataAccess.Read
 
         public virtual string CurrentlyDeployedVersion { get; set; }
 
+        /// <summary>
+        ///     Optional installation script
+        /// </summary>
+        public virtual string InstallScript { get; set; }
+
+        /// <summary>
+        ///     Optional uninstallation script
+        /// </summary>
+        public virtual string UninstallScript { get; set; }
+
+        /// <summary>
+        ///     Optional configuration file
+        /// </summary>
+        public virtual string ConfigurationFile { get; set; }
+
+        /// <summary>
+        ///     Optional transform to apply to configuration file
+        /// </summary>
+        public virtual string ConfigurationTransform { get; set; }
+
         public virtual ICollection<DeployUnitParameterDto> Parameters { get; set; }
     }
 }

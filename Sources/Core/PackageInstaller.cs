@@ -28,9 +28,9 @@ namespace Bazooka.Core
         {
             DownloadPackage(info, repositories);
 
-            ApplyTransformations(info);
+            ApplyTransformations(info, null,null);
 
-            ExecuteInstallScript(info, parameters);
+            ExecuteInstallScript(info, parameters,null);
 
             Logger.Log("Application installed");
         }
@@ -39,8 +39,13 @@ namespace Bazooka.Core
         ///     Searches for an install script and executes it passing the configuration as parameter
         /// </summary>
         /// <param name="info">Pacakge installation informations</param>
-        private void ExecuteInstallScript(PackageInfo info, Dictionary<string, string> parameters)
+        private void ExecuteInstallScript(PackageInfo info, Dictionary<string, string> parameters, string installScript)
         {
+            if (installScript != null)
+            {
+                PowershellHelpers.ExecuteScript(info.InstallationDirectory, installScript, Logger, parameters);
+            }
+
             var file = Path.Combine(info.InstallationDirectory, "install.ps1");
 
             if (File.Exists(file))
@@ -54,8 +59,46 @@ namespace Bazooka.Core
         ///     Searches for a suitable config transformation and applies it 
         /// </summary>
         /// <param name="info">Package info</param>
-        private void ApplyTransformations(PackageInfo info)
+        private void ApplyTransformations(PackageInfo info, string configFile, string transform)
         {
+            if (configFile != null && transform != null)
+            {
+                using (var transformation = new XmlTransformation(transform, isTransformAFile: false, logger: null))
+                {
+                    var dest = Path.Combine(info.InstallationDirectory, configFile);
+
+                    using (var document = new XmlTransformableDocument())
+                    {
+                        document.PreserveWhitespace = true;
+
+                        // make sure we close the input stream immediately so that we can override 
+                        // the file below when we save to it.
+                        using (var inputStream = File.OpenRead(dest))
+                        {
+                            document.Load(inputStream);
+                        }
+
+                        bool succeeded = transformation.Apply(document);
+                        if (succeeded)
+                        {
+                            File.Delete(dest);
+                            using (var fileStream = File.OpenWrite(dest))
+                            {
+                                document.Save(fileStream);
+                                Logger.Log("Transormation applied ");
+                            }
+                        }
+                        else
+                        {
+                            throw new TransformException(String.Format("Unable to apply {0} transformation to {1}", dest.Replace(".config", "." + info.Configuration + ".config"), dest));
+                        }
+                    }
+                }
+
+                return;
+            }
+
+
             var files = Directory.GetFiles(info.InstallationDirectory, "*.config")
                                  .Where(file => File.Exists(file.Replace(".config", "." + info.Configuration + ".config")));
 
@@ -136,7 +179,24 @@ namespace Bazooka.Core
 
             manager.InstallPackage(package, false, true);
 
+            // clear the zip cache so it will not grow too  much
+            OptimizedZipPackage.PurgeCache();
+
             Logger.Log("Package downloaded ");
+        }
+
+
+        public void Install(PackageInfo info, ICollection<string> repositories, Dictionary<string, string> parameters, string installScript, string configFile, string configTrasform)
+        {
+            {
+                DownloadPackage(info, repositories);
+
+                ApplyTransformations(info, configFile, configTrasform);
+
+                ExecuteInstallScript(info, parameters, installScript);
+
+                Logger.Log("Application installed");
+            }
         }
     }
 }

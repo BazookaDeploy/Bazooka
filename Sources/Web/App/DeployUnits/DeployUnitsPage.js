@@ -203,10 +203,7 @@ var CreateDialog = React.createClass({
             </ModalTrigger></th></tr></thead>
           <tbody>
             {this.state.envs.map(x => (
-              <tr><td>{x.Name}
-              <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} Env={x}/>}>
-                <button className='btn btn-xs pull-right'>Modify</button>
-              </ModalTrigger></td></tr>
+              <tr><td><Link to="deployunitedit" params={{deployUnitId: x.Id}}>{x.Name}</Link></td></tr>
               ))}
           </tbody>
         </table>

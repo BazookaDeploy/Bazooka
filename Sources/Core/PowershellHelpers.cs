@@ -43,6 +43,31 @@
             }
         }
 
+        public static void ExecuteScript(string folder, string script, ILogger log, Dictionary<string, string> parameters)
+        {
+            using (PowerShell PowerShellInstance = PowerShell.Create())
+            {
+                PowerShellInstance.Runspace.SessionStateProxy.Path.SetLocation(folder);
+                // use "AddScript" to add the contents of a script file to the end of the execution pipeline.
+                // use "AddCommand" to add individual commands/cmdlets to the end of the execution pipeline.
+                PowerShellInstance.AddScript(script);
+
+                foreach (var param in parameters.Keys)
+                {
+                    PowerShellInstance.AddParameter(param, parameters[param]);
+                }
+
+                var results = PowerShellInstance.Invoke();
+
+                foreach (var item in results)
+                {
+                    log.Log(item.ToString());
+                }
+            }
+        }
+
+
+
         /// <summary>
         ///     Determines if a powershell script is valid( at least sintactically)
         /// </summary>

@@ -28,5 +28,7 @@
         ///     Specifies additional parameters to pass to scripts
         /// </summary>
         public Dictionary<string,string> AdditionalParameters { get; set; }
+
+        public virtual string UninstallScript { get; set; }
     }
 }

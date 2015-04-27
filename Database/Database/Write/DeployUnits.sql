@@ -8,5 +8,9 @@
     [Directory] NVARCHAR(MAX) NOT NULL, 
     [Repository] NVARCHAR(256) NOT NULL, 
     [CurrentlyDeployedVersion] NVARCHAR(50) NULL, 
+    [InstallScript] NVARCHAR(MAX) NULL, 
+    [UninstallScript] NVARCHAR(MAX) NULL, 
+    [ConfigurationFile] NVARCHAR(50) NULL, 
+    [ConfigurationTransform] NVARCHAR(MAX) NULL, 
     CONSTRAINT [FK_DeployUnits_Enviroments] FOREIGN KEY ([EnviromentId]) REFERENCES [Enviroments]([Id])
 )

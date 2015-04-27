@@ -27,6 +27,10 @@ namespace DataAccess.Write
             Property(X => X.PackageName);
             Property(x => x.Repository);
             Property(x => x.CurrentlyDeployedVersion);
+            Property(x => x.InstallScript);
+            Property(x => x.UninstallScript);
+            Property(x => x.ConfigurationFile);
+            Property(x => x.ConfigurationTransform);
 
             Bag(
                 x => x.AdditionalParameters,

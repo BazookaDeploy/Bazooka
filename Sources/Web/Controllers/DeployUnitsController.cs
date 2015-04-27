@@ -14,11 +14,17 @@ namespace Web.Controllers
         private ReadContext db = new ReadContext();
 
         // GET: api/Applications
-        public ICollection<DeployUnitDto> Get(int id)
+         [HttpGet, Route("api/DeployUnits/Units")]
+        public ICollection<DeployUnitDto> Units(int id)
         {
             return db.DeployUnits.Where(x => x.EnviromentId == id).ToList();
         }
 
+        [HttpGet, Route("api/DeployUnits/DeployUnit")]
+        public DeployUnitDto DeployUnit(int id)
+        {
+            return db.DeployUnits.Single(x => x.Id == id);
+        }
 
         public void Put(DeployUnit unit)
         {

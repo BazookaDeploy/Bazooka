@@ -131,13 +131,18 @@
                 client.BaseAddress = new Uri(unit.Machine);
 
                 var result2 = client.PostAsJsonAsync("/api/deploy/install", new
+                InstallDto
                 {
                     Application = unit.PackageName,
                     Version = version,
                     Directory = unit.Directory,
                     Configuration = config,
                     Repository = unit.Repository,
-                    AdditionalParameters = unit.Parameters
+                    AdditionalParameters = unit.Parameters.ToDictionary(x => x.Name, x => x.Value),
+                    ConfigurationFile = unit.ConfigurationFile,
+                    ConfigurationTransform = unit.ConfigurationTransform,
+                    InstallScript = unit.InstallScript,
+                    UninstallScript = unit.UninstallScript
                 });
 
                 var result = result2.Result;
@@ -156,13 +161,18 @@
                 client.BaseAddress = new Uri(unit.Machine);
 
                 var result2 = client.PostAsJsonAsync("/api/deploy/update", new
+                InstallDto
                 {
                     Application = unit.PackageName,
                     Version = version,
                     Directory = unit.Directory,
                     Configuration = config,
                     Repository = unit.Repository,
-                    AdditionalParameters = unit.Parameters
+                    AdditionalParameters = unit.Parameters.ToDictionary(x => x.Name, x => x.Value),
+                    ConfigurationFile = unit.ConfigurationFile,
+                    ConfigurationTransform = unit.ConfigurationTransform,
+                    InstallScript = unit.InstallScript,
+                    UninstallScript = unit.UninstallScript
                 });
 
                 var result = result2.Result;
