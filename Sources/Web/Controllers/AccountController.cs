@@ -2,6 +2,8 @@
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -71,6 +73,24 @@ namespace Web.Controllers
                 return View(model);
             }
 
+
+            var usingAD = bool.Parse(ConfigurationManager.AppSettings["activeDirectory"]);
+            if (usingAD)
+            {
+                var domain = ConfigurationManager.AppSettings["adDomain"];
+                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
+                {
+                    // validate the credentials
+                    bool isValid = pc.ValidateCredentials(model.Email, model.Password);
+
+                    if (!isValid)
+                    {
+                        ModelState.AddModelError("", "username or password not valid");
+                        return View(model);
+                    }
+                }
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -107,6 +127,23 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                var usingAD = bool.Parse(ConfigurationManager.AppSettings["activeDirectory"]);
+                if (usingAD)
+                {
+                    var domain = ConfigurationManager.AppSettings["adDomain"];
+                    using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
+                    {
+                        // validate the credentials
+                        bool isValid = pc.ValidateCredentials(model.Email, model.Password);
+
+                        if (!isValid)
+                        {
+                            ModelState.AddModelError("", "username or password not valid");
+                        }
+                    }
+                }
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
