@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Web.App_Start;
+using Web.Auth;
 using Web.Models;
 
 namespace Web.Controllers
@@ -74,26 +75,18 @@ namespace Web.Controllers
             }
 
 
-            var usingAD = bool.Parse(ConfigurationManager.AppSettings["activeDirectory"]);
-            if (usingAD)
+            if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
             {
-                var domain = ConfigurationManager.AppSettings["adDomain"];
-                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
+                if (!ActiveDirectoryAuthentication.Authenticate(model.UserName, model.Password))
                 {
-                    // validate the credentials
-                    bool isValid = pc.ValidateCredentials(model.Email, model.Password);
-
-                    if (!isValid)
-                    {
-                        ModelState.AddModelError("", "username or password not valid");
-                        return View(model);
-                    }
+                    ModelState.AddModelError("", "username or password not valid");
+                    return View(model);
                 }
             }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -126,22 +119,15 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
 
-                var usingAD = bool.Parse(ConfigurationManager.AppSettings["activeDirectory"]);
-                if (usingAD)
+                 if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
                 {
-                    var domain = ConfigurationManager.AppSettings["adDomain"];
-                    using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
-                    {
-                        // validate the credentials
-                        bool isValid = pc.ValidateCredentials(model.Email, model.Password);
-
-                        if (!isValid)
+                        if (!ActiveDirectoryAuthentication.Authenticate(model.UserName,model.Password))
                         {
                             ModelState.AddModelError("", "username or password not valid");
+                             return View(model);
                         }
-                    }
                 }
 
                 var result = await UserManager.CreateAsync(user, model.Password);
