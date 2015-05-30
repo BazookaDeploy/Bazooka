@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using Web.Auth;
 using Web.Models;
 
 namespace Web.App_Start
@@ -31,15 +32,29 @@ namespace Web.App_Start
                 RequireUniqueEmail = true
             };
 
-            // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
+            if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
-            };
+                // if AD authentication is enabled we defer to their password policy
+                manager.PasswordValidator = new PasswordValidator
+                {
+                    RequiredLength = 2,
+                    RequireNonLetterOrDigit = false,
+                    RequireDigit = false,
+                    RequireLowercase = false,
+                    RequireUppercase = false,
+                };
+            }
+            else
+            {
+                manager.PasswordValidator = new PasswordValidator
+                {
+                    RequiredLength = 6,
+                    RequireNonLetterOrDigit = true,
+                    RequireDigit = true,
+                    RequireLowercase = true,
+                    RequireUppercase = true,
+                };
+            }
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
@@ -57,6 +72,19 @@ namespace Web.App_Start
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
+        }
+
+        public override Task<SignInStatus> PasswordSignInAsync(string userName, string password, bool isPersistent, bool shouldLockout)
+        {
+            if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
+            {
+                if (!ActiveDirectoryAuthentication.Authenticate(userName, password))
+                {
+                    return base.PasswordSignInAsync(userName, "bazooka", isPersistent, shouldLockout);
+                }
+            }
+
+            return base.PasswordSignInAsync(userName, password, isPersistent, shouldLockout);
         }
 
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)

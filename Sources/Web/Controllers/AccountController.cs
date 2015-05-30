@@ -75,15 +75,6 @@ namespace Web.Controllers
             }
 
 
-            if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
-            {
-                if (!ActiveDirectoryAuthentication.Authenticate(model.UserName, model.Password))
-                {
-                    ModelState.AddModelError("", "username or password not valid");
-                    return View(model);
-                }
-            }
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
@@ -130,7 +121,7 @@ namespace Web.Controllers
                         }
                 }
 
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(user, "bazooka");
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
