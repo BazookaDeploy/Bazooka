@@ -605,7 +605,7 @@
 	    render: function () {
 	      return(React.createElement("div", null, 
 	        React.createElement("table", {className: "table table-bordered table-striped"}, 
-	          React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Enviroments", 
+	          React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Deploy Units", 
 	            React.createElement(ModalTrigger, {modal: React.createElement(CreateDialog, {Enviroment: this.getParams().enviromentId})}, 
 	              React.createElement("button", {className: "btn btn-xs btn-primary pull-right"}, "New")
 	            )))), 

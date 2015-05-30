@@ -205,7 +205,7 @@ var CreateDialog = React.createClass({
     render: function () {
       return(<div>
         <table className="table table-bordered table-striped">
-          <thead><tr><th>Enviroments
+          <thead><tr><th>Deploy Units
             <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} />}>
               <button className='btn btn-xs btn-primary pull-right'>New</button>
             </ModalTrigger></th></tr></thead>
