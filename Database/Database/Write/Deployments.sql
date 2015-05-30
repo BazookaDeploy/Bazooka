@@ -6,5 +6,6 @@
     [Log] NVARCHAR(MAX) NULL, 
     [EndDate] DATETIME NULL, 
     [Status] INT NOT NULL, 
-    [Version] NCHAR(256) NULL
+    [Version] NCHAR(256) NULL, 
+    [UserId] NVARCHAR(128) NOT NULL
 )

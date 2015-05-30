@@ -18,7 +18,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
         status = "Failed";;
       }
 
-      return(<tr><td>{status}</td><td><Link to="deployment" params={{Id : this.props.Deployment.Id}}>{this.props.Deployment.Name}</Link></td> <td>{this.props.Deployment.Configuration}</td></tr>);
+      return(<tr><td>{status}</td><td><Link to="deployment" params={{Id : this.props.Deployment.Id}}>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</Link></td><td>{this.props.Deployment.UserName}</td></tr>);
     }
   });
 
@@ -48,7 +48,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
       return(<div>
         <h2>Deployments:</h2>
         <table className="table table-border table-hover">
-          <thead><tr><th>Status</th><th>Application</th><th>Enviroment</th></tr></thead>
+          <thead><tr><th>Status</th><th>Application</th><th>Started by</th></tr></thead>
           <tbody>
           {this.state.deployments.map(x => (
               <DeploymentRow Deployment={x} />

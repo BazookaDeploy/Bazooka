@@ -26,5 +26,9 @@ namespace DataAccess.Read
         public virtual Status Status { get; set; }
 
         public virtual string Version { get; set; }
+
+        public virtual string UserId { get; set; }
+
+        public virtual string UserName {get; set;}
     }
 }

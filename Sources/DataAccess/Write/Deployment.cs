@@ -20,6 +20,8 @@ namespace DataAccess.Write
         public virtual Status Status { get; set; }
 
         public virtual string Version { get; set; }
+
+        public virtual string UserId { get; set; }
     }
 
     public enum Status

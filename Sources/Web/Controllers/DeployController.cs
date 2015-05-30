@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace Web.Controllers
 {
@@ -44,7 +45,8 @@ namespace Web.Controllers
                 {
                     EnviromentId = enviromentId,
                     Status = Status.Queud,
-                    Version = version
+                    Version = version,
+                    UserId = User.Identity.GetUserId()
                 };
 
                 session.Save(deploy);

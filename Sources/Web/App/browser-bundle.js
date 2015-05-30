@@ -1002,7 +1002,7 @@
 	        status = "Failed";;
 	      }
 	
-	      return(React.createElement("tr", null, React.createElement("td", null, status), React.createElement("td", null, React.createElement(Link, {to: "deployment", params: {Id : this.props.Deployment.Id}}, this.props.Deployment.Name)), " ", React.createElement("td", null, this.props.Deployment.Configuration)));
+	      return(React.createElement("tr", null, React.createElement("td", null, status), React.createElement("td", null, React.createElement(Link, {to: "deployment", params: {Id : this.props.Deployment.Id}}, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration)), React.createElement("td", null, this.props.Deployment.UserName)));
 	    }
 	  });
 	
@@ -1032,7 +1032,7 @@
 	      return(React.createElement("div", null, 
 	        React.createElement("h2", null, "Deployments:"), 
 	        React.createElement("table", {className: "table table-border table-hover"}, 
-	          React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Status"), React.createElement("th", null, "Application"), React.createElement("th", null, "Enviroment"))), 
+	          React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Status"), React.createElement("th", null, "Application"), React.createElement("th", null, "Started by"))), 
 	          React.createElement("tbody", null, 
 	          this.state.deployments.map(function(x)  
 	              {return React.createElement(DeploymentRow, {Deployment: x});}

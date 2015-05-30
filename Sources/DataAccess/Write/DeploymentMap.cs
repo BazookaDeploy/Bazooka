@@ -25,6 +25,7 @@ namespace DataAccess.Write
             Property(x => x.EnviromentId, x => x.NotNullable(true));
             Property(x => x.Status, x => x.NotNullable(true));
             Property(x => x.Version, x => x.NotNullable(true));
+            Property(x => x.UserId, x => x.NotNullable(true));
         }
     }
 }
