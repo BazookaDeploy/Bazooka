@@ -20,6 +20,7 @@ var CreateDialog = React.createClass({
         repository:this.props.Env.Repository,
         key:"",
         value:"",
+        Encrypted:false,
         params : this.props.Env.Parameters
       };
     }
@@ -32,6 +33,7 @@ var CreateDialog = React.createClass({
       repository:"",
       key:"",
       value:"",
+      Encrypted:false,
       params : []
     };
   },
@@ -84,10 +86,12 @@ var CreateDialog = React.createClass({
       this.setState({
         params: this.state.params.concat({
           Name: this.state.key,
-          Value: this.state.value
+          Value: this.state.value,
+          Encrypted:this.state.Encrypted
         }),
         key:"",
-        value:""
+        value:"",
+        Encrypted:false
       })
     }
   },
@@ -151,7 +155,7 @@ var CreateDialog = React.createClass({
         </form>
         <h5>Additional Params</h5>
           <ul>
-            {this.state.params.map(a => (<li>{a.Name} = {a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}><i className="glyphicon glyphicon-trash"></i></button></li>))}
+            {this.state.params.map(a => (<li>{a.Name} = {a.Encrypted ? "***********" : a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}><i className="glyphicon glyphicon-trash"></i></button></li>))}
           </ul>
         <div className="form-group row">
           <div className="col-md-3">
@@ -161,6 +165,10 @@ var CreateDialog = React.createClass({
           <div className="col-md-3">
             <label htmlFor="Value">Value</label>
             <input type="text" className="form-control" id="Value" placeholder="Value" valueLink={this.linkState('value')} />
+          </div>
+          <div className="col-md-2">
+            <label htmlFor="Encrypted">Encrypted</label><br />
+            <input type="checkbox" className="" id="Encrypted" checkedLink={this.linkState('Encrypted')} />
           </div>
           <div className="col-md-4">
             <br />

@@ -22,13 +22,17 @@ var EditPage = React.createClass({
     if(this.state.key.length!=0 &&
       this.state.value.length != 0 &&
        !this.state.Parameters.some(x => x.Key == this.state.key)){
+
+				debugger;
       this.setState({
 				Parameters: this.state.Parameters.concat({
           Name: this.state.key,
-          Value: this.state.value
+          Value: this.state.value,
+					Encrypted:this.state.Encrypted
         }),
         key:"",
-        value:""
+        value:"",
+				Encrypted:false
       })
     }
   },
@@ -80,6 +84,7 @@ var EditPage = React.createClass({
 			Repository:env.Repository,
 			key:"",
 			value:"",
+			Encrypted:false,
 			Parameters : env.Parameters,
 			UninstallationScript : env.UninstallScript,
 			InstallationScript:env.InstallScript,
@@ -98,6 +103,7 @@ var EditPage = React.createClass({
 		Repository:null,
 		key:"",
 		value:"",
+		Encrypted:false,
 		Parameters : [],
 		UninstallationScript : null,
 		InstallationScript:null,
@@ -108,7 +114,6 @@ var EditPage = React.createClass({
 	},
 
 	save:function(){
-		debugger;
 		Actions.modifyDeployUnit(
 			this.state.Id,
 			this.state.Enviroment,
@@ -146,7 +151,7 @@ var EditPage = React.createClass({
 									</div>
 									<h5>Additional Params</h5>
 										<ul>
-											{this.state.Parameters.map(a => (<li>{a.Name} = {a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}><i className="glyphicon glyphicon-trash"></i></button></li>))}
+											{this.state.Parameters.map(a => (<li>{a.Name} = {a.Encrypted? "********" : a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}><i className="glyphicon glyphicon-trash"></i></button></li>))}
 										</ul>
 									<div className="form-group row">
 					          <div className="col-md-3">
@@ -156,6 +161,10 @@ var EditPage = React.createClass({
 					          <div className="col-md-3">
 					            <label htmlFor="Value">Value</label>
 					            <input type="text" className="form-control" id="Value" placeholder="Value" valueLink={this.linkState('value')} />
+					          </div>
+										<div className="col-md-2">
+					            <label htmlFor="Encrypted">Encrypted</label><br/>
+					            <input type="checkbox" className="" id="Encrypted" checkedLink={this.linkState('Encrypted')} />
 					          </div>
 					          <div className="col-md-4">
 					            <br />

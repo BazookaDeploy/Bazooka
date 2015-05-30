@@ -16,5 +16,7 @@ namespace DataAccess.Read
         public virtual string Name { get; set; }
 
         public virtual string Value { get; set; }
+
+        public virtual bool Encrypted { get; set; }
     }
 }
