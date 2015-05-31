@@ -23,6 +23,7 @@ namespace DataAccess.Write
             Property(x => x.Configuration, x => x.Length(200));
             Property(x => x.Description, x => x.Length(200));
             Property(x => x.ApplicationId, x => x.NotNullable(true));
+            Property(x => x.OwnerId, x => x.NotNullable(true));
 
             Bag(
                 x => x.DeployUnits,

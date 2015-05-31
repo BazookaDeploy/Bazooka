@@ -1,14 +1,13 @@
-﻿using DataAccess.Read;
-using DataAccess.Write;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-namespace Web.Controllers
+﻿namespace Web.Controllers
 {
+    using DataAccess.Read;
+    using DataAccess.Write;
+    using Microsoft.AspNet.Identity;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http;
+
     public class EnviromentsController : ApiController
     {
         private ReadContext db = new ReadContext();
@@ -23,7 +22,7 @@ namespace Web.Controllers
             return db.Enviroments.Where(x => x.ApplicationId == id).ToList();
         }
 
-        [HttpGet,Route("api/enviroments/grouped")]
+        [HttpGet, Route("api/enviroments/grouped")]
         public ICollection GroupedEnviroments()
         {
             return db.Enviroments.GroupBy(x => x.Name, (key, ele) => new
@@ -37,6 +36,7 @@ namespace Web.Controllers
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
+                env.OwnerId = User.Identity.GetUserId();
                 session.Save(env);
                 session.Flush();
             };

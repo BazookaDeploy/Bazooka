@@ -15,6 +15,8 @@ namespace DataAccess.Write
 
         public virtual string Description { get; set; }
 
+        public virtual string OwnerId { get; set; }
+
         public virtual IList<DeployUnit> DeployUnits { get; set; }
     }
 }
