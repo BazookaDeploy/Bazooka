@@ -996,20 +996,42 @@
 	var $__0=       Router,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
 	
 	  var DeploymentRow = React.createClass({displayName: 'DeploymentRow',
+	    mixins:[Router.Navigation],
+	
+	    navigate:function(){
+	      this.transitionTo("deployment",{Id:this.props.Deployment.Id});
+	    },
+	
 	    render:function(){
-	
-	      var status ="";
 	      if(this.props.Deployment.Status==0){
-	        status = "Queued";
+	        return(
+	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
+	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon-list-alt"}), " Queued"), 
+	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
+	            React.createElement("td", null, this.props.Deployment.UserName)
+	          ));
 	      } else if(this.props.Deployment.Status==1){
-	        status = "Running";
+	        return(
+	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
+	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon glyphicon-play", style: "color:#15CAFF"}), " Running"), 
+	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
+	            React.createElement("td", null, this.props.Deployment.UserName)
+	          ));
 	      } else if(this.props.Deployment.Status==2){
-	        status = "Ended";
+	        return(
+	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
+	            React.createElement("td", null, " ", React.createElement("i", {className: "glyphicon glyphicon-ok-circle", style: "color:#17EF43"}), " Succeeded"), 
+	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
+	            React.createElement("td", null, this.props.Deployment.UserName)
+	          ));
 	      } else{
-	        status = "Failed";;
+	        return(
+	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
+	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon-remove-circle", style: "color:#FF3B3B"}), " Failed"), 
+	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
+	            React.createElement("td", null, this.props.Deployment.UserName)
+	          ));
 	      }
-	
-	      return(React.createElement("tr", null, React.createElement("td", null, status), React.createElement("td", null, React.createElement(Link, {to: "deployment", params: {Id : this.props.Deployment.Id}}, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration)), React.createElement("td", null, this.props.Deployment.UserName)));
 	    }
 	  });
 	
