@@ -1,5 +1,9 @@
 var React = require("react");
 var Router = require('react-router');
+var DropdownButton = require("react-bootstrap/DropdownButton");
+var NavItemLink = require("react-router-bootstrap/lib/NavItemLink");
+var MenuItemLink = require("react-router-bootstrap/lib/MenuItemLink");
+
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var App = React.createClass({
@@ -11,13 +15,16 @@ var App = React.createClass({
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul className="nav navbar-nav">
-              <li><Link to="home">Home</Link></li>
-              <li><Link to="deploys">Deploys</Link></li>
-              <li><Link to="deployments">Deployments</Link></li>
-              <li><Link to="apps">Applications</Link></li>
+              <NavItemLink to="home">Home</NavItemLink>
+              <NavItemLink to="deploys">Deploys</NavItemLink>
+              <NavItemLink to="deployments">Deployments</NavItemLink>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li><a>Hello {window.Profile}</a></li>
+                <DropdownButton title='Admin'  navItem={true}>
+                  <MenuItemLink to="apps">Applications</MenuItemLink>
+                </DropdownButton>
+
             </ul>
           </div>
         </div>
