@@ -60,7 +60,10 @@
     <Compile Include="Read\DeployUnitDto.cs" />
     <Compile Include="Read\DeployUnitParameterDto.cs" />
     <Compile Include="Read\EnviromentDto.cs" />
+    <Compile Include="Read\GroupDto.cs" />
     <Compile Include="Read\ReadContext.cs" />
+    <Compile Include="Read\UserDto.cs" />
+    <Compile Include="Read\UsersInGroupsDto.cs" />
     <Compile Include="Write\Application.cs" />
     <Compile Include="Write\ApplicationMap.cs" />
     <Compile Include="Write\Deployment.cs" />

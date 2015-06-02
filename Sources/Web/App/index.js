@@ -11,6 +11,8 @@ var DeployUnitEditPage = require("./DeployUnits/DeployUnitEditPage");
 var DeploysPage = require("./Deploys/DeploysPage");
 var DeploymentsPage = require("./Deployments/DeploymentsPage");
 var DeploymentPage = require("./Deployment/DeploymentsPage");
+var  GroupsPage = require("./Groups/GroupsPage");
+var  GroupPage = require("./Group/GroupsPage");
 
 var routes = (
   <Route handler={App}>
@@ -22,6 +24,8 @@ var routes = (
     <Route name="deploys" path="deploys" handler={DeploysPage} />
     <Route name="deployments" path="deployments" handler={DeploymentsPage} />
     <Route name="deployment" path="deployment/:Id" handler={DeploymentPage} />
+    <Route name="groups" path="groups" handler={GroupsPage} />
+    <Route name="group" path="group/:name" handler={GroupPage} />
   </Route>
 );
 

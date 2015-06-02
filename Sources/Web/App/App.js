@@ -23,8 +23,8 @@ var App = React.createClass({
               <li><a>Hello {window.Profile}</a></li>
                 <DropdownButton title='Admin'  navItem={true}>
                   <MenuItemLink to="apps">Applications</MenuItemLink>
+                  <MenuItemLink to="groups">Groups</MenuItemLink>
                 </DropdownButton>
-
             </ul>
           </div>
         </div>

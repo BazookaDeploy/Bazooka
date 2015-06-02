@@ -21,6 +21,9 @@ namespace DataAccess.Read
 
         public DbSet<DeploymentDto> Deployments { get; set; }
 
+        public DbSet<UserDto> Users { get; set; }
+        public DbSet<GroupDto> Groups { get; set; }
+        public DbSet<UsersInGroupsDto> UsersInGroups { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -31,12 +34,43 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new DeployUnitDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployUnitParameterDtoConfiguration());
             modelBuilder.Configurations.Add(new DeploymentDtoConfiguration());
+            modelBuilder.Configurations.Add(new UsersInGroupsDtoConfiguration());
+            modelBuilder.Configurations.Add(new GroupsDtoConfiguration());
+            modelBuilder.Configurations.Add(new UserDtoConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
 
-    public class ApplicationDtoConfiguration :EntityTypeConfiguration<ApplicationDto> {
-        public ApplicationDtoConfiguration() {
+    public class UsersInGroupsDtoConfiguration : EntityTypeConfiguration<UsersInGroupsDto>
+    {
+        public UsersInGroupsDtoConfiguration()
+        {
+            ToTable("UsersInGroups");
+            HasKey(x => new { x.RoleId, x.UserId });
+        }
+    }
+
+
+    public class GroupsDtoConfiguration : EntityTypeConfiguration<GroupDto>
+    {
+        public GroupsDtoConfiguration()
+        {
+            ToTable("Groups");
+        }
+    }
+
+    public class UserDtoConfiguration : EntityTypeConfiguration<UserDto>
+    {
+        public UserDtoConfiguration()
+        {
+            ToTable("Users");
+        }
+    }
+
+    public class ApplicationDtoConfiguration : EntityTypeConfiguration<ApplicationDto>
+    {
+        public ApplicationDtoConfiguration()
+        {
             ToTable("Applications");
         }
     }
