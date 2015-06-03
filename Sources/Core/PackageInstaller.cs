@@ -179,9 +179,6 @@ namespace Bazooka.Core
 
             manager.InstallPackage(package, false, true);
 
-            // clear the zip cache so it will not grow too  much
-            OptimizedZipPackage.PurgeCache();
-
             Logger.Log("Package downloaded ");
         }
 
