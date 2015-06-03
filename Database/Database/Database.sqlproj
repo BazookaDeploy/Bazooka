@@ -81,6 +81,11 @@
     <Build Include="Read\Users.sql" />
     <Build Include="Read\Groups.sql" />
     <Build Include="Read\UsersInGroups.sql" />
+    <Build Include="Write\AllowedUsers.sql" />
+    <Build Include="Write\AllowedGroups.sql" />
+    <Build Include="Read\Deployers.sql" />
+    <Build Include="Read\AllowedUsers.sql" />
+    <Build Include="Read\AllowedGroups.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
