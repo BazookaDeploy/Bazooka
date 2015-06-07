@@ -55,7 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Read\AllowedGroupsDto.cs" />
+    <Compile Include="Read\AllowedUsersDto.cs" />
     <Compile Include="Read\ApplicationDto.cs" />
+    <Compile Include="Read\DeployerDto.cs" />
     <Compile Include="Read\DeploymentDto.cs" />
     <Compile Include="Read\DeployUnitDto.cs" />
     <Compile Include="Read\DeployUnitParameterDto.cs" />
@@ -64,6 +67,10 @@
     <Compile Include="Read\ReadContext.cs" />
     <Compile Include="Read\UserDto.cs" />
     <Compile Include="Read\UsersInGroupsDto.cs" />
+    <Compile Include="Write\AllowedGroup.cs" />
+    <Compile Include="Write\AllowedGroupMap.cs" />
+    <Compile Include="Write\AllowedUser.cs" />
+    <Compile Include="Write\AllowedUserMap.cs" />
     <Compile Include="Write\Application.cs" />
     <Compile Include="Write\ApplicationMap.cs" />
     <Compile Include="Write\Deployment.cs" />

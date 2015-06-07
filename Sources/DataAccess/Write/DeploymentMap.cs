@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using NHibernate;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace DataAccess.Write
                     map.Column("Id");
                 });
 
-            Property(x => x.Log, x => x.Length(4000));
+            Property(x => x.Log, x => x.Type(NHibernateUtil.StringClob));
             Property(x => x.StartDate, x => x.NotNullable(false));
             Property(x => x.EndDate, x => x.NotNullable(false));
             Property(x => x.EnviromentId, x => x.NotNullable(true));

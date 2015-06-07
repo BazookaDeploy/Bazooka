@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[AllowedUsers]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [UserID] NVARCHAR(128) NOT NULL, 
     [EnviromentId] INT NOT NULL, 
 

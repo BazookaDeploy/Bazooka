@@ -1,5 +1,5 @@
 ﻿CREATE VIEW [rd].[AllowedUsers]
-	AS	SELECT	[Id], 
+	AS	SELECT	[Dbo].AllowedUsers.[Id], 
 				[UserID], 
 				[EnviromentId],
 				AspNetUsers.UserName 

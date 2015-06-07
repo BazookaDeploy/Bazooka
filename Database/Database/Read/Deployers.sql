@@ -2,7 +2,7 @@
 	AS 
 
 	SELECT Dep.EnviromentId, 
-		   Dep.OwnerId AS USerId, 
+		   Dep.OwnerId AS UserId, 
 		   Dep.ApplicationId, 
 		   AspNetUsers.UserName, 
 		   Applications.Name AS ApplicationName, 

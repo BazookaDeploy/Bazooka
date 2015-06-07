@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[AllowedGroups]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [EnviromentId] INT NOT NULL, 
     [GroupId] NVARCHAR(128) NOT NULL,
 	 

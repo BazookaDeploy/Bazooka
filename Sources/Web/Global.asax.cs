@@ -30,6 +30,8 @@ namespace Web
             mapper.AddMapping<DeployUnitMap>();
             mapper.AddMapping<ParameterMap>();
             mapper.AddMapping<DeploymentMap>();
+            mapper.AddMapping<AllowedGroupMap>();
+            mapper.AddMapping<AllowedUserMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 

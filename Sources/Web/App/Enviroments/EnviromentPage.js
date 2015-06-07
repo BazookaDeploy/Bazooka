@@ -40,9 +40,14 @@ var CreateDialog = React.createClass({
     }
   })
 
+
 var Enviroments = React.createClass({
+
+
   render:function(){
-    return (<tr><td><Link to="deployunits" params={{enviromentId: this.props.Enviroment.Id}}>{this.props.Enviroment.Configuration}</Link></td></tr>)
+    return (<tr>
+      <td><Link to="deployunits" params={{enviromentId: this.props.Enviroment.Id}}>{this.props.Enviroment.Configuration}</Link></td>
+      </tr>)
   }
 });
 

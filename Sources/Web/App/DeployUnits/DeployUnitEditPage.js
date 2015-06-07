@@ -95,21 +95,21 @@ var EditPage = React.createClass({
 
 	getInitialState: function() {
 
-	return {
-		Name:null,
-		Machine:null,
-		PackageName: null,
-		Directory:null,
-		Repository:null,
-		key:"",
-		value:"",
-		Encrypted:false,
-		Parameters : [],
-		UninstallationScript : null,
-		InstallationScript:null,
-		ConfigurationFile:null,
-		ConfigTransform:null
-	};
+		return {
+			Name:null,
+			Machine:null,
+			PackageName: null,
+			Directory:null,
+			Repository:null,
+			key:"",
+			value:"",
+			Encrypted:false,
+			Parameters : [],
+			UninstallationScript : null,
+			InstallationScript:null,
+			ConfigurationFile:null,
+			ConfigTransform:null
+		};
 
 	},
 
@@ -132,6 +132,7 @@ var EditPage = React.createClass({
 	},
 
  	render: function() {
+
 		return (
 			<div>
 				<TabbedArea defaultActiveKey={1}>

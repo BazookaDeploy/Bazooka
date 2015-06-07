@@ -25,6 +25,9 @@ namespace DataAccess.Read
         public DbSet<GroupDto> Groups { get; set; }
         public DbSet<UsersInGroupsDto> UsersInGroups { get; set; }
 
+        public DbSet<AllowedUsersDto> AllowedUsers { get; set; }
+        public DbSet<AllowedGroupsDto> AllowedGroups { get; set; }
+        public DbSet<DeployerDto> Deployers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -37,7 +40,45 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new UsersInGroupsDtoConfiguration());
             modelBuilder.Configurations.Add(new GroupsDtoConfiguration());
             modelBuilder.Configurations.Add(new UserDtoConfiguration());
+            modelBuilder.Configurations.Add(new AllowedUsersDtoConfiguration());
+            modelBuilder.Configurations.Add(new AllowedGroupsDtoConfiguration());
+            modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
+
             base.OnModelCreating(modelBuilder);
+        }
+    }
+
+
+
+
+    public class DeployersDtoConfiguration : EntityTypeConfiguration<DeployerDto>
+    {
+        public DeployersDtoConfiguration()
+        {
+            ToTable("Deployers");
+            HasKey(x => new
+            {
+                x.ApplicationId,
+                x.EnviromentId,
+                x.UserId
+            });
+        }
+    }
+
+
+    public class AllowedGroupsDtoConfiguration : EntityTypeConfiguration<AllowedGroupsDto>
+    {
+        public AllowedGroupsDtoConfiguration()
+        {
+            ToTable("AllowedGroups");
+        }
+    }
+
+    public class AllowedUsersDtoConfiguration : EntityTypeConfiguration<AllowedUsersDto>
+    {
+        public AllowedUsersDtoConfiguration()
+        {
+            ToTable("AllowedUsers");
         }
     }
 

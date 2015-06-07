@@ -31,6 +31,7 @@ module.exports = {
 		}))
 	},
 
+
 	updateEnviroments: function(applicationId) {
 		reqwest({
 			url: "/api/enviroments/" + applicationId,

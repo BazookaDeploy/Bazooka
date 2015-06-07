@@ -188,7 +188,11 @@ var CreateDialog = React.createClass({
     mixins: [Router.State],
     getInitialState: function() {
       return {
-        envs : Store.getAll()
+        envs : Store.getAll(),
+        users : [],
+        groups:[],
+        allUsers:[],
+        allGroups:[]
       };
     },
 
@@ -196,13 +200,79 @@ var CreateDialog = React.createClass({
       Store.addChangeListener(this._onChange);
       var id = this.getParams().enviromentId;
       Actions.updateDeployUnits(id);
+
+      Actions.getUsers(id).then(x => {
+        this.setState({users:x})
+      })
+
+      Actions.getAllUsers(id).then(x => {
+        this.setState({allUsers:x})
+      })
+
+      Actions.getGroups(id).then(x => {
+        this.setState({groups:x})
+      })
+
+      Actions.getAllGroups(id).then(x => {
+        this.setState({allGroups:x})
+      })
     },
 
     componentWillUnmount: function() {
       Store.removeChangeListener(this._onChange);
     },
 
+    removeUser:function(id){
+      debugger;
+      Actions.removeUser(id).then(x => {
+        Actions.getUsers(this.getParams().enviromentId).then(z => {
+          this.setState({users:z})
+        })
+      })
+    },
+
+    removeGroup:function(id){
+      debugger;
+      Actions.removeGroups(id).then(x => {
+        Actions.getGroups(this.getParams().enviromentId).then(z => {
+          this.setState({groups:z})
+        })
+      })
+    },
+
+    addUser:function(){
+      Actions.addUser(this.getParams().enviromentId,this.refs.user.getDOMNode().value).then(x => {
+        Actions.getUsers(this.getParams().enviromentId).then(z => {
+          this.setState({users:z})
+        })
+      })
+    },
+
+    addGroup:function(){
+      Actions.addGroup(this.getParams().enviromentId,this.refs.group.getDOMNode().value).then(x => {
+        Actions.getGroups(this.getParams().enviromentId).then(z => {
+          this.setState({groups:z})
+        })
+      })
+    },
+
     render: function () {
+      var users = this.state.users.map(x => {
+        return (<tr><td>{x.UserName}  <button className="btn btn-danger btn-xs pull-right" onClick={z => this.removeUser(x.Id)}>Remove</button></td></tr>);
+      })
+
+      var allUsers = this.state.allUsers.map(x => {
+        return (<option value={x.Id}>{x.UserName}</option>);
+      })
+
+      var groups = this.state.groups.map(x => {
+        return (<tr><td>{x.Name}  <button className="btn btn-danger btn-xs pull-right" onClick={z => {this.removeGroup(x.Id)}}>Remove</button></td></tr>);
+      })
+
+      var allGroups = this.state.allGroups.map(x => {
+        return (<option value={x.Id}>{x.Name}</option>);
+      })
+
       return(<div>
         <table className="table table-bordered table-striped">
           <thead><tr><th>Deploy Units
@@ -215,6 +285,48 @@ var CreateDialog = React.createClass({
               ))}
           </tbody>
         </table>
+
+        <h3>Allowed Users</h3>
+
+        <table className="table table-bordered table-hovered">
+          <thead><tr><th>Users</th></tr></thead>
+          <tbody>
+            {users}
+            <tr>
+            <td>
+              <div className="input-group">
+                <select ref="user" className="form-control">
+                  {allUsers}
+                </select>
+                <span className="input-group-btn">
+                  <button  className="btn btn-default" onClick={this.addUser}>Add</button>
+                </span>
+              </div>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Allowed Groups</h3>
+
+          <table className="table table-bordered table-hovered">
+            <thead><tr><th>Groups</th></tr></thead>
+            <tbody>
+              {groups}
+              <tr>
+                <td>
+                  <div className="input-group">
+                    <select ref="group" className="form-control">
+                      {allGroups}
+                    </select>
+                    <span className="input-group-btn">
+                      <button  className="btn btn-default" onClick={this.addGroup}>Add</button>
+                    </span>
+                  </div>
+                </td></tr>
+            </tbody>
+          </table>
+
         </div>)
       },
 

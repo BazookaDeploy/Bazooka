@@ -1,5 +1,5 @@
 ﻿CREATE VIEW [rd].[AllowedGroups]
-	AS	SELECT	[Id], 
+	AS	SELECT	[dbo].AllowedGroups.[Id], 
 				[EnviromentId], 
 				[GroupId] ,
 				AspNetRoles.Name
