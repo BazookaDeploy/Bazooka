@@ -54,22 +54,23 @@ var GroupsPage = React.createClass({
 
       <br />
 
-      <form className="">
-        <div className="form-group">
-          <label >Add user</label>
-            <select ref="user" className="form-control">
-              {users}
-            </select>
-        </div>
-        <button  className="btn btn-default" onClick={this.addUser}>Add</button>
-      </form>
-
-      <br />
-
       <table className="table table-striped table-bordered">
       <thead><tr><th>Users </th></tr></thead>
       <tbody>
         {envs}
+
+        <tr>
+        <td>
+          <div className="input-group">
+            <select ref="user" className="form-control">
+              {users}
+            </select>
+            <span className="input-group-btn">
+              <button  className="btn btn-default" onClick={this.addUser}>Add</button>
+            </span>
+          </div>
+        </td>
+        </tr>
       </tbody>
       </table>
       </div>)
