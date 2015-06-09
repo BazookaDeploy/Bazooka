@@ -33,7 +33,7 @@
             var domain = ConfigurationManager.AppSettings["adDomain"];
             using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
             {
-                return pc.ValidateCredentials(username, password);
+                return pc.ValidateCredentials(domain + "\\"+ username, password);
             }
         }
 
