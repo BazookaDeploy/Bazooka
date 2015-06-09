@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DataAccess.Read;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,17 @@ namespace Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ReadContext db = new ReadContext();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -112,13 +124,18 @@ namespace Web.Controllers
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
 
-                 if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
+                if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
                 {
-                        if (!ActiveDirectoryAuthentication.Authenticate(model.UserName,model.Password))
-                        {
-                            ModelState.AddModelError("", "username or password not valid");
-                             return View(model);
-                        }
+                    if (!ActiveDirectoryAuthentication.Authenticate(model.UserName, model.Password))
+                    {
+                        ModelState.AddModelError("", "username or password not valid");
+                        return View(model);
+                    }
+                }
+
+                if (db.Users.Count() == 0)
+                {
+                    user.Administrator = true;
                 }
 
                 var result = await UserManager.CreateAsync(user, "bazooka");

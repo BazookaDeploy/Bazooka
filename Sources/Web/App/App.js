@@ -21,10 +21,13 @@ var App = React.createClass({
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li><a>Hello {window.Profile}</a></li>
+              {window.Administator == "True" ?
                 <DropdownButton title='Admin'  navItem={true}>
                   <MenuItemLink to="apps">Applications</MenuItemLink>
                   <MenuItemLink to="groups">Groups</MenuItemLink>
                 </DropdownButton>
+                : ""
+                }
             </ul>
           </div>
         </div>

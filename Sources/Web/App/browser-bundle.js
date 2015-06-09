@@ -24494,10 +24494,13 @@
 	            ), 
 	            React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
 	              React.createElement("li", null, React.createElement("a", null, "Hello ", window.Profile)), 
+	              window.Administator == "True" ?
 	                React.createElement(DropdownButton, {title: "Admin", navItem: true}, 
 	                  React.createElement(MenuItemLink, {to: "apps"}, "Applications"), 
 	                  React.createElement(MenuItemLink, {to: "groups"}, "Groups")
 	                )
+	                : ""
+	                
 	            )
 	          )
 	        )
