@@ -27,7 +27,7 @@
 
 		SELECT	Enviroments.Id AS EnviromentId, 
 				ApplicationId,  
-				AspNetUserRoles.RoleId as OwnerId, 
+				AspNetUserRoles.UserId as OwnerId, 
 				Configuration 
 		FROM [dbo].Enviroments	INNER JOIN [dbo].AllowedGroups ON 
 									Enviroments.Id = AllowedGroups.EnviromentId
