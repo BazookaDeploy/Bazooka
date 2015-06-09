@@ -6,6 +6,17 @@ var Modal = require("react-bootstrap/Modal");
 var ModalTrigger = require("react-bootstrap/ModalTrigger");
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
+var User = React.createClass({
+    removeUser:function(){
+        Actions.removeUser(this.props.Group,this.props.User.UserId).then(x => {
+            Actions.updateUsers(this.props.Group);
+        })
+    },
+
+    render:function(){
+        return (<tr><td>{this.props.User.UserName}<button className="btn btn-danger btn-xs pull-right" onClick={this.removeUser}>Remove</button></td></tr>);
+    }
+})
 
 var GroupsPage = React.createClass({
   mixins: [Router.State],
@@ -35,18 +46,15 @@ var GroupsPage = React.createClass({
     })
   },
 
-  removeUser:function(){
-    Actions.removeUser(this.getParams().name,this.refs.user.getDOMNode().value).then(x => {
-      Actions.updateUsers(this.getParams().name);
-    })
-  },
 
   componentWillUnmount: function() {
     Store.removeChangeListener(this._onChange);
   },
 
-  render: function () {
-    var envs = this.state.envs.map(a => (<tr><td>{a.UserName}<button className="btn btn-danger btn-xs pull-right" onClick={this.removeUser.bind(a.Id)}>Remove</button></td></tr>));
+render: function () {
+    var that=this;
+    var name = this.getParams().name;
+    var envs = this.state.envs.map(a => (<User User={a} Group={name} />));
     var users = this.state.users.map(a => (<option value={a.Id}>{a.UserName}</option>));
 
     return(<div>
