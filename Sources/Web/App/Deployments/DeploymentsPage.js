@@ -4,7 +4,7 @@ var Actions = require("./ActionsCreator");
 var Store = require("./Store");
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
-  var DeploymentRow = React.createClass({
+   var DeploymentRow = React.createClass({
     mixins:[Router.Navigation],
 
     navigate:function(){
@@ -22,21 +22,21 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
       } else if(this.props.Deployment.Status==1){
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
-            <td><i className="glyphicon glyphicon glyphicon-play" style="color:#15CAFF"></i> Running</td>
+            <td><i className="glyphicon glyphicon glyphicon-play" style={{color:"#15CAFF"}}></i> Running</td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.UserName}</td>
           </tr>);
       } else if(this.props.Deployment.Status==2){
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
-            <td> <i className="glyphicon glyphicon-ok-circle" style="color:#17EF43"></i> Succeeded</td>
+            <td> <i className="glyphicon glyphicon-ok-circle" style={{color:"#17EF43"}}></i> Succeeded</td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.UserName}</td>
           </tr>);
       } else{
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
-            <td><i className="glyphicon glyphicon-remove-circle" style="color:#FF3B3B"></i> Failed</td>
+            <td><i className="glyphicon glyphicon-remove-circle" style={{color:"#FF3B3B"}}></i> Failed</td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.UserName}</td>
           </tr>);
