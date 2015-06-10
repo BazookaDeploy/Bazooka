@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -78,7 +78,7 @@ namespace Web.App_Start
         {
             if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
             {
-                if (!ActiveDirectoryAuthentication.Authenticate(userName, password))
+                if (ActiveDirectoryAuthentication.Authenticate(userName, password))
                 {
                     return base.PasswordSignInAsync(userName, "bazooka", isPersistent, shouldLockout);
                 }
