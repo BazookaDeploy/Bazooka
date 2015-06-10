@@ -19,7 +19,7 @@
         /// <returns>Boolean indicating if AD auth is enabled</returns>
         public static bool IsADAuthenticationEnabled()
         {
-            return pc.ValidateCredentials(domain + "\\" + username, password) || pc.ValidateCredentials(username, password)
+            return bool.Parse(ConfigurationManager.AppSettings["activeDirectory"]);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@
             var domain = ConfigurationManager.AppSettings["adDomain"];
             using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
             {
-                return pc.ValidateCredentials(domain + "\\"+ username, password);
+                return pc.ValidateCredentials(domain + "\\" + username, password) || pc.ValidateCredentials(username, password);
             }
         }
 

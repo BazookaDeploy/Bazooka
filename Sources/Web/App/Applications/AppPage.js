@@ -24,7 +24,7 @@ var CreateDialog = React.createClass({
         <form role="form">
           <div className="form-group">
             <label htmlFor="name">Application name</label>
-            <input type="text" className="form-control" id="name" placeholder="Name" ref="name" />
+            <input type="text" className="form-control" id="name" placeholder="Name" autoFocus ref="name" />
           </div>
         </form>
       </div>

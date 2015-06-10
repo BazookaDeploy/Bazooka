@@ -24,11 +24,11 @@ var CreateDialog = React.createClass({
           <form role="form">
             <div className="form-group">
               <label htmlFor="configuration">Configuration</label>
-              <input type="text" className="form-control" id="configuration" placeholder="configuration" ref="configuration" />
+              <input type="text" className="form-control" id="configuration" placeholder="Configuration" autoFocus ref="configuration" />
             </div>
             <div className="form-group">
               <label htmlFor="description">Description (Optional)</label>
-              <textarea className="form-control" id="description" placeholder="description" ref="description" />
+              <textarea className="form-control" id="description" placeholder="Description of your enviroment ( optional)" ref="description" />
             </div>
           </form>
         </div>

@@ -27559,7 +27559,7 @@
 	        React.createElement("form", {role: "form"}, 
 	          React.createElement("div", {className: "form-group"}, 
 	            React.createElement("label", {htmlFor: "name"}, "Application name"), 
-	            React.createElement("input", {type: "text", className: "form-control", id: "name", placeholder: "Name", ref: "name"})
+	            React.createElement("input", {type: "text", className: "form-control", id: "name", placeholder: "Name", autoFocus: true, ref: "name"})
 	          )
 	        )
 	      ), 
@@ -28218,11 +28218,11 @@
 	          React.createElement("form", {role: "form"}, 
 	            React.createElement("div", {className: "form-group"}, 
 	              React.createElement("label", {htmlFor: "configuration"}, "Configuration"), 
-	              React.createElement("input", {type: "text", className: "form-control", id: "configuration", placeholder: "configuration", ref: "configuration"})
+	              React.createElement("input", {type: "text", className: "form-control", id: "configuration", placeholder: "Configuration", autoFocus: true, ref: "configuration"})
 	            ), 
 	            React.createElement("div", {className: "form-group"}, 
 	              React.createElement("label", {htmlFor: "description"}, "Description (Optional)"), 
-	              React.createElement("textarea", {className: "form-control", id: "description", placeholder: "description", ref: "description"})
+	              React.createElement("textarea", {className: "form-control", id: "description", placeholder: "Description of your enviroment ( optional)", ref: "description"})
 	            )
 	          )
 	        ), 
@@ -28571,7 +28571,7 @@
 	        React.createElement("form", {role: "form"}, 
 	          React.createElement("div", {className: "form-group"}, 
 	            React.createElement("label", {htmlFor: "Name"}, "Name"), 
-	            React.createElement("input", {type: "text", className: "form-control", id: "Name", placeholder: "Name", valueLink: this.linkState('name')})
+	            React.createElement("input", {type: "text", className: "form-control", id: "Name", placeholder: "Name", autoFocus: true, valueLink: this.linkState('name')})
 	          ), 
 	          React.createElement("div", {className: "form-group"}, 
 	            React.createElement("label", {htmlFor: "Machine"}, "Machine"), 
@@ -30726,7 +30726,7 @@
 	          React.createElement("form", {role: "form"}, 
 	            React.createElement("div", {className: "form-group"}, 
 	              React.createElement("label", {htmlFor: "name"}, "Name"), 
-	              React.createElement("input", {type: "text", className: "form-control", id: "name", placeholder: "name", ref: "name"})
+	              React.createElement("input", {type: "text", className: "form-control", id: "name", placeholder: "Name", autoFocus: true, ref: "name"})
 	            )
 	          )
 	        ), 

@@ -127,7 +127,7 @@ var CreateDialog = React.createClass({
         <form role="form">
           <div className="form-group">
             <label htmlFor="Name">Name</label>
-            <input type="text" className="form-control" id="Name" placeholder="Name" valueLink={this.linkState('name')} />
+            <input type="text" className="form-control" id="Name" placeholder="Name" autoFocus valueLink={this.linkState('name')} />
           </div>
           <div className="form-group">
             <label htmlFor="Machine">Machine</label>
