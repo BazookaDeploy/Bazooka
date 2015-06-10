@@ -28566,7 +28566,7 @@
 
 	  render:function(){
 	    return(
-	      React.createElement(Modal, React.__spread({},  this.props, {title: "Create new deploy unit"}), 
+	      React.createElement(Modal, React.__spread({},  this.props, {backdrop: "static", title: "Create new deploy unit"}), 
 	      React.createElement("div", {className: "modal-body"}, 
 	        React.createElement("form", {role: "form"}, 
 	          React.createElement("div", {className: "form-group"}, 

@@ -122,7 +122,7 @@ var CreateDialog = React.createClass({
 
   render:function(){
     return(
-      <Modal {...this.props} title="Create new deploy unit">
+      <Modal {...this.props} backdrop="static" title="Create new deploy unit">
       <div className="modal-body">
         <form role="form">
           <div className="form-group">
