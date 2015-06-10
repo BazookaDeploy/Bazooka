@@ -1,4 +1,4 @@
-﻿using DataAccess.Read;
+using DataAccess.Read;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -124,6 +124,13 @@ namespace Web.Controllers
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
 
+                if (db.Users.Count() == 0)
+                {
+                    user.Administrator = true;
+                }
+
+                IdentityResult result;
+
                 if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
                 {
                     if (!ActiveDirectoryAuthentication.Authenticate(model.UserName, model.Password))
@@ -131,14 +138,18 @@ namespace Web.Controllers
                         ModelState.AddModelError("", "username or password not valid");
                         return View(model);
                     }
-                }
+                    else
+                    {
 
-                if (db.Users.Count() == 0)
+                        result = await UserManager.CreateAsync(user, "bazooka");
+                    }
+                }
+                else
                 {
-                    user.Administrator = true;
+                    result = await UserManager.CreateAsync(user, model.Password);
                 }
 
-                var result = await UserManager.CreateAsync(user, "bazooka");
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
