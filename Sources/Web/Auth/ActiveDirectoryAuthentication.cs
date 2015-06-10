@@ -19,7 +19,7 @@
         /// <returns>Boolean indicating if AD auth is enabled</returns>
         public static bool IsADAuthenticationEnabled()
         {
-            return bool.Parse(ConfigurationManager.AppSettings["activeDirectory"]);
+            return pc.ValidateCredentials(domain + "\\" + username, password) || pc.ValidateCredentials(username, password)
         }
 
         /// <summary>
