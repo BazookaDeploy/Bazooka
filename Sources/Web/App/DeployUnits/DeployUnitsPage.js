@@ -117,7 +117,8 @@ var CreateDialog = React.createClass({
       alert("Agent responding");
     }).fail(x =>{
         alert("Agent not responding");
-    })
+    });
+    return false;
   },
 
   render:function(){

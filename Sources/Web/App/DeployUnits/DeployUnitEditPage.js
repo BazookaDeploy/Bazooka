@@ -59,6 +59,7 @@ var EditPage = React.createClass({
     }).fail(x =>{
         alert("Agent not responding");
     })
+	return false;
   },
 
 	componentDidMount: function() {

@@ -2,6 +2,8 @@ var React = require("react");
 var Router = require('react-router');
 var Actions = require("./ActionsCreator");
 var Store = require("./Store");
+var ReactIntl = require("react-intl")
+var FormattedRelative = ReactIntl.FormattedRelative;
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
    var DeploymentRow = React.createClass({
@@ -18,6 +20,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
             <td><i className="glyphicon glyphicon-list-alt"></i> Queued</td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.UserName}</td>
+            <td></td>
           </tr>);
       } else if(this.props.Deployment.Status==1){
         return(
@@ -25,6 +28,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
             <td><i className="glyphicon glyphicon glyphicon-play" style={{color:"#15CAFF"}}></i> Running</td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.UserName}</td>
+            <td><FormattedRelative value={this.props.Deployment.StartDate} /></td>
           </tr>);
       } else if(this.props.Deployment.Status==2){
         return(
@@ -32,6 +36,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
             <td> <i className="glyphicon glyphicon-ok-circle" style={{color:"#17EF43"}}></i> Succeeded</td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.UserName}</td>
+            <td><FormattedRelative value={this.props.Deployment.StartDate} /></td>
           </tr>);
       } else{
         return(
@@ -39,6 +44,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
             <td><i className="glyphicon glyphicon-remove-circle" style={{color:"#FF3B3B"}}></i> Failed</td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.UserName}</td>
+            <td><FormattedRelative value={this.props.Deployment.StartDate} /></td>
           </tr>);
       }
     }
@@ -70,7 +76,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
       return(<div>
         <h2>Deployments:</h2>
         <table className="table table-border table-hover">
-          <thead><tr><th>Status</th><th>Application</th><th>Started by</th></tr></thead>
+          <thead><tr><th>Status</th><th>Application</th><th>Started by</th><th></th></tr></thead>
           <tbody>
           {this.state.deployments.map(x => (
               <DeploymentRow Deployment={x} />
