@@ -30390,6 +30390,7 @@
 	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
 	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon-list-alt"}), " Queued"), 
 	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
+	            React.createElement("td", null, this.props.Deployment.Version), 
 	            React.createElement("td", null, this.props.Deployment.UserName), 
 	            React.createElement("td", null)
 	          ));
@@ -30398,6 +30399,7 @@
 	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
 	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon glyphicon-play", style: {color:"#15CAFF"}}), " Running"), 
 	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
+	            React.createElement("td", null, this.props.Deployment.Version), 
 	            React.createElement("td", null, this.props.Deployment.UserName), 
 	            React.createElement("td", null, React.createElement(FormattedRelative, {value: this.props.Deployment.StartDate}))
 	          ));
@@ -30406,6 +30408,7 @@
 	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
 	            React.createElement("td", null, " ", React.createElement("i", {className: "glyphicon glyphicon-ok-circle", style: {color:"#17EF43"}}), " Succeeded"), 
 	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
+	            React.createElement("td", null, this.props.Deployment.Version), 
 	            React.createElement("td", null, this.props.Deployment.UserName), 
 	            React.createElement("td", null, React.createElement(FormattedRelative, {value: this.props.Deployment.StartDate}))
 	          ));
@@ -30414,6 +30417,7 @@
 	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
 	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon-remove-circle", style: {color:"#FF3B3B"}}), " Failed"), 
 	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
+	            React.createElement("td", null, this.props.Deployment.Version), 
 	            React.createElement("td", null, this.props.Deployment.UserName), 
 	            React.createElement("td", null, React.createElement(FormattedRelative, {value: this.props.Deployment.StartDate}))
 	          ));
@@ -30447,7 +30451,7 @@
 	      return(React.createElement("div", null, 
 	        React.createElement("h2", null, "Deployments:"), 
 	        React.createElement("table", {className: "table table-border table-hover"}, 
-	          React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Status"), React.createElement("th", null, "Application"), React.createElement("th", null, "Started by"), React.createElement("th", null))), 
+	          React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Status"), React.createElement("th", null, "Application"), React.createElement("th", null, "Version"), React.createElement("th", null, "Started by"), React.createElement("th", null))), 
 	          React.createElement("tbody", null, 
 	          this.state.deployments.map(function(x)  
 	              {return React.createElement(DeploymentRow, {Deployment: x});}
