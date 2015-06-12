@@ -128,8 +128,9 @@ var EditPage = React.createClass({
 			this.state.InstallationScript,
 			this.state.ConfigurationFile,
 			this.state.ConfigTransform
-			)
-					return;
+			);
+
+    return false;
 	},
 
  	render: function() {
@@ -138,7 +139,7 @@ var EditPage = React.createClass({
 			<div>
 				<TabbedArea defaultActiveKey={1}>
 		    	<TabPane eventKey={1} tab='Settings'>
-						<form role="form">
+						<form role="form" onSubmit={this.save}>
 							<div className="form-group">
 								<label htmlFor="Name">Name</label>
 								<input type="text" className="form-control" id="Name" placeholder="Name" valueLink={this.linkState('Name')} />

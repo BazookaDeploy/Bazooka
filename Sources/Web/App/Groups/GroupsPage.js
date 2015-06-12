@@ -12,13 +12,14 @@ var CreateDialog = React.createClass({
     if(name.length!==0){
       Actions.createGroup(name).then(x => this.props.onRequestHide());
     }
+    return false;
   },
 
   render:function(){
     return(
       <Modal {...this.props} title="Create new group">
         <div className="modal-body">
-          <form role="form">
+          <form role="form" onSubmit={this.create}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input type="text" className="form-control" id="name" placeholder="Name" autoFocus ref="name" />

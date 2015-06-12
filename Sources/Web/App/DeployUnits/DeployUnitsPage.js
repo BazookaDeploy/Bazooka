@@ -73,6 +73,7 @@ var CreateDialog = React.createClass({
         this.state.params)
              .then(x => this.props.onRequestHide());
     }
+    return false;
   },
 
   /**
@@ -125,7 +126,7 @@ var CreateDialog = React.createClass({
     return(
       <Modal {...this.props} backdrop="static" title="Create new deploy unit">
       <div className="modal-body">
-        <form role="form">
+        <form role="form" onSubmit={this.create}>
           <div className="form-group">
             <label htmlFor="Name">Name</label>
             <input type="text" className="form-control" id="Name" placeholder="Name" autoFocus valueLink={this.linkState('name')} />

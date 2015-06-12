@@ -15,13 +15,15 @@ var CreateDialog = React.createClass({
     if(configuration.length!==0){
       Actions.createEnviroment(id, configuration,description).then(x => this.props.onRequestHide());
     }
+      
+    return false;
   },
 
   render:function(){
     return(
       <Modal {...this.props} title="Create new enviroment">
         <div className="modal-body">
-          <form role="form">
+          <form role="form" onSubmit={this.create}>
             <div className="form-group">
               <label htmlFor="configuration">Configuration</label>
               <input type="text" className="form-control" id="configuration" placeholder="Configuration" autoFocus ref="configuration" />

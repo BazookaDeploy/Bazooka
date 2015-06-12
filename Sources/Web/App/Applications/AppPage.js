@@ -15,13 +15,15 @@ var CreateDialog = React.createClass({
         this.props.onRequestHide();
       });
     }
+    
+    return false;
   },
 
   render:function(){
     return(
       <Modal {...this.props} title="Create new application">
       <div className="modal-body">
-        <form role="form">
+        <form role="form" onSubmit={this.create}>
           <div className="form-group">
             <label htmlFor="name">Application name</label>
             <input type="text" className="form-control" id="name" placeholder="Name" autoFocus ref="name" />
