@@ -29354,7 +29354,7 @@
 
 
 	  testAgent : function(){
-	    Actions.testAgent(this.state.machine).then(function(x)  {
+	    Actions.testAgent(this.state.Machine).then(function(x)  {
 	      alert("Agent responding");
 	    }).fail(function(x) {
 	        alert("Agent not responding");

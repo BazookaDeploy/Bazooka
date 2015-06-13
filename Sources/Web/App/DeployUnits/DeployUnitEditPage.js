@@ -54,7 +54,7 @@ var EditPage = React.createClass({
 
 
   testAgent : function(){
-    Actions.testAgent(this.state.machine).then(x => {
+    Actions.testAgent(this.state.Machine).then(x => {
       alert("Agent responding");
     }).fail(x =>{
         alert("Agent not responding");
