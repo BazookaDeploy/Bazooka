@@ -17,7 +17,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
       if(this.props.Deployment.Status==0){
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
-            <td><i className="glyphicon glyphicon-list-alt"></i> Queued</td>
+            <td><i className="glyphicon glyphicon-list-alt"></i></td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.Version}</td>
             <td>{this.props.Deployment.UserName}</td>
@@ -26,7 +26,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
       } else if(this.props.Deployment.Status==1){
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
-            <td><i className="glyphicon glyphicon glyphicon-play" style={{color:"#15CAFF"}}></i> Running</td>
+            <td><i className="glyphicon glyphicon glyphicon-play" style={{color:"#15CAFF"}}></i></td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.Version}</td>
             <td>{this.props.Deployment.UserName}</td>
@@ -35,7 +35,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
       } else if(this.props.Deployment.Status==2){
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
-            <td> <i className="glyphicon glyphicon-ok-circle" style={{color:"#17EF43"}}></i> Succeeded</td>
+            <td> <i className="glyphicon glyphicon-ok-circle" style={{color:"#17EF43"}}></i></td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.Version}</td>
             <td>{this.props.Deployment.UserName}</td>
@@ -44,7 +44,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
       } else{
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
-            <td><i className="glyphicon glyphicon-remove-circle" style={{color:"#FF3B3B"}}></i> Failed</td>
+            <td><i className="glyphicon glyphicon-remove-circle" style={{color:"#FF3B3B"}}></i></td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.Version}</td>
             <td>{this.props.Deployment.UserName}</td>
