@@ -276,6 +276,8 @@ var CreateDialog = React.createClass({
       })
 
       return(<div>
+        <h3>Application {this.getParams().applicationName} &gt; {this.getParams().enviroment}</h3>
+        
         <table className="table table-bordered table-striped">
           <thead><tr><th>Deploy Units
             <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} />}>
@@ -283,7 +285,12 @@ var CreateDialog = React.createClass({
             </ModalTrigger></th></tr></thead>
           <tbody>
             {this.state.envs.map(x => (
-              <tr><td><Link to="deployunitedit" params={{deployUnitId: x.Id}}>{x.Name}</Link></td></tr>
+              <tr><td><Link to="deployunitedit" params={{
+                  applicationName:this.getParams().applicationName,
+                  enviroment:this.getParams().enviroment,
+                  deployUnitName : x.Name,
+                  deployUnitId: x.Id
+                }}>{x.Name}</Link></td></tr>
               ))}
           </tbody>
         </table>

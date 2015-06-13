@@ -18,9 +18,9 @@ var routes = (
   <Route handler={App}>
     <DefaultRoute name="home" handler={HomePage} />
     <Route name="apps" path="apps" handler={AppPage}/>
-    <Route name="enviroments" path="enviroments/:applicationId" handler={EnviromentPage} />
-    <Route name="deployunits" path="deployunits/:enviromentId" handler={DeployUnitsPage} />
-    <Route name="deployunitedit" path="deployunits/edit/:deployUnitId" handler={DeployUnitEditPage} />
+    <Route name="enviroments" path="enviroments/:applicationName/:applicationId" handler={EnviromentPage} />
+    <Route name="deployunits" path="deployunits/:applicationName/:enviroment/:enviromentId" handler={DeployUnitsPage} />
+    <Route name="deployunitedit" path="deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId" handler={DeployUnitEditPage} />
     <Route name="deploys" path="deploys" handler={DeploysPage} />
     <Route name="deployments" path="deployments" handler={DeploymentsPage} />
     <Route name="deployment" path="deployment/:Id" handler={DeploymentPage} />

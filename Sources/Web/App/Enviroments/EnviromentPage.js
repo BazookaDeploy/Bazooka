@@ -48,7 +48,10 @@ var Enviroments = React.createClass({
 
   render:function(){
     return (<tr>
-      <td><Link to="deployunits" params={{enviromentId: this.props.Enviroment.Id}}>{this.props.Enviroment.Configuration}</Link></td>
+      <td><Link to="deployunits" params={{
+        applicationName: this.props.Enviroment.Name,
+        enviroment: this.props.Enviroment.Configuration,
+        enviromentId: this.props.Enviroment.Id}}>{this.props.Enviroment.Configuration}</Link></td>
       </tr>)
   }
 });
@@ -74,7 +77,8 @@ var EnviromentsPage = React.createClass({
   render: function () {
     var envs = this.state.envs.map(a => (<Enviroments Enviroment={a}/>));
 
-    return(<div>
+    return(<div>    
+      <h3>Application {this.getParams().applicationName}</h3>
       <table className="table table-striped table-bordered">
       <thead><tr><th>Enviroments <ModalTrigger modal={<CreateDialog Application={this.getParams().applicationId} />}>
         <button className='btn btn-primary btn-xs pull-right'>Create</button>

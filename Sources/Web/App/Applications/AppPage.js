@@ -40,7 +40,9 @@ var CreateDialog = React.createClass({
 
 var AppLine = React.createClass({
   render: function(){
-    return(<tr><td><Link to="enviroments" params={{applicationId: this.props.Application.Id}}><b>{this.props.Application.Name}</b></Link></td></tr>)
+    return(<tr><td><Link to="enviroments" params={{
+       applicationName : this.props.Application.Name,
+       applicationId: this.props.Application.Id}}><b>{this.props.Application.Name}</b></Link></td></tr>)
   }
 });
 

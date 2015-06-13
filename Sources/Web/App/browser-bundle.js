@@ -52,21 +52,21 @@
 	var HomePage = __webpack_require__(218);
 	var AppPage = __webpack_require__(230);
 	var EnviromentPage = __webpack_require__(239);
-	var DeployUnitsPage = __webpack_require__(240);
-	var DeployUnitEditPage = __webpack_require__(247);
-	var DeploysPage = __webpack_require__(254);
+	var DeployUnitsPage = __webpack_require__(243);
+	var DeployUnitEditPage = __webpack_require__(250);
+	var DeploysPage = __webpack_require__(257);
 	var DeploymentsPage = __webpack_require__(259);
 	var DeploymentPage = __webpack_require__(296);
 	var  GroupsPage = __webpack_require__(300);
-	var  GroupPage = __webpack_require__(301);
+	var  GroupPage = __webpack_require__(304);
 
 	var routes = (
 	  React.createElement(Route, {handler: App}, 
 	    React.createElement(DefaultRoute, {name: "home", handler: HomePage}), 
 	    React.createElement(Route, {name: "apps", path: "apps", handler: AppPage}), 
-	    React.createElement(Route, {name: "enviroments", path: "enviroments/:applicationId", handler: EnviromentPage}), 
-	    React.createElement(Route, {name: "deployunits", path: "deployunits/:enviromentId", handler: DeployUnitsPage}), 
-	    React.createElement(Route, {name: "deployunitedit", path: "deployunits/edit/:deployUnitId", handler: DeployUnitEditPage}), 
+	    React.createElement(Route, {name: "enviroments", path: "enviroments/:applicationName/:applicationId", handler: EnviromentPage}), 
+	    React.createElement(Route, {name: "deployunits", path: "deployunits/:applicationName/:enviroment/:enviromentId", handler: DeployUnitsPage}), 
+	    React.createElement(Route, {name: "deployunitedit", path: "deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId", handler: DeployUnitEditPage}), 
 	    React.createElement(Route, {name: "deploys", path: "deploys", handler: DeploysPage}), 
 	    React.createElement(Route, {name: "deployments", path: "deployments", handler: DeploymentsPage}), 
 	    React.createElement(Route, {name: "deployment", path: "deployment/:Id", handler: DeploymentPage}), 
@@ -27575,7 +27575,9 @@
 
 	var AppLine = React.createClass({displayName: "AppLine",
 	  render: function(){
-	    return(React.createElement("tr", null, React.createElement("td", null, React.createElement(Link, {to: "enviroments", params: {applicationId: this.props.Application.Id}}, React.createElement("b", null, this.props.Application.Name)))))
+	    return(React.createElement("tr", null, React.createElement("td", null, React.createElement(Link, {to: "enviroments", params: {
+	       applicationName : this.props.Application.Name,
+	       applicationId: this.props.Application.Id}}, React.createElement("b", null, this.props.Application.Name)))))
 	  }
 	});
 
@@ -28196,8 +28198,8 @@
 
 	var React = __webpack_require__(1);
 	var Router = __webpack_require__(148);
-	var Actions = __webpack_require__(258);
-	var Store = __webpack_require__(255);
+	var Actions = __webpack_require__(242);
+	var Store = __webpack_require__(240);
 	var Modal = __webpack_require__(231);
 	var ModalTrigger = __webpack_require__(236);
 	var $__0=       Router,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
@@ -28244,7 +28246,10 @@
 
 	  render:function(){
 	    return (React.createElement("tr", null, 
-	      React.createElement("td", null, React.createElement(Link, {to: "deployunits", params: {enviromentId: this.props.Enviroment.Id}}, this.props.Enviroment.Configuration))
+	      React.createElement("td", null, React.createElement(Link, {to: "deployunits", params: {
+	        applicationName: this.props.Enviroment.Name,
+	        enviroment: this.props.Enviroment.Configuration,
+	        enviromentId: this.props.Enviroment.Id}}, this.props.Enviroment.Configuration))
 	      ))
 	  }
 	});
@@ -28271,6 +28276,7 @@
 	    var envs = this.state.envs.map(function(a)  {return React.createElement(Enviroments, {Enviroment: a});});
 
 	    return(React.createElement("div", null, 
+	      React.createElement("h3", null, "Application ", this.getParams().applicationName), 
 	      React.createElement("table", {className: "table table-striped table-bordered"}, 
 	      React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Enviroments ", React.createElement(ModalTrigger, {modal: React.createElement(CreateDialog, {Application: this.getParams().applicationId})}, 
 	        React.createElement("button", {className: "btn btn-primary btn-xs pull-right"}, "Create")
@@ -28296,11 +28302,161 @@
 /* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Dispatcher = __webpack_require__(220);
+	var Constants = __webpack_require__(241);
+	var EventEmitter = __webpack_require__(229).EventEmitter;
+	var assign = __webpack_require__(224);
+
+	var ActionTypes = Constants.ActionTypes;
+	var CHANGE_EVENT = 'change';
+
+	var _enviroments = [];
+	var _enviromentsGroup = [];
+
+	function _addEnviroments(raw) {
+		_enviroments = raw;
+	}
+
+	function _addGroupEnviroments(raw) {
+		_enviromentsGroup = raw;
+	}
+
+
+	var EnviromentsStore = assign({}, EventEmitter.prototype, {
+		emitChange: function() {
+			this.emit(CHANGE_EVENT);
+		},
+		addChangeListener: function(callback) {
+			this.on(CHANGE_EVENT, callback);
+		},
+		removeChangeListener: function(callback) {
+			this.removeListener(CHANGE_EVENT, callback);
+		},
+		getAll: function() {
+			return _enviroments;
+		},
+		getGrouped: function() {
+			return _enviromentsGroup;
+		}
+	});
+
+	EnviromentsStore.dispatchToken = Dispatcher.register(function(payload) {
+		var action = payload.action;
+
+		switch (action.type) {
+			case ActionTypes.UPDATE_ENVIROMENTS:
+				_addEnviroments(action.apps);
+				EnviromentsStore.emitChange();
+				break;
+
+			case ActionTypes.UPDATE_GROUPENVIROMENTS:
+				_addGroupEnviroments(action.apps);
+				EnviromentsStore.emitChange();
+				break;
+			default:
+		}
+	});
+
+	module.exports = EnviromentsStore;
+
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var keyMirror = __webpack_require__(226);
+
+	module.exports = {
+		ActionTypes: keyMirror({
+			UPDATE_ENVIROMENTS: null,
+			UPDATE_GROUPENVIROMENTS: null,
+		})
+	}
+
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ApplicationDispatcher = __webpack_require__(220);
+	var ActionTypes = __webpack_require__(241).ActionTypes;
+	var reqwest = __webpack_require__(227);
+
+	module.exports = {
+		updateAllEnviroments: function() {
+			reqwest({
+				url: "/api/enviroments/",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			}).then((function(x)  {
+				ApplicationDispatcher.handleServerAction({
+					type: ActionTypes.UPDATE_ENVIROMENTS,
+					apps: x
+				});
+			}))
+		},
+
+		updateGroupedEnviroments: function() {
+			reqwest({
+				url: "/api/enviroments/grouped/",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			}).then((function(x)  {
+				ApplicationDispatcher.handleServerAction({
+					type: ActionTypes.UPDATE_GROUPENVIROMENTS,
+					apps: x
+				});
+			}))
+		},
+
+
+		updateEnviroments: function(applicationId) {
+			reqwest({
+				url: "/api/enviroments/" + applicationId,
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			}).then((function(x)  {
+				ApplicationDispatcher.handleServerAction({
+					type: ActionTypes.UPDATE_ENVIROMENTS,
+					apps: x
+				});
+			}))
+		},
+
+		createEnviroment: function(applicationId, name, description) {
+			var promise = reqwest({
+				url: "/api/enviroments",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					ApplicationId: applicationId,
+					Configuration: name,
+					Description: description
+				})
+			});
+
+			promise.then(function(x)  {
+				module.exports.updateEnviroments(applicationId);
+			});
+
+			return promise;
+		}
+	};
+
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var React = __webpack_require__(1);
-	var LinkedState = __webpack_require__(241);
+	var LinkedState = __webpack_require__(244);
 	var Router = __webpack_require__(148);
-	var Actions = __webpack_require__(244);
-	var Store = __webpack_require__(246);
+	var Actions = __webpack_require__(247);
+	var Store = __webpack_require__(249);
 	var Modal = __webpack_require__(231);
 	var ModalTrigger = __webpack_require__(236);
 	var $__0=       Router,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
@@ -28574,6 +28730,8 @@
 	      })
 
 	      return(React.createElement("div", null, 
+	        React.createElement("h3", null, "Application ", this.getParams().applicationName, " > ", this.getParams().enviroment), 
+	        
 	        React.createElement("table", {className: "table table-bordered table-striped"}, 
 	          React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Deploy Units", 
 	            React.createElement(ModalTrigger, {modal: React.createElement(CreateDialog, {Enviroment: this.getParams().enviromentId})}, 
@@ -28581,7 +28739,12 @@
 	            )))), 
 	          React.createElement("tbody", null, 
 	            this.state.envs.map(function(x)  
-	              {return React.createElement("tr", null, React.createElement("td", null, React.createElement(Link, {to: "deployunitedit", params: {deployUnitId: x.Id}}, x.Name)));}
+	              {return React.createElement("tr", null, React.createElement("td", null, React.createElement(Link, {to: "deployunitedit", params: {
+	                  applicationName:this.getParams().applicationName,
+	                  enviroment:this.getParams().enviroment,
+	                  deployUnitName : x.Name,
+	                  deployUnitId: x.Id
+	                }}, x.Name)));}.bind(this)
 	              )
 	          )
 	        ), 
@@ -28641,7 +28804,7 @@
 
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28658,8 +28821,8 @@
 
 	"use strict";
 
-	var ReactLink = __webpack_require__(242);
-	var ReactStateSetters = __webpack_require__(243);
+	var ReactLink = __webpack_require__(245);
+	var ReactStateSetters = __webpack_require__(246);
 
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -28686,7 +28849,7 @@
 
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28763,7 +28926,7 @@
 
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28873,11 +29036,11 @@
 
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(220);
-	var ActionTypes = __webpack_require__(245).ActionTypes;
+	var ActionTypes = __webpack_require__(248).ActionTypes;
 	var reqwest = __webpack_require__(227);
 
 	module.exports = {
@@ -29055,7 +29218,7 @@
 
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var keyMirror = __webpack_require__(226);
@@ -29069,11 +29232,11 @@
 
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(220);
-	var Constants = __webpack_require__(245);
+	var Constants = __webpack_require__(248);
 	var EventEmitter = __webpack_require__(229).EventEmitter;
 	var assign = __webpack_require__(224);
 
@@ -29132,16 +29295,16 @@
 
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var LinkedState = __webpack_require__(241);
+	var LinkedState = __webpack_require__(244);
 	var Router = __webpack_require__(148);
-	var Actions = __webpack_require__(244);
-	var Store = __webpack_require__(246);
-	var TabbedArea = __webpack_require__(248);
-	var TabPane = __webpack_require__(253);
+	var Actions = __webpack_require__(247);
+	var Store = __webpack_require__(249);
+	var TabbedArea = __webpack_require__(251);
+	var TabPane = __webpack_require__(256);
 
 	var $__0=
 		    
@@ -29274,6 +29437,8 @@
 
 			return (
 				React.createElement("div", null, 
+				      React.createElement("h3", null, "Application ", this.getParams().applicationName, " > ", this.getParams().enviroment, " > ", this.getParams().deployUnitName), 
+				
 					React.createElement(TabbedArea, {defaultActiveKey: 1}, 
 			    	React.createElement(TabPane, {eventKey: 1, tab: "Settings"}, 
 							React.createElement("form", {role: "form", onSubmit: this.save}, 
@@ -29361,7 +29526,7 @@
 
 
 /***/ },
-/* 248 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -29369,7 +29534,7 @@
 	var cloneWithProps = __webpack_require__(202);
 
 	var ValidComponentChildren = __webpack_require__(212);
-	var Nav = __webpack_require__(249);
+	var Nav = __webpack_require__(252);
 	var NavItem = __webpack_require__(214);
 
 	function getDefaultActiveKeyFromChildren(children) {
@@ -29505,15 +29670,15 @@
 	module.exports = TabbedArea;
 
 /***/ },
-/* 249 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var joinClasses = __webpack_require__(200);
 	var BootstrapMixin = __webpack_require__(205);
-	var CollapsableMixin = __webpack_require__(250);
+	var CollapsableMixin = __webpack_require__(253);
 	var classSet = __webpack_require__(201);
-	var domUtils = __webpack_require__(252);
+	var domUtils = __webpack_require__(255);
 	var cloneWithProps = __webpack_require__(202);
 
 	var ValidComponentChildren = __webpack_require__(212);
@@ -29623,11 +29788,11 @@
 
 
 /***/ },
-/* 250 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TransitionEvents = __webpack_require__(251);
+	var TransitionEvents = __webpack_require__(254);
 
 	var CollapsableMixin = {
 
@@ -29749,7 +29914,7 @@
 
 
 /***/ },
-/* 251 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29868,7 +30033,7 @@
 
 
 /***/ },
-/* 252 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -29982,13 +30147,13 @@
 	};
 
 /***/ },
-/* 253 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var joinClasses = __webpack_require__(200);
 	var classSet = __webpack_require__(201);
-	var TransitionEvents = __webpack_require__(251);
+	var TransitionEvents = __webpack_require__(254);
 
 	var TabPane = React.createClass({displayName: "TabPane",
 	  getDefaultProps: function () {
@@ -30069,13 +30234,13 @@
 	module.exports = TabPane;
 
 /***/ },
-/* 254 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Actions = __webpack_require__(257);
-	var EnviromentActions = __webpack_require__(258);
-	var Store = __webpack_require__(255);
+	var Actions = __webpack_require__(258);
+	var EnviromentActions = __webpack_require__(242);
+	var Store = __webpack_require__(240);
 	var Modal = __webpack_require__(231);
 	var ModalTrigger = __webpack_require__(236);
 
@@ -30184,83 +30349,7 @@
 
 
 /***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(220);
-	var Constants = __webpack_require__(256);
-	var EventEmitter = __webpack_require__(229).EventEmitter;
-	var assign = __webpack_require__(224);
-
-	var ActionTypes = Constants.ActionTypes;
-	var CHANGE_EVENT = 'change';
-
-	var _enviroments = [];
-	var _enviromentsGroup = [];
-
-	function _addEnviroments(raw) {
-		_enviroments = raw;
-	}
-
-	function _addGroupEnviroments(raw) {
-		_enviromentsGroup = raw;
-	}
-
-
-	var EnviromentsStore = assign({}, EventEmitter.prototype, {
-		emitChange: function() {
-			this.emit(CHANGE_EVENT);
-		},
-		addChangeListener: function(callback) {
-			this.on(CHANGE_EVENT, callback);
-		},
-		removeChangeListener: function(callback) {
-			this.removeListener(CHANGE_EVENT, callback);
-		},
-		getAll: function() {
-			return _enviroments;
-		},
-		getGrouped: function() {
-			return _enviromentsGroup;
-		}
-	});
-
-	EnviromentsStore.dispatchToken = Dispatcher.register(function(payload) {
-		var action = payload.action;
-
-		switch (action.type) {
-			case ActionTypes.UPDATE_ENVIROMENTS:
-				_addEnviroments(action.apps);
-				EnviromentsStore.emitChange();
-				break;
-
-			case ActionTypes.UPDATE_GROUPENVIROMENTS:
-				_addGroupEnviroments(action.apps);
-				EnviromentsStore.emitChange();
-				break;
-			default:
-		}
-	});
-
-	module.exports = EnviromentsStore;
-
-
-/***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var keyMirror = __webpack_require__(226);
-
-	module.exports = {
-		ActionTypes: keyMirror({
-			UPDATE_ENVIROMENTS: null,
-			UPDATE_GROUPENVIROMENTS: null,
-		})
-	}
-
-
-/***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(220);
@@ -30292,80 +30381,6 @@
 
 
 /***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ApplicationDispatcher = __webpack_require__(220);
-	var ActionTypes = __webpack_require__(256).ActionTypes;
-	var reqwest = __webpack_require__(227);
-
-	module.exports = {
-		updateAllEnviroments: function() {
-			reqwest({
-				url: "/api/enviroments/",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			}).then((function(x)  {
-				ApplicationDispatcher.handleServerAction({
-					type: ActionTypes.UPDATE_ENVIROMENTS,
-					apps: x
-				});
-			}))
-		},
-
-		updateGroupedEnviroments: function() {
-			reqwest({
-				url: "/api/enviroments/grouped/",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			}).then((function(x)  {
-				ApplicationDispatcher.handleServerAction({
-					type: ActionTypes.UPDATE_GROUPENVIROMENTS,
-					apps: x
-				});
-			}))
-		},
-
-
-		updateEnviroments: function(applicationId) {
-			reqwest({
-				url: "/api/enviroments/" + applicationId,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			}).then((function(x)  {
-				ApplicationDispatcher.handleServerAction({
-					type: ActionTypes.UPDATE_ENVIROMENTS,
-					apps: x
-				});
-			}))
-		},
-
-		createEnviroment: function(applicationId, name, description) {
-			var promise = reqwest({
-				url: "/api/enviroments",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					ApplicationId: applicationId,
-					Configuration: name,
-					Description: description
-				})
-			});
-
-			promise.then(function(x)  {
-				module.exports.updateEnviroments(applicationId);
-			});
-
-			return promise;
-		}
-	};
-
-
-/***/ },
 /* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -30388,7 +30403,7 @@
 	      if(this.props.Deployment.Status==0){
 	        return(
 	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
-	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon-list-alt"}), " Queued"), 
+	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon-list-alt"})), 
 	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
 	            React.createElement("td", null, this.props.Deployment.Version), 
 	            React.createElement("td", null, this.props.Deployment.UserName), 
@@ -30397,7 +30412,7 @@
 	      } else if(this.props.Deployment.Status==1){
 	        return(
 	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
-	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon glyphicon-play", style: {color:"#15CAFF"}}), " Running"), 
+	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon glyphicon-play", style: {color:"#15CAFF"}})), 
 	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
 	            React.createElement("td", null, this.props.Deployment.Version), 
 	            React.createElement("td", null, this.props.Deployment.UserName), 
@@ -30406,7 +30421,7 @@
 	      } else if(this.props.Deployment.Status==2){
 	        return(
 	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
-	            React.createElement("td", null, " ", React.createElement("i", {className: "glyphicon glyphicon-ok-circle", style: {color:"#17EF43"}}), " Succeeded"), 
+	            React.createElement("td", null, " ", React.createElement("i", {className: "glyphicon glyphicon-ok-circle", style: {color:"#17EF43"}})), 
 	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
 	            React.createElement("td", null, this.props.Deployment.Version), 
 	            React.createElement("td", null, this.props.Deployment.UserName), 
@@ -30415,7 +30430,7 @@
 	      } else{
 	        return(
 	          React.createElement("tr", {onClick: this.navigate, style: {cursor:"pointer"}}, 
-	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon-remove-circle", style: {color:"#FF3B3B"}}), " Failed"), 
+	            React.createElement("td", null, React.createElement("i", {className: "glyphicon glyphicon-remove-circle", style: {color:"#FF3B3B"}})), 
 	            React.createElement("td", null, this.props.Deployment.Name, " - ", this.props.Deployment.Configuration), 
 	            React.createElement("td", null, this.props.Deployment.Version), 
 	            React.createElement("td", null, this.props.Deployment.UserName), 
@@ -33951,8 +33966,8 @@
 
 	var React = __webpack_require__(1);
 	var Router = __webpack_require__(148);
-	var Actions = __webpack_require__(307);
-	var Store = __webpack_require__(305);
+	var Actions = __webpack_require__(303);
+	var Store = __webpack_require__(301);
 	var Modal = __webpack_require__(231);
 	var ModalTrigger = __webpack_require__(236);
 	var $__0=       Router,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
@@ -34032,10 +34047,113 @@
 /* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Dispatcher = __webpack_require__(220);
+	var Constants = __webpack_require__(302);
+	var EventEmitter = __webpack_require__(229).EventEmitter;
+	var assign = __webpack_require__(224);
+
+	var ActionTypes = Constants.ActionTypes;
+	var CHANGE_EVENT = 'change';
+
+	var _groups = [];
+
+	function _addGroups(raw) {
+		_groups = raw;
+	}
+
+
+	var GroupsStore = assign({}, EventEmitter.prototype, {
+		emitChange: function() {
+			this.emit(CHANGE_EVENT);
+		},
+		addChangeListener: function(callback) {
+			this.on(CHANGE_EVENT, callback);
+		},
+		removeChangeListener: function(callback) {
+			this.removeListener(CHANGE_EVENT, callback);
+		},
+		getAll: function() {
+			return _groups;
+		}
+	});
+
+	GroupsStore.dispatchToken = Dispatcher.register(function(payload) {
+		var action = payload.action;
+
+		switch (action.type) {
+			case ActionTypes.UPDATE_GROUPS:
+				_addGroups(action.apps);
+				GroupsStore.emitChange();
+				break;
+			default:
+		}
+	});
+
+	module.exports = GroupsStore;
+
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var keyMirror = __webpack_require__(226);
+
+	module.exports = {
+		ActionTypes: keyMirror({
+			UPDATE_GROUPS: null,
+			CREATE_GROUP: null
+		})
+	}
+
+
+/***/ },
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ApplicationDispatcher = __webpack_require__(220);
+	var ActionTypes = __webpack_require__(302).ActionTypes;
+	var reqwest = __webpack_require__(227);
+
+	module.exports = {
+		updateGroups: function() {
+			reqwest({
+				url: "/users/groups/",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			}).then((function(x)  {
+				ApplicationDispatcher.handleServerAction({
+					type: ActionTypes.UPDATE_GROUPS,
+					apps: x
+				});
+			}))
+		},
+
+		createGroup: function( name) {
+			var promise = reqwest({
+				url: "/users/group?groupName="+name,
+				type: 'json',
+				contentType: 'application/json',
+				method: "post"
+			});
+
+			promise.then(function(x)  {
+				module.exports.updateGroups();
+			});
+
+			return promise;
+		}
+	};
+
+
+/***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var React = __webpack_require__(1);
 	var Router = __webpack_require__(148);
-	var Actions = __webpack_require__(304);
-	var Store = __webpack_require__(302);
+	var Actions = __webpack_require__(307);
+	var Store = __webpack_require__(305);
 	var Modal = __webpack_require__(231);
 	var ModalTrigger = __webpack_require__(236);
 	var $__0=       Router,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
@@ -34129,11 +34247,11 @@
 
 
 /***/ },
-/* 302 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(220);
-	var Constants = __webpack_require__(303);
+	var Constants = __webpack_require__(306);
 	var EventEmitter = __webpack_require__(229).EventEmitter;
 	var assign = __webpack_require__(224);
 
@@ -34178,7 +34296,7 @@
 
 
 /***/ },
-/* 303 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var keyMirror = __webpack_require__(226);
@@ -34193,11 +34311,11 @@
 
 
 /***/ },
-/* 304 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ApplicationDispatcher = __webpack_require__(220);
-	var ActionTypes = __webpack_require__(303).ActionTypes;
+	var ActionTypes = __webpack_require__(306).ActionTypes;
 	var reqwest = __webpack_require__(227);
 
 	module.exports = {
@@ -34246,109 +34364,6 @@
 
 			return promise;
 		},
-	};
-
-
-/***/ },
-/* 305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(220);
-	var Constants = __webpack_require__(306);
-	var EventEmitter = __webpack_require__(229).EventEmitter;
-	var assign = __webpack_require__(224);
-
-	var ActionTypes = Constants.ActionTypes;
-	var CHANGE_EVENT = 'change';
-
-	var _groups = [];
-
-	function _addGroups(raw) {
-		_groups = raw;
-	}
-
-
-	var GroupsStore = assign({}, EventEmitter.prototype, {
-		emitChange: function() {
-			this.emit(CHANGE_EVENT);
-		},
-		addChangeListener: function(callback) {
-			this.on(CHANGE_EVENT, callback);
-		},
-		removeChangeListener: function(callback) {
-			this.removeListener(CHANGE_EVENT, callback);
-		},
-		getAll: function() {
-			return _groups;
-		}
-	});
-
-	GroupsStore.dispatchToken = Dispatcher.register(function(payload) {
-		var action = payload.action;
-
-		switch (action.type) {
-			case ActionTypes.UPDATE_GROUPS:
-				_addGroups(action.apps);
-				GroupsStore.emitChange();
-				break;
-			default:
-		}
-	});
-
-	module.exports = GroupsStore;
-
-
-/***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var keyMirror = __webpack_require__(226);
-
-	module.exports = {
-		ActionTypes: keyMirror({
-			UPDATE_GROUPS: null,
-			CREATE_GROUP: null
-		})
-	}
-
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ApplicationDispatcher = __webpack_require__(220);
-	var ActionTypes = __webpack_require__(306).ActionTypes;
-	var reqwest = __webpack_require__(227);
-
-	module.exports = {
-		updateGroups: function() {
-			reqwest({
-				url: "/users/groups/",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			}).then((function(x)  {
-				ApplicationDispatcher.handleServerAction({
-					type: ActionTypes.UPDATE_GROUPS,
-					apps: x
-				});
-			}))
-		},
-
-		createGroup: function( name) {
-			var promise = reqwest({
-				url: "/users/group?groupName="+name,
-				type: 'json',
-				contentType: 'application/json',
-				method: "post"
-			});
-
-			promise.then(function(x)  {
-				module.exports.updateGroups();
-			});
-
-			return promise;
-		}
 	};
 
 

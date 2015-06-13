@@ -137,6 +137,8 @@ var EditPage = React.createClass({
 
 		return (
 			<div>
+			      <h3>Application {this.getParams().applicationName} &gt; {this.getParams().enviroment} &gt; {this.getParams().deployUnitName}</h3>
+			
 				<TabbedArea defaultActiveKey={1}>
 		    	<TabPane eventKey={1} tab='Settings'>
 						<form role="form" onSubmit={this.save}>
