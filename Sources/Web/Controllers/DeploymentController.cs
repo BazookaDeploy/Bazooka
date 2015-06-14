@@ -11,6 +11,7 @@ namespace Web.Controllers
     {
         private ReadContext db = new ReadContext();
 
+        [Queryable]
         public IQueryable<DeploymentDto> Get()
         {
             return db.Deployments.OrderByDescending(x => x.StartDate ?? DateTime.UtcNow);

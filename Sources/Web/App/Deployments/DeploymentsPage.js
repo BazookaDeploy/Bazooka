@@ -64,23 +64,38 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
     componentDidMount: function() {
       Store.addChangeListener(this._onChange);
-      Actions.updateDeployments();
+      Actions.updateDeployments(this.refs.filter.getDOMNode().value);
     },
 
     componentWillUnmount: function() {
       Store.removeChangeListener(this._onChange);
     },
 
-
+    updateFilters:function(){
+       Actions.updateDeployments(this.refs.filter.getDOMNode().value);  
+    },
 
     render: function () {
-
-
 
       return(<div>
         <h2>Deployments:</h2>
         <table className="table table-border table-hover">
-          <thead><tr><th>Status</th><th>Application</th><th>Version</th><th>Started by</th><th></th></tr></thead>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Application</th>
+              <th>Version</th>
+              <th>Started by</th>
+              <th>
+                <select ref="filter" onChange={this.updateFilters}>
+                  <option>Today</option>
+                  <option>Yesterday</option>
+                  <option>Last week</option>
+                  <option>Last month</option>
+                </select>
+              </th>
+            </tr>
+          </thead>
           <tbody>
           {this.state.deployments.map(x => (
               <DeploymentRow Deployment={x} />

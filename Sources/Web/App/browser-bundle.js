@@ -30450,23 +30450,38 @@
 
 	    componentDidMount: function() {
 	      Store.addChangeListener(this._onChange);
-	      Actions.updateDeployments();
+	      Actions.updateDeployments(this.refs.filter.getDOMNode().value);
 	    },
 
 	    componentWillUnmount: function() {
 	      Store.removeChangeListener(this._onChange);
 	    },
 
-
+	    updateFilters:function(){
+	       Actions.updateDeployments(this.refs.filter.getDOMNode().value);  
+	    },
 
 	    render: function () {
-
-
 
 	      return(React.createElement("div", null, 
 	        React.createElement("h2", null, "Deployments:"), 
 	        React.createElement("table", {className: "table table-border table-hover"}, 
-	          React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Status"), React.createElement("th", null, "Application"), React.createElement("th", null, "Version"), React.createElement("th", null, "Started by"), React.createElement("th", null))), 
+	          React.createElement("thead", null, 
+	            React.createElement("tr", null, 
+	              React.createElement("th", null, "Status"), 
+	              React.createElement("th", null, "Application"), 
+	              React.createElement("th", null, "Version"), 
+	              React.createElement("th", null, "Started by"), 
+	              React.createElement("th", null, 
+	                React.createElement("select", {ref: "filter", onChange: this.updateFilters}, 
+	                  React.createElement("option", null, "Today"), 
+	                  React.createElement("option", null, "Yesterday"), 
+	                  React.createElement("option", null, "Last week"), 
+	                  React.createElement("option", null, "Last month")
+	                )
+	              )
+	            )
+	          ), 
 	          React.createElement("tbody", null, 
 	          this.state.deployments.map(function(x)  
 	              {return React.createElement(DeploymentRow, {Deployment: x});}
@@ -30495,9 +30510,34 @@
 	var reqwest = __webpack_require__(227);
 
 	module.exports = {
-	  updateDeployments : function(){
+	  updateDeployments : function(filter){
+	    debugger;
+	    
+	    var query = "";
+	    var date = new Date();
+	    date.setHours(0,0,0,0);
+	    
+	    if(filter === "Today"){
+	      query = "?$filter=StartDate gt DateTime'"+ date.toISOString()+ "' ";
+	    }
+	    
+	    if(filter === "Yesterday"){
+	      date.setDate(date.getDate()-1);
+	      query = "?$filter=StartDate gt DateTime'"+ date.toISOString()+ "' ";
+	    } 
+	    
+	    if(filter === "Last week"){
+	      date.setDate(date.getDate()-7);
+	      query = "?$filter=StartDate gt DateTime'"+ date.toISOString()+ "' ";
+	    } 
+	 
+	     if(filter === "Last month"){
+	       date.setDate(date.getDate()-30);
+	      query = "?$filter=StartDate gt DateTime'"+ date.toISOString()+ "' ";
+	    } 
+	    
 	    reqwest({
-	      url:"/api/deployment/",
+	      url:"/api/deployment/" + query,
 	      type:'json',
 	      contentType: 'application/json',
 	      method:"get"
