@@ -2,12 +2,16 @@ var React = require("react");
 var Router = require('react-router');
 var Actions = require("./ActionsCreator");
 var Store = require("./Store");
+var ReactIntl = require("react-intl")
+var FormattedDate = ReactIntl.FormattedDate;
+var FormattedTime = ReactIntl.FormattedTime;
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
   var DeploymentPage = React.createClass({
-    mixins: [Router.State],
+    mixins: [Router.State, ReactIntl.IntlMixin],
     getInitialState: function() {
       return {
+        refreshing:false,
         deployments : Store.getAll()
       };
     },
@@ -25,6 +29,9 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
     reload:function(){
       var id = this.getParams().Id;
       Actions.updateDeployment(id);
+      this.setState({
+        refreshing:true
+      })
     },
 
     getStatus:function(status){
@@ -41,25 +48,50 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
     render: function () {
 
+      var format = {
+         "formats": {
+            "time": {
+                "hhmm": {
+                    "hour": "numeric",
+                    "minute": "numeric",
+                    "second":"numeric"
+                }
+            }
+         }
+      }
+      
+      var formats =format.formats;
+
       return(<div>
-        <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}</h2>
-        <button className='btn btn-default' onClick={this.reload}>Reload</button>
-        <ul>
-          <h4>Current status: {this.getStatus(this.state.deployments.Status)}</h4>
-          <h5>Deployed Version : {this.state.deployments.Version}</h5>
-          <span>Deployment started at : {this.state.deployments.StartDate} and ended at {this.state.deployments.EndDate}</span>
+        <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}         <button className='btn btn-xs btn-default' onClick={this.reload}>{this.state.refreshing? "Reloading ..." : "Reload"}</button></h2>
+
+          <h4>Current deployment status: {this.getStatus(this.state.deployments.Status)}</h4>
+          <h5>Deploying version: {this.state.deployments.Version}</h5>
+          <span>
+          {this.state.deployments.StartDate!=null ? 
+          (<span>Deployment started on <FormattedDate value={this.state.deployments.StartDate} /> at <FormattedTime formats={formats} format="hhmm"  value={this.state.deployments.StartDate} />  </span>) : (<span />)} 
+          
+          {this.state.deployments.EndDate!=null ? (<span>and ended at <FormattedTime formats={formats} format="hhmm"  value={this.state.deployments.EndDate} /></span> ): (<span />)}
+          
+          
+          </span>
+          <br />
           <h4>Logs:</h4>
           <span dangerouslySetInnerHTML={{
             __html: (this.state.deployments.Log||"").replace(/(?:\r\n|\r|\n)/g, '<br />') 
           }} ></span>
-        </ul>
         </div>)
       },
 
       _onChange: function(){
         this.setState({
-          deployments : Store.getAll()
+          deployments : Store.getAll(),
+          refreshing:false,
         })
+        
+        if(this.state.deployments.Status == 1){
+          setTimeout(this.reload,10000);
+        }
       }
     });
 
