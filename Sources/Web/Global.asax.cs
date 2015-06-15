@@ -1,4 +1,6 @@
 ﻿using DataAccess.Write;
+using Hangfire;
+using Jobs;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
@@ -42,6 +44,8 @@ namespace Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+
         }
     }
 }

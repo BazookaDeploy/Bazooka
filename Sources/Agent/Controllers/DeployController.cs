@@ -53,7 +53,7 @@
                 packageRemover.Logger = logger;
 
                 var additionalParams = installOptions.AdditionalParameters;
-                packageRemover.Remove(packageInfo, new string[] { installOptions.Directory }, additionalParams,installOptions.UninstallScript);
+                packageRemover.Remove(packageInfo, new string[] { installOptions.Directory }, additionalParams, installOptions.UninstallScript);
 
 
 
@@ -115,6 +115,12 @@
                     Log = logger.Logs
                 };
             }
+        }
+
+        [HttpGet]
+        public void Clean()
+        {
+            PackageCleaner.Clean();
         }
 
         [HttpPost]

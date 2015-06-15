@@ -12,6 +12,7 @@ using Web.Models;
 using Hangfire;
 using Hangfire.SqlServer;
 using Hangfire.SqlServer.Msmq;
+using Jobs;
 [assembly: OwinStartupAttribute(typeof(Web.Startup))]
 namespace Web
 {
@@ -24,6 +25,7 @@ namespace Web
             app.UseHangfire(config =>
             {
                 config.UseSqlServerStorage("DataContext").UseMsmqQueues(@".\private$\hangfire-0");
+                
             });
         }
 

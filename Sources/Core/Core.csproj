@@ -63,6 +63,7 @@
     <Compile Include="IPackageInstaller.cs" />
     <Compile Include="IPackageRemover.cs" />
     <Compile Include="OverWritingPhysicalFilesystem.cs" />
+    <Compile Include="PackageCleaner.cs" />
     <Compile Include="PackageHelpers.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="PackageInstaller.cs" />

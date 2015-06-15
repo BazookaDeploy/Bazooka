@@ -4,6 +4,7 @@ namespace Controller
     using Hangfire;
     using Hangfire.SqlServer;
     using Hangfire.SqlServer.Msmq;
+    using Jobs;
     using Microsoft.Owin;
     using Owin;
     using System;
@@ -18,8 +19,10 @@ namespace Controller
             {
                 var options = new SqlServerStorageOptions { QueuePollInterval = TimeSpan.FromSeconds(1) };
                 config.UseSqlServerStorage("DataContext", options).UseMsmqQueues(@".\private$\hangfire-0");
-                config.UseServer();
+                config.UseServer();               
             });
+
+            RecurringJob.AddOrUpdate(() => CleanJob.Execute(), Cron.Daily(0, 0));
         }
     }
 }
