@@ -31,6 +31,7 @@ namespace DataAccess.Write
             Property(x => x.UninstallScript);
             Property(x => x.ConfigurationFile);
             Property(x => x.ConfigurationTransform);
+            Property(x => x.Configuration);
 
             Bag(
                 x => x.AdditionalParameters,

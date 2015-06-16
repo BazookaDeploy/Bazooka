@@ -45,6 +45,8 @@ namespace DataAccess.Read
         /// </summary>
         public virtual string ConfigurationTransform { get; set; }
 
+        public virtual string Configuration { get; set; }
+
         public virtual ICollection<DeployUnitParameterDto> Parameters { get; set; }
     }
 }

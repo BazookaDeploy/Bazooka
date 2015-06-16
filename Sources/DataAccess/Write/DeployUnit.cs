@@ -43,6 +43,8 @@ namespace DataAccess.Write
         /// </summary>
         public virtual string ConfigurationTransform { get; set; }
 
+        public virtual string Configuration { get; set; }
+
         /// <summary>
         ///     Additional deploy parameters to pass to the script
         /// </summary>

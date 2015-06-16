@@ -90,7 +90,8 @@ var EditPage = React.createClass({
 			UninstallationScript : env.UninstallScript,
 			InstallationScript:env.InstallScript,
 			ConfigurationFile:env.ConfigurationFile,
-			ConfigTransform:env.ConfigurationTransform
+			ConfigTransform:env.ConfigurationTransform,
+			Configuration : env.Configuration
 		})
 	},
 
@@ -109,7 +110,8 @@ var EditPage = React.createClass({
 			UninstallationScript : null,
 			InstallationScript:null,
 			ConfigurationFile:null,
-			ConfigTransform:null
+			ConfigTransform:null,
+			Configuration:null
 		};
 
 	},
@@ -127,7 +129,8 @@ var EditPage = React.createClass({
 			this.state.UninstallationScript,
 			this.state.InstallationScript,
 			this.state.ConfigurationFile,
-			this.state.ConfigTransform
+			this.state.ConfigTransform,
+			this.state.Configuration
 			);
 
     return false;
@@ -205,6 +208,10 @@ var EditPage = React.createClass({
 						</form>
 					</TabPane>
 					<TabPane eventKey={3} tab='Configurations'>
+						<div className="form-group">
+							<label htmlFor="Configuration">Deploy unit specific configuration</label>
+							<input type="text" className="form-control" id="Configuration" placeholder="Specific configuration (optional)" valueLink={this.linkState('Configuration')} />
+						</div>
 						<div className="form-group">
 							<label htmlFor="ConfigurationFile">Configuration File</label>
 							<input type="text" className="form-control" id="ConfigurationFile" placeholder="Configuration File" valueLink={this.linkState('ConfigurationFile')} />

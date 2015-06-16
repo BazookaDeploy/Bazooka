@@ -12,5 +12,6 @@
     [UninstallScript] NVARCHAR(MAX) NULL, 
     [ConfigurationFile] NVARCHAR(50) NULL, 
     [ConfigurationTransform] NVARCHAR(MAX) NULL, 
+    [Configuration] NVARCHAR(50) NULL, 
     CONSTRAINT [FK_DeployUnits_Enviroments] FOREIGN KEY ([EnviromentId]) REFERENCES [Enviroments]([Id])
 )

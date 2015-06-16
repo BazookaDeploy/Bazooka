@@ -114,7 +114,7 @@ module.exports = {
   },
 
   modifyDeployUnit: function(deployUnitId, enviromentId, name, machine,
-    packageName, directory, repository, params,uninstallationScript,installationScript,configFile,configTransform) {
+    packageName, directory, repository, params,uninstallationScript,installationScript,configFile,configTransform,configuration) {
     var promise = reqwest({
       url: "/api/deployUnits",
       type: 'json',
@@ -132,6 +132,7 @@ module.exports = {
         InstallScript:installationScript,
         ConfigurationFile:configFile,
         ConfigurationTransform:configTransform,
+        Configuration:configuration,
         AdditionalParameters: params.map(x => {
           x.Key = x.Name;
           return x;
