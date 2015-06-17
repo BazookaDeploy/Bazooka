@@ -1,6 +1,7 @@
 ﻿namespace Bazooka.Core
 {
     using NuGet;
+    using System.IO;
 
     /// <summary>
     ///     pacckage cache cleaner helpers
@@ -13,7 +14,8 @@
         public static void Clean()
         {
             MachineCache.Default.Clear();
-            OptimizedZipPackage.PurgeCache();
+            var dir = Path.Combine(Path.GetTempPath(), "nuget");
+            Directory.Delete(dir,true);
         }
     }
 }
