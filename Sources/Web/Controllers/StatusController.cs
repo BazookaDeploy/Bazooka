@@ -21,6 +21,9 @@ namespace Web.Controllers
                 Enviroments = ele.GroupBy(z => z.EnviromentName, (envKey, ele2) => new
                 {
                     Enviroment = envKey,
+                    Name = key,
+                    Configuration = envKey,
+                    Id = ele2.FirstOrDefault().EnviromentId,
                     Versions = ele2.Select(y => new
                     {
                         y.Name,

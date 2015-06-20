@@ -1,6 +1,63 @@
 ﻿var React = require("react");
 var Actions = require("./ActionsCreator");
 var Store = require("./Store");
+var Modal = require("react-bootstrap/Modal");
+var ModalTrigger = require("react-bootstrap/ModalTrigger");
+
+var DeployDialog = React.createClass({
+  getInitialState: function() {
+    return {
+      loading : true,
+      versions:[]
+    };
+  },
+
+  componentDidMount: function() {
+    Actions.getVersions(this.props.Enviroment.Id).then(x => {
+      this.setState({
+        loading : false,
+        versions : x
+      })
+    });
+  },
+
+  create:function(){
+    var version = this.refs.Version.getDOMNode().value;
+    if(version!=null){
+      Actions.startDeploy(this.props.Enviroment.Id, version);
+      this.props.onRequestHide();
+    }
+  },
+
+  render:function(){
+    var title = "Start deploy " + this.props.Enviroment.Name + " - " + this.props.Enviroment.Configuration;
+
+    var versions = this.state.versions.map(x => (<option>{x}</option>));
+
+    return(
+      <Modal {...this.props} title={title}>
+      <div className="modal-body">
+        <form role="form">
+          <div className="form-group">
+            <label htmlFor="Version">Version</label>
+            {
+              this.state.loading ?
+                <span><br />Loading available versions ... </span> :
+                <select className="form-control" id="Version" ref="Version" placeholder="Version">
+                  {versions}
+                </select>
+            }
+          </div>
+        </form>
+      </div>
+      <div className="modal-footer">
+        <button className="btn" onClick={this.props.onRequestHide}>Close</button>
+        <button className="btn btn-primary" onClick={this.create}>Deploy</button>
+      </div>
+      </Modal>);
+    }
+});
+
 
 var Application = React.createClass({
   render: function(){
@@ -8,30 +65,45 @@ var Application = React.createClass({
       <Enviroment Enviroment={x} />
     ));
 
-    return (<li>
-      <h4>{this.props.Application.Application}</h4>
-      {envs}
-    </li>);
+    return (<div className="col-md-4 col-lg-3">
+      <div className=' panel panel-primary'>
+        <div className='panel-heading'>{this.props.Application.Application}</div>
+        <div className='panel-body'>
+          {envs}
+        </div>
+      </div>
+    </div>);
   }
 })
 
 var Enviroment = React.createClass({
   render: function(){
-      var oneVersion = this.props.Enviroment.Versions.map(x => x.CurrentlyDeployedVersion).reduce(function(a, b){return (a === b)?a:false;});
+      var oneVersion = this.props
+                           .Enviroment
+                           .Versions
+                           .map(x => x.CurrentlyDeployedVersion)
+                           .reduce(function(a, b){return (a === b)?a:false;});
+                                 
       oneVersion = oneVersion === this.props.Enviroment.Versions[0].CurrentlyDeployedVersion;
 
       if(oneVersion){
-        var version = this.props.Enviroment.Versions[0].CurrentlyDeployedVersion || "No version deployed";
-        return (<div><h5>{this.props.Enviroment.Enviroment} Version: {version}</h5></div>);
+        var version = this.props.Enviroment.Versions[0].CurrentlyDeployedVersion || "None";
+        return (<div>
+            Enviroment: <b>{this.props.Enviroment.Enviroment}</b> <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
+                      <button className='btn btn-primary btn-xs pull-right'>Deploy</button>
+                    </ModalTrigger> 
+                    <br /> Version: <b>{version}</b></div>);
       }
 
       var units = this.props.Enviroment.Versions.map(x => (
-        <li><b>{x.Name}</b> Version: {x.CurrentlyDeployedVersion || "No version deployed"}</li>
+        <li><b>{x.Name}</b> Version: {x.CurrentlyDeployedVersion || "None"}</li>
       ))
 
-      return  (<div><h5>{this.props.Enviroment.Enviroment}</h5>
+      return  (<div>Enviroment: <b>{this.props.Enviroment.Enviroment}</b> <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
+                      <button className='btn btn-primary btn-xs pull-right'>Deploy</button>
+                    </ModalTrigger>
         <ul>
-          {units}
+        {units}
         </ul>
       </div>)
   }
@@ -62,8 +134,9 @@ var HomePage = React.createClass({
     render: function () {
         return (
           <div>
-            <h4>Current system status</h4>
-            <ul>{this.state.envs.map(x => (<Application Application={x} />))}</ul>
+            <h2>Current system status</h2>
+            <br />
+            <div className='container'>{this.state.envs.map(x => (<Application Application={x} />))}</div>
           </div>);
     }
 });

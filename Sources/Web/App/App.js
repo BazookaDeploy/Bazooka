@@ -16,7 +16,6 @@ var App = React.createClass({
           <div id="navbar" class="navbar-collapse collapse">
             <ul className="nav navbar-nav">
               <NavItemLink to="home">Home</NavItemLink>
-              <NavItemLink to="deploys">Deploys</NavItemLink>
               <NavItemLink to="deployments">Deployments</NavItemLink>
             </ul>
             <ul className="nav navbar-nav navbar-right">

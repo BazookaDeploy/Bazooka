@@ -11,22 +11,22 @@ module.exports = {
     date.setHours(0,0,0,0);
     
     if(filter === "Today"){
-      query = "?$filter=StartDate gt DateTime'"+ date.toISOString()+ "' ";
+      query = "?$filter=(StartDate gt DateTime'"+ date.toISOString()+ "' or StartDate eq null) ";
     }
     
     if(filter === "Yesterday"){
       date.setDate(date.getDate()-1);
-      query = "?$filter=StartDate gt DateTime'"+ date.toISOString()+ "' ";
+      query = "?$filter=(StartDate gt DateTime'"+ date.toISOString()+ "' or StartDate eq null)  ";
     } 
     
     if(filter === "Last week"){
       date.setDate(date.getDate()-7);
-      query = "?$filter=StartDate gt DateTime'"+ date.toISOString()+ "' ";
+      query = "?$filter=(StartDate gt DateTime'"+ date.toISOString()+ "' or StartDate eq null)  ";
     } 
  
      if(filter === "Last month"){
        date.setDate(date.getDate()-30);
-      query = "?$filter=StartDate gt DateTime'"+ date.toISOString()+ "' ";
+      query = "?$filter=(StartDate gt DateTime'"+ date.toISOString()+ "' or StartDate eq null)  ";
     } 
     
     reqwest({

@@ -8,7 +8,6 @@ var AppPage = require("./Applications/AppPage");
 var EnviromentPage = require("./Enviroments/EnviromentPage");
 var DeployUnitsPage = require("./DeployUnits/DeployUnitsPage");
 var DeployUnitEditPage = require("./DeployUnits/DeployUnitEditPage");
-var DeploysPage = require("./Deploys/DeploysPage");
 var DeploymentsPage = require("./Deployments/DeploymentsPage");
 var DeploymentPage = require("./Deployment/DeploymentsPage");
 var  GroupsPage = require("./Groups/GroupsPage");
@@ -21,7 +20,6 @@ var routes = (
     <Route name="enviroments" path="enviroments/:applicationName/:applicationId" handler={EnviromentPage} />
     <Route name="deployunits" path="deployunits/:applicationName/:enviroment/:enviromentId" handler={DeployUnitsPage} />
     <Route name="deployunitedit" path="deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId" handler={DeployUnitEditPage} />
-    <Route name="deploys" path="deploys" handler={DeploysPage} />
     <Route name="deployments" path="deployments" handler={DeploymentsPage} />
     <Route name="deployment" path="deployment/:Id" handler={DeploymentPage} />
     <Route name="groups" path="groups" handler={GroupsPage} />
