@@ -250,8 +250,6 @@
     <Content Include="App\Deployment\Constants.js" />
     <Content Include="App\Deployment\DeploymentsPage.js" />
     <Content Include="App\Deployment\Store.js" />
-    <Content Include="App\Deploys\ActionsCreator.js" />
-    <Content Include="App\Deploys\DeploysPage.js" />
     <Content Include="App\DeployUnits\ActionsCreator.js" />
     <Content Include="App\DeployUnits\Constants.js" />
     <Content Include="App\DeployUnits\DeployUnitsPage.js" />

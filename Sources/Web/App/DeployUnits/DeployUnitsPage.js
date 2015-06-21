@@ -276,7 +276,7 @@ var CreateDialog = React.createClass({
       })
 
       return(<div>
-        <h3>Application {this.getParams().applicationName} &gt; {this.getParams().enviroment}</h3>
+        <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment}</h3>
         
         <table className="table table-bordered table-striped">
           <thead><tr><th>Deploy Units

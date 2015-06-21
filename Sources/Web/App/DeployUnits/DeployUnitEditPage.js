@@ -140,7 +140,7 @@ var EditPage = React.createClass({
 
 		return (
 			<div>
-			      <h3>Application {this.getParams().applicationName} &gt; {this.getParams().enviroment} &gt; {this.getParams().deployUnitName}</h3>
+			      <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().deployUnitName}</h3>
 			
 				<TabbedArea defaultActiveKey={1}>
 		    	<TabPane eventKey={1} tab='Settings'>
