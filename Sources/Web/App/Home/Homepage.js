@@ -62,7 +62,7 @@ var DeployDialog = React.createClass({
 var Application = React.createClass({
   render: function(){
     var envs = this.props.Application.Enviroments.map(x => (
-      <Enviroment Enviroment={x} />
+      <Enviroment Enviroment={x}/>
     ));
 
     return (<div className="col-md-4 col-lg-3">
@@ -88,23 +88,24 @@ var Enviroment = React.createClass({
 
       if(oneVersion){
         var version = this.props.Enviroment.Versions[0].CurrentlyDeployedVersion || "None";
-        return (<div>
+        return (<div style={{"marginBottom":"10px"}}>
             Enviroment: <b>{this.props.Enviroment.Enviroment}</b> <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
                       <button className='btn btn-primary btn-xs pull-right'>Deploy</button>
                     </ModalTrigger> 
-                    <br /> Version: <b>{version}</b></div>);
+                    <br /> Version: <b>{version}</b><br /></div>);
       }
 
       var units = this.props.Enviroment.Versions.map(x => (
         <li><b>{x.Name}</b> Version: {x.CurrentlyDeployedVersion || "None"}</li>
       ))
 
-      return  (<div>Enviroment: <b>{this.props.Enviroment.Enviroment}</b> <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
+      return  (<div style={{"marginBottom":"10px"}}>Enviroment: <b>{this.props.Enviroment.Enviroment}</b> <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
                       <button className='btn btn-primary btn-xs pull-right'>Deploy</button>
                     </ModalTrigger>
         <ul>
         {units}
         </ul>
+        <br />
       </div>)
   }
 });
