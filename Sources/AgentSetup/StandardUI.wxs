@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="FolderDlg">
+    <UI Id="FolderDlg">
+      <Property Id="FolderForm_AllUsers" Value="ME" />
+      <Property Id="FolderForm_AllUsersVisible" Value="1" />
+      <RadioButtonGroup Property="FolderForm_AllUsers">
+        <RadioButton Height="17" Text="{\VSI_MS_Sans_Serif13.0_0_0}&amp;Everyone" Value="ALL" Width="342" X="0" Y="0" />
+        <RadioButton Height="17" Text="{\VSI_MS_Sans_Serif13.0_0_0}Just &amp;me" Value="ME" Width="342" X="0" Y="18" />
+      </RadioButtonGroup>
+      <Dialog Id="FolderForm" X="50" Y="50" Width="373" Height="287" Title="[ProductName]" TrackDiskSpace="yes">
+        <Control Id="NextButton" Type="PushButton" X="300" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}&amp;Next &gt;" TabSkip="no" Default="yes">
+          <Publish Event="SetTargetPath" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="DiskCost"><![CDATA[OutOfDiskSpace=1]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[FolderForm_NextArgs="" AND OutOfDiskSpace<>1]]></Publish>
+          <Publish Event="NewDialog" Value="[FolderForm_NextArgs]"><![CDATA[FolderForm_NextArgs<>"" AND OutOfDiskSpace<>1]]></Publish>
+          <Publish Property="ALLUSERS" Value="2"><![CDATA[FolderForm_AllUsers="ALL" AND VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1]]></Publish>
+          <Publish Property="ALLUSERS"><![CDATA[FolderForm_AllUsers="ME" AND VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1]]></Publish>
+          <Publish Event="DoAction" Value="FindRelatedProducts">1</Publish>
+        </Control>
+        <Control Id="FolderLabel" Type="Text" X="18" Y="114" Width="348" Height="12" Text="{\VSI_MS_Sans_Serif13.0_0_0}&amp;Folder:" TabSkip="no" />
+        <Control Id="FolderEdit" Type="PathEdit" X="18" Y="126" Width="252" Height="18" Property="TARGETDIR" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiPathEdit" TabSkip="no" Sunken="yes" />
+        <Control Id="BrowseButton" Type="PushButton" X="276" Y="126" Width="90" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}B&amp;rowse..." TabSkip="no">
+          <Publish Property="SelectFolderDialog_Property" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="SelectFolderDialog"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="DiskCostButton" Type="PushButton" X="276" Y="150" Width="90" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}&amp;Disk Cost..." TabSkip="no">
+          <Publish Event="SetTargetPath" Value="TARGETDIR"><![CDATA[1]]></Publish>
+          <Publish Event="SpawnDialog" Value="DiskCost"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="AllUsersRadioGroup" Type="RadioButtonGroup" X="24" Y="210" Width="342" Height="42" Property="FolderForm_AllUsers" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiRadioButtonGroup" TabSkip="no">
+          <Condition Action="show"><![CDATA[VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1]]></Condition>
+          <Condition Action="hide"><![CDATA[NOT (VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1)]]></Condition>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="156" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}Cancel" TabSkip="no" Cancel="yes">
+          <Publish Event="SpawnDialog" Value="Cancel" />
+        </Control>
+        <Control Id="PreviousButton" Type="PushButton" X="228" Y="261" Width="66" Height="18" Text="{\VSI_MS_Sans_Serif13.0_0_0}&lt; &amp;Back" TabSkip="no">
+          <Condition Action="disable"><![CDATA[FolderForm_PrevArgs=""]]></Condition>
+          <Condition Action="enable"><![CDATA[FolderForm_PrevArgs<>""]]></Condition>
+          <Publish Event="NewDialog" Value="[FolderForm_PrevArgs]"><![CDATA[FolderForm_PrevArgs<>""]]></Publish>
+        </Control>
+        <Control Id="BannerBmp" Type="Bitmap" X="0" Y="0" Width="375" Height="52" Text="DefBannerBitmap" TabSkip="no" Disabled="yes" />
+        <Control Id="Line1" Type="Line" X="0" Y="52" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="Line2" Type="Line" X="0" Y="252" Width="375" Height="6" Text="{\VSI_MS_Sans_Serif13.0_0_0}MsiHorizontalLine" TabSkip="yes" Disabled="yes" />
+        <Control Id="BannerText" Type="Text" X="9" Y="9" Width="306" Height="33" Text="{\VSI_MS_Sans_Serif16.0_1_0}Select Installation Folder" TabSkip="yes" Transparent="yes" NoPrefix="yes" />
+        <Control Id="Body" Type="Text" X="9" Y="63" Width="354" Height="48" Text="{\VSI_MS_Sans_Serif13.0_0_0}The installer will install [ProductName] to the following folder.&#xD;&#xA;&#xD;&#xA;To install in this folder, click &quot;Next&quot;. To install to a different folder, enter it below or click &quot;Browse&quot;." TabSkip="yes" NoPrefix="yes" />
+        <Control Id="AllUsersText" Type="Text" X="18" Y="186" Width="348" Height="24" Text="{\VSI_MS_Shell_Dlg13.0_0_0}Install [ProductName] for yourself, or for anyone who uses this computer:" TabSkip="yes" NoPrefix="yes">
+          <Condition Action="show"><![CDATA[VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1]]></Condition>
+          <Condition Action="hide"><![CDATA[NOT (VersionNT>=400 AND Privileged=1 AND FolderForm_AllUsersVisible=1)]]></Condition>
+        </Control>
+      </Dialog>
+    </UI>
+    <InstallUISequence>
+      <Show Dialog="FolderForm" Sequence="1001"><![CDATA[Installed="" AND NOT RESUME]]></Show>
+    </InstallUISequence>
+  </Fragment>
+</Wix>
