@@ -20,6 +20,13 @@ namespace Web.Controllers
             return db.DeployUnits.Where(x => x.EnviromentId == id).ToList();
         }
 
+         [HttpGet, Route("api/DeployUnits/DeployUrl")]
+         public string DeployUrl(int id)
+         {
+             var guid =  db.Enviroments.Single(x => x.Id == id).DeployKey;
+            return  this.Request.RequestUri.GetLeftPart(UriPartial.Authority) + "/api/Deploy/Begin?deployKey=" + guid.ToString() + "&version={version}";
+         }
+
         [HttpGet, Route("api/DeployUnits/DeployUnit")]
         public DeployUnitDto DeployUnit(int id)
         {

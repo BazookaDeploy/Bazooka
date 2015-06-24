@@ -22,7 +22,8 @@ namespace Web.Controllers
         private ReadContext db = new ReadContext();
 
         [HttpGet]
-        public ICollection<string> Search(int enviromentId) {
+        public ICollection<string> Search(int enviromentId)
+        {
             var repos = db.DeployUnits
                           .Where(x => x.EnviromentId == enviromentId)
                           .Select(x => x.Repository)
@@ -33,7 +34,7 @@ namespace Web.Controllers
                           .Select(x => x.PackageName)
                           .First();
 
-            return PackageSearcher.Search(repos,package);
+            return PackageSearcher.Search(repos, package);
         }
 
         [HttpGet]
@@ -56,6 +57,27 @@ namespace Web.Controllers
             };
         }
 
+        [HttpGet]
+        public void Begin(Guid deployKey, string version)
+        {
+            var env = db.Enviroments.Single(x => x.DeployKey == deployKey);
+
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var deploy = new Deployment()
+                {
+                    EnviromentId = env.Id,
+                    Status = Status.Queud,
+                    Version = version,
+                    UserId = User.Identity.GetUserId()
+                };
+
+                session.Save(deploy);
+                session.Flush();
+
+                BackgroundJob.Enqueue(() => DeployJob.Execute(deploy.Id));
+            };
+        }
 
         protected override void Dispose(bool disposing)
         {

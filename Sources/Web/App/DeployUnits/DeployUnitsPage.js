@@ -7,6 +7,35 @@ var Modal = require("react-bootstrap/Modal");
 var ModalTrigger = require("react-bootstrap/ModalTrigger");
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
+var HookDialog = React.createClass({
+  getInitialState: function(){
+    return {
+      url: ""
+    }
+  },
+  
+  componentDidMount: function(){
+    Actions.getDeployUrl(this.props.Enviroment).then(x => {
+      this.setState({
+        url:x
+      })
+    })
+  },
+  
+  render: function(){
+    
+       return(
+      <Modal {...this.props} backdrop="static" title="Get deploy url">
+      <div className="modal-body">
+        <p>The web hook to deploy this application in this enviroment is <br /><b> {this.state.url}</b><br /> </p>
+      </div>
+      <div className="modal-footer">
+        <button className="btn" onClick={this.props.onRequestHide}>Close</button>
+      </div>
+      </Modal>);
+  }
+})
+
 var CreateDialog = React.createClass({
   mixins: [LinkedState],
 
@@ -336,6 +365,13 @@ var CreateDialog = React.createClass({
             </tbody>
           </table>
 
+         <h4>Web hook</h4>
+          
+         <p>Deploys can be automated by invoking a specific web hook for each enviroment of your application
+         <ModalTrigger modal={<HookDialog Enviroment={this.getParams().enviromentId} />}>
+              <button className='btn btn-xs btn-primary pull-right'>Get Url</button>
+            </ModalTrigger>
+          </p>
         </div>)
       },
 

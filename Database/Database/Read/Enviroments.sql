@@ -3,6 +3,7 @@
 			  Enviroments.ApplicationId, 
 			  Enviroments.Configuration, 
 			  Enviroments.Description, 
+			  Enviroments.DeployKey,
 			  Applications.Name,
 			  Enviroments.OwnerId,
 			  AspNetUsers.UserName

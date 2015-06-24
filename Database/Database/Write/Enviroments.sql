@@ -5,6 +5,7 @@
     [Configuration] NVARCHAR(50) NOT NULL, 
     [Description] NVARCHAR(50) NOT NULL, 
     [OwnerId] NVARCHAR(128) NOT NULL, 
+    [DeployKey] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(), 
     CONSTRAINT [FK_Enviroments_Applications] FOREIGN KEY 
 		([ApplicationId]) REFERENCES [Applications]([Id]),
     CONSTRAINT [FK_Enviroments_Users] FOREIGN KEY 

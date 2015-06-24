@@ -20,5 +20,7 @@ namespace DataAccess.Read
         public string OwnerId { get; set; }
 
         public string UserName { get; set; }
+
+        public Guid DeployKey { get; set; }
     }
 }

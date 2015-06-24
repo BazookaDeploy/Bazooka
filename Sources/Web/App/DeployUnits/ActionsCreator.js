@@ -3,7 +3,7 @@ var ActionTypes = require('./Constants').ActionTypes;
 var reqwest = require("reqwest");
 
 module.exports = {
-  testAgent: function(url) {
+  testAgent: function (url) {
     return reqwest({
       url: "/api/deployUnits/test?url=" + url,
       type: 'json',
@@ -12,80 +12,88 @@ module.exports = {
     })
   },
 
+  getDeployUrl(id) {
+    return reqwest({
+      url: "/api/deployUnits/deployUrl?id=" + id,
+      type: 'json',
+      contentType: 'application/json',
+      method: "get"
+    })
+  },
 
-  	  getUsers: function(id) {
-  	    return reqwest({
-  	      url: "/users/allowed?id=" + id,
-  	      type: 'json',
-  	      contentType: 'application/json',
-  	      method: "get"
-  	    })
-  	  },
+  getUsers: function (id) {
+      return reqwest({
+        url: "/users/allowed?id=" + id,
+        type: 'json',
+        contentType: 'application/json',
+        method: "get"
+      })
+  },
 
-  	  addUser: function(id,userId) {
-  	    return reqwest({
-  	      url: "/users/allowed/add?enviromentId=" + id+"&userId="+userId,
-  	      type: 'json',
-  	      contentType: 'application/json',
-  	      method: "post"
-  	    })
-  	  },
+  addUser: function (id, userId) {
+      return reqwest({
+        url: "/users/allowed/add?enviromentId=" + id + "&userId=" + userId,
+        type: 'json',
+        contentType: 'application/json',
+        method: "post"
+      })
+  },
 
-  	  removeUser: function(id) {
-  	    return reqwest({
-  	      url: "/users/allowed/remove?id=" + id,
-  	      type: 'json',
-  	      contentType: 'application/json',
-  	      method: "post"
-  	    })
-  	  },
+  removeUser: function (id) {
+      return reqwest({
+        url: "/users/allowed/remove?id=" + id,
+        type: 'json',
+        contentType: 'application/json',
+        method: "post"
+      })
+  },
 
-  	  getGroups: function(id) {
-  	    return reqwest({
-  	      url: "/groups/allowed?id=" + id,
-  	      type: 'json',
-  	      contentType: 'application/json',
-  	      method: "get"
-  	    })
-  	  },
+  getGroups: function (id) {
+      return reqwest({
+        url: "/groups/allowed?id=" + id,
+        type: 'json',
+        contentType: 'application/json',
+        method: "get"
+      })
+  },
 
-  	  addGroup: function(id,groupId) {
-  	    return reqwest({
-  	      url: "/group/allowed/add?enviromentId=" + id+"&groupId="+groupId,
-  	      type: 'json',
-  	      contentType: 'application/json',
-  	      method: "post"
-  	    })
-  	  },
+  addGroup: function (id, groupId) {
+      return reqwest({
+        url: "/group/allowed/add?enviromentId=" + id + "&groupId=" + groupId,
+        type: 'json',
+        contentType: 'application/json',
+        method: "post"
+      })
+  },
 
-  	  removeGroups: function(id) {
-  	    return reqwest({
-  	      url: "/group/allowed/remove?id=" + id,
-  	      type: 'json',
-  	      contentType: 'application/json',
-  	      method: "post"
-  	    })
-  	  },
+  removeGroups: function (id) {
+      return reqwest({
+        url: "/group/allowed/remove?id=" + id,
+        type: 'json',
+        contentType: 'application/json',
+        method: "post"
+      })
+  },
 
-      getAllUsers: function() {
-    		return reqwest({
-    			url: "/users/all",
-    			type: 'json',
-    			contentType: 'application/json',
-    			method: "get"
-    		});
-    	},
+  getAllUsers: function () {
+    return reqwest({
+      url: "/users/all",
+      type: 'json',
+      contentType: 'application/json',
+      method: "get"
+    });
+  },
 
-      getAllGroups: function() {
-    		return reqwest({
-    			url: "/users/groups/",
-    			type: 'json',
-    			contentType: 'application/json',
-    			method: "get"
-    		})
-    	},
+  getAllGroups: function () {
+    return reqwest({
+      url: "/users/groups/",
+      type: 'json',
+      contentType: 'application/json',
+      method: "get"
+    })
+  },
 
-  updateDeployUnits: function(enviromentId) {
+  updateDeployUnits: function (enviromentId) {
     reqwest({
       url: "/api/DeployUnits/Units/?id=" + enviromentId,
       type: 'json',
@@ -99,7 +107,7 @@ module.exports = {
     }))
   },
 
-  updateDeployUnit: function(deployUnitId) {
+  updateDeployUnit: function (deployUnitId) {
     reqwest({
       url: "/api/DeployUnits/DeployUnit/?id=" + deployUnitId,
       type: 'json',
@@ -113,8 +121,8 @@ module.exports = {
     }))
   },
 
-  modifyDeployUnit: function(deployUnitId, enviromentId, name, machine,
-    packageName, directory, repository, params,uninstallationScript,installationScript,configFile,configTransform,configuration) {
+  modifyDeployUnit: function (deployUnitId, enviromentId, name, machine,
+    packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration) {
     var promise = reqwest({
       url: "/api/deployUnits",
       type: 'json',
@@ -128,11 +136,11 @@ module.exports = {
         PackageName: packageName,
         Directory: directory,
         Repository: repository,
-        UninstallScript : uninstallationScript,
-        InstallScript:installationScript,
-        ConfigurationFile:configFile,
-        ConfigurationTransform:configTransform,
-        Configuration:configuration,
+        UninstallScript: uninstallationScript,
+        InstallScript: installationScript,
+        ConfigurationFile: configFile,
+        ConfigurationTransform: configTransform,
+        Configuration: configuration,
         AdditionalParameters: params.map(x => {
           x.Key = x.Name;
           return x;
@@ -147,7 +155,7 @@ module.exports = {
     return promise;
   },
 
-  createDeployUnit: function(enviromentId, name, machine, packageName,
+  createDeployUnit: function (enviromentId, name, machine, packageName,
     directory, repository, params) {
     var promise = reqwest({
       url: "/api/deployUnits",
