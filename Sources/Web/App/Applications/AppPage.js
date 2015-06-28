@@ -1,9 +1,9 @@
-var React = require("react");
-var Actions = require("./ActionsCreator");
-var Store = require("./Store");
-var Modal = require("react-bootstrap/lib/Modal");
-var ModalTrigger = require("react-bootstrap/lib/ModalTrigger");
-var Router = require('react-router');
+import React from "react";
+import Actions from "./ActionsCreator";
+import Store from "./Store";
+import Modal from "react-bootstrap/lib/Modal";
+import ModalTrigger from "react-bootstrap/lib/ModalTrigger";
+import Router from 'react-router';
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var CreateDialog = React.createClass({
@@ -15,7 +15,7 @@ var CreateDialog = React.createClass({
         this.props.onRequestHide();
       });
     }
-    
+
     return false;
   },
 

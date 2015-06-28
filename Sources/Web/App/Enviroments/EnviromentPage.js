@@ -1,9 +1,9 @@
-var React = require("react");
-var Router = require('react-router');
-var Actions = require("./ActionsCreator");
-var Store = require("./Store");
-var Modal = require("react-bootstrap/lib/Modal");
-var ModalTrigger = require("react-bootstrap/lib/ModalTrigger");
+import React from "react";
+import Router from 'react-router';
+import Actions from "./ActionsCreator";
+import Store from "./Store";
+import Modal from "react-bootstrap/lib/Modal";
+import ModalTrigger from "react-bootstrap/lib/ModalTrigger";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var CreateDialog = React.createClass({
@@ -15,7 +15,7 @@ var CreateDialog = React.createClass({
     if(configuration.length!==0){
       Actions.createEnviroment(id, configuration,description).then(x => this.props.onRequestHide());
     }
-      
+
     return false;
   },
 
@@ -77,7 +77,7 @@ var EnviromentsPage = React.createClass({
   render: function () {
     var envs = this.state.envs.map(a => (<Enviroments Enviroment={a}/>));
 
-    return(<div>    
+    return(<div>
       <h3>Application {this.getParams().applicationName}</h3>
       <table className="table table-striped table-bordered">
       <thead><tr><th>Enviroments <ModalTrigger modal={<CreateDialog Application={this.getParams().applicationId} />}>

@@ -1,17 +1,17 @@
-var React = require("react");
-var Router = require("react-router");
+import React from "react";
+import Router from "react-router";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
-var App = require("./App");
-var HomePage = require("./Home/Homepage");
-var AppPage = require("./Applications/AppPage");
-var EnviromentPage = require("./Enviroments/EnviromentPage");
-var DeployUnitsPage = require("./DeployUnits/DeployUnitsPage");
-var DeployUnitEditPage = require("./DeployUnits/DeployUnitEditPage");
-var DeploymentsPage = require("./Deployments/DeploymentsPage");
-var DeploymentPage = require("./Deployment/DeploymentsPage");
-var  GroupsPage = require("./Groups/GroupsPage");
-var  GroupPage = require("./Group/GroupsPage");
+import App                from "./App";
+import HomePage           from "./Home/Homepage";
+import AppPage            from "./Applications/AppPage";
+import EnviromentPage     from "./Enviroments/EnviromentPage";
+import DeployUnitsPage    from "./DeployUnits/DeployUnitsPage";
+import DeployUnitEditPage from "./DeployUnits/DeployUnitEditPage";
+import DeploymentsPage    from "./Deployments/DeploymentsPage";
+import DeploymentPage     from "./Deployment/DeploymentsPage";
+import GroupsPage         from "./Groups/GroupsPage";
+import GroupPage          from "./Group/GroupsPage";
 
 var routes = (
   <Route handler={App}>

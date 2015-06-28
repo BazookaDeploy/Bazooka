@@ -1,7 +1,7 @@
-var Dispatcher = require("../Base/Dispatcher");
-var Constants = require("./Constants");
-var EventEmitter = require("events").EventEmitter;
-var assign = require("object-assign");
+import Dispatcher  from "../Base/Dispatcher";
+import Constants from "./Constants";
+import { EventEmitter } from "events";
+import assign from "object-assign";
 
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';

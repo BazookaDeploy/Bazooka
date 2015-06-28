@@ -1,8 +1,8 @@
-var React = require("react");
-var Router = require('react-router');
-var Actions = require("./ActionsCreator");
-var Store = require("./Store");
-var ReactIntl = require("react-intl")
+import React from "react";
+import Router from 'react-router';
+import Actions from "./ActionsCreator";
+import Store from  "./Store";
+import ReactIntl from "react-intl";
 var FormattedDate = ReactIntl.FormattedDate;
 var FormattedTime = ReactIntl.FormattedTime;
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
@@ -59,7 +59,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
             }
          }
       }
-      
+
       var formats =format.formats;
 
       return(<div>
@@ -68,17 +68,17 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
           <h4>Current deployment status: {this.getStatus(this.state.deployments.Status)}</h4>
           <h5>Deploying version: {this.state.deployments.Version}</h5>
           <span>
-          {this.state.deployments.StartDate!=null ? 
-          (<span>Deployment started on <FormattedDate value={this.state.deployments.StartDate} /> at <FormattedTime formats={formats} format="hhmm"  value={this.state.deployments.StartDate} />  </span>) : (<span />)} 
-          
+          {this.state.deployments.StartDate!=null ?
+          (<span>Deployment started on <FormattedDate value={this.state.deployments.StartDate} /> at <FormattedTime formats={formats} format="hhmm"  value={this.state.deployments.StartDate} />  </span>) : (<span />)}
+
           {this.state.deployments.EndDate!=null ? (<span>and ended at <FormattedTime formats={formats} format="hhmm"  value={this.state.deployments.EndDate} /></span> ): (<span />)}
-          
-          
+
+
           </span>
           <br />
           <h4>Logs:</h4>
           <span dangerouslySetInnerHTML={{
-            __html: (this.state.deployments.Log||"").replace(/(?:\r\n|\r|\n)/g, '<br />') 
+            __html: (this.state.deployments.Log||"").replace(/(?:\r\n|\r|\n)/g, '<br />')
           }} ></span>
         </div>)
       },
@@ -88,7 +88,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
           deployments : Store.getAll(),
           refreshing:false,
         })
-        
+
         if(this.state.deployments.Status == 1){
           setTimeout(this.reload,10000);
         }

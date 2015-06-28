@@ -1,6 +1,6 @@
-var Dispatcher = require('../Base/Dispatcher');
-var ActionTypes = require('./Constants').ActionTypes;
-var reqwest = require("reqwest");
+import Dispatcher from '../Base/Dispatcher';
+import { ActionTypes } from './Constants';
+import reqwest from "reqwest";
 
 module.exports = {
   updateDeployment : function(id){

@@ -1,10 +1,10 @@
-var React = require("react");
-var LinkedState = require("react/lib/LinkedStateMixin");
-var Router = require('react-router');
-var Actions = require("./ActionsCreator");
-var Store = require("./Store");
-var TabbedArea = require("react-bootstrap/lib/TabbedArea");
-var TabPane = require("react-bootstrap/lib/TabPane");
+import React from "react";
+import LinkedState from "react/lib/LinkedStateMixin";
+import Router from 'react-router';
+import Actions from "./ActionsCreator";
+import Store from "./Store";
+import TabbedArea from "react-bootstrap/lib/TabbedArea";
+import TabPane from "react-bootstrap/lib/TabPane";
 
 var {
 	Route, DefaultRoute, RouteHandler, Link, State
@@ -141,7 +141,7 @@ var EditPage = React.createClass({
 		return (
 			<div>
 			      <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().deployUnitName}</h3>
-			
+
 				<TabbedArea defaultActiveKey={1}>
 		    	<TabPane eventKey={1} tab='Settings'>
 						<form role="form" onSubmit={this.save}>

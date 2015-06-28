@@ -1,8 +1,8 @@
-var React = require("react");
-var Router = require('react-router');
-var Actions = require("./ActionsCreator");
-var Store = require("./Store");
-var ReactIntl = require("react-intl")
+import React from "react";
+import Router from 'react-router';
+import Actions from "./ActionsCreator";
+import Store from "./Store";
+import ReactIntl from "react-intl";
 var FormattedRelative = ReactIntl.FormattedRelative;
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
@@ -72,7 +72,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
     },
 
     updateFilters:function(){
-       Actions.updateDeployments(this.refs.filter.getDOMNode().value);  
+       Actions.updateDeployments(this.refs.filter.getDOMNode().value);
     },
 
     render: function () {

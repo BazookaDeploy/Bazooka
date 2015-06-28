@@ -1,10 +1,10 @@
-var React = require("react");
-var LinkedState = require("react/lib/LinkedStateMixin");
-var Router = require('react-router');
-var Actions = require("./ActionsCreator");
-var Store = require("./Store");
-var Modal = require("react-bootstrap/lib/Modal");
-var ModalTrigger = require("react-bootstrap/lib/ModalTrigger");
+import React from "react";
+import LinkedState from "react/lib/LinkedStateMixin";
+import Router from 'react-router';
+import Actions from "./ActionsCreator";
+import Store from "./Store";
+import Modal from "react-bootstrap/lib/Modal";
+import ModalTrigger from  "react-bootstrap/lib/ModalTrigger";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var HookDialog = React.createClass({
@@ -13,7 +13,7 @@ var HookDialog = React.createClass({
       url: ""
     }
   },
-  
+
   componentDidMount: function(){
     Actions.getDeployUrl(this.props.Enviroment).then(x => {
       this.setState({
@@ -21,9 +21,9 @@ var HookDialog = React.createClass({
       })
     })
   },
-  
+
   render: function(){
-    
+
        return(
       <Modal {...this.props} backdrop="static" title="Get deploy url">
       <div className="modal-body">
@@ -306,7 +306,7 @@ var CreateDialog = React.createClass({
 
       return(<div>
         <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment}</h3>
-        
+
         <table className="table table-bordered table-striped">
           <thead><tr><th>Deploy Units
             <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} />}>
@@ -366,7 +366,7 @@ var CreateDialog = React.createClass({
           </table>
 
          <h4>Web hook</h4>
-          
+
          <p>Deploys can be automated by invoking a specific web hook for each enviroment of your application
          <ModalTrigger modal={<HookDialog Enviroment={this.getParams().enviromentId} />}>
               <button className='btn btn-xs btn-primary pull-right'>Get Url</button>

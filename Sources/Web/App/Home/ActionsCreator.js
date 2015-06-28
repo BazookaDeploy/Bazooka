@@ -1,9 +1,9 @@
-var ApplicationDispatcher = require('../Base/Dispatcher');
-var ActionTypes = require('./Constants').ActionTypes;
-var reqwest = require("reqwest");
+import ApplicationDispatcher from '../Base/Dispatcher';
+import { ActionTypes } from './Constants';
+import reqwest from "reqwest";
 
 module.exports = {
-  
+
 	getVersions: function(enviromentId) {
 		var promise = reqwest({
 			url: "/api/deploy/search?enviromentId=" + enviromentId,
@@ -24,7 +24,7 @@ module.exports = {
 		});
 		return promise;
 	},
-  
+
   updateEnviroments : function(){
     reqwest({
       url:"/api/status/",

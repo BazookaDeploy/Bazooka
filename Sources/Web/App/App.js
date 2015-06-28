@@ -1,8 +1,8 @@
-var React = require("react");
-var Router = require('react-router');
-var DropdownButton = require("react-bootstrap/lib/DropdownButton");
-var NavItemLink = require("react-router-bootstrap/lib/NavItemLink");
-var MenuItemLink = require("react-router-bootstrap/lib/MenuItemLink");
+import React  from "react";
+import Router  from 'react-router';
+import DropdownButton  from "react-bootstrap/lib/DropdownButton";
+import NavItemLink  from "react-router-bootstrap/lib/NavItemLink";
+import MenuItemLink from "react-router-bootstrap/lib/MenuItemLink";
 
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 

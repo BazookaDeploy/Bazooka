@@ -1,8 +1,8 @@
-﻿var React = require("react");
-var Actions = require("./ActionsCreator");
-var Store = require("./Store");
-var Modal = require("react-bootstrap/lib/Modal");
-var ModalTrigger = require("react-bootstrap/lib/ModalTrigger");
+﻿import React  from "react";
+import Actions from "./ActionsCreator";
+import Store from "./Store";
+import Modal  from "react-bootstrap/lib/Modal";
+import ModalTrigger from "react-bootstrap/lib/ModalTrigger" ;
 
 var DeployDialog = React.createClass({
   getInitialState: function() {
@@ -83,7 +83,7 @@ var Enviroment = React.createClass({
                            .Versions
                            .map(x => x.CurrentlyDeployedVersion)
                            .reduce(function(a, b){return (a === b)?a:false;});
-                                 
+
       oneVersion = oneVersion === this.props.Enviroment.Versions[0].CurrentlyDeployedVersion;
 
       if(oneVersion){
@@ -91,7 +91,7 @@ var Enviroment = React.createClass({
         return (<div style={{"marginBottom":"10px"}}>
             Enviroment: <b>{this.props.Enviroment.Enviroment}</b> <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
                       <button className='btn btn-primary btn-xs pull-right'>Deploy</button>
-                    </ModalTrigger> 
+                    </ModalTrigger>
                     <br /> Version: <b>{version}</b><br /></div>);
       }
 

@@ -1,9 +1,9 @@
-var React = require("react");
-var Router = require('react-router');
-var Actions = require("./ActionsCreator");
-var Store = require("./Store");
-var Modal = require("react-bootstrap/lib/Modal");
-var ModalTrigger = require("react-bootstrap/lib/ModalTrigger");
+import React from  "react";
+import Router from  'react-router';
+import Actions from  "./ActionsCreator";
+import Store from  "./Store";
+import Modal from  "react-bootstrap/lib/Modal";
+import ModalTrigger from  "react-bootstrap/lib/ModalTrigger";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var User = React.createClass({
