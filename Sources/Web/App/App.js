@@ -1,6 +1,6 @@
 var React = require("react");
 var Router = require('react-router');
-var DropdownButton = require("react-bootstrap/DropdownButton");
+var DropdownButton = require("react-bootstrap/lib/DropdownButton");
 var NavItemLink = require("react-router-bootstrap/lib/NavItemLink");
 var MenuItemLink = require("react-router-bootstrap/lib/MenuItemLink");
 

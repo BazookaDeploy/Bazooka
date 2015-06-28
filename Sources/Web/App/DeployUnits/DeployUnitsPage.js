@@ -3,8 +3,8 @@ var LinkedState = require("react/lib/LinkedStateMixin");
 var Router = require('react-router');
 var Actions = require("./ActionsCreator");
 var Store = require("./Store");
-var Modal = require("react-bootstrap/Modal");
-var ModalTrigger = require("react-bootstrap/ModalTrigger");
+var Modal = require("react-bootstrap/lib/Modal");
+var ModalTrigger = require("react-bootstrap/lib/ModalTrigger");
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var HookDialog = React.createClass({

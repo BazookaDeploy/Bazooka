@@ -1,8 +1,8 @@
 var React = require("react");
 var Actions = require("./ActionsCreator");
 var Store = require("./Store");
-var Modal = require("react-bootstrap/Modal");
-var ModalTrigger = require("react-bootstrap/ModalTrigger");
+var Modal = require("react-bootstrap/lib/Modal");
+var ModalTrigger = require("react-bootstrap/lib/ModalTrigger");
 var Router = require('react-router');
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 

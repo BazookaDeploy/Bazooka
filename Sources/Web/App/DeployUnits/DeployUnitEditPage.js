@@ -3,8 +3,8 @@ var LinkedState = require("react/lib/LinkedStateMixin");
 var Router = require('react-router');
 var Actions = require("./ActionsCreator");
 var Store = require("./Store");
-var TabbedArea = require("react-bootstrap/TabbedArea");
-var TabPane = require("react-bootstrap/TabPane");
+var TabbedArea = require("react-bootstrap/lib/TabbedArea");
+var TabPane = require("react-bootstrap/lib/TabPane");
 
 var {
 	Route, DefaultRoute, RouteHandler, Link, State
