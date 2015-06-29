@@ -12,9 +12,22 @@ namespace Web.Controllers
         private ReadContext db = new ReadContext();
 
         [Queryable]
-        public IQueryable<DeploymentDto> Get()
+        public IQueryable<object> Get()
         {
-            return db.Deployments.OrderByDescending(x => x.StartDate ?? DateTime.UtcNow);
+            return db.Deployments
+                     .OrderByDescending(x => x.StartDate ?? DateTime.UtcNow)
+                     .Select(x => new { 
+                        x.Configuration,
+                        x.EndDate,
+                        x.EnviromentId,
+                        x.Id,
+                        x.Name,
+                        x.StartDate,
+                        x.Status,
+                        x.UserId,
+                        x.UserName,
+                        x.Version
+                     });
         }
 
 
