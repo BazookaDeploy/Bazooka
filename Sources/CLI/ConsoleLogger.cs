@@ -9,7 +9,7 @@ namespace Bazooka.CLI
 {
     public class ConsoleLogger : ILogger
     {
-        public void Log(string text)
+        public void Log(string text, bool error = false)
         {
             Console.WriteLine(text);
         }

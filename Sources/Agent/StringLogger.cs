@@ -9,16 +9,21 @@ namespace Agent
 {
     public class StringLogger : ILogger
     {
-        public string Logs { get; private set; }
+        public ICollection<LogEntry> Logs { get; private set; }
 
         public StringLogger()
         {
-            Logs = string.Empty;
+            Logs = new List<LogEntry>();
         }
 
-        public void Log(string text)
+        public void Log(string text, bool error = false)
         {
-            Logs += text + Environment.NewLine;
+            Logs.Add(new LogEntry()
+            {
+                Error = error,
+                TimeStamp = DateTime.UtcNow,
+                Text = text
+            }); ;
         }
     }
 }

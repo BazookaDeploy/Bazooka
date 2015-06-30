@@ -58,7 +58,7 @@
                             using (var session = Store.OpenSession())
                             {
                                 var dep = session.Load<Deployment>(deploymentId);
-                                foreach (var mess in ret)
+                                foreach (var mess in ret.Log)
                                 {
                                     dep.Log += mess;
                                 }
@@ -72,7 +72,7 @@
                             using (var session = Store.OpenSession())
                             {
                                 var dep = session.Load<Deployment>(deploymentId);
-                                foreach (var mess in ret)
+                                foreach (var mess in ret.Log)
                                 {
                                     dep.Log += mess;
                                 }
@@ -122,7 +122,7 @@
 
 
 
-        private static ICollection<string> Install(DeployUnitDto unit, string version, string config)
+        private static ExecutionResult Install(DeployUnitDto unit, string version, string config)
         {
             var address = unit.Machine;
 
@@ -149,12 +149,12 @@
                 var response = result.Content.ReadAsStringAsync().Result;
 
                 var response2 = JsonConvert.DeserializeObject<ExecutionResult>(response);
-                return new string[] { response2.Log, response2.Exception };
+                return response2;
             }
         }
 
 
-        private static ICollection<string> Update(DeployUnitDto unit, string version, string config)
+        private static ExecutionResult Update(DeployUnitDto unit, string version, string config)
         {
             using (var client = new HttpClient())
             {
@@ -179,7 +179,7 @@
                 var response = result.Content.ReadAsStringAsync().Result;
 
                 var response2 = JsonConvert.DeserializeObject<ExecutionResult>(response);
-                return new string[] { response2.Log, response2.Exception };
+                return response2;
             }
         }
     }

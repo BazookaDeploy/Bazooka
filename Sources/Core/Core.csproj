@@ -62,6 +62,7 @@
     <Compile Include="InexistentPackageException.cs" />
     <Compile Include="IPackageInstaller.cs" />
     <Compile Include="IPackageRemover.cs" />
+    <Compile Include="LogEntry.cs" />
     <Compile Include="OverWritingPhysicalFilesystem.cs" />
     <Compile Include="PackageCleaner.cs" />
     <Compile Include="PackageHelpers.cs" />

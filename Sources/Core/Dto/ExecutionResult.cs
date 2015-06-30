@@ -1,4 +1,6 @@
-﻿namespace Bazooka.Core.Dto
+﻿using Agent;
+using System.Collections.Generic;
+namespace Bazooka.Core.Dto
 {
     public class ExecutionResult
     {
@@ -6,6 +8,6 @@
 
         public string Exception {get; set;}
 
-        public string Log {get; set;}
+        public ICollection<LogEntry> Log {get; set;}
     }
 }

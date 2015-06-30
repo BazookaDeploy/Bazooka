@@ -15,6 +15,6 @@ namespace Bazooka.Core
         ///     Writes texxt to the log
         /// </summary>
         /// <param name="text">Text to write</param>
-        void Log(string text);
+        void Log(string text, bool error = false);
     }
 }
