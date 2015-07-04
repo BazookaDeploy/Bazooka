@@ -42,13 +42,15 @@
                     };
                 }
 
-                var packageInfo = new PackageInfo();
-                var filename = PackageHelpers.ExtractPackageName(files.First()).Trim();
-                packageInfo.Name = filename.Substring(filename.LastIndexOf("\\") + 1);
-                packageInfo.Version = PackageHelpers.ExtractPackageVersion(files.First()).Trim();
-                packageInfo.InstallationDirectory = installOptions.Directory;
-                packageInfo.Configuration = installOptions.Configuration;
 
+                var filename = PackageHelpers.ExtractPackageName(files.First()).Trim();
+                var packageInfo = new PackageInfo()
+                {
+                    Name = filename.Substring(filename.LastIndexOf("\\") + 1),
+                    Version = PackageHelpers.ExtractPackageVersion(files.First()).Trim(),
+                    InstallationDirectory = installOptions.Directory,
+                    Configuration = installOptions.Configuration
+                };
                 var packageRemover = new PackageRemover();
                 packageRemover.Logger = logger;
 
@@ -57,11 +59,13 @@
 
 
 
-                var packageInfo2 = new PackageInfo();
-                packageInfo2.Configuration = installOptions.Configuration;
-                packageInfo2.InstallationDirectory = installOptions.Directory;
-                packageInfo2.Name = installOptions.Application;
-                packageInfo2.Version = installOptions.Version;
+                var packageInfo2 = new PackageInfo()
+                {
+                    Configuration = installOptions.Configuration,
+                    InstallationDirectory = installOptions.Directory,
+                    Name = installOptions.Application,
+                    Version = installOptions.Version
+                };
                 var PackageInstaller = new PackageInstaller();
                 PackageInstaller.Logger = logger;
                 PackageInstaller.Install(packageInfo2, new string[] { installOptions.Repository }, installOptions.AdditionalParameters, installOptions.InstallScript, installOptions.ConfigurationFile, installOptions.ConfigurationTransform);
@@ -76,7 +80,7 @@
                 return new ExecutionResult()
                 {
                     Success = false,
-                    Exception = e.Message,
+                    Exception = e.InnerException!=null ? e.InnerException.Message : e.Message,
                     Log = logger.Logs
                 };
             }
@@ -111,7 +115,7 @@
                 return new ExecutionResult()
                 {
                     Success = false,
-                    Exception = e.Message,
+                    Exception = e.InnerException != null ? e.InnerException.Message : e.Message,
                     Log = logger.Logs
                 };
             }
@@ -147,7 +151,7 @@
                 return new ExecutionResult()
                 {
                     Success = false,
-                    Exception = e.Message,
+                    Exception = e.InnerException != null ? e.InnerException.Message : e.Message,
                     Log = logger.Logs
                 };
             }
