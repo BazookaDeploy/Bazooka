@@ -10,7 +10,8 @@ namespace Jobs
 {
     public class CleanJob
     {
-        public static void Execute() {
+        public static void Execute()
+        {
 
             List<string> agents;
 
@@ -24,8 +25,15 @@ namespace Jobs
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(agent);
-                    var result2 = client.GetAsync("/api/deploy/clean").Result;
+                    try
+                    {
+                        client.BaseAddress = new Uri(agent);
+                        var result2 = client.GetAsync("/api/deploy/clean").Result;
+                    }
+                    catch (Exception e) { 
+                        // do nothing, an agent may be unavailable at this time 
+                        // or the network down. Just pass to the next
+                    }
                 }
             }
         }
