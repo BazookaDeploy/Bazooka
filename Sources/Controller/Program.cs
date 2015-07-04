@@ -71,6 +71,7 @@
             mapper.AddMapping<DeployUnitMap>();
             mapper.AddMapping<ParameterMap>();
             mapper.AddMapping<DeploymentMap>();
+            mapper.AddMapping<LogEntryMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 

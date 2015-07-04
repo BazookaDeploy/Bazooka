@@ -43,6 +43,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new AllowedUsersDtoConfiguration());
             modelBuilder.Configurations.Add(new AllowedGroupsDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
+            modelBuilder.Configurations.Add(new LogEntryDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -108,6 +109,14 @@ namespace DataAccess.Read
         }
     }
 
+    public class LogEntryDtoConfiguration : EntityTypeConfiguration<LogEntryDto>
+    {
+        public LogEntryDtoConfiguration()
+        {
+            ToTable("Logs");
+        }
+    }
+
     public class ApplicationDtoConfiguration : EntityTypeConfiguration<ApplicationDto>
     {
         public ApplicationDtoConfiguration()
@@ -148,6 +157,9 @@ namespace DataAccess.Read
         public DeploymentDtoConfiguration()
         {
             ToTable("Deployments");
+            HasMany(x => x.Logs)
+                .WithRequired()
+                .HasForeignKey(x => x.DeploymentId);
         }
     }
 }

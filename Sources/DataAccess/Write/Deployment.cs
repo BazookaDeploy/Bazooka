@@ -15,8 +15,6 @@ namespace DataAccess.Write
 
         public virtual DateTime? EndDate { get; set; }
 
-        public virtual string Log { get; set; }
-
         public virtual Status Status { get; set; }
 
         public virtual string Version { get; set; }

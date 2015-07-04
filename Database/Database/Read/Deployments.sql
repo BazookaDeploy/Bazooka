@@ -1,5 +1,11 @@
 ﻿CREATE VIEW [rd].[Deployments]
-	AS SELECT [dbo].Deployments.*, 
+	AS SELECT [dbo].[Deployments].[Id], 
+			  [dbo].[Deployments].[EnviromentId], 
+			  [dbo].[Deployments].[StartDate], 
+			  [dbo].[Deployments].[EndDate], 
+			  [dbo].[Deployments].[Status], 
+			  [dbo].[Deployments].[Version], 
+			  [dbo].[Deployments].[UserId], 
 			  Applications.Name, 
 			  Enviroments.Configuration ,
 			  AspNetUsers.UserName

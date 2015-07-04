@@ -36,7 +36,12 @@
                 dep.StartDate = DateTime.UtcNow;
                 dep.Status = Status.Running;
                 version = dep.Version;
-                dep.Log = "Deploy started \r\n";
+                session.Save(new LogEntry() { 
+                    DeploymentId = dep.Id,
+                    Error = false,
+                    Text = "Deploy started",
+                    TimeStamp = DateTime.UtcNow
+                });
                 envId = dep.EnviromentId;
                 session.Update(dep);
                 session.Flush();
@@ -60,7 +65,13 @@
                                 var dep = session.Load<Deployment>(deploymentId);
                                 foreach (var mess in ret.Log)
                                 {
-                                    dep.Log += mess;
+                                    session.Save(new LogEntry()
+                                    {
+                                        DeploymentId = dep.Id,
+                                        Error = mess.Error,
+                                        Text = mess.Text,
+                                        TimeStamp = mess.TimeStamp
+                                    });
                                 }
                                 session.Update(dep);
                                 session.Flush();
@@ -74,7 +85,13 @@
                                 var dep = session.Load<Deployment>(deploymentId);
                                 foreach (var mess in ret.Log)
                                 {
-                                    dep.Log += mess;
+                                    session.Save(new LogEntry()
+                                    {
+                                        DeploymentId = dep.Id,
+                                        Error = mess.Error,
+                                        Text = mess.Text,
+                                        TimeStamp = mess.TimeStamp
+                                    });
                                 }
                                 session.Update(dep);
                                 session.Flush();
@@ -88,7 +105,13 @@
                             var dep = session.Load<Deployment>(deploymentId);
                             dep.EndDate = DateTime.UtcNow;
                             dep.Status = Status.Failed;
-                            dep.Log += e.Message;
+                            session.Save(new LogEntry()
+                            {
+                                DeploymentId = dep.Id,
+                                Error = true,
+                                Text = e.Message,
+                                TimeStamp = DateTime.UtcNow
+                            });
                             session.Update(dep);
                             session.Flush();
                         }
@@ -112,7 +135,13 @@
                 var dep = session.Load<Deployment>(deploymentId);
                 dep.EndDate = DateTime.UtcNow;
                 dep.Status = Status.Ended;
-                dep.Log += "Deploy ended";
+                session.Save(new LogEntry()
+                {
+                    DeploymentId = dep.Id,
+                    Error = false,
+                    Text = "Deploy ended",
+                    TimeStamp = DateTime.UtcNow
+                });
                 session.Update(dep);
                 session.Flush();
             }

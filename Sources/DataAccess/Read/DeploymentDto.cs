@@ -21,14 +21,27 @@ namespace DataAccess.Read
 
         public virtual DateTime? EndDate { get; set; }
 
-        public virtual string Log { get; set; }
-
         public virtual Status Status { get; set; }
 
         public virtual string Version { get; set; }
 
         public virtual string UserId { get; set; }
 
-        public virtual string UserName {get; set;}
+        public virtual string UserName { get; set; }
+
+        public virtual ICollection<LogEntryDto> Logs { get; set; }
+    }
+
+    public class LogEntryDto
+    {
+        public virtual int Id { get; set; }
+
+        public virtual DateTime TimeStamp { get; set; }
+
+        public virtual string Text { get; set; }
+
+        public virtual bool Error { get; set; }
+
+        public virtual int DeploymentId { get; set; }
     }
 }

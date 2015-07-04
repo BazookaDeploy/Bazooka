@@ -20,7 +20,6 @@ namespace DataAccess.Write
                     map.Column("Id");
                 });
 
-            Property(x => x.Log, x => x.Type(NHibernateUtil.StringClob));
             Property(x => x.StartDate, x => x.NotNullable(false));
             Property(x => x.EndDate, x => x.NotNullable(false));
             Property(x => x.EnviromentId, x => x.NotNullable(true));

@@ -6,7 +6,7 @@ import assign from "object-assign";
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-var _deployUnits = [];
+var _deployUnits = {Logs:[]};
 
 function _addDeployment(raw) {
   _deployUnits=raw;

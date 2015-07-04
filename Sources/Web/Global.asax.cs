@@ -34,6 +34,7 @@ namespace Web
             mapper.AddMapping<DeploymentMap>();
             mapper.AddMapping<AllowedGroupMap>();
             mapper.AddMapping<AllowedUserMap>();
+            mapper.AddMapping<LogEntryMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 
