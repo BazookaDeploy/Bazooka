@@ -36,7 +36,8 @@
                 dep.StartDate = DateTime.UtcNow;
                 dep.Status = Status.Running;
                 version = dep.Version;
-                session.Save(new LogEntry() { 
+                session.Save(new LogEntry()
+                {
                     DeploymentId = dep.Id,
                     Error = false,
                     Text = "Deploy started",
@@ -57,45 +58,33 @@
                     try
                     {
                         var res = new List<string>();
+                        ExecutionResult ret;
                         if (unit.CurrentlyDeployedVersion != null)
                         {
-                            var ret = Update(unit, version, config);
-                            using (var session = Store.OpenSession())
-                            {
-                                var dep = session.Load<Deployment>(deploymentId);
-                                foreach (var mess in ret.Log)
-                                {
-                                    session.Save(new LogEntry()
-                                    {
-                                        DeploymentId = dep.Id,
-                                        Error = mess.Error,
-                                        Text = mess.Text,
-                                        TimeStamp = mess.TimeStamp
-                                    });
-                                }
-                                session.Update(dep);
-                                session.Flush();
-                            }
+                            ret = Update(unit, version, config);
                         }
                         else
                         {
-                            var ret = Install(unit, version, config);
-                            using (var session = Store.OpenSession())
+                            ret = Install(unit, version, config);
+                        }
+                        using (var session = Store.OpenSession())
+                        {
+                            foreach (var mess in ret.Log)
                             {
-                                var dep = session.Load<Deployment>(deploymentId);
-                                foreach (var mess in ret.Log)
+                                session.Save(new LogEntry()
                                 {
-                                    session.Save(new LogEntry()
-                                    {
-                                        DeploymentId = dep.Id,
-                                        Error = mess.Error,
-                                        Text = mess.Text,
-                                        TimeStamp = mess.TimeStamp
-                                    });
-                                }
-                                session.Update(dep);
-                                session.Flush();
+                                    DeploymentId = deploymentId,
+                                    Error = mess.Error,
+                                    Text = mess.Text,
+                                    TimeStamp = mess.TimeStamp
+                                });
                             }
+                            session.Flush();
+                        }
+
+                        if (!ret.Success)
+                        {
+                            throw new Exception("Deploy failed");
                         }
                     }
                     catch (Exception e)
