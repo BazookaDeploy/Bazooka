@@ -62,7 +62,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
       var formats =format.formats;
 
-      var logs = this.state.deployments==null ? (<span />): this.state.deployments.Logs.map(x => (<span> <FormattedTime formats={formats} format="hhmm"  value={x.TimeStamp} /> : <span dangerouslySetInnerHTML={{ __html: (x.Text||"").replace(/(?:\r\n|\r|\n)/g, '<br />') }}></span> </span>))
+      var logs = this.state.deployments==null ? (<span />): this.state.deployments.Logs.map(x => (<span> <FormattedTime formats={formats} format="hhmm"  value={x.TimeStamp} /> : <span className={x.Error ? "text-danger" : ""} dangerouslySetInnerHTML={{ __html: (x.Text||"").replace(/(?:\r\n|\r|\n)/g, '<br />') }}></span> </span>))
 
       return(<div>
         <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}         <button className='btn btn-xs btn-default' onClick={this.reload}>{this.state.refreshing? "Reloading ..." : "Reload"}</button></h2>
