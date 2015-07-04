@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using NHibernate;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace DataAccess.Write
             Property(x => x.DeploymentId, x => x.NotNullable(false));
             Property(x => x.TimeStamp, x => x.NotNullable(false));
             Property(x => x.Error, x => x.NotNullable(true));
-            Property(x => x.Text, x => x.NotNullable(true));
+            Property(x => x.Text, x => { x.NotNullable(true); x.Type(NHibernateUtil.StringClob); });
        }
     }
 }
