@@ -26,13 +26,16 @@ namespace Bazooka.Core
         /// <param name="info"></param>
         public void Install(PackageInfo info, ICollection<string> repositories, Dictionary<string, string> parameters)
         {
+            Logger.Log(string.Format("Installing application {0} version {1}", info.Name, info.Version));
+
             DownloadPackage(info, repositories);
 
-            ApplyTransformations(info, null,null);
+            ApplyTransformations(info, null, null);
 
-            ExecuteInstallScript(info, parameters,null);
+            ExecuteInstallScript(info, parameters, null);
 
-            Logger.Log("Application installed");
+            Logger.Log(string.Format("Installed application {0} version {1}", info.Name, info.Version));
+
         }
 
         /// <summary>
@@ -43,6 +46,8 @@ namespace Bazooka.Core
         {
             if (installScript != null)
             {
+                Logger.Log("Executing install script passed as parameter");
+
                 PowershellHelpers.ExecuteScript(info.InstallationDirectory, installScript, Logger, parameters);
             }
 
@@ -50,7 +55,7 @@ namespace Bazooka.Core
 
             if (File.Exists(file))
             {
-                Logger.Log("Executing install script ... ");
+                Logger.Log("Executing install script inside package...");
                 PowershellHelpers.Execute(info.InstallationDirectory, "install.ps1", info.Configuration, Logger, parameters);
             }
         }
@@ -63,6 +68,8 @@ namespace Bazooka.Core
         {
             if (configFile != null && transform != null)
             {
+                Logger.Log("EAppling transform passed as parameter");
+
                 using (var transformation = new XmlTransformation(transform, isTransformAFile: false, logger: null))
                 {
                     var dest = Path.Combine(info.InstallationDirectory, configFile);
@@ -85,7 +92,7 @@ namespace Bazooka.Core
                             using (var fileStream = File.OpenWrite(dest))
                             {
                                 document.Save(fileStream);
-                                Logger.Log("Transormation applied ");
+                                Logger.Log("Transormation applied successfully");
                             }
                         }
                         else
@@ -104,7 +111,7 @@ namespace Bazooka.Core
 
             foreach (var file in files)
             {
-                Logger.Log("Applying transformation ...");
+                Logger.Log("Applying transformation contained in package ...");
 
                 StringBuilder sb = new StringBuilder();
                 using (StreamReader sr = new StreamReader(file.Replace(".config", "." + info.Configuration + ".config")))
@@ -138,7 +145,7 @@ namespace Bazooka.Core
                             using (var fileStream = File.OpenWrite(file))
                             {
                                 document.Save(fileStream);
-                                Logger.Log("Transormation applied ");
+                                Logger.Log("Transormation applied successfully");
                             }
                         }
                         else
@@ -156,7 +163,7 @@ namespace Bazooka.Core
         /// <param name="info">Pacakge informations</param>
         private void DownloadPackage(PackageInfo info, ICollection<string> repositories)
         {
-            Logger.Log("Downloading package ... ");
+            Logger.Log(String.Format("Downloading package for {0} version {1} ... ", info.Name, info.Version));
 
             var factory = new PackageRepositoryFactory();
 
@@ -165,7 +172,6 @@ namespace Bazooka.Core
             var globalRepo = new AggregateRepository(factory, repositories, true);
 
             package = globalRepo.FindPackage(info.Name, SemanticVersion.Parse(info.Version), true, true);
-
 
             if (package == null)
             {
@@ -179,21 +185,21 @@ namespace Bazooka.Core
 
             manager.InstallPackage(package, false, true);
 
-            Logger.Log("Package downloaded ");
+            Logger.Log(String.Format("Package for {0} version {1} downloaded ... ", info.Name, info.Version));
         }
 
 
         public void Install(PackageInfo info, ICollection<string> repositories, Dictionary<string, string> parameters, string installScript, string configFile, string configTrasform)
         {
-            {
-                DownloadPackage(info, repositories);
+            Logger.Log(String.Format("Starting installation of {0} version {1} ... ", info.Name, info.Version));
 
-                ApplyTransformations(info, configFile, configTrasform);
+            DownloadPackage(info, repositories);
 
-                ExecuteInstallScript(info, parameters, installScript);
+            ApplyTransformations(info, configFile, configTrasform);
 
-                Logger.Log("Application installed");
-            }
+            ExecuteInstallScript(info, parameters, installScript);
+
+            Logger.Log(String.Format("{0} version {1} Installed successfully ", info.Name, info.Version));
         }
     }
 }
