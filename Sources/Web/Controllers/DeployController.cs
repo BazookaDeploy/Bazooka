@@ -58,6 +58,27 @@ namespace Web.Controllers
         }
 
         [HttpGet]
+        public void Schedule(int enviromentId, string version, DateTime start)
+        {
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var deploy = new Deployment()
+                {
+                    EnviromentId = enviromentId,
+                    Status = Status.Scheduled,
+                    Version = version,
+                    UserId = User.Identity.GetUserId(),
+                    StartDate = start
+                };
+
+                session.Save(deploy);
+                session.Flush();
+
+                BackgroundJob.Schedule(() => DeployJob.Execute(deploy.Id),start);
+            };
+        }
+
+        [HttpGet]
         public void Begin(Guid deployKey, string version)
         {
             var env = db.Enviroments.Single(x => x.DeployKey == deployKey);

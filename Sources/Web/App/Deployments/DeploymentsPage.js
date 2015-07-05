@@ -35,13 +35,13 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
       } else if(this.props.Deployment.Status==2){
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
-            <td> <i className="glyphicon glyphicon-ok-circle" style={{color:"#17EF43"}}></i></td>
+            <td> <i className="glyphicon glyphicon-time"></i></td>
             <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
             <td>{this.props.Deployment.Version}</td>
             <td>{this.props.Deployment.UserName}</td>
             <td><FormattedRelative value={this.props.Deployment.StartDate} /></td>
           </tr>);
-      } else{
+      } else if(this.props.Deployment.Status==3){
         return(
           <tr onClick={this.navigate} style={{cursor:"pointer"}}>
             <td><i className="glyphicon glyphicon-remove-circle" style={{color:"#FF3B3B"}}></i></td>
@@ -50,6 +50,15 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
             <td>{this.props.Deployment.UserName}</td>
             <td><FormattedRelative value={this.props.Deployment.StartDate} /></td>
           </tr>);
+      }else {
+        return(
+        <tr onClick={this.navigate} style={{cursor:"pointer"}}>
+          <td><i className="glyphicon glyphicon-remove-circle" style={{color:"#FF3B3B"}}></i></td>
+          <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
+          <td>{this.props.Deployment.Version}</td>
+          <td>{this.props.Deployment.UserName}</td>
+          <td><FormattedRelative value={this.props.Deployment.StartDate} /></td>
+        </tr>);
       }
     }
   });

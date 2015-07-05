@@ -41,8 +41,10 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
         return "Running";
       }else if(status==2){
         return "Ended";
+      }else if(status==3){
+          return "Failed";
       }else{
-        return "Failed";
+        return "Scheduled";
       }
     },
 
@@ -71,7 +73,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
           <h5>Deploying version: {this.state.deployments.Version}</h5>
           <span>
           {this.state.deployments.StartDate!=null ?
-          (<span>Deployment started on <FormattedDate value={this.state.deployments.StartDate} /> at <FormattedTime formats={formats} format="hhmm"  value={this.state.deployments.StartDate} />  </span>) : (<span />)}
+          (<span>Deployment {this.state.deployments.Status == 4 ? "scheduled" : "started" } on <FormattedDate value={this.state.deployments.StartDate} /> at <FormattedTime formats={formats} format="hhmm"  value={this.state.deployments.StartDate} />  </span>) : (<span />)}
 
           {this.state.deployments.EndDate!=null ? (<span>and ended at <FormattedTime formats={formats} format="hhmm"  value={this.state.deployments.EndDate} /></span> ): (<span />)}
 

@@ -30,7 +30,10 @@ namespace DataAccess.Write
 
         Ended = 2,
 
-        Failed = 3
+        Failed = 3,
+
+        Scheduled = 4
+
 
     }
 }
