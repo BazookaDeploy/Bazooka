@@ -15,7 +15,9 @@ Once the package is ready you can install your application by using Bazooka to d
 
 ### Current Status
 
-At the moment only the commandline client is ready and already used. You can install, uninstall and update installed applications by executing a simgle command.
+At the moment both the commandline client and tghe web interface are ready and already used in production. You can install, uninstall and update installed applications by executing a simgle command.
+
+Further documentation is coming
 
 
 
