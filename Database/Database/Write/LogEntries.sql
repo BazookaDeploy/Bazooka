@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[LogEntries]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [TimeStamp] DATETIME NOT NULL, 
     [Text] NVARCHAR(MAX) NOT NULL, 
     [Error] BIT NOT NULL, 
