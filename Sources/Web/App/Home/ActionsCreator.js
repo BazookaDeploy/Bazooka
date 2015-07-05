@@ -25,6 +25,17 @@ module.exports = {
 		return promise;
 	},
 
+	scheduleDeploy: function(enviromentId, version, date) {
+		var promise = reqwest({
+			url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&version=" +
+				version + "&start=" + date.toISOString(),
+			type: 'json',
+			contentType: 'application/json',
+			method: "get"
+		});
+		return promise;
+	},
+
   updateEnviroments : function(){
     reqwest({
       url:"/api/status/",

@@ -68,13 +68,13 @@ namespace Web.Controllers
                     Status = Status.Scheduled,
                     Version = version,
                     UserId = User.Identity.GetUserId(),
-                    StartDate = start
+                    StartDate = start.ToUniversalTime()
                 };
 
                 session.Save(deploy);
                 session.Flush();
 
-                BackgroundJob.Schedule(() => DeployJob.Execute(deploy.Id),start);
+                BackgroundJob.Schedule(() => DeployJob.Execute(deploy.Id),start.ToUniversalTime() - DateTime.UtcNow);
             };
         }
 
