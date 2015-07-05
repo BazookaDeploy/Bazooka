@@ -147,6 +147,7 @@
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(unit.Machine);
+                client.Timeout = TimeSpan.FromSeconds(300);
 
                 var result2 = client.PostAsJsonAsync("/api/deploy/install", new
                 InstallDto
@@ -177,6 +178,7 @@
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(unit.Machine);
+                client.Timeout = TimeSpan.FromSeconds(300);
 
                 var result2 = client.PostAsJsonAsync("/api/deploy/update", new
                 InstallDto
