@@ -7,6 +7,45 @@ var FormattedDate = ReactIntl.FormattedDate;
 var FormattedTime = ReactIntl.FormattedTime;
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
+      var format = {
+         "formats": {
+            "time": {
+                "hhmm": {
+                    "hour": "numeric",
+                    "minute": "numeric",
+                    "second":"numeric"
+                }
+            }
+         }
+      }
+
+      var formats =format.formats;
+
+function SameDate(a,b){
+  if(a==null || b==null){
+    return false;
+  }
+  
+  a= new Date(a);
+  b=new Date(b);  
+  debugger;
+  return a.getHours()==b.getHours() && a.getMinutes()==b.getMinutes() && a.getSeconds() == b.getSeconds();
+}
+
+  var LogLine = React.createClass({
+    render:function(){
+      return (
+        <span>
+          <dt style={{width:"80px"}}>{SameDate(this.props.PrevTimeStamp,this.props.TimeStamp) ? <span /> : <FormattedTime formats={formats} format="hhmm"  value={this.props.TimeStamp} />}</dt> 
+          <dd style={{marginLeft:"100px"}}> 
+            <span className={this.props.Error ? "text-danger" : ""} 
+              dangerouslySetInnerHTML={{ __html: (this.props.Text||"").replace(/(?:\r\n|\r|\n)/g, '<br />') }}>
+            </span>
+          </dd>
+        </span>)
+    }
+  });
+
   var DeploymentPage = React.createClass({
     mixins: [Router.State, ReactIntl.IntlMixin],
     getInitialState: function() {
@@ -50,21 +89,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
     render: function () {
 
-      var format = {
-         "formats": {
-            "time": {
-                "hhmm": {
-                    "hour": "numeric",
-                    "minute": "numeric",
-                    "second":"numeric"
-                }
-            }
-         }
-      }
-
-      var formats =format.formats;
-
-      var logs = this.state.deployments==null ? (<span />): this.state.deployments.Logs.map(x => (<span><dt style={{width:"80px"}}><FormattedTime formats={formats} format="hhmm"  value={x.TimeStamp} /></dt> <dd style={{marginLeft:"100px"}}> <span className={x.Error ? "text-danger" : ""} dangerouslySetInnerHTML={{ __html: (x.Text||"").replace(/(?:\r\n|\r|\n)/g, '<br />') }}></span></dd></span>))
+      var logs = this.state.deployments==null ? (<span />): this.state.deployments.Logs.map((x,index) => (<LogLine Error={x.Error} Text={x.Text} TimeStamp={x.TimeStamp} PrevTimeStamp={index>0?this.state.deployments.Logs[index-1].TimeStamp:null} />))
 
       return(<div>
         <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}         <button className='btn btn-xs btn-default' onClick={this.reload}>{this.state.refreshing? "Reloading ..." : "Reload"}</button></h2>

@@ -39,7 +39,7 @@
 
             foreach (var item in results)
             {
-                log.Log(item.ToString());
+                log.Log(String.Join("\r\n", results.Select(x => x.ToString())));
             }
         }
 
