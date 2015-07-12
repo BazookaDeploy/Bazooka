@@ -68,7 +68,8 @@ namespace Web.Controllers
                     Status = Status.Scheduled,
                     Version = version,
                     UserId = User.Identity.GetUserId(),
-                    StartDate = start.ToUniversalTime()
+                    StartDate = start.ToUniversalTime(),
+                    Scheduled = true
                 };
 
                 session.Save(deploy);

@@ -20,6 +20,8 @@ namespace DataAccess.Write
         public virtual string Version { get; set; }
 
         public virtual string UserId { get; set; }
+
+        public virtual bool Scheduled { get; set; }
     }
 
     public enum Status
@@ -32,8 +34,8 @@ namespace DataAccess.Write
 
         Failed = 3,
 
-        Scheduled = 4
+        Scheduled = 4,
 
-
+        Canceled = 5
     }
 }
