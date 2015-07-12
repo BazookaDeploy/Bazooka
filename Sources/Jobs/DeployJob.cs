@@ -50,6 +50,28 @@
 
             using (var dc = new ReadContext())
             {
+                var other = dc.Deployments.Where(x => x.EnviromentId == envId && x.Id != deploymentId && x.Status == Status.Running);
+
+                if (other.Count() > 0) {
+                    using (var session = Store.OpenSession())
+                    {
+                        var dep = session.Load<Deployment>(deploymentId);
+                        dep.EndDate = DateTime.UtcNow;
+                        dep.Status = Status.Failed;
+                        session.Save(new LogEntry()
+                        {
+                            DeploymentId = dep.Id,
+                            Error = true,
+                            Text =  "There is another deployment currently running for the same application in the same enviroment",
+                            TimeStamp = DateTime.UtcNow
+                        });
+                        session.Update(dep);
+                        session.Flush();
+                        return;
+                    }
+
+                }
+
                 config = dc.Enviroments.Single(x => x.Id == envId).Configuration;
                 var units = dc.DeployUnits.Where(x => x.EnviromentId == envId).ToList();
 
