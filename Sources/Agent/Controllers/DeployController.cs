@@ -77,6 +77,8 @@
             }
             catch (Exception e)
             {
+                logger.Log(e.InnerException != null ? e.InnerException.Message : e.Message, true);
+
                 return new ExecutionResult()
                 {
                     Success = false,
@@ -112,6 +114,7 @@
             }
             catch (Exception e)
             {
+                logger.Log(e.InnerException != null ? e.InnerException.Message : e.Message, true);
                 return new ExecutionResult()
                 {
                     Success = false,
@@ -148,6 +151,7 @@
             }
             catch (Exception e)
             {
+                logger.Log(e.InnerException != null ? e.InnerException.Message : e.Message, true);
                 return new ExecutionResult()
                 {
                     Success = false,
