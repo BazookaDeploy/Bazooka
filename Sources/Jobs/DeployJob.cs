@@ -33,6 +33,12 @@
             using (var session = Store.OpenSession())
             {
                 var dep = session.Load<Deployment>(deploymentId);
+
+                if (dep.Status == Status.Canceled)
+                {
+                    return;
+                }
+
                 dep.StartDate = DateTime.UtcNow;
                 dep.Status = Status.Running;
                 version = dep.Version;
@@ -52,7 +58,8 @@
             {
                 var other = dc.Deployments.Where(x => x.EnviromentId == envId && x.Id != deploymentId && x.Status == Status.Running);
 
-                if (other.Count() > 0) {
+                if (other.Count() > 0)
+                {
                     using (var session = Store.OpenSession())
                     {
                         var dep = session.Load<Deployment>(deploymentId);
@@ -62,7 +69,7 @@
                         {
                             DeploymentId = dep.Id,
                             Error = true,
-                            Text =  "There is another deployment currently running for the same application in the same enviroment",
+                            Text = "There is another deployment currently running for the same application in the same enviroment",
                             TimeStamp = DateTime.UtcNow
                         });
                         session.Update(dep);

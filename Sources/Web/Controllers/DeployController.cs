@@ -58,6 +58,30 @@ namespace Web.Controllers
         }
 
         [HttpGet]
+        public void Cancel(int deploymentId)
+        {
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var deploy = session.Load<Deployment>(deploymentId);
+
+                if (deploy.Status == Status.Queud) {
+                    deploy.Status = Status.Canceled;
+
+                    session.Save(new LogEntry()
+                    {
+                        DeploymentId = deploy.Id,
+                        Error = false,
+                        Text = "Deploy canceled",
+                        TimeStamp = DateTime.UtcNow
+                    });
+
+                }
+
+                session.Update(deploy);
+            };
+        }
+
+        [HttpGet]
         public void Schedule(int enviromentId, string version, DateTime start)
         {
             using (var session = WebApiApplication.Store.OpenSession())
