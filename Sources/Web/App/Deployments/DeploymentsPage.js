@@ -50,7 +50,7 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
             <td>{this.props.Deployment.UserName}</td>
             <td><FormattedRelative value={this.props.Deployment.StartDate} /></td>
           </tr>);
-      }else {
+      }else if(this.props.Deployment.Status==3){
         return(
         <tr onClick={this.navigate} style={{cursor:"pointer"}}>
           <td><i className="glyphicon glyphicon-time"></i></td>
@@ -58,6 +58,15 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
           <td>{this.props.Deployment.Version}</td>
           <td>{this.props.Deployment.UserName}</td>
           <td><FormattedRelative value={this.props.Deployment.StartDate} /></td>
+        </tr>);
+      } else {
+        return(
+        <tr onClick={this.navigate} style={{cursor:"pointer"}}>
+          <td><i className="glyphicon glyphicon-erase"></i></td>
+          <td>{this.props.Deployment.Name} - {this.props.Deployment.Configuration}</td>
+          <td>{this.props.Deployment.Version}</td>
+          <td>{this.props.Deployment.UserName}</td>
+          <td></td>
         </tr>);
       }
     }

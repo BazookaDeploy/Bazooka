@@ -64,7 +64,7 @@ namespace Web.Controllers
             {
                 var deploy = session.Load<Deployment>(deploymentId);
 
-                if (deploy.Status == Status.Queud) {
+                if (deploy.Status == Status.Scheduled) {
                     deploy.Status = Status.Canceled;
 
                     session.Save(new LogEntry()
@@ -78,6 +78,8 @@ namespace Web.Controllers
                 }
 
                 session.Update(deploy);
+
+                session.Flush();
             };
         }
 
