@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobs", "Sources\Jobs\Jobs.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Sources\Controller\Controller.csproj", "{961AC7F9-2F14-4032-BD68-5BC611D8E130}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Sources\Updater\Updater.csproj", "{EFA56930-5692-4519-95EC-E4F027605844}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{961AC7F9-2F14-4032-BD68-5BC611D8E130}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{961AC7F9-2F14-4032-BD68-5BC611D8E130}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{961AC7F9-2F14-4032-BD68-5BC611D8E130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFA56930-5692-4519-95EC-E4F027605844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFA56930-5692-4519-95EC-E4F027605844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA56930-5692-4519-95EC-E4F027605844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFA56930-5692-4519-95EC-E4F027605844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,5 +109,6 @@ Global
 		{CA4B41AB-F2F5-46F9-9F77-DE6CD7668C61} = {83B0AC40-150C-4CE8-8099-97B68FDD1DEE}
 		{65DC81D0-E9CD-44A3-940F-E93674B20C15} = {83B0AC40-150C-4CE8-8099-97B68FDD1DEE}
 		{961AC7F9-2F14-4032-BD68-5BC611D8E130} = {C76A6FB5-D124-4905-8016-3E1CCB62649C}
+		{EFA56930-5692-4519-95EC-E4F027605844} = {C76A6FB5-D124-4905-8016-3E1CCB62649C}
 	EndGlobalSection
 EndGlobal
