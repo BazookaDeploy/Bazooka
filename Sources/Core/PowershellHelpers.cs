@@ -37,10 +37,7 @@
 
             var results = pipeline.Invoke();
 
-            foreach (var item in results)
-            {
-                log.Log(String.Join("\r\n", results.Select(x => x.ToString())));
-            }
+            log.Log(String.Join("\r\n", results.Select(x => x.ToString())));
         }
 
         public static void ExecuteScript(string folder, string script, ILogger log, Dictionary<string, string> parameters)
