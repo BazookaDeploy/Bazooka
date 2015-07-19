@@ -82,12 +82,11 @@
                 return new ExecutionResult()
                 {
                     Success = false,
-                    Exception = e.InnerException!=null ? e.InnerException.Message : e.Message,
+                    Exception = e.InnerException != null ? e.InnerException.Message : e.Message,
                     Log = logger.Logs
                 };
             }
         }
-
 
         [HttpPost]
         public ExecutionResult Install(InstallDto installOptions)
@@ -124,6 +123,11 @@
             }
         }
 
+        /// <summary>
+        ///     Cleans all the packages caches.
+        ///     Necessary and called every night by the controller
+        ///     as nuget tends to use a lot of space when decompressing files
+        /// </summary>
         [HttpGet]
         public void Clean()
         {
@@ -160,6 +164,5 @@
                 };
             }
         }
-
     }
 }
