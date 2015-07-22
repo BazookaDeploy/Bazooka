@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Web;
     using System.Web.Http;
 
     public class UpdateController : ApiController
@@ -23,10 +24,12 @@
         [HttpPost]
         public object Update(string agent)
         {
-            byte[] file = this.Request.Content.ReadAsByteArrayAsync().Result;
+            var file = HttpContext.Current.Request.Files[0];
+
+
             using (var client = new HttpClient()) {
                 client.BaseAddress = new Uri(agent );
-                return client.PostAsync("/api/update/update", new ByteArrayContent(file)).Result;
+                return client.PostAsync("/api/update/update",new StreamContent( file.InputStream)).Result;
             }
         }
 

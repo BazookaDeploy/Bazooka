@@ -3,11 +3,29 @@ import Actions from "./ActionsCreator";
 import Dropzone from 'react-dropzone';
 
 var AgentLine = React.createClass({
-  onDrop:function(){
-    debugger;
+  onDrop:function(files){
+    Actions.uploadFiles(files,this.props.name);
   },
+
+  testConnection:function(){
+    Actions.testAgent(this.props.name)
+      .then(x => alert("Agent responding"))
+      .fail(x => alert("Agent not responding"))
+  },
+
   render: function(){
-    return(<tr><td><Dropzone style={{width:"100%", height:"20px", borderStyle:"none"}} ref="drop" onDrop={this.onDrop}>{this.props.name}</Dropzone></td></tr>)
+    return(
+      <tr>
+        <td>
+          {this.props.name}
+          <Dropzone style={{display:"inline", height:"20px", borderStyle:"none"}}
+                    ref="drop"
+                    onDrop={this.onDrop}>
+                    <button className="btn btn-primary btn-xs pull-right">Update</button>
+          </Dropzone>
+          <button className="btn btn-primary btn-xs pull-right" onClick={this.testConnection} style={{margin: "0 5px"}}>Test</button>
+        </td>
+      </tr>)
   }
 });
 
