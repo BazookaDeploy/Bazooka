@@ -19,8 +19,8 @@ namespace Agent.Controllers
 
             System.Diagnostics.ProcessStartInfo procStartInfo = new ProcessStartInfo()
             {
-                UseShellExecute = false,
-                CreateNoWindow = true,
+                UseShellExecute = true,
+                CreateNoWindow = false,
                 WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory,
                 FileName = "cmd",
                 Arguments = " /c \"Updater.exe\" ",
@@ -29,10 +29,11 @@ namespace Agent.Controllers
             System.Diagnostics.Process proc = new System.Diagnostics.Process()
             {
                 StartInfo = procStartInfo,
-                EnableRaisingEvents = true
+                EnableRaisingEvents = true,
             };
 
             proc.Start();
+            proc.WaitForExit();
         }
 
     }

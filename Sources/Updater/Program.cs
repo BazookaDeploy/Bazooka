@@ -18,11 +18,23 @@
             //stop the agent service
             RunProcess(" /c  \"Agent.exe stop\" ");
 
+            Console.WriteLine("agent stopped");
+
+            Console.WriteLine(cwd);
+
+            foreach (var file in Directory.EnumerateFiles(cwd).Where(x => !x.Contains("update.zip") && !x.Contains("Updater.exe") && !x.Contains("Ionic.Zip.dll"))){
+                Console.WriteLine("deleteing "+file);
+                File.Delete(file);
+            }
+
             //extract the new version
             using (var zip = new ZipFile(Path.Combine(cwd, "update.zip")))
             {
+                zip.TempFileFolder = System.IO.Path.GetTempPath();
                 zip.ExtractAll(cwd, ExtractExistingFileAction.OverwriteSilently);
             }
+
+            Console.WriteLine("files extracted");
 
             //clean update package
             System.IO.File.Delete(Path.Combine(cwd, "update.zip"));
@@ -37,8 +49,8 @@
 
             System.Diagnostics.ProcessStartInfo procStartInfo = new ProcessStartInfo()
             {
-                UseShellExecute = false,
-                CreateNoWindow = true,
+                UseShellExecute = true,
+                CreateNoWindow = false,
                 WorkingDirectory = cwd,
                 FileName = "cmd",
                 Arguments = command,
