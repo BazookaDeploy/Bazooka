@@ -13,6 +13,7 @@ import DeploymentPage     from "./Deployment/DeploymentsPage";
 import GroupsPage         from "./Groups/GroupsPage";
 import GroupPage          from "./Group/GroupsPage";
 import AgentsPage         from "./Agents/AgentsPage";
+import StatsPage          from "./Stats/StatsPage";
 
 var routes = (
   <Route handler={App}>
@@ -26,6 +27,7 @@ var routes = (
     <Route name="groups" path="groups" handler={GroupsPage} />
     <Route name="group" path="group/:name" handler={GroupPage} />
     <Route name="agents" path="agents" handler={AgentsPage} />
+    <Route name="stats" path="statistics" handler={StatsPage} />
   </Route>
 );
 
