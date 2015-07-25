@@ -5,6 +5,8 @@ import Actions from "./ActionsCreator";
 import Store from "./Store";
 import Modal from "react-bootstrap/lib/Modal";
 import ModalTrigger from  "react-bootstrap/lib/ModalTrigger";
+import TabbedArea from "react-bootstrap/lib/TabbedArea";
+import TabPane from "react-bootstrap/lib/TabPane";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var HookDialog = React.createClass({
@@ -307,71 +309,85 @@ var CreateDialog = React.createClass({
       return(<div>
         <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment}</h3>
 
-        <table className="table table-bordered table-striped">
-          <thead><tr><th>Deploy Units
-            <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} />}>
-              <button className='btn btn-xs btn-primary pull-right'>New</button>
-            </ModalTrigger></th></tr></thead>
-          <tbody>
-            {this.state.envs.map(x => (
-              <tr><td><Link to="deployunitedit" params={{
-                  applicationName:this.getParams().applicationName,
-                  enviroment:this.getParams().enviroment,
-                  deployUnitName : x.Name,
-                  deployUnitId: x.Id
-                }}>{x.Name}</Link></td></tr>
-              ))}
-          </tbody>
-        </table>
+          <TabbedArea defaultActiveKey={1}>
+  		    	<TabPane eventKey={1} tab='Tasks'>
+              <br />
 
-        <h3>Allowed Users</h3>
+              <table className="table table-bordered table-striped">
+                <thead><tr><th>Tasks
+                  <ModalTrigger modal={<CreateDialog Enviroment={this.getParams().enviromentId} />}>
+                    <button className='btn btn-xs btn-primary pull-right'>New</button>
+                  </ModalTrigger></th></tr></thead>
+                <tbody>
+                  {this.state.envs.map(x => (
+                    <tr><td><Link to="deployunitedit" params={{
+                        applicationName:this.getParams().applicationName,
+                        enviroment:this.getParams().enviroment,
+                        deployUnitName : x.Name,
+                        deployUnitId: x.Id
+                      }}>{x.Name}</Link></td></tr>
+                    ))}
+                </tbody>
+              </table>
+            </TabPane>
+            <TabPane eventKey={2} tab='Permissions'>
+              <h3>Allowed Users</h3>
 
-        <table className="table table-bordered table-hovered">
-          <thead><tr><th>Users</th></tr></thead>
-          <tbody>
-            {users}
-            <tr>
-            <td>
-              <div className="input-group">
-                <select ref="user" className="form-control">
-                  {allUsers}
-                </select>
-                <span className="input-group-btn">
-                  <button  className="btn btn-default" onClick={this.addUser}>Add</button>
-                </span>
-              </div>
-            </td>
-            </tr>
-          </tbody>
-        </table>
+              <table className="table table-bordered table-hovered">
+                <thead><tr><th>Users</th></tr></thead>
+                <tbody>
+                  {users}
+                  <tr>
+                  <td>
+                    <div className="input-group">
+                      <select ref="user" className="form-control">
+                        {allUsers}
+                      </select>
+                      <span className="input-group-btn">
+                        <button  className="btn btn-default" onClick={this.addUser}>Add</button>
+                      </span>
+                    </div>
+                  </td>
+                  </tr>
+                </tbody>
+              </table>
 
-        <h3>Allowed Groups</h3>
+              <h3>Allowed Groups</h3>
 
-          <table className="table table-bordered table-hovered">
-            <thead><tr><th>Groups</th></tr></thead>
-            <tbody>
-              {groups}
-              <tr>
-                <td>
-                  <div className="input-group">
-                    <select ref="group" className="form-control">
-                      {allGroups}
-                    </select>
-                    <span className="input-group-btn">
-                      <button  className="btn btn-default" onClick={this.addGroup}>Add</button>
-                    </span>
-                  </div>
-                </td></tr>
-            </tbody>
-          </table>
+                <table className="table table-bordered table-hovered">
+                  <thead><tr><th>Groups</th></tr></thead>
+                  <tbody>
+                    {groups}
+                    <tr>
+                      <td>
+                        <div className="input-group">
+                          <select ref="group" className="form-control">
+                            {allGroups}
+                          </select>
+                          <span className="input-group-btn">
+                            <button  className="btn btn-default" onClick={this.addGroup}>Add</button>
+                          </span>
+                        </div>
+                      </td></tr>
+                  </tbody>
+                </table>
+            </TabPane>
+            <TabPane eventKey={3} tab='Hooks'>
 
-         <h4>Web hook</h4>
+                       <h4>Web hook</h4>
 
-         <p>Deploys can be automated by invoking a specific web hook for each enviroment of your application
-         <ModalTrigger modal={<HookDialog Enviroment={this.getParams().enviromentId} />}>
-              <button className='btn btn-xs btn-primary pull-right'>Get Url</button>
-            </ModalTrigger>
-          </p>
+                       <p>Deploys can be automated by invoking a specific web hook for each enviroment of your application
+                       <ModalTrigger modal={<HookDialog Enviroment={this.getParams().enviromentId} />}>
+                            <button className='btn btn-xs btn-primary pull-right'>Get Url</button>
+                          </ModalTrigger>
+                        </p>
+            </TabPane>
+          </TabbedArea>
+
+
+
+
+
         </div>)
       },
 
