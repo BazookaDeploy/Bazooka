@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[DeployUnits]
+﻿CREATE TABLE [dbo].[DeployTasks]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
 	[EnviromentId] INT NOT NULL,

@@ -15,9 +15,9 @@ namespace DataAccess.Read
 
         public DbSet<EnviromentDto> Enviroments { get; set; }
 
-        public DbSet<DeployUnitDto> DeployUnits { get; set; }
+        public DbSet<DeployTaskDto> DeploTasks { get; set; }
 
-        public DbSet<DeployUnitParameterDto> DeployUnitsPrameters { get; set; }
+        public DbSet<DeployTaskParameterDto> DeployUnitsPrameters { get; set; }
 
         public DbSet<DeploymentDto> Deployments { get; set; }
 
@@ -133,22 +133,22 @@ namespace DataAccess.Read
         }
     }
 
-    public class DeployUnitDtoConfiguration : EntityTypeConfiguration<DeployUnitDto>
+    public class DeployUnitDtoConfiguration : EntityTypeConfiguration<DeployTaskDto>
     {
         public DeployUnitDtoConfiguration()
         {
-            ToTable("DeployUnits");
-            HasMany<DeployUnitParameterDto>(x => x.Parameters)
+            ToTable("DeployTasks");
+            HasMany<DeployTaskParameterDto>(x => x.Parameters)
                 .WithRequired()
-                .HasForeignKey(x => x.DeployUnitId);
+                .HasForeignKey(x => x.DeployTaskId);
         }
     }
 
-    public class DeployUnitParameterDtoConfiguration : EntityTypeConfiguration<DeployUnitParameterDto>
+    public class DeployUnitParameterDtoConfiguration : EntityTypeConfiguration<DeployTaskParameterDto>
     {
         public DeployUnitParameterDtoConfiguration()
         {
-            ToTable("DeployUnitsParameters");
+            ToTable("DeployTasksParameters");
         }
     }
 

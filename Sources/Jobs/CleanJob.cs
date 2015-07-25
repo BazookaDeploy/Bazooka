@@ -17,7 +17,7 @@ namespace Jobs
 
             using (var db = new ReadContext())
             {
-                agents = db.DeployUnits.Select(x => x.Machine).Distinct().ToList();
+                agents = db.DeploTasks.Select(x => x.Machine).Distinct().ToList();
             }
 
             foreach (var agent in agents)

@@ -24,12 +24,12 @@ namespace Web.Controllers
         [HttpGet]
         public ICollection<string> Search(int enviromentId)
         {
-            var repos = db.DeployUnits
+            var repos = db.DeploTasks
                           .Where(x => x.EnviromentId == enviromentId)
                           .Select(x => x.Repository)
                           .ToList();
 
-            var package = db.DeployUnits
+            var package = db.DeploTasks
                           .Where(x => x.EnviromentId == enviromentId)
                           .Select(x => x.PackageName)
                           .First();

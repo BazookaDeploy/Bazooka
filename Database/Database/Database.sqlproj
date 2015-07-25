@@ -65,13 +65,13 @@
   <ItemGroup>
     <Build Include="Write\Applications.sql" />
     <Build Include="Write\Deployments.sql" />
-    <Build Include="Write\DeployUnitsParameters.sql" />
+    <Build Include="Write\DeployTasksParameters.sql" />
     <Build Include="Write\Enviroments.sql" />
     <Build Include="Read\Applications.sql" />
     <Build Include="Read\rd.sql" />
     <Build Include="Read\Enviroments.sql" />
-    <Build Include="Read\DeployUnits.sql" />
-    <Build Include="Read\DeployUnitsParameters.sql" />
+    <Build Include="Read\DeployTasks.sql" />
+    <Build Include="Read\DeployTasksParameters.sql" />
     <Build Include="Read\Deployments.sql" />
     <Build Include="Users\AspNetRoles.sql" />
     <Build Include="Users\AspNetUserClaims.sql" />
@@ -93,7 +93,7 @@
     <RefactorLog Include="Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Write\DeployUnits.sql" />
+    <Build Include="Write\DeployTasks.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />

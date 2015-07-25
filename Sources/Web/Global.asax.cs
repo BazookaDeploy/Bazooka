@@ -29,7 +29,7 @@ namespace Web
             var mapper = new ModelMapper();
             mapper.AddMapping<ApplicationMap>();
             mapper.AddMapping<EnviromentMap>();
-            mapper.AddMapping<DeployUnitMap>();
+            mapper.AddMapping<DeployTaskMap>();
             mapper.AddMapping<ParameterMap>();
             mapper.AddMapping<DeploymentMap>();
             mapper.AddMapping<AllowedGroupMap>();

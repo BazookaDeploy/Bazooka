@@ -60,8 +60,8 @@
     <Compile Include="Read\ApplicationDto.cs" />
     <Compile Include="Read\DeployerDto.cs" />
     <Compile Include="Read\DeploymentDto.cs" />
-    <Compile Include="Read\DeployUnitDto.cs" />
-    <Compile Include="Read\DeployUnitParameterDto.cs" />
+    <Compile Include="Read\DeployTaskDto.cs" />
+    <Compile Include="Read\DeployTaskParameterDto.cs" />
     <Compile Include="Read\EnviromentDto.cs" />
     <Compile Include="Read\GroupDto.cs" />
     <Compile Include="Read\ReadContext.cs" />
@@ -75,8 +75,8 @@
     <Compile Include="Write\ApplicationMap.cs" />
     <Compile Include="Write\Deployment.cs" />
     <Compile Include="Write\DeploymentMap.cs" />
-    <Compile Include="Write\DeployUnit.cs" />
-    <Compile Include="Write\DeployUnitMap.cs" />
+    <Compile Include="Write\DeployTask.cs" />
+    <Compile Include="Write\DeployTaskMap.cs" />
     <Compile Include="Write\Enviroment.cs" />
     <Compile Include="Write\EnviromentMap.cs" />
     <Compile Include="Write\LogEntry.cs" />

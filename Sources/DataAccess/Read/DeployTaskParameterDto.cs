@@ -6,12 +6,12 @@ using System.Web;
 
 namespace DataAccess.Read
 {
-    public class DeployUnitParameterDto
+    public class DeployTaskParameterDto
     {
         [Key]
         public virtual int ParameterId { get; set; }
 
-        public virtual int DeployUnitId { get; set; }
+        public virtual int DeployTaskId { get; set; }
 
         public virtual string Name { get; set; }
 

@@ -20,7 +20,7 @@ namespace Web.Controllers
             var allowed = db.Deployers.Where(x => x.UserId == id).Select(x => x.EnviromentId).ToList();
 
 
-            return db.DeployUnits
+            return db.DeploTasks
                      .Where(x => allowed.Contains(x.EnviromentId))
                      .GroupBy(x => x.ApplicationName, (key, ele) => new
             {

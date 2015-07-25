@@ -80,7 +80,7 @@
                 }
 
                 config = dc.Enviroments.Single(x => x.Id == envId).Configuration;
-                var units = dc.DeployUnits.Where(x => x.EnviromentId == envId).ToList();
+                var units = dc.DeploTasks.Where(x => x.EnviromentId == envId).ToList();
 
                 foreach (var unit in units)
                 {
@@ -139,7 +139,7 @@
 
                     using (var session = Store.OpenSession())
                     {
-                        var deployUnit = session.Load<DeployUnit>(unit.Id);
+                        var deployUnit = session.Load<DeployTask>(unit.Id);
                         deployUnit.CurrentlyDeployedVersion = version;
                         session.Update(deployUnit);
                         session.Flush();
@@ -169,7 +169,7 @@
 
 
 
-        private static ExecutionResult Install(DeployUnitDto unit, string version, string config)
+        private static ExecutionResult Install(DeployTaskDto unit, string version, string config)
         {
             var address = unit.Machine;
 
@@ -202,7 +202,7 @@
         }
 
 
-        private static ExecutionResult Update(DeployUnitDto unit, string version, string config)
+        private static ExecutionResult Update(DeployTaskDto unit, string version, string config)
         {
             using (var client = new HttpClient())
             {

@@ -42,4 +42,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Scheduled" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="de0a62e9-c27c-413a-82d8-365f2ee6e31b" ChangeDateTime="07/25/2015 14:59:09">
+    <Property Name="ElementName" Value="[dbo].[DeployUnits]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[DeployTasks]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="83ac1471-a49a-47ae-894e-10e9133ebf05" ChangeDateTime="07/25/2015 15:00:48">
+    <Property Name="ElementName" Value="[dbo].[DeployUnitsParameters]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[DeployTasksParameters]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7ad93c56-70f6-447f-be51-8ce50c0698b7" ChangeDateTime="07/25/2015 15:02:00">
+    <Property Name="ElementName" Value="[rd].[DeployUnits]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[rd]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[DeployTasks]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="787adbf2-f8d7-4ce4-b761-d7f9bb2d7786" ChangeDateTime="07/25/2015 15:14:44">
+    <Property Name="ElementName" Value="[dbo].[DeployTasksParameters].[DeployUnitId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DeployTasksParameters]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DeployTaskId" />
+  </Operation>
 </Operations>

@@ -7,11 +7,11 @@ using System.Web;
 
 namespace DataAccess.Write
 {
-    public class DeployUnitMap : ClassMapping<DeployUnit>
+    public class DeployTaskMap : ClassMapping<DeployTask>
     {
-        public DeployUnitMap()
+        public DeployTaskMap()
         {
-            Table("DeployUnits");
+            Table("DeployTasks");
             Schema("dbo");
             Id<int>(x => x.Id,
                 map =>
@@ -37,18 +37,7 @@ namespace DataAccess.Write
                 x => x.AdditionalParameters,
                 map =>
                 {
-                    map.Key(km => km.Column("DeployUnitId"));
-                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
-                    map.Inverse(true);
-                },
-                x => x.OneToMany()
-            );
-
-            Bag(
-                x => x.Logs,
-                map =>
-                {
-                    map.Key(km => km.Column("DeployUnitId"));
+                    map.Key(km => km.Column("DeployTaskId"));
                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
                     map.Inverse(true);
                 },

@@ -10,7 +10,7 @@ namespace DataAccess.Write
     public class ParameterMap : ClassMapping<Parameter>
     {
         public ParameterMap() {
-            Table("DeployUnitsParameters");
+            Table("DeployTasksParameters");
             Schema("dbo");
             Id<int>(x => x.ParameterId,
                 map =>
@@ -21,7 +21,7 @@ namespace DataAccess.Write
 
             Property(x => x.Key, x => { x.Length(200); x.Column("Name"); });
             Property(x => x.Value, x => x.Length(200));
-            Property(x => x.DeployUnitId, x => x.NotNullable(true));
+            Property(x => x.DeployTaskId, x => x.NotNullable(true));
             Property(x => x.Encrypted);
         }
     }

@@ -5,7 +5,7 @@ import reqwest from "reqwest";
 module.exports = {
   testAgent: function (url) {
     return reqwest({
-      url: "/api/deployUnits/test?url=" + url,
+      url: "/api/deployTasks/test?url=" + url,
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -14,7 +14,7 @@ module.exports = {
 
   getDeployUrl(id) {
     return reqwest({
-      url: "/api/deployUnits/deployUrl?id=" + id,
+      url: "/api/deployTasks/deployUrl?id=" + id,
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -95,7 +95,7 @@ module.exports = {
 
   updateDeployUnits: function (enviromentId) {
     reqwest({
-      url: "/api/DeployUnits/Units/?id=" + enviromentId,
+      url: "/api/DeployTasks/Tasks/?id=" + enviromentId,
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -109,7 +109,7 @@ module.exports = {
 
   updateDeployUnit: function (deployUnitId) {
     reqwest({
-      url: "/api/DeployUnits/DeployUnit/?id=" + deployUnitId,
+      url: "/api/DeployTasks/DeployTask/?id=" + deployUnitId,
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -124,7 +124,7 @@ module.exports = {
   modifyDeployUnit: function (deployUnitId, enviromentId, name, machine,
     packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration) {
     var promise = reqwest({
-      url: "/api/deployUnits",
+      url: "/api/deployTasks",
       type: 'json',
       contentType: 'application/json',
       method: "put",
@@ -158,7 +158,7 @@ module.exports = {
   createDeployUnit: function (enviromentId, name, machine, packageName,
     directory, repository, params) {
     var promise = reqwest({
-      url: "/api/deployUnits",
+      url: "/api/deployTasks",
       type: 'json',
       contentType: 'application/json',
       method: "post",

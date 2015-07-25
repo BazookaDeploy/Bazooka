@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DataAccess.Write
 {
-    public class DeployUnit
+    public class DeployTask
     {
         public virtual int Id { get; set; }
 
@@ -50,17 +50,13 @@ namespace DataAccess.Write
         /// </summary>
         public virtual IList<Parameter> AdditionalParameters { get; set; }
 
-        /// <summary>
-        ///     
-        /// </summary>
-        public virtual IList<Deployment> Logs { get; set; }
     }
 
     public class Parameter
     {
         public virtual int ParameterId { get; set; }
 
-        public virtual int DeployUnitId { get; set; }
+        public virtual int DeployTaskId { get; set; }
 
         public virtual string Key { get; set; }
 

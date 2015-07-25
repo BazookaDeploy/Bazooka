@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace DataAccess.Read
 {
-    public class DeployUnitDto
+    public class DeployTaskDto
     {
         [Key]
         public virtual int Id { get; set; }
@@ -47,6 +47,6 @@ namespace DataAccess.Read
 
         public virtual string Configuration { get; set; }
 
-        public virtual ICollection<DeployUnitParameterDto> Parameters { get; set; }
+        public virtual ICollection<DeployTaskParameterDto> Parameters { get; set; }
     }
 }

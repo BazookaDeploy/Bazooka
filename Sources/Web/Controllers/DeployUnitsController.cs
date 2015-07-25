@@ -9,44 +9,44 @@ using System.Web.Http;
 
 namespace Web.Controllers
 {
-    public class DeployUnitsController : ApiController
+    public class DeployTasksController : ApiController
     {
         private ReadContext db = new ReadContext();
 
         // GET: api/Applications
-         [HttpGet, Route("api/DeployUnits/Units")]
-        public ICollection<DeployUnitDto> Units(int id)
+         [HttpGet, Route("api/DeployTasks/Tasks")]
+        public ICollection<DeployTaskDto> Tasks(int id)
         {
-            return db.DeployUnits.Where(x => x.EnviromentId == id).ToList();
+            return db.DeploTasks.Where(x => x.EnviromentId == id).ToList();
         }
 
-         [HttpGet, Route("api/DeployUnits/DeployUrl")]
+         [HttpGet, Route("api/DeployTasks/DeployUrl")]
          public string DeployUrl(int id)
          {
              var guid =  db.Enviroments.Single(x => x.Id == id).DeployKey;
             return  this.Request.RequestUri.GetLeftPart(UriPartial.Authority) + "/api/Deploy/Begin?deployKey=" + guid.ToString() + "&version={version}";
          }
 
-        [HttpGet, Route("api/DeployUnits/DeployUnit")]
-        public DeployUnitDto DeployUnit(int id)
+        [HttpGet, Route("api/DeployTasks/DeployTask")]
+         public DeployTaskDto DeployTask(int id)
         {
-            return db.DeployUnits.Single(x => x.Id == id);
+            return db.DeploTasks.Single(x => x.Id == id);
         }
 
-        public void Put(DeployUnit unit)
+        public void Put(DeployTask unit)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
                 foreach (var p in unit.AdditionalParameters)
                 {
-                    p.DeployUnitId = unit.Id;
+                    p.DeployTaskId = unit.Id;
                 }
                 session.SaveOrUpdate(unit);
                 session.Flush();
             };
         }
 
-        public void Post(DeployUnit unit)
+        public void Post(DeployTask unit)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
@@ -56,7 +56,7 @@ namespace Web.Controllers
                 session.Save(unit);
                 foreach (var p in parameters)
                 {
-                    p.DeployUnitId = unit.Id;
+                    p.DeployTaskId = unit.Id;
                 }
                 unit.AdditionalParameters = parameters;
                 session.SaveOrUpdate(unit);
@@ -65,7 +65,7 @@ namespace Web.Controllers
             };
         }
 
-        [HttpGet, Route("api/DeployUnits/test")]
+        [HttpGet, Route("api/DeployTasks/test")]
         public object Test(string url)
         {
             var client = new HttpClient();
