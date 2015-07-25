@@ -164,5 +164,29 @@
                 };
             }
         }
+
+        [HttpGet]
+        public ExecutionResult ExecuteScript(string script, string folder)
+        {
+            var logger = new StringLogger();
+            try
+            {
+                PowershellHelpers.ExecuteScript(folder, script, logger, new Dictionary<string, string>());
+            }
+            catch (Exception e)
+            {
+                return new ExecutionResult()
+                {
+                    Exception = e.InnerException == null ? e.Message : e.InnerException.Message,
+                    Success = false,
+                    Log = logger.Logs
+                };
+            }
+            return new ExecutionResult()
+            {
+                Success = true,
+                Log = logger.Logs
+            };
+        }
     }
 }
