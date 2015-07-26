@@ -15,8 +15,9 @@ namespace DataAccess.Read
 
         public DbSet<EnviromentDto> Enviroments { get; set; }
 
-        public DbSet<DeployTaskDto> DeploTasks { get; set; }
+        public DbSet<TaskDto> Tasks { get; set; }
 
+        public DbSet<DeployTaskDto> DeploTasks { get; set; }
         public DbSet<DeployTaskParameterDto> DeployUnitsPrameters { get; set; }
 
         public DbSet<DeploymentDto> Deployments { get; set; }
@@ -44,6 +45,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new AllowedGroupsDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
             modelBuilder.Configurations.Add(new LogEntryDtoConfiguration());
+            modelBuilder.Configurations.Add(new TasksDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -66,6 +68,13 @@ namespace DataAccess.Read
         }
     }
 
+    public class TasksDtoConfiguration : EntityTypeConfiguration<TaskDto>
+    {
+        public TasksDtoConfiguration()
+        {
+            ToTable("Tasks");
+        }
+    }
 
     public class AllowedGroupsDtoConfiguration : EntityTypeConfiguration<AllowedGroupsDto>
     {

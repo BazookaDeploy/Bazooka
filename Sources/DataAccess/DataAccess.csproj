@@ -65,6 +65,8 @@
     <Compile Include="Read\EnviromentDto.cs" />
     <Compile Include="Read\GroupDto.cs" />
     <Compile Include="Read\ReadContext.cs" />
+    <Compile Include="Read\TaskDto.cs" />
+    <Compile Include="Read\TaskType.cs" />
     <Compile Include="Read\UserDto.cs" />
     <Compile Include="Read\UsersInGroupsDto.cs" />
     <Compile Include="Write\AllowedGroup.cs" />
