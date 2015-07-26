@@ -54,6 +54,7 @@
                 session.Flush();
             }
 
+            ICollection<TaskDto> tasks;
             using (var dc = new ReadContext())
             {
                 var other = dc.Deployments.Where(x => x.EnviromentId == envId && x.Id != deploymentId && x.Status == Status.Running);
@@ -80,73 +81,43 @@
                 }
 
                 config = dc.Enviroments.Single(x => x.Id == envId).Configuration;
-                var units = dc.DeploTasks.Where(x => x.EnviromentId == envId).ToList();
+                tasks = dc.Tasks.Where(x => x.EnviromentId == envId).ToList();
+            }
 
-                foreach (var unit in units)
+
+            try
+            {
+                foreach (var task in tasks)
                 {
-                    try
+                    switch (task.Type)
                     {
-                        var res = new List<string>();
-                        ExecutionResult ret;
-                        if (unit.CurrentlyDeployedVersion != null)
-                        {
-                            ret = Update(unit, version, config);
-                        }
-                        else
-                        {
-                            ret = Install(unit, version, config);
-                        }
-                        using (var session = Store.OpenSession())
-                        {
-                            foreach (var mess in ret.Log)
-                            {
-                                session.Save(new LogEntry()
-                                {
-                                    DeploymentId = deploymentId,
-                                    Error = mess.Error,
-                                    Text = mess.Text,
-                                    TimeStamp = mess.TimeStamp
-                                });
-                            }
-                            session.Flush();
-                        }
-
-                        if (!ret.Success)
-                        {
-                            throw new Exception("Deploy failed");
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        using (var session = Store.OpenSession())
-                        {
-                            var dep = session.Load<Deployment>(deploymentId);
-                            dep.EndDate = DateTime.UtcNow;
-                            dep.Status = Status.Failed;
-                            session.Save(new LogEntry()
-                            {
-                                DeploymentId = dep.Id,
-                                Error = true,
-                                Text = e.Message,
-                                TimeStamp = DateTime.UtcNow
-                            });
-                            session.Update(dep);
-                            session.Flush();
-                        }
-
-                        return;
-                    }
-
-                    using (var session = Store.OpenSession())
-                    {
-                        var deployUnit = session.Load<DeployTask>(unit.Id);
-                        deployUnit.CurrentlyDeployedVersion = version;
-                        session.Update(deployUnit);
-                        session.Flush();
+                        case TaskType.Deploy: DeployJob.DeployTask(task.Id, deploymentId, version, config); break;
+                        case TaskType.LocalScript: break;
+                        case TaskType.Mail: break;
+                        case TaskType.RemoteScript: break;
                     }
                 }
-
             }
+            catch (Exception e)
+            {
+                using (var session = Store.OpenSession())
+                {
+                    var dep = session.Load<Deployment>(deploymentId);
+                    dep.EndDate = DateTime.UtcNow;
+                    dep.Status = Status.Failed;
+                    session.Save(new LogEntry()
+                    {
+                        DeploymentId = dep.Id,
+                        Error = true,
+                        Text = e.Message,
+                        TimeStamp = DateTime.UtcNow
+                    });
+                    session.Update(dep);
+                    session.Flush();
+                }
+                return;
+            }
+
 
             using (var session = Store.OpenSession())
             {
@@ -165,6 +136,51 @@
             }
         }
 
+        private static void DeployTask(int id, int deploymentId, string version, string config)
+        {
+            using (var dc = new ReadContext())
+            {
+                var unit = dc.DeploTasks.Single(x => x.Id == id);
+
+                var res = new List<string>();
+                ExecutionResult ret;
+                if (unit.CurrentlyDeployedVersion != null)
+                {
+                    ret = Update(unit, version, config);
+                }
+                else
+                {
+                    ret = Install(unit, version, config);
+                }
+                using (var session = Store.OpenSession())
+                {
+                    foreach (var mess in ret.Log)
+                    {
+                        session.Save(new LogEntry()
+                        {
+                            DeploymentId = deploymentId,
+                            Error = mess.Error,
+                            Text = mess.Text,
+                            TimeStamp = mess.TimeStamp
+                        });
+                    }
+                    session.Flush();
+                }
+
+                if (!ret.Success)
+                {
+                    throw new Exception("Deploy failed");
+                }
+
+                using (var session = Store.OpenSession())
+                {
+                    var deployUnit = session.Load<DeployTask>(unit.Id);
+                    deployUnit.CurrentlyDeployedVersion = version;
+                    session.Update(deployUnit);
+                    session.Flush();
+                }
+            }
+        }
 
 
 
