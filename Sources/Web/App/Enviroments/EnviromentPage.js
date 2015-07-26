@@ -48,7 +48,7 @@ var Enviroments = React.createClass({
 
   render:function(){
     return (<tr>
-      <td><Link to="deployunits" params={{
+      <td><Link to="tasks" params={{
         applicationName: this.props.Enviroment.Name,
         enviroment: this.props.Enviroment.Configuration,
         enviromentId: this.props.Enviroment.Id}}>{this.props.Enviroment.Configuration}</Link></td>

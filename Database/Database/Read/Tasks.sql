@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[Tasks]
+﻿CREATE VIEW [rd].[Tasks]
 	AS ( 
 		SELECT Id,Name,0 AS Type, EnviromentId FROM [dbo].[DeployTasks]
 		UNION

@@ -14,13 +14,14 @@ import GroupsPage         from "./Groups/GroupsPage";
 import GroupPage          from "./Group/GroupsPage";
 import AgentsPage         from "./Agents/AgentsPage";
 import StatsPage          from "./Stats/StatsPage";
+import TasksPage          from "./Tasks/TasksPage";
 
 var routes = (
   <Route handler={App}>
     <DefaultRoute name="home" handler={HomePage} />
     <Route name="apps" path="apps" handler={AppPage}/>
     <Route name="enviroments" path="enviroments/:applicationName/:applicationId" handler={EnviromentPage} />
-    <Route name="deployunits" path="deployunits/:applicationName/:enviroment/:enviromentId" handler={DeployUnitsPage} />
+    <Route name="tasks" path="tasks/:applicationName/:enviroment/:enviromentId" handler={TasksPage} />
     <Route name="deployunitedit" path="deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId" handler={DeployUnitEditPage} />
     <Route name="deployments" path="deployments" handler={DeploymentsPage} />
     <Route name="deployment" path="deployment/:Id" handler={DeploymentPage} />
