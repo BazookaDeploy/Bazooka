@@ -64,6 +64,7 @@
     <Compile Include="Read\DeployTaskParameterDto.cs" />
     <Compile Include="Read\EnviromentDto.cs" />
     <Compile Include="Read\GroupDto.cs" />
+    <Compile Include="Read\MailTaskDto.cs" />
     <Compile Include="Read\ReadContext.cs" />
     <Compile Include="Read\TaskDto.cs" />
     <Compile Include="Read\TaskType.cs" />
@@ -83,6 +84,8 @@
     <Compile Include="Write\EnviromentMap.cs" />
     <Compile Include="Write\LogEntry.cs" />
     <Compile Include="Write\LogEntryMap.cs" />
+    <Compile Include="Write\MailTask.cs" />
+    <Compile Include="Write\MailTaskMap.cs" />
     <Compile Include="Write\ParameterMap.cs" />
   </ItemGroup>
   <ItemGroup>

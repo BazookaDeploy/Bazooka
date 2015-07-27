@@ -221,9 +221,10 @@
     <Compile Include="Controllers\ApplicationsController.cs" />
     <Compile Include="Controllers\DeployController.cs" />
     <Compile Include="Controllers\DeploymentController.cs" />
-    <Compile Include="Controllers\DeployUnitsController.cs" />
+    <Compile Include="Controllers\DeployTasksController.cs" />
     <Compile Include="Controllers\EnviromentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailTasksController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\TasksController.cs" />

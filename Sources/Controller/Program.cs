@@ -72,6 +72,7 @@
             mapper.AddMapping<ParameterMap>();
             mapper.AddMapping<DeploymentMap>();
             mapper.AddMapping<LogEntryMap>();
+            mapper.AddMapping<MailTaskMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 

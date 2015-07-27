@@ -5,6 +5,7 @@
 	[Text] NVARCHAR(MAX) NOT NULL,
 	[Recipients] NVARCHAR(256) NOT NULL,
 	[EnviromentId] INT NOT NULL, 
+    [Sender] NVARCHAR(256) NULL, 
     CONSTRAINT [FK_MailTasks_ToEnviroments] FOREIGN KEY ([EnviromentId]) REFERENCES [Enviroments]([Id])
 
 )

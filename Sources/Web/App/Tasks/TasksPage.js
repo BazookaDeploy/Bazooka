@@ -6,6 +6,8 @@ import Modal from "react-bootstrap/lib/Modal";
 import ModalTrigger from  "react-bootstrap/lib/ModalTrigger";
 import TabbedArea from "react-bootstrap/lib/TabbedArea";
 import TabPane from "react-bootstrap/lib/TabPane";
+import DeployUnitDialog from "../DeployUnits/DeployUnitsDialog";
+import MailTaskDialog from "./MailTask/CreateDialog";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var HookDialog = React.createClass({
@@ -37,6 +39,25 @@ var HookDialog = React.createClass({
   }
 })
 
+var TaskSelectDialog = React.createClass({
+  render:function(){
+    return(
+     <Modal {...this.props} enforceFocus={false} title="Add new task">
+     <div className="modal-body">
+       <ModalTrigger modal={<DeployUnitDialog />} >
+         <button type="button" className="btn btn-default btn-lg btn-block">Deploy task</button>
+       </ModalTrigger>
+       <ModalTrigger modal={<MailTaskDialog EnviromentId={this.props.EnviromentId} />} >
+         <button type="button" className="btn btn-default btn-lg btn-block">Mail task</button>
+       </ModalTrigger>
+     </div>
+     <div className="modal-footer">
+       <button className="btn" onClick={this.props.onRequestHide}>Close</button>
+     </div>
+     </Modal>);
+  }
+});
+
   var TasksPage = React.createClass({
     mixins: [Router.State],
     getInitialState: function() {
@@ -47,6 +68,13 @@ var HookDialog = React.createClass({
         allUsers:[],
         allGroups:[]
       };
+    },
+
+    updateTasks:function(){
+      var id = this.getParams().enviromentId;
+      Actions.getTasks(id).then(x => {
+        this.setState({tasks:x})
+      });
     },
 
     componentDidMount: function() {
@@ -73,7 +101,6 @@ var HookDialog = React.createClass({
     },
 
     removeUser:function(id){
-      debugger;
       Actions.removeUser(id).then(x => {
         Actions.getUsers(this.getParams().enviromentId).then(z => {
           this.setState({users:z})
@@ -82,7 +109,6 @@ var HookDialog = React.createClass({
     },
 
     removeGroup:function(id){
-      debugger;
       Actions.removeGroups(id).then(x => {
         Actions.getGroups(this.getParams().enviromentId).then(z => {
           this.setState({groups:z})
@@ -132,17 +158,26 @@ var HookDialog = React.createClass({
 
               <table className="table table-bordered table-striped">
                 <thead><tr><th>Tasks
-
-                    <button className='btn btn-xs btn-primary pull-right'>New</button></th></tr></thead>
+                  <ModalTrigger modal={<TaskSelectDialog EnviromentId={this.getParams().enviromentId}/>}>
+                    <button className='btn btn-xs btn-primary pull-right'>New</button></ModalTrigger></th></tr></thead>
                 <tbody>
-                  {this.state.tasks.map(x => (
+                  {this.state.tasks.map(x => x.Type == 0 ? (
                     <tr><td><Link to="deployunitedit" params={{
                         applicationName:this.getParams().applicationName,
                         enviroment:this.getParams().enviroment,
                         deployUnitName : x.Name,
                         deployUnitId: x.Id
                       }}>{x.Name}</Link></td></tr>
-                    ))}
+                  ) :
+                  (
+                    <tr><td><Link to="mailtaskedit" params={{
+                        applicationName:this.getParams().applicationName,
+                        enviroment:this.getParams().enviroment,
+                        mailTaskName : x.Name,
+                        taskId: x.Id
+                      }}>{x.Name}</Link></td></tr>
+                  )
+                  )}
                 </tbody>
               </table>
             </TabPane>

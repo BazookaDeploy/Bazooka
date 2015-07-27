@@ -23,13 +23,18 @@
         [HttpGet, Route("users/groups")]
         public ICollection<GroupDto> Groups()
         {
-            return db.Groups.ToList();
+            return db.Groups
+                     .OrderBy(x => x.Name)
+                     .ToList();
         }
 
         [HttpGet, Route("users/group")]
         public ICollection<UsersInGroupsDto> UsersInGroup(string groupName)
         {
-            return db.UsersInGroups.Where(x => x.RoleName == groupName).ToList();
+            return db.UsersInGroups
+                     .Where(x => x.RoleName == groupName)
+                     .OrderBy(x => x.UserName)
+                     .ToList();
         }
 
         [HttpPost, Route("users/group")]
@@ -88,13 +93,16 @@
         [HttpGet, Route("users/Allowed")]
         public ICollection<AllowedUsersDto> AllowedUsers(int id)
         {
-            return db.AllowedUsers.Where(x => x.EnviromentId == id).ToList();
+            return db.AllowedUsers.Where(x => x.EnviromentId == id).OrderBy(x => x.UserName).ToList();
         }
 
         [HttpGet, Route("groups/Allowed")]
         public ICollection<AllowedGroupsDto> AllowedGroups(int id)
         {
-            return db.AllowedGroups.Where(x => x.EnviromentId == id).ToList();
+            return db.AllowedGroups
+                     .Where(x => x.EnviromentId == id)
+                     .OrderBy(x => x.Name)
+                     .ToList();
         }
 
         [HttpPost, Route("users/allowed/add")]

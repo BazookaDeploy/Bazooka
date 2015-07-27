@@ -19,6 +19,7 @@ namespace DataAccess.Read
 
         public DbSet<DeployTaskDto> DeploTasks { get; set; }
         public DbSet<DeployTaskParameterDto> DeployUnitsPrameters { get; set; }
+        public DbSet<MailTaskDto> MailTasks { get; set; }
 
         public DbSet<DeploymentDto> Deployments { get; set; }
 
@@ -46,6 +47,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
             modelBuilder.Configurations.Add(new LogEntryDtoConfiguration());
             modelBuilder.Configurations.Add(new TasksDtoConfiguration());
+            modelBuilder.Configurations.Add(new MailTasksDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -73,6 +75,14 @@ namespace DataAccess.Read
         public TasksDtoConfiguration()
         {
             ToTable("Tasks");
+        }
+    }
+
+    public class MailTasksDtoConfiguration : EntityTypeConfiguration<MailTaskDto>
+    {
+        public MailTasksDtoConfiguration()
+        {
+            ToTable("MailTasks");
         }
     }
 
