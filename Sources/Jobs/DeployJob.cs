@@ -9,6 +9,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Net.Mail;
 
     /// <summary>
     ///     Job to deploy an application. It must be shared between web and controller so it has been 
@@ -93,7 +94,7 @@
                     {
                         case TaskType.Deploy: DeployJob.DeployTask(task.Id, deploymentId, version, config); break;
                         case TaskType.LocalScript: break;
-                        case TaskType.Mail: break;
+                        case TaskType.Mail: DeployJob.MailTask(task.Id, deploymentId, version, config); break;
                         case TaskType.RemoteScript: break;
                     }
                 }
@@ -133,6 +134,36 @@
                 });
                 session.Update(dep);
                 session.Flush();
+            }
+        }
+
+        private static void MailTask(int id, int deploymentId, string version, string config)
+        {
+            using (var dc = new ReadContext())
+            {
+                var unit = dc.MailTasks.Single(x => x.Id == id);
+
+                MailMessage mail = new MailMessage(unit.Sender,unit.Recipients);
+                SmtpClient client = new SmtpClient();
+                mail.Subject = "BAZOOKA: deployed version " + version + " in " + config;
+                mail.Body = unit.Text.Replace("[VERSION]", version)
+                                     .Replace("[CONFIG]", config);
+
+                client.Send(mail);
+
+                using (var session = Store.OpenSession())
+                {
+
+                    session.Save(new LogEntry()
+                    {
+                        DeploymentId = deploymentId,
+                        Error =false,
+                        Text = "Sent mail to " + unit.Recipients,
+                        TimeStamp = DateTime.UtcNow
+                    });
+
+                    session.Flush();
+                }
             }
         }
 
