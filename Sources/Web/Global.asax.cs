@@ -36,6 +36,8 @@ namespace Web
             mapper.AddMapping<AllowedUserMap>();
             mapper.AddMapping<LogEntryMap>();
             mapper.AddMapping<MailTaskMap>();
+            mapper.AddMapping<LocalScriptTaskMap>();
+            mapper.AddMapping<RemoteScriptTaskMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 

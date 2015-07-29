@@ -20,6 +20,9 @@ namespace DataAccess.Read
         public DbSet<DeployTaskDto> DeploTasks { get; set; }
         public DbSet<DeployTaskParameterDto> DeployUnitsPrameters { get; set; }
         public DbSet<MailTaskDto> MailTasks { get; set; }
+        public DbSet<LocalScriptTaskDto> LocalScriptTasks { get; set; }
+        public DbSet<RemoteScriptTaskDto> RemoteScriptTasks { get; set; }
+
 
         public DbSet<DeploymentDto> Deployments { get; set; }
 
@@ -48,7 +51,9 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new LogEntryDtoConfiguration());
             modelBuilder.Configurations.Add(new TasksDtoConfiguration());
             modelBuilder.Configurations.Add(new MailTasksDtoConfiguration());
-
+            modelBuilder.Configurations.Add(new LocalScriptTaskDtoConfiguration());
+            modelBuilder.Configurations.Add(new RemoteScriptTaskDtoConfiguration());
+            
             base.OnModelCreating(modelBuilder);
         }
     }
@@ -75,6 +80,7 @@ namespace DataAccess.Read
         public TasksDtoConfiguration()
         {
             ToTable("Tasks");
+            HasKey(x => new {x.EnviromentId, x.Id, x.Type });
         }
     }
 
@@ -83,6 +89,22 @@ namespace DataAccess.Read
         public MailTasksDtoConfiguration()
         {
             ToTable("MailTasks");
+        }
+    }
+
+    public class LocalScriptTaskDtoConfiguration : EntityTypeConfiguration<LocalScriptTaskDto>
+    {
+        public LocalScriptTaskDtoConfiguration()
+        {
+            ToTable("LocalScriptTasks");
+        }
+    }
+
+    public class RemoteScriptTaskDtoConfiguration : EntityTypeConfiguration<RemoteScriptTaskDto>
+    {
+        public RemoteScriptTaskDtoConfiguration()
+        {
+            ToTable("RemoteScriptTasks");
         }
     }
 

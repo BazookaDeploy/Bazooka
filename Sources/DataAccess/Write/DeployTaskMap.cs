@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using NHibernate;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -27,10 +28,10 @@ namespace DataAccess.Write
             Property(X => X.PackageName);
             Property(x => x.Repository);
             Property(x => x.CurrentlyDeployedVersion);
-            Property(x => x.InstallScript);
-            Property(x => x.UninstallScript);
+            Property(x => x.InstallScript,x => { x.Type(NHibernateUtil.StringClob); });
+            Property(x => x.UninstallScript, x => { x.Type(NHibernateUtil.StringClob); });
             Property(x => x.ConfigurationFile);
-            Property(x => x.ConfigurationTransform);
+            Property(x => x.ConfigurationTransform, x => { x.Type(NHibernateUtil.StringClob); });
             Property(x => x.Configuration);
 
             Bag(

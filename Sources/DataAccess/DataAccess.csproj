@@ -64,8 +64,10 @@
     <Compile Include="Read\DeployTaskParameterDto.cs" />
     <Compile Include="Read\EnviromentDto.cs" />
     <Compile Include="Read\GroupDto.cs" />
+    <Compile Include="Read\LocalScriptTaskDto.cs" />
     <Compile Include="Read\MailTaskDto.cs" />
     <Compile Include="Read\ReadContext.cs" />
+    <Compile Include="Read\RemoteScriptTaskDto.cs" />
     <Compile Include="Read\TaskDto.cs" />
     <Compile Include="Read\TaskType.cs" />
     <Compile Include="Read\UserDto.cs" />
@@ -82,11 +84,15 @@
     <Compile Include="Write\DeployTaskMap.cs" />
     <Compile Include="Write\Enviroment.cs" />
     <Compile Include="Write\EnviromentMap.cs" />
+    <Compile Include="Write\LocalScriptTask.cs" />
+    <Compile Include="Write\LocalScriptTaskMap.cs" />
     <Compile Include="Write\LogEntry.cs" />
     <Compile Include="Write\LogEntryMap.cs" />
     <Compile Include="Write\MailTask.cs" />
     <Compile Include="Write\MailTaskMap.cs" />
     <Compile Include="Write\ParameterMap.cs" />
+    <Compile Include="Write\RemoteScriptTask.cs" />
+    <Compile Include="Write\RemoteScriptTaskMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
