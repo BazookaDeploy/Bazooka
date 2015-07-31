@@ -166,12 +166,12 @@
         }
 
         [HttpGet]
-        public ExecutionResult ExecuteScript(string script, string folder)
+        public ExecutionResult ExecuteScript(RemoteScriptDto options)
         {
             var logger = new StringLogger();
             try
             {
-                PowershellHelpers.ExecuteScript(folder, script, logger, new Dictionary<string, string>());
+                PowershellHelpers.ExecuteScript(options.Folder, options.Script, logger, new Dictionary<string, string>());
             }
             catch (Exception e)
             {

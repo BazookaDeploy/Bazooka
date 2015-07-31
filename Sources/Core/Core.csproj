@@ -57,6 +57,7 @@
     <Compile Include="CustomPathResolver.cs" />
     <Compile Include="Dto\ExecutionResult.cs" />
     <Compile Include="Dto\InstallDto.cs" />
+    <Compile Include="Dto\RemoteScriptDto.cs" />
     <Compile Include="Dto\UninstallDto.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="InexistentPackageException.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="PackageSearcher.cs" />
     <Compile Include="PowershellHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringLogger.cs" />
     <Compile Include="TransformException.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿namespace Jobs
 {
+    using Bazooka.Core;
     using Bazooka.Core.Dto;
     using DataAccess.Read;
     using DataAccess.Write;
@@ -92,10 +93,18 @@
                 {
                     switch (task.Type)
                     {
-                        case TaskType.Deploy: DeployJob.DeployTask(task.Id, deploymentId, version, config); break;
-                        case TaskType.LocalScript: break;
-                        case TaskType.Mail: DeployJob.MailTask(task.Id, deploymentId, version, config); break;
-                        case TaskType.RemoteScript: break;
+                        case TaskType.Deploy:
+                            DeployJob.DeployTask(task.Id, deploymentId, version, config);
+                            break;
+                        case TaskType.LocalScript:
+                            DeployJob.LocalScriptTask(task.Id, deploymentId, version, config);
+                            break;
+                        case TaskType.Mail:
+                            DeployJob.MailTask(task.Id, deploymentId, version, config);
+                            break;
+                        case TaskType.RemoteScript:
+                            DeployJob.RemoteScriptTask(task.Id, deploymentId, version, config);
+                            break;
                     }
                 }
             }
@@ -137,13 +146,97 @@
             }
         }
 
+        private static void RemoteScriptTask(int id, int deploymentId, string version, string config)
+        {
+            using (var dc = new ReadContext())
+            {
+                var unit = dc.RemoteScriptTasks.Single(x => x.Id == id);
+
+                var res = new List<string>();
+                ExecutionResult ret;
+
+                var address = unit.Machine;
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(unit.Machine);
+                    client.Timeout = TimeSpan.FromSeconds(300);
+
+                    var result2 = client.PostAsJsonAsync("/api/deploy/executeScript", new RemoteScriptDto()
+                    {
+                        Folder = unit.Folder,
+                        Script = unit.Script
+                    });
+
+                    var result = result2.Result;
+                    var response = result.Content.ReadAsStringAsync().Result;
+
+                   ret = JsonConvert.DeserializeObject<ExecutionResult>(response);
+                }
+
+                using (var session = Store.OpenSession())
+                {
+                    foreach (var mess in ret.Log)
+                    {
+                        session.Save(new LogEntry()
+                        {
+                            DeploymentId = deploymentId,
+                            Error = mess.Error,
+                            Text = mess.Text,
+                            TimeStamp = mess.TimeStamp
+                        });
+                    }
+                    session.Flush();
+                }
+            }
+        }
+
+        private static void LocalScriptTask(int id, int deploymentId, string version, string config)
+        {
+            using (var dc = new ReadContext())
+            {
+                var unit = dc.LocalScriptTasks.Single(x => x.Id == id);
+                var cwd = Environment.CurrentDirectory;
+                var logger = new StringLogger();
+                using (var session = Store.OpenSession())
+                {
+
+                    session.Save(new LogEntry()
+                    {
+                        DeploymentId = deploymentId,
+                        Error = false,
+                        Text = "Executing local script " + unit.Name,
+                        TimeStamp = DateTime.UtcNow
+                    });
+
+                    session.Flush();
+                }
+
+                PowershellHelpers.ExecuteScript(cwd, unit.Script, logger, new Dictionary<string, string>());
+
+                using (var session = Store.OpenSession())
+                {
+
+                    session.Save(new LogEntry()
+                    {
+                        DeploymentId = deploymentId,
+                        Error = false,
+                        Text = String.Join("\r\n", logger.Logs),
+                        TimeStamp = DateTime.UtcNow
+                    });
+
+                    session.Flush();
+                }
+            }
+        }
+
         private static void MailTask(int id, int deploymentId, string version, string config)
         {
             using (var dc = new ReadContext())
             {
                 var unit = dc.MailTasks.Single(x => x.Id == id);
 
-                MailMessage mail = new MailMessage(unit.Sender,unit.Recipients);
+                MailMessage mail = new MailMessage(unit.Sender, unit.Recipients);
                 SmtpClient client = new SmtpClient();
                 mail.Subject = "BAZOOKA: deployed version " + version + " in " + config;
                 mail.Body = unit.Text.Replace("[VERSION]", version)
@@ -157,7 +250,7 @@
                     session.Save(new LogEntry()
                     {
                         DeploymentId = deploymentId,
-                        Error =false,
+                        Error = false,
                         Text = "Sent mail to " + unit.Recipients,
                         TimeStamp = DateTime.UtcNow
                     });
@@ -213,9 +306,6 @@
             }
         }
 
-
-
-
         private static ExecutionResult Install(DeployTaskDto unit, string version, string config)
         {
             var address = unit.Machine;
@@ -247,7 +337,6 @@
                 return response2;
             }
         }
-
 
         private static ExecutionResult Update(DeployTaskDto unit, string version, string config)
         {

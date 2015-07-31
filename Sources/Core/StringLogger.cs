@@ -1,11 +1,12 @@
-﻿using Bazooka.Core;
+﻿using Agent;
+using Bazooka.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Agent
+namespace Bazooka.Core
 {
     public class StringLogger : ILogger
     {
