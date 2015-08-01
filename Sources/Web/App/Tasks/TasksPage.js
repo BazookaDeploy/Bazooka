@@ -8,6 +8,8 @@ import TabbedArea from "react-bootstrap/lib/TabbedArea";
 import TabPane from "react-bootstrap/lib/TabPane";
 import DeployUnitDialog from "../DeployUnits/DeployUnitsDialog";
 import MailTaskDialog from "./MailTask/CreateDialog";
+import LocalScriptTaskDialog from "./LocalScriptTask/CreateDialog";
+import RemoteScriptTaskDialog from "./RemoteScriptTask/CreateDialog";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var HookDialog = React.createClass({
@@ -49,6 +51,12 @@ var TaskSelectDialog = React.createClass({
        </ModalTrigger>
        <ModalTrigger modal={<MailTaskDialog EnviromentId={this.props.EnviromentId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Mail task</button>
+       </ModalTrigger>
+       <ModalTrigger modal={<LocalScriptTaskDialog EnviromentId={this.props.EnviromentId} />} >
+         <button type="button" className="btn btn-default btn-lg btn-block">Local script task</button>
+       </ModalTrigger>
+       <ModalTrigger modal={<RemoteScriptTaskDialog EnviromentId={this.props.EnviromentId} />} >
+         <button type="button" className="btn btn-default btn-lg btn-block">Remote script task</button>
        </ModalTrigger>
      </div>
      <div className="modal-footer">
@@ -169,14 +177,32 @@ var TaskSelectDialog = React.createClass({
                         deployUnitId: x.Id
                       }}>{x.Name}</Link></td></tr>
                   ) :
-                  (
+                  (x.Type == 1 ? (
                     <tr><td><Link to="mailtaskedit" params={{
                         applicationName:this.getParams().applicationName,
                         enviroment:this.getParams().enviroment,
                         mailTaskName : x.Name,
                         taskId: x.Id
                       }}>{x.Name}</Link></td></tr>
-                  )
+                  ) : (x.Type == 2 ?
+                    (
+                      <tr><td><Link to="localscripttaskedit" params={{
+                          applicationName:this.getParams().applicationName,
+                          enviroment:this.getParams().enviroment,
+                          mailTaskName : x.Name,
+                          taskId: x.Id
+                        }}>{x.Name}</Link></td></tr>
+                    )
+                    :
+                    (
+                      <tr><td><Link to="remotescripttaskedit" params={{
+                          applicationName:this.getParams().applicationName,
+                          enviroment:this.getParams().enviroment,
+                          mailTaskName : x.Name,
+                          taskId: x.Id
+                        }}>{x.Name}</Link></td></tr>
+                    )
+                    ))
                   )}
                 </tbody>
               </table>
