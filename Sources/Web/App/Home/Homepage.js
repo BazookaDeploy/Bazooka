@@ -122,7 +122,7 @@ var Application = React.createClass({
       <Enviroment Enviroment={x}/>
     ));
 
-    return (<div className="col-md-4 col-lg-3">
+    return (<div className="application">
       <div className=' panel panel-primary'>
         <div className='panel-heading'>{this.props.Application.Application}</div>
         <div className='panel-body'>
@@ -194,7 +194,7 @@ var HomePage = React.createClass({
           <div>
             <h2>Current system status</h2>
             <br />
-            <div className='container'>{this.state.envs.map(x => (<Application Application={x} />))}</div>
+            <div className='container applicationGrid'>{this.state.envs.map(x => (<Application Application={x} />))}</div>
           </div>);
     }
 });

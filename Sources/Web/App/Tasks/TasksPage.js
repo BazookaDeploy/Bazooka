@@ -46,7 +46,7 @@ var TaskSelectDialog = React.createClass({
     return(
      <Modal {...this.props} enforceFocus={false} title="Add new task">
      <div className="modal-body">
-       <ModalTrigger modal={<DeployUnitDialog />} >
+       <ModalTrigger modal={<DeployUnitDialog Enviroment={this.props.EnviromentId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Deploy task</button>
        </ModalTrigger>
        <ModalTrigger modal={<MailTaskDialog EnviromentId={this.props.EnviromentId} />} >
