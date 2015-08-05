@@ -6,7 +6,7 @@ import App                from "./App";
 import HomePage           from "./Home/Homepage";
 import AppPage            from "./Applications/AppPage";
 import EnviromentPage     from "./Enviroments/EnviromentPage";
-import DeployUnitEditPage from "./DeployUnits/DeployUnitEditPage";
+import DeployUnitEditPage from "./Tasks/DeployTasks/DeployUnitEditPage";
 import DeploymentsPage    from "./Deployments/DeploymentsPage";
 import DeploymentPage     from "./Deployment/DeploymentsPage";
 import GroupsPage         from "./Groups/GroupsPage";

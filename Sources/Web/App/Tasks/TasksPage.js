@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/lib/Modal";
 import ModalTrigger from  "react-bootstrap/lib/ModalTrigger";
 import TabbedArea from "react-bootstrap/lib/TabbedArea";
 import TabPane from "react-bootstrap/lib/TabPane";
-import DeployUnitDialog from "../DeployUnits/DeployUnitsDialog";
+import DeployUnitDialog from "./DeployTasks/DeployUnitsDialog";
 import MailTaskDialog from "./MailTask/CreateDialog";
 import LocalScriptTaskDialog from "./LocalScriptTask/CreateDialog";
 import RemoteScriptTaskDialog from "./RemoteScriptTask/CreateDialog";

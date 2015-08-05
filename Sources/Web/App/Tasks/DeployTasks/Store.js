@@ -1,4 +1,4 @@
-import Dispatcher from "../Base/Dispatcher";
+import Dispatcher from "../../Base/Dispatcher";
 import Constants from "./Constants";
 import { EventEmitter } from "events";
 import assign from "object-assign";
