@@ -1,7 +1,6 @@
 import React from "react";
 import Router from 'react-router';
 import Actions from "./ActionsCreator";
-import Store from "./Store";
 import Modal from "react-bootstrap/lib/Modal";
 import ModalTrigger from "react-bootstrap/lib/ModalTrigger";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
@@ -10,7 +9,10 @@ var CreateDialog = React.createClass({
   create:function(){
     var name = this.refs.name.getDOMNode().value;
     if(name.length!==0){
-      Actions.createGroup(name).then(x => this.props.onRequestHide());
+      Actions.createGroup(name).then(x => {
+        this.props.onRequestHide();
+        this.props.onCreate();
+      });
     }
     return false;
   },
@@ -39,25 +41,29 @@ var GroupsPage = React.createClass({
   mixins: [Router.State],
   getInitialState: function() {
     return {
-      envs : Store.getAll()
+      envs : []
     };
   },
 
-  componentDidMount: function() {
-    Store.addChangeListener(this._onChange);
-    Actions.updateGroups();
+  update:function(){
+        Actions.updateGroups().then(x =>{
+          this.setState({
+            envs:x
+          })
+        })
   },
 
-  componentWillUnmount: function() {
-    Store.removeChangeListener(this._onChange);
+  componentDidMount: function() {
+    this.update();
   },
+
 
   render: function () {
     var envs = this.state.envs.map(a => (<tr><td><Link to="group" params={{name: a.Name}}>{a.Name}</Link></td></tr>));
 
     return(<div>
       <table className="table table-striped table-bordered">
-      <thead><tr><th>Groups <ModalTrigger modal={<CreateDialog />}>
+      <thead><tr><th>Groups <ModalTrigger modal={<CreateDialog onCreate={this.update}/>}>
         <button className='btn btn-primary btn-xs pull-right'>Create</button>
       </ModalTrigger></th></tr></thead>
       <tbody>
@@ -65,12 +71,6 @@ var GroupsPage = React.createClass({
       </tbody>
       </table>
       </div>)
-  },
-
-  _onChange: function(){
-    this.setState({
-      envs : Store.getAll()
-    })
   }
 });
 

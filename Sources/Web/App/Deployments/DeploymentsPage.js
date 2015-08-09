@@ -1,7 +1,6 @@
 import React from "react";
 import Router from 'react-router';
 import Actions from "./ActionsCreator";
-import Store from "./Store";
 import ReactIntl from "react-intl";
 var FormattedRelative = ReactIntl.FormattedRelative;
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
@@ -76,21 +75,25 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
     getInitialState: function() {
       return {
-        deployments : Store.getAll()
+        deployments : []
       };
     },
 
-    componentDidMount: function() {
-      Store.addChangeListener(this._onChange);
-      Actions.updateDeployments(this.refs.filter.getDOMNode().value);
+    update:function(){
+      Actions.updateDeployments(this.refs.filter.getDOMNode().value).then(x => {
+        this.setState({
+          deployments:x
+        })
+      });
     },
 
-    componentWillUnmount: function() {
-      Store.removeChangeListener(this._onChange);
+    componentDidMount: function() {
+      this.update();
     },
+
 
     updateFilters:function(){
-       Actions.updateDeployments(this.refs.filter.getDOMNode().value);
+       this.update();
     },
 
     render: function () {
@@ -121,12 +124,6 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
           </tbody>
         </table>
         </div>)
-      },
-
-      _onChange: function(){
-        this.setState({
-          deployments : Store.getAll()
-        })
       }
     });
 

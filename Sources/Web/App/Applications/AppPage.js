@@ -1,6 +1,5 @@
 import React from "react";
 import Actions from "./ActionsCreator";
-import Store from "./Store";
 import Modal from "react-bootstrap/lib/Modal";
 import ModalTrigger from "react-bootstrap/lib/ModalTrigger";
 import Router from 'react-router';
@@ -12,6 +11,7 @@ var CreateDialog = React.createClass({
 
     if(name.length!==0){
       Actions.createApplication(name).then(x => {
+        this.props.onCreate();
         this.props.onRequestHide();
       });
     }
@@ -49,17 +49,16 @@ var AppLine = React.createClass({
 var AppPage = React.createClass({
   getInitialState: function() {
     return {
-      apps : Store.getAll()
+      apps : []
     };
   },
 
-  componentDidMount: function() {
-    Store.addChangeListener(this._onChange);
-    Actions.updateApplications();
+  update:function(){
+      Actions.updateApplications().then(x => this.setState({apps:x}));
   },
 
-  componentWillUnmount: function() {
-    Store.removeChangeListener(this._onChange);
+  componentDidMount: function() {
+    this.update();
   },
 
   render: function () {
@@ -68,7 +67,7 @@ var AppPage = React.createClass({
     return (<div>
       <h3>Existing applications       </h3>
       <table className="table table-hovered table-bordered table-striped">
-        <thead><tr><th>Application <ModalTrigger modal={<CreateDialog />}>
+        <thead><tr><th>Application <ModalTrigger modal={<CreateDialog onCreate={this.update}/>}>
                 <button className='btn btn-primary btn-xs pull-right'>Create new Application</button>
               </ModalTrigger></th></tr></thead>
         <tbody>
@@ -76,12 +75,6 @@ var AppPage = React.createClass({
         </tbody>
       </table>
     </div>);
-  },
-
-  _onChange: function(){
-    this.setState({
-      apps : Store.getAll()
-    });
   }
 });
 

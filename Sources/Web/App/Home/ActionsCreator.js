@@ -1,5 +1,3 @@
-import ApplicationDispatcher from '../Base/Dispatcher';
-import { ActionTypes } from './Constants';
 import reqwest from "reqwest";
 
 module.exports = {
@@ -22,6 +20,7 @@ module.exports = {
 			contentType: 'application/json',
 			method: "get"
 		});
+		
 		return promise;
 	},
 
@@ -37,16 +36,11 @@ module.exports = {
 	},
 
   updateEnviroments : function(){
-    reqwest({
+    return reqwest({
       url:"/api/status/",
       type:'json',
       contentType: 'application/json',
       method:"get"
-    }).then((x => {
-      ApplicationDispatcher.handleServerAction({
-        type: ActionTypes.UPDATE_STATUS,
-        apps: x
-      });
-    }))
+    })
   }
 };

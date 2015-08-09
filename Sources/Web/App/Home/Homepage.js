@@ -1,6 +1,5 @@
 ﻿import React  from "react";
 import Actions from "./ActionsCreator";
-import Store from "./Store";
 import Modal  from "react-bootstrap/lib/Modal";
 import ModalTrigger from "react-bootstrap/lib/ModalTrigger" ;
 
@@ -170,23 +169,14 @@ var Enviroment = React.createClass({
 var HomePage = React.createClass({
     getInitialState: function() {
       return {
-        envs : Store.getAll()
+        envs : []
       };
     },
 
     componentDidMount: function() {
-      Store.addChangeListener(this._onChange);
-      Actions.updateEnviroments();
-    },
-
-    componentWillUnmount: function() {
-      Store.removeChangeListener(this._onChange);
-    },
-
-    _onChange: function(){
-      this.setState({
-        envs : Store.getAll()
-      })
+      Actions.updateEnviroments().then(x => {
+        this.setState({envs:x})
+      });
     },
 
     render: function () {

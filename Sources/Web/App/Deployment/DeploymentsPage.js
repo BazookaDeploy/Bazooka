@@ -1,7 +1,6 @@
 import React from "react";
 import Router from 'react-router';
 import Actions from "./ActionsCreator";
-import Store from  "./Store";
 import ReactIntl from "react-intl";
 
 import Modal  from "react-bootstrap/lib/Modal";
@@ -32,7 +31,7 @@ function SameDate(a,b){
 
   a= new Date(a);
   b=new Date(b);
-  debugger;
+
   return a.getHours()==b.getHours() && a.getMinutes()==b.getMinutes() && a.getSeconds() == b.getSeconds();
 }
 
@@ -77,23 +76,26 @@ function SameDate(a,b){
     getInitialState: function() {
       return {
         refreshing:false,
-        deployments : Store.getAll()
+        deployments : {}
       };
     },
 
     componentDidMount: function() {
-      Store.addChangeListener(this._onChange);
-      var id = this.getParams().Id;
-      Actions.updateDeployment(id);
-    },
-
-    componentWillUnmount: function() {
-      Store.removeChangeListener(this._onChange);
+      this.reload();
     },
 
     reload:function(){
       var id = this.getParams().Id;
-      Actions.updateDeployment(id);
+      Actions.updateDeployment(id).then(x => {
+        this.setState({
+          refreshing:false,
+          deployments : x
+        });
+
+        if(this.state.deployments.Status == 1){
+          setTimeout(this.reload,10000);
+        }
+      });
       this.setState({
         refreshing:true
       })
@@ -141,17 +143,6 @@ function SameDate(a,b){
             {logs}
           </dl>
         </div>)
-      },
-
-      _onChange: function(){
-        this.setState({
-          deployments : Store.getAll(),
-          refreshing:false,
-        })
-
-        if(this.state.deployments.Status == 1){
-          setTimeout(this.reload,10000);
-        }
       }
     });
 

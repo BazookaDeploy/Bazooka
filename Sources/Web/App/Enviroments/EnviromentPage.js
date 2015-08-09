@@ -1,7 +1,6 @@
 import React from "react";
 import Router from 'react-router';
 import Actions from "./ActionsCreator";
-import Store from "./Store";
 import Modal from "react-bootstrap/lib/Modal";
 import ModalTrigger from "react-bootstrap/lib/ModalTrigger";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
@@ -13,7 +12,7 @@ var CreateDialog = React.createClass({
     var id = this.props.Application;
 
     if(configuration.length!==0){
-      Actions.createEnviroment(id, configuration,description).then(x => this.props.onRequestHide());
+      Actions.createEnviroment(id, configuration,description).then(x => {this.props.onRequestHide();this.props.onCreate()});
     }
 
     return false;
@@ -44,8 +43,6 @@ var CreateDialog = React.createClass({
 
 
 var Enviroments = React.createClass({
-
-
   render:function(){
     return (<tr>
       <td><Link to="tasks" params={{
@@ -60,18 +57,21 @@ var EnviromentsPage = React.createClass({
   mixins: [Router.State],
   getInitialState: function() {
     return {
-      envs : Store.getAll()
+      envs : []
     };
   },
 
   componentDidMount: function() {
-    Store.addChangeListener(this._onChange);
-    var id = this.getParams().applicationId;
-    Actions.updateEnviroments(id);
+    this.update();
   },
 
-  componentWillUnmount: function() {
-    Store.removeChangeListener(this._onChange);
+  update:function(){
+    var id = this.getParams().applicationId;
+    Actions.updateEnviroments(id).then(x =>{
+      this.setState({
+        envs:x
+      })
+    });
   },
 
   render: function () {
@@ -80,7 +80,7 @@ var EnviromentsPage = React.createClass({
     return(<div>
       <h3>Application {this.getParams().applicationName}</h3>
       <table className="table table-striped table-bordered">
-      <thead><tr><th>Enviroments <ModalTrigger modal={<CreateDialog Application={this.getParams().applicationId} />}>
+      <thead><tr><th>Enviroments <ModalTrigger modal={<CreateDialog onCreate={this.update} Application={this.getParams().applicationId} />}>
         <button className='btn btn-primary btn-xs pull-right'>Create</button>
       </ModalTrigger></th></tr></thead>
       <tbody>
@@ -88,12 +88,6 @@ var EnviromentsPage = React.createClass({
       </tbody>
       </table>
       </div>)
-  },
-
-  _onChange: function(){
-    this.setState({
-      envs : Store.getAll()
-    })
   }
 });
 

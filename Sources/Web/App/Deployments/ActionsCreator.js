@@ -1,5 +1,3 @@
-import Dispatcher from '../Base/Dispatcher';
-import { ActionTypes } from './Constants';
 import reqwest from "reqwest";
 
 module.exports = {
@@ -29,16 +27,11 @@ module.exports = {
       query = "?$filter=(StartDate gt DateTime'"+ date.toISOString()+ "' or StartDate eq null)  ";
     }
 
-    reqwest({
+    return reqwest({
       url:"/api/deployment/" + query,
       type:'json',
       contentType: 'application/json',
       method:"get"
-    }).then((x => {
-      Dispatcher.handleServerAction({
-        type: ActionTypes.UPDATE_DEPLOYMENTS,
-        apps: x
-      });
-    }))
+    })
   }
 };
