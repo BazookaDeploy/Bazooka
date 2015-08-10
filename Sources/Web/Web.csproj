@@ -279,6 +279,7 @@
     <Content Include="App\Home\Store.js" />
     <Content Include="App\index.js" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Content\main.css" />
     <Content Include="DataServices\Packages.svc" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -320,6 +321,7 @@
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="App\browser-bundle.js.map" />
+    <Content Include="Content\main.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />

@@ -113,7 +113,7 @@ namespace Bazooka.Core
             {
                 Logger.Log("Applying transformation contained in package ...");
 
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 using (StreamReader sr = new StreamReader(file.Replace(".config", "." + info.Configuration + ".config")))
                 {
                     string line;

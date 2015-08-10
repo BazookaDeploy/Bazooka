@@ -14,7 +14,7 @@ namespace Bazooka.Core
             var pieces = newName.Split('.');
             var acc = "";
             int i = 0;
-            while (!pieces[i].All(x => Char.IsDigit(x))) {
+            while (!pieces[i].All(Char.IsDigit)) {
                 acc += pieces[i]+ ".";
                 i++;
             }

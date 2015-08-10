@@ -268,14 +268,8 @@
 
                 var res = new List<string>();
                 ExecutionResult ret;
-                if (unit.CurrentlyDeployedVersion != null)
-                {
-                    ret = Update(unit, version, config);
-                }
-                else
-                {
-                    ret = Install(unit, version, config);
-                }
+                ret = unit.CurrentlyDeployedVersion != null ? Update(unit, version, config) : Install(unit, version, config);
+
                 using (var session = Store.OpenSession())
                 {
                     foreach (var mess in ret.Log)
