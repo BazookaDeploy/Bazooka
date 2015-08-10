@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="CleanJob.cs" />
     <Compile Include="DeployJob.cs" />
+    <Compile Include="LogsCompactonJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
