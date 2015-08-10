@@ -4,15 +4,11 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Web.App_Start;
 using Web.Models;
 using Hangfire;
 using Hangfire.SqlServer;
 using Hangfire.SqlServer.Msmq;
-using Jobs;
 [assembly: OwinStartupAttribute(typeof(Web.Startup))]
 namespace Web
 {

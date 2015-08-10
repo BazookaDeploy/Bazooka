@@ -1,11 +1,8 @@
 ﻿using DataAccess.Write;
-using Hangfire;
-using Jobs;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Mapping.ByCode;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;

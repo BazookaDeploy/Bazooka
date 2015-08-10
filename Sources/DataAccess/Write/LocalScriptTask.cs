@@ -1,5 +1,4 @@
-﻿using System;
-namespace DataAccess.Write
+﻿namespace DataAccess.Write
 {
     public class LocalScriptTask
     {

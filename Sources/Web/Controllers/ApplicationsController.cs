@@ -1,7 +1,5 @@
 ﻿using DataAccess.Read;
 using DataAccess.Write;
-using NHibernate;
-using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;

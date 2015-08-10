@@ -1,12 +1,7 @@
 ﻿namespace Web.Auth
 {
-    using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.DirectoryServices.AccountManagement;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///     Common methods to handle authentication with active directory

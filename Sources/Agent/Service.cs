@@ -1,6 +1,5 @@
 ﻿using Microsoft.Owin.Hosting;
 using System;
-using System.ServiceProcess;
 using Topshelf;
 
 namespace Agent
