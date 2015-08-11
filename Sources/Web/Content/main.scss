@@ -1,5 +1,11 @@
 ﻿$icon-font-path : "./fonts/bootstrap/";
- 
+$navbar-height: 30px;
+$navbar-default-color: white;
+$navbar-default-bg: #303F9F;
+$navbar-default-link-color:white;
+$brand-primary:#303F9F;
+$navbar-default-link-active-color:white;
+$navbar-default-link-hover-color:#bbbbbb;
 @import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
 @media only screen and (min-width: 1100px) {
