@@ -8,8 +8,19 @@ var webpackOrig = require('webpack');
 var webpack = require('gulp-webpack');
 var sass = require('gulp-sass');
 
-var config = require("./webpack.config.js");
-var configProd = config;
+var config = {
+    cache: true,
+    entry: './App/index',
+    output: {
+        filename: './App/browser-bundle.js'
+    },
+    module: {
+        loaders: [
+        { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
+        ]
+    }
+};
+var configProd = JSON.parse(JSON.stringify(config));
 configProd.plugins = [
     new webpackOrig.DefinePlugin({
         'process.env': {
@@ -37,13 +48,18 @@ gulp.task('javascript-prod', function () {
                .pipe(gulp.dest('App/'));
 });
 
-gulp.task("css", function () {
+gulp.task("copy", function () {
+    gulp.src('./node_modules/bootstrap-sass/assets/fonts/**/*.*')
+      .pipe(gulp.dest('./Content/fonts/'));
+});
+
+gulp.task("css",["copy"], function () {
     gulp.src('./Content/main.scss')
       .pipe(sass().on('error', sass.logError))
       .pipe(gulp.dest('./Content/'));
 });
 
-gulp.task("css-prod", function () {
+gulp.task("css-prod", ["copy"], function () {
     gulp.src('./Content/main.scss')
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(gulp.dest('./Content/'));

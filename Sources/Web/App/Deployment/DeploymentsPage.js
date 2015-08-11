@@ -76,7 +76,8 @@ function SameDate(a,b){
     getInitialState: function() {
       return {
         refreshing:false,
-        deployments : {}
+        deployments : {
+        }
       };
     },
 
@@ -118,8 +119,8 @@ function SameDate(a,b){
     },
 
     render: function () {
-
-      var logs = this.state.deployments==null ? (<span />): this.state.deployments.Logs.map((x,index) => (<LogLine Error={x.Error} Text={x.Text} TimeStamp={x.TimeStamp} PrevTimeStamp={index>0?this.state.deployments.Logs[index-1].TimeStamp:null} />))
+      debugger;
+      var logs = this.state.deployments.Logs==null ? (<span />): this.state.deployments.Logs.map((x,index) => (<LogLine Error={x.Error} Text={x.Text} TimeStamp={x.TimeStamp} PrevTimeStamp={index>0?this.state.deployments.Logs[index-1].TimeStamp:null} />))
 
       return(<div>
         <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}         <button className='btn btn-xs btn-default' onClick={this.reload}>{this.state.refreshing? "Reloading ..." : "Reload"}</button></h2>

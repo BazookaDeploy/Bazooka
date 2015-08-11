@@ -28,6 +28,6 @@
     "gulp": "^3.9.0",
     "gulp-sass": "^2.0.4",
     "gulp-webpack": "^1.5.0",
-    "webpack": "^1.10.0"
+    "webpack": "^1.11.0"
   }
 }
