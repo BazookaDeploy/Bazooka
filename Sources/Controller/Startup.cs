@@ -21,8 +21,8 @@ namespace Controller
                 config.UseServer();
             });
 
-            RecurringJob.AddOrUpdate(() => CleanJob.Execute(), Cron.Daily(0, 0));
-            RecurringJob.AddOrUpdate(() => LogsCompactonJob.Execute(), Cron.Weekly(DayOfWeek.Monday, 0, 0));
+            RecurringJob.AddOrUpdate(() => CleanJob.Execute(), System.Configuration.ConfigurationManager.AppSettings["CleanJobSchedule"]);
+            RecurringJob.AddOrUpdate(() => LogsCompactionJob.Execute(), System.Configuration.ConfigurationManager.AppSettings["LogCompactionJobSchedule"]);
         }
     }
 }

@@ -79,7 +79,7 @@
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 
             DeployJob.Store = config.BuildSessionFactory();
-            LogsCompactonJob.Store = DeployJob.Store;
+            LogsCompactionJob.Store = DeployJob.Store;
         }
 
         public void Stop()

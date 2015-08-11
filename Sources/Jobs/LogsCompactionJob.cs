@@ -7,7 +7,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class LogsCompactonJob
+    public class LogsCompactionJob
     {
         /// <summary>
         ///     Nhibernate store to use to save the data    

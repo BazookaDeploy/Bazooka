@@ -8,50 +8,32 @@ var webpackOrig = require('webpack');
 var webpack = require('gulp-webpack');
 var sass = require('gulp-sass');
 
+var config = require("./webpack.config.js");
+var configProd = config;
+configProd.plugins = [
+    new webpackOrig.DefinePlugin({
+        'process.env': {
+            // This has effect on the react lib size
+            'NODE_ENV': JSON.stringify('production'),
+        }
+    }),
+    new webpackOrig.optimize.UglifyJsPlugin(),
+    new webpackOrig.optimize.OccurenceOrderPlugin(),
+    new webpackOrig.optimize.DedupePlugin()
+];
+
+
 gulp.task('javascript', function () {
     // place code for your default task here
     return gulp.src('App/index.js')
-               .pipe(webpack({
-                   cache: true,
-                   entry: './App/index',
-                   output: {
-                       filename: './App/browser-bundle.js'
-                   },
-                   module: {
-                       loaders: [
-                       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
-                       ]
-                   }
-               }))
+               .pipe(webpack(config))
                .pipe(gulp.dest('App/'));
 });
 
 gulp.task('javascript-prod', function () {
     // place code for your default task here
     return gulp.src('App/index.js')
-               .pipe(webpack({
-                   cache: true,
-                   entry: './App/index',
-                   output: {
-                       filename: './App/browser-bundle.js'
-                   },
-                   plugins: [
-                     new webpackOrig.DefinePlugin({
-                         'process.env': {
-                             // This has effect on the react lib size
-                             'NODE_ENV': JSON.stringify('production'),
-                         }
-                     }),
-                     new webpackOrig.optimize.UglifyJsPlugin(),
-                     new webpackOrig.optimize.OccurenceOrderPlugin(),
-                     new webpackOrig.optimize.DedupePlugin()
-                   ],
-                   module: {
-                       loaders: [
-                       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
-                       ]
-                   }
-               }))
+               .pipe(webpack(configProd))
                .pipe(gulp.dest('App/'));
 });
 
