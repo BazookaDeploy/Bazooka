@@ -3,17 +3,8 @@
 #
 author: Paolo Nicodemo
 description: Bazooka
-url: http://bjornej.github.io/Bazooka
+url: http://bazookadeploy.github.io/Bazooka/
 title: Bazooka
-
-# Github repositories
-github_user: bjornej
-github_repo_url: https://github.com/bjornej/
-
-
-# Disqus Comments
-disqus_short_name: bjornej
-disqus_show_comment_count: false
 
 # Google Analytics
 google_analytics_tracking_id: UA-41937157-2
@@ -27,4 +18,3 @@ pygments: true
 permalink: /:title/
 rdiscount:
   extensions: [smart]
-
