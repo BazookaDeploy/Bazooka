@@ -2,8 +2,6 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/qkf670rlxsqrvvcw?svg=true)](https://ci.appveyor.com/project/Bjornej/bazooka)
 
-Simple project to install apps packaged as nuget packages.
-
 Bazooka was born out of the necessity to deploy a lot of .net applications between different enviroments in a safe, reliable and repeatable way.
 
 
@@ -13,11 +11,7 @@ As it turns out it's easy to do this by creating an automatic build that creates
 
 Once the package is ready you can install your application by using Bazooka to download the package, extract it, apply config transforms based on the current enviroment and execute a optional powershell install script.
 
-### Current Status
-
-At the moment both the commandline client and tghe web interface are ready and already used in production. You can install, uninstall and update installed applications by executing a simgle command.
-
-Further documentation is coming
+For further documentation go to http://bazookadeploy.github.io/Bazooka/
 
 
 
