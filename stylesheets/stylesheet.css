@@ -43,14 +43,10 @@ a {
 #main-nav h2{
   margin: 0;
   font-weight: 300;
-  font-size: 25px;
+  font-size: 40px;
   margin-left: 18px;
-  color:white;
 }
 
-#main-nav h2 a {
-  color:white;
-}
 
 html, body, .container, .left-col {
     height: 100%;
