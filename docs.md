@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## Welcome to the Bazooka documentation
+# Welcome to the Bazooka documentation
 
 On the left sidebar you can find the documentation index and use it to browse it.
 

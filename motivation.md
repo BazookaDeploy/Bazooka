@@ -22,6 +22,8 @@ As you can see there are multiple steps and **each one** is subject to error:
 
 Each of these step is necessary for a pubblication but each of these steps introduce complexity in your deployment process and a risk of making an error, especially when tired or under pressure. 
 
-Now multiply these steps for maybe three or four enviroments (Test, UAT, Staging and Production) and for ten to twenty applications (not too many, especially if you're going the microservices road) and you have a problem on your hands not to mention all the time subtracted to other activities.
+Now multiply these steps for maybe **three or four** enviroments (Test, UAT, Staging and Production) and for **ten to twenty** applications (not too many, especially if you're going the microservices road) and you have a problem on your hands not to mention all the time subtracted to other activities.
 
-The only solution to this problem is to automate completely your application build and deployment.
+The only solution to this problem is to completely automate your application deployment, with the object of being able to go from a version in your VCS to deploying to your application without any manual intervention.
+
+Bazooka was created for this precise situation, to be able to package an application and deploy it reliably and automatically across different enviroments without any manual intervention.
