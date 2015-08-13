@@ -40,7 +40,7 @@ a {
   background-color:#303F9F;
 }
 
-.main-nav h1{
+.main-nav h2{
   margin: 0;
   font-weight: 300;
   font-size: 25px;
@@ -48,7 +48,7 @@ a {
   color:white;
 }
 
-.main-nav h1 a {
+.main-nav h2 a {
   color:white;
 }
 
@@ -68,7 +68,7 @@ html, body, .container, .left-col {
   padding: 10px;
 }
 
-.main-nav ul {
+#main-nav ul {
       list-style-type: none;
     margin-left: 0;
     padding-left: 20px;
