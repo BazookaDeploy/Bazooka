@@ -60,10 +60,12 @@ html, body, .container, .left-col {
 .left-col {
   float:left;
   width:20%;
+  background-color: #eee;
 }
 
 .mid-col {
   float:left;
+  padding: 10px;
 }
 
 .main-navigation {
