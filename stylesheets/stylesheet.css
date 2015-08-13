@@ -35,3 +35,16 @@ a {
   width:600px;
   padding:30px;
 }
+
+#header h1{
+  marggin:0;
+}
+
+#main-nav {
+  float:left;
+  width:20%;
+}
+
+.mid-col {
+  float:left;
+}
