@@ -19,3 +19,5 @@ Once your application is packaged you can deploy it in two ways:
 ### Caveats
 
 Bazooka has been developed to deploy .NET applications on Windows. While there's no limit to the type of applications deployed (you can deploy node.js apps or almost everything else) currently the web application, the command-line client and the agents run only on Windows. If there is enough request the agents and the command-line client could be ported to Linux.
+
+Some features likely only make sense for .NET applications, like config transforms based on enviroment, but if you find that a modification would alllow you to deploy another type of application feel free to request the feature on Github.
