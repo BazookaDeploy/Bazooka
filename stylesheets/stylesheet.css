@@ -60,7 +60,7 @@ html, body, .container, .left-col {
 }
 
 .mid-col {
-  float:left;
+  margin-left: 20%;
   padding: 10px;
 }
 
