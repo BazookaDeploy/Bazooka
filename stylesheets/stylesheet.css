@@ -48,6 +48,10 @@ a {
   color:white;
 }
 
+#header h1 a {
+  color:white;
+}
+
 #main-nav {
   float:left;
   width:20%;
@@ -55,4 +59,10 @@ a {
 
 .mid-col {
   float:left;
+}
+
+.main-navigation {
+      list-style-type: none;
+    margin-left: 0;
+    padding-left: 20px;
 }
