@@ -36,8 +36,16 @@ a {
   padding:30px;
 }
 
+#header {
+  background-color:#303F9F;
+}
+
 #header h1{
-  marggin:0;
+  margin: 0;
+  font-weight: 300;
+  font-size: 25px;
+  margin-left: 18px;
+  color:white;
 }
 
 #main-nav {
