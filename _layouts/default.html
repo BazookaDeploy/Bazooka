@@ -9,7 +9,13 @@
 		<div class="mid-col">
 			<div class="mid-col-container">
 				<div id="content" class="inner">{{ content }}</div>
-				<div id="disqus">{% include disqus.html %}</div>
+				{% if site.disqus_short_name %}
+				<section id="comment">
+					<h1 class="title">Comments</h1>
+					<div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
+				</section>
+				{% endif %}
+
 			</div>
 		</div>
 	</div>
