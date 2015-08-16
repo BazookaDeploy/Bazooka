@@ -10,7 +10,7 @@
 	[LockoutEndDateUtc] [datetime] NULL,
 	[LockoutEnabled] [bit] NOT NULL,
 	[AccessFailedCount] [int] NOT NULL,
-	[UserName] [nvarchar](256) NOT NULL,
+	[UserName] [nvarchar](256) NOT NULL UNIQUE,
  [Administrator] BIT NOT NULL DEFAULT 0, 
     CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED 
 (
