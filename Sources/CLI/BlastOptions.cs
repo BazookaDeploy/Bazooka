@@ -1,7 +1,10 @@
-﻿using CommandLine;
-
-namespace Bazooka.CLI
+﻿namespace Bazooka.CLI
 {
+    using CommandLine;
+
+    /// <summary>
+    ///     Options for the blast command
+    /// </summary>
     public class BlastOptions
     {
         /// <summary>

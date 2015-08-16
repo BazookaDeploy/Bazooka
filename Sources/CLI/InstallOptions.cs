@@ -1,7 +1,10 @@
-﻿using CommandLine;
-
-namespace Bazooka.CLI
+﻿namespace Bazooka.CLI
 {
+    using CommandLine;
+
+    /// <summary>
+    ///     Options for the installation of a package
+    /// </summary>
     public class InstallOptions
     {
         /// <summary>

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Web.Http;
-
-namespace Agent.Controllers
+﻿namespace Agent.Controllers
 {
+    using System;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Web.Http;
+
     public class UpdateController : ApiController
     {
         [HttpPost]
@@ -31,6 +31,5 @@ namespace Agent.Controllers
             proc.Start();
             proc.WaitForExit();
         }
-
     }
 }

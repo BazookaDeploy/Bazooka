@@ -1,13 +1,20 @@
-using Bazooka.Core;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
 namespace Bazooka.CLI
 {
+    using Bazooka.Core;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
+    /// <summary>
+    ///     Main Bazooka program
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        ///     Executes the bazooka cli program based on the parameters passed
+        /// </summary>
+        /// <param name="args">Arguments to Bazooka</param>
         static void Main(string[] args)
         {
             string invokedVerb = "";
@@ -22,8 +29,6 @@ namespace Bazooka.CLI
                   invokedVerb = verb;
                   invokedVerbInstance = subOptions;
               });
-
-
 
             switch (invokedVerb)
             {

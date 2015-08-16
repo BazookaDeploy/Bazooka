@@ -1,7 +1,10 @@
-﻿using CommandLine;
-
-namespace Bazooka.CLI
+﻿namespace Bazooka.CLI
 {
+    using CommandLine;
+
+    /// <summary>
+    ///     Options to uninstall a package
+    /// </summary>
     public class UninstallOptions
     {
         /// <summary>
