@@ -52,8 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\DeployApplication.cs" />
-    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="CustomPathResolver.cs" />
     <Compile Include="Dto\ExecutionResult.cs" />
     <Compile Include="Dto\InstallDto.cs" />
