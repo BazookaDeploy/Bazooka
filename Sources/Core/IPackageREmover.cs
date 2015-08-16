@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Bazooka.Core
+﻿namespace Bazooka.Core
 {
+    using System.Collections.Generic;
+
     /// <summary>
     ///     Inteface implemented by systems able to remove an installed package
     /// </summary>

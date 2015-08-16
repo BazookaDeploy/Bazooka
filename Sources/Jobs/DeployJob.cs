@@ -44,7 +44,7 @@
                 dep.StartDate = DateTime.UtcNow;
                 dep.Status = Status.Running;
                 version = dep.Version;
-                session.Save(new LogEntry()
+                session.Save(new DataAccess.Write.LogEntry()
                 {
                     DeploymentId = dep.Id,
                     Error = false,
@@ -68,7 +68,7 @@
                         var dep = session.Load<Deployment>(deploymentId);
                         dep.EndDate = DateTime.UtcNow;
                         dep.Status = Status.Failed;
-                        session.Save(new LogEntry()
+                        session.Save(new DataAccess.Write.LogEntry()
                         {
                             DeploymentId = dep.Id,
                             Error = true,
@@ -115,7 +115,7 @@
                     var dep = session.Load<Deployment>(deploymentId);
                     dep.EndDate = DateTime.UtcNow;
                     dep.Status = Status.Failed;
-                    session.Save(new LogEntry()
+                    session.Save(new DataAccess.Write.LogEntry()
                     {
                         DeploymentId = dep.Id,
                         Error = true,
@@ -134,7 +134,7 @@
                 var dep = session.Load<Deployment>(deploymentId);
                 dep.EndDate = DateTime.UtcNow;
                 dep.Status = Status.Ended;
-                session.Save(new LogEntry()
+                session.Save(new DataAccess.Write.LogEntry()
                 {
                     DeploymentId = dep.Id,
                     Error = false,
@@ -178,7 +178,7 @@
                 {
                     foreach (var mess in ret.Log)
                     {
-                        session.Save(new LogEntry()
+                        session.Save(new DataAccess.Write.LogEntry()
                         {
                             DeploymentId = deploymentId,
                             Error = mess.Error,
@@ -201,7 +201,7 @@
                 using (var session = Store.OpenSession())
                 {
 
-                    session.Save(new LogEntry()
+                    session.Save(new DataAccess.Write.LogEntry()
                     {
                         DeploymentId = deploymentId,
                         Error = false,
@@ -217,7 +217,7 @@
                 using (var session = Store.OpenSession())
                 {
 
-                    session.Save(new LogEntry()
+                    session.Save(new DataAccess.Write.LogEntry()
                     {
                         DeploymentId = deploymentId,
                         Error = false,
@@ -247,7 +247,7 @@
                 using (var session = Store.OpenSession())
                 {
 
-                    session.Save(new LogEntry()
+                    session.Save(new DataAccess.Write.LogEntry()
                     {
                         DeploymentId = deploymentId,
                         Error = false,
@@ -274,7 +274,7 @@
                 {
                     foreach (var mess in ret.Log)
                     {
-                        session.Save(new LogEntry()
+                        session.Save(new DataAccess.Write.LogEntry()
                         {
                             DeploymentId = deploymentId,
                             Error = mess.Error,

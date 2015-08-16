@@ -1,7 +1,10 @@
-﻿using System;
-
-namespace Bazooka.Core
+﻿namespace Bazooka.Core
 {
+    using System;
+
+    /// <summary>
+    ///     Exceptions that indicate a specific pacckage version does not exists
+    /// </summary>
     public class InexistentPackageException : Exception
     {
         /// <summary>

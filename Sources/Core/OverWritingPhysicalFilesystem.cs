@@ -1,10 +1,13 @@
-﻿using NuGet;
-using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace Bazooka.Core
+﻿namespace Bazooka.Core
 {
+    using NuGet;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+
+    /// <summary>
+    ///     Specialization of nuget file system that overrides any file
+    /// </summary>
     public class OverWritingPhysicalFilesystem : PhysicalFileSystem
     {
         public OverWritingPhysicalFilesystem(string path) : base(path) { }
@@ -27,6 +30,11 @@ namespace Bazooka.Core
             }
         }
 
+        /// <summary>
+        ///     Add a file
+        /// </summary>
+        /// <param name="path">Path to addd  the file</param>
+        /// <param name="stream">Stream for the file</param>
         public override void AddFile(string path, Stream stream)
         {
             if (File.Exists(Path.Combine(this.Root,path)))
@@ -37,6 +45,11 @@ namespace Bazooka.Core
             base.AddFile(Path.Combine(this.Root, path), stream);
         }
 
+        /// <summary>
+        ///     Adds files to a directory
+        /// </summary>
+        /// <param name="files">Files to add</param>
+        /// <param name="rootDir">Root directory</param>
         public override void AddFiles(IEnumerable<IPackageFile> files, string rootDir)
         {
             foreach (var file in files)
@@ -45,6 +58,11 @@ namespace Bazooka.Core
             }
         }
 
+        /// <summary>
+        ///     Creates a file 
+        /// </summary>
+        /// <param name="path">Path where to create the file</param>
+        /// <returns>Stream of created file</returns>
         public override Stream CreateFile(string path)
         {
             string fullPath = GetFullPath(path);

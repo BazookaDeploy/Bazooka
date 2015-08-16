@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
-
+    /// <summary>
+    ///     Dto for the installation
+    /// </summary>
     public class InstallDto
     {
         /// <summary>

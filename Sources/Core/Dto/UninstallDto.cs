@@ -2,6 +2,9 @@
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    ///     Uninstall dto
+    /// </summary>
     public class UninstallDto
     {
         /// <summary>

@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Bazooka.Core
+﻿namespace Bazooka.Core
 {
+    using System;
 
     /// <summary>
     ///     Exception thrown when unable to apply config transformations

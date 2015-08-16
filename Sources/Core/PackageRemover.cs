@@ -1,9 +1,8 @@
-﻿using NuGet;
-using System.Collections.Generic;
-using System.IO;
-
-namespace Bazooka.Core
+﻿namespace Bazooka.Core
 {
+    using NuGet;
+    using System.Collections.Generic;
+    using System.IO;
 
     /// <summary>
     ///     Removes installed packages
@@ -30,6 +29,11 @@ namespace Bazooka.Core
             Logger.Log(string.Format("Uninstalled application {0} version {1}", info.Name, info.Version));
         }
 
+        /// <summary>
+        ///     Deletes all files from a package
+        /// </summary>
+        /// <param name="installed">Insyalled package</param>
+        /// <param name="repositories">Repositories where to find the package</param>
         private void DeleteFiles(PackageInfo installed, ICollection<string> repositories)
         {
             Logger.Log("Deleting installed files... ");
@@ -61,6 +65,12 @@ namespace Bazooka.Core
             Logger.Log("Installed files deleted");
         }
 
+        /// <summary>
+        ///     Excutes the uninstall script
+        /// </summary>
+        /// <param name="installed">Installed package</param>
+        /// <param name="parameters">Parameters to pass to the script</param>
+        /// <param name="optionalScript">optional additiona script to execute</param>
         private void ExecuteRemoveScript(PackageInfo installed, Dictionary<string, string> parameters, string optionalScript)
         {
             if (optionalScript != null)

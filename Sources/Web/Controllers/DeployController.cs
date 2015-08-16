@@ -62,7 +62,7 @@ namespace Web.Controllers
                 if (deploy.Status == Status.Scheduled) {
                     deploy.Status = Status.Canceled;
 
-                    session.Save(new LogEntry()
+                    session.Save(new DataAccess.Write.LogEntry()
                     {
                         DeploymentId = deploy.Id,
                         Error = false,

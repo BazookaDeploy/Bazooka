@@ -1,5 +1,8 @@
 ﻿namespace Bazooka.Core
 {
+    /// <summary>
+    ///     package informations
+    /// </summary>
     public class PackageInfo
     {
         /// <summary>

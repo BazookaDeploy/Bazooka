@@ -1,7 +1,6 @@
-﻿using NuGet;
-
-namespace Bazooka.Core
+﻿namespace Bazooka.Core
 {
+    using NuGet;
 
     /// <summary>
     ///     Custom path resolver used to install the package in a specific directory 

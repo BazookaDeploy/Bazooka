@@ -1,13 +1,12 @@
-﻿using Microsoft.Web.XmlTransform;
-using NuGet;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace Bazooka.Core
+﻿namespace Bazooka.Core
 {
+    using Microsoft.Web.XmlTransform;
+    using NuGet;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
 
     /// <summary>
     ///     Default PackageInstaller implementation
@@ -15,7 +14,7 @@ namespace Bazooka.Core
     public class PackageInstaller : IPackageInstaller
     {
         /// <summary>
-        ///     
+        ///     Logger to use
         /// </summary>
         public ILogger Logger { get; set; }
 
@@ -187,7 +186,15 @@ namespace Bazooka.Core
             Logger.Log(String.Format("Package for {0} version {1} downloaded ... ", info.Name, info.Version));
         }
 
-
+        /// <summary>
+        ///     Installs the package
+        /// </summary>
+        /// <param name="info">Package informations</param>
+        /// <param name="repositories">Repositories to use</param>
+        /// <param name="parameters">parameters to pass to the script</param>
+        /// <param name="installScript">Installation script to execute</param>
+        /// <param name="configFile">Name of the configuration file</param>
+        /// <param name="configTrasform">Configuration transform to apply</param>
         public void Install(PackageInfo info, ICollection<string> repositories, Dictionary<string, string> parameters, string installScript, string configFile, string configTrasform)
         {
             Logger.Log(String.Format("Starting installation of {0} version {1} ... ", info.Name, info.Version));

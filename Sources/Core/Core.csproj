@@ -70,6 +70,9 @@
     <Compile Include="PackageRemover.cs" />
     <Compile Include="PackageSearcher.cs" />
     <Compile Include="PowershellHelpers.cs" />
+    <Compile Include="Powershell\Host.cs" />
+    <Compile Include="Powershell\HostRawUserInterface.cs" />
+    <Compile Include="Powershell\HostUserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringLogger.cs" />
     <Compile Include="TransformException.cs" />
