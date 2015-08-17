@@ -25,6 +25,7 @@
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DacApplicationName>Bazooka</DacApplicationName>
     <GenerateCreateScript>True</GenerateCreateScript>
+    <DacVersion>0.1.0</DacVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>

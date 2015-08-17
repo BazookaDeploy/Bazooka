@@ -46,16 +46,16 @@ var TaskSelectDialog = React.createClass({
     return(
      <Modal {...this.props} enforceFocus={false} title="Add new task">
      <div className="modal-body">
-       <ModalTrigger modal={<DeployUnitDialog Enviroment={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<DeployUnitDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Deploy task</button>
        </ModalTrigger>
-       <ModalTrigger modal={<MailTaskDialog EnviromentId={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<MailTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Mail task</button>
        </ModalTrigger>
-       <ModalTrigger modal={<LocalScriptTaskDialog EnviromentId={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<LocalScriptTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Local script task</button>
        </ModalTrigger>
-       <ModalTrigger modal={<RemoteScriptTaskDialog EnviromentId={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<RemoteScriptTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Remote script task</button>
        </ModalTrigger>
      </div>
@@ -166,7 +166,7 @@ var TaskSelectDialog = React.createClass({
 
               <table className="table table-bordered table-striped">
                 <thead><tr><th>Tasks
-                  <ModalTrigger modal={<TaskSelectDialog EnviromentId={this.getParams().enviromentId}/>}>
+                  <ModalTrigger modal={<TaskSelectDialog onCreate={this.updateTasks} EnviromentId={this.getParams().enviromentId}/>}>
                     <button className='btn btn-xs btn-primary pull-right'>New</button></ModalTrigger></th></tr></thead>
                 <tbody>
                   {this.state.tasks.map(x => x.Type == 0 ? (

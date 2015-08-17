@@ -15,6 +15,7 @@ var LocalScriptTaskCreateDialog = React.createClass({
   create:function(){
     if(this.state.Name!="" && this.state.Script!=""){
       Actions.createLocalScriptTask(this.state.Name, this.state.Script, this.props.EnviromentId).then(x => {
+        this.props.onCreate();
         this.props.onRequestHide();
       })
     }

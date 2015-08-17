@@ -162,7 +162,7 @@
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public ExecutionResult ExecuteScript(RemoteScriptDto options)
         {
             var logger = new StringLogger();

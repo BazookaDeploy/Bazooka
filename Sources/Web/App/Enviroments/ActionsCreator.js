@@ -2,7 +2,7 @@ import reqwest from "reqwest";
 
 module.exports = {
 	updateAllEnviroments: function() {
-		reqwest({
+		return reqwest({
 			url: "/api/enviroments/",
 			type: 'json',
 			contentType: 'application/json',
@@ -11,7 +11,7 @@ module.exports = {
 	},
 
 	updateEnviroments: function(applicationId) {
-		reqwest({
+	    return reqwest({
 			url: "/api/enviroments/" + applicationId,
 			type: 'json',
 			contentType: 'application/json',

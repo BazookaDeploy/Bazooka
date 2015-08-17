@@ -18,7 +18,7 @@ var MailTaskCreateDialog = React.createClass({
     if(this.state.Name!="" && this.state.Recipients!="" && this.state.Sender!=""){
       Actions.createMailTask(this.state.Name, this.state.Text,this.state.Recipients,this.state.Sender, this.props.EnviromentId).then(x => {
         this.props.onRequestHide()
-        this.props.onTaskCreate();
+        this.props.onCreate();
       })
     }
   },

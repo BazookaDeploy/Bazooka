@@ -17,6 +17,7 @@ var RemoteScriptTaskCreateDialog = React.createClass({
   create:function(){
     if(this.state.Name!="" && this.state.Script!=""&& this.state.Machine!=""&& this.state.Folder!=""){
       Actions.createRemoteScriptTask(this.state.Name, this.state.Script,this.state.Machine,this.state.Folder, this.props.EnviromentId).then(x => {
+        this.props.onCreate();
         this.props.onRequestHide();
       })
     }

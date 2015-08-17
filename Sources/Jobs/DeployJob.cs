@@ -155,6 +155,19 @@
                 var res = new List<string>();
                 ExecutionResult ret;
 
+                using (var session = Store.OpenSession())
+                {
+                    session.Save(new DataAccess.Write.LogEntry()
+                    {
+                        DeploymentId = deploymentId,
+                        Error = false,
+                        Text = "Executing remote script " + unit.Name,
+                        TimeStamp = DateTime.UtcNow
+                    });
+
+                    session.Flush();
+                }
+
                 var address = unit.Machine;
 
                 using (var client = new HttpClient())
@@ -171,7 +184,22 @@
                     var result = result2.Result;
                     var response = result.Content.ReadAsStringAsync().Result;
 
-                   ret = JsonConvert.DeserializeObject<ExecutionResult>(response);
+                    ret = JsonConvert.DeserializeObject<ExecutionResult>(response);
+
+                    using (var session = Store.OpenSession())
+                    {
+
+                        session.Save(new DataAccess.Write.LogEntry()
+                        {
+                            DeploymentId = deploymentId,
+                            Error = false,
+                            Text = String.Join("\r\n", ret.Log.Select(x => x.Text)),
+                            TimeStamp = DateTime.UtcNow
+                        });
+
+                        session.Flush();
+                    }
+
                 }
 
                 using (var session = Store.OpenSession())
@@ -221,7 +249,7 @@
                     {
                         DeploymentId = deploymentId,
                         Error = false,
-                        Text = String.Join("\r\n", logger.Logs),
+                        Text = String.Join("\r\n", logger.Logs.Select(x => x.Text)),
                         TimeStamp = DateTime.UtcNow
                     });
 
