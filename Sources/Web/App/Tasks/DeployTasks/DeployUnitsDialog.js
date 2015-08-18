@@ -70,7 +70,7 @@ var CreateDialog = React.createClass({
         this.state.directory,
         this.state.repository,
         this.state.params)
-             .then(x => this.props.onRequestHide());
+             .then(x => {this.props.onCreate();this.props.onRequestHide();});
     }
     return false;
   },
