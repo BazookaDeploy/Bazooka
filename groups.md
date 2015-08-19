@@ -12,6 +12,11 @@ From here you can
 - add a user to a group
 - remove a user from a group
 
+![](/images/groups.jpg)
+
+![](/images/users.jpg)
+
+
 ### Active Directory groups
 
 If you are using the active directory integration to handle user authentication you may be tempted to ask why it's not possible to use Active Directory groups to manage permissions. The answer is simple and primarily boils down to performances. 
