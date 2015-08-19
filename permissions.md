@@ -10,4 +10,4 @@ Obviously this is not terribly useful so you can give the authorization to other
 
 To do this simply enter the application administration section, select your application and the desired enviroment. Once the enviroment is selected you can select the **Permissions** tab and add a User or a group of user   to thos who are authorized to deploy the application.
 
-![](/images/permissions.jpg)
+![](images/permissions.jpg)
