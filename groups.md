@@ -12,9 +12,9 @@ From here you can
 - add a user to a group
 - remove a user from a group
 
-![](/images/groups.jpg)
+![](images/groups.jpg)
 
-![](/images/users.jpg)
+![](images/users.jpg)
 
 
 ### Active Directory groups
