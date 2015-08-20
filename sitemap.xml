@@ -7,7 +7,7 @@ layout: nil
         <loc>{{ site.url }}</loc>
     </url>
     
-    {% for post in site.posts %}
+    {% for post in site %}
     {% unless post.redirect %}
     <url>
         <loc>{{ site.url }}{{ post.url }}</loc>
