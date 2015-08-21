@@ -208,6 +208,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\DeployUnits\" />
     <Folder Include="App_Data\" />
     <Folder Include="Content\fonts\" />
   </ItemGroup>
@@ -243,42 +244,46 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Agents\ActionsCreator.js" />
+    <Content Include="App\Agents\AgentsPage.js" />
     <Content Include="App\App.js" />
     <Content Include="App\Applications\ActionsCreator.js" />
     <Content Include="App\Applications\AppPage.js" />
-    <Content Include="App\Applications\Constants.js" />
-    <Content Include="App\Applications\Store.js" />
+    <Content Include="App\App\browser-bundle.js" />
     <Content Include="App\Base\Dispatcher.js" />
     <Content Include="App\browser-bundle.js" />
+    <Content Include="App\browser-bundle.js.map" />
     <Content Include="App\Deployments\ActionsCreator.js" />
-    <Content Include="App\Deployments\Constants.js" />
     <Content Include="App\Deployments\DeploymentsPage.js" />
-    <Content Include="App\Deployments\Store.js" />
     <Content Include="App\Deployment\ActionsCreator.js" />
-    <Content Include="App\Deployment\Constants.js" />
     <Content Include="App\Deployment\DeploymentsPage.js" />
-    <Content Include="App\Deployment\Store.js" />
-    <Content Include="App\DeployUnits\ActionsCreator.js" />
-    <Content Include="App\DeployUnits\Constants.js" />
-    <Content Include="App\DeployUnits\DeployUnitsPage.js" />
-    <Content Include="App\DeployUnits\Store.js" />
     <Content Include="App\Enviroments\ActionsCreator.js" />
-    <Content Include="App\Enviroments\Constants.js" />
     <Content Include="App\Enviroments\EnviromentPage.js" />
-    <Content Include="App\Enviroments\Store.js" />
     <Content Include="App\Groups\ActionsCreator.js" />
-    <Content Include="App\Groups\Constants.js" />
     <Content Include="App\Groups\GroupsPage.js" />
-    <Content Include="App\Groups\Store.js" />
     <Content Include="App\Group\ActionsCreator.js" />
-    <Content Include="App\Group\Constants.js" />
     <Content Include="App\Group\GroupsPage.js" />
-    <Content Include="App\Group\Store.js" />
     <Content Include="App\Home\ActionsCreator.js" />
-    <Content Include="App\Home\Constants.js" />
     <Content Include="App\Home\Homepage.js" />
-    <Content Include="App\Home\Store.js" />
     <Content Include="App\index.js" />
+    <Content Include="App\Stats\ActionsCreator.js" />
+    <Content Include="App\Stats\StatsPage.js" />
+    <Content Include="App\Tasks\ActionsCreator.js" />
+    <Content Include="App\Tasks\DeployTasks\ActionsCreator.js" />
+    <Content Include="App\Tasks\DeployTasks\Constants.js" />
+    <Content Include="App\Tasks\DeployTasks\DeployUnitEditPage.js" />
+    <Content Include="App\Tasks\DeployTasks\DeployUnitsDialog.js" />
+    <Content Include="App\Tasks\DeployTasks\Store.js" />
+    <Content Include="App\Tasks\LocalScriptTask\Actions.js" />
+    <Content Include="App\Tasks\LocalScriptTask\CreateDialog.js" />
+    <Content Include="App\Tasks\LocalScriptTask\EditPage.js" />
+    <Content Include="App\Tasks\MailTask\Actions.js" />
+    <Content Include="App\Tasks\MailTask\CreateDialog.js" />
+    <Content Include="App\Tasks\MailTask\EditPage.js" />
+    <Content Include="App\Tasks\RemoteScriptTask\Actions.js" />
+    <Content Include="App\Tasks\RemoteScriptTask\CreateDialog.js" />
+    <Content Include="App\Tasks\RemoteScriptTask\EditPage.js" />
+    <Content Include="App\Tasks\TasksPage.js" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\main.css" />
     <Content Include="DataServices\Packages.svc" />
@@ -321,7 +326,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="package.json" />
-    <Content Include="App\browser-bundle.js.map" />
     <Content Include="Content\main.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
