@@ -48,7 +48,7 @@ var GroupsPage = React.createClass({
 
   addUser:function(){
     Actions.addUser(this.getParams().name,this.refs.user.getDOMNode().value).then(x => {
-      this.update;
+      this.update();
     })
   },
 
