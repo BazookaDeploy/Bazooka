@@ -26,8 +26,8 @@ var routes = (
     <Route name="tasks" path="tasks/:applicationName/:enviroment/:enviromentId" handler={TasksPage} />
     <Route name="deployunitedit" path="deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId" handler={DeployUnitEditPage} />
     <Route name="mailtaskedit" path="mailtask/:applicationName/:enviroment/:mailTaskName/edit/:taskId" handler={MailTasksEditPAge} />
-    <Route name="localscripttaskedit" path="localscripttask/:applicationName/:enviroment/:mailTaskName/edit/:taskId" handler={LocalScriptTasksEditPAge} />
-    <Route name="remotescripttaskedit" path="remotescripttask/:applicationName/:enviroment/:mailTaskName/edit/:taskId" handler={RemoteScriptTasksEditPage} />
+    <Route name="localscripttaskedit" path="localscripttask/:applicationName/:enviroment/:taskName/edit/:taskId" handler={LocalScriptTasksEditPAge} />
+    <Route name="remotescripttaskedit" path="remotescripttask/:applicationName/:enviroment/:taskName/edit/:taskId" handler={RemoteScriptTasksEditPage} />
 
 
     <Route name="deployments" path="deployments" handler={DeploymentsPage} />

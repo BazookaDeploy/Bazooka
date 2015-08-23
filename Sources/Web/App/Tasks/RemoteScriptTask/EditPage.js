@@ -36,6 +36,8 @@ var EditPage = React.createClass({
   render:function(){
     return(
       <div>
+							      <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().taskName}</h3>
+
         <form role="form" onSubmit={this.create}>
          <div className="form-group">
            <label htmlFor="Name">Name</label>

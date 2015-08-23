@@ -189,7 +189,7 @@ var TaskSelectDialog = React.createClass({
                       <tr><td><Link to="localscripttaskedit" params={{
                           applicationName:this.getParams().applicationName,
                           enviroment:this.getParams().enviroment,
-                          mailTaskName : x.Name,
+                          taskName : x.Name,
                           taskId: x.Id
                         }}>{x.Name}</Link></td></tr>
                     )
@@ -198,7 +198,7 @@ var TaskSelectDialog = React.createClass({
                       <tr><td><Link to="remotescripttaskedit" params={{
                           applicationName:this.getParams().applicationName,
                           enviroment:this.getParams().enviroment,
-                          mailTaskName : x.Name,
+                          taskName : x.Name,
                           taskId: x.Id
                         }}>{x.Name}</Link></td></tr>
                     )
