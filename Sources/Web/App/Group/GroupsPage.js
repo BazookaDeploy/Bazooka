@@ -60,6 +60,9 @@ render: function () {
     var users = this.state.users.map(a => (<option value={a.Id}>{a.UserName}</option>));
 
     return(<div>
+
+      <h2>Group {name}</h2>
+
       {this.state.loading? "Loading users ..." : ""}
 
       <br />
