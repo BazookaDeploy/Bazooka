@@ -16,6 +16,7 @@
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.5",
+    "react-d3-components": "^0.4.8",
     "react-dropzone": "^1.2.2",
     "react-intl": "^1.2.0",
     "react-router": "^0.13.3",

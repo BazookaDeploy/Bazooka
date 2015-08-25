@@ -1,5 +1,10 @@
 import React  from "react";
 import Actions from "./ActionsCreator";
+import TabbedArea from "react-bootstrap/lib/TabbedArea";
+import TabPane from "react-bootstrap/lib/TabPane";
+import PieChart from "react-d3-components/lib/PieChart";
+import BarChart from "react-d3-components/lib/BarChart";
+
 
 var StatsPage = React.createClass({
     getInitialState: function() {
@@ -22,9 +27,11 @@ var StatsPage = React.createClass({
          });
     },
 
+
     render: function () {
-      var deploys = this.state.deploys.map(x => (<tr><td>{x.Name} - {x.Configuration}</td><td className="text-right">{x.Count}</td></tr>));
-      var users = this.state.users.map(x => (<tr><td>{x.UserName}</td><td className="text-right">{x.Count}</td></tr>));
+      var deploys = this.state.deploys.map(x => { return {label : x.app, values: x.envs.map(z => {return {x:z.env, y:z.count}})}});
+      var envs = this.state.deploys.map(x => (<span>{x.app}, </span>));
+      var vals = this.state.users.map(z => { return {x: z.UserName + "/" + z.Count, y: z.Count}});
         return (
           <div>
             <h2 style={{display:"inline"}}>Deployment statistics for: </h2>
@@ -38,27 +45,33 @@ var StatsPage = React.createClass({
 
             <br />
             <br />
+
+
+              <TabbedArea defaultActiveKey={1}>
+      		    	<TabPane eventKey={1} tab='Applications'>
+  <br />
+        Legend: {envs}
+  <br />
+        {deploys.length==0 ? <span>No data to render</span>:
+          <BarChart
+                    data={deploys}
+                    width={800}
+                    height={800}
+                    margin={{top: 10, bottom: 50, left: 50, right: 10}}/>
+                }
+          </TabPane>
+            	<TabPane eventKey={2} tab='Users'>
             <br />
 
-            <table className="table table-bordered table-striped" >
-              <thead>
-                <tr><th>Application/Enviroment</th><th className="text-right">Deploys</th></tr>
-              </thead>
-              <tbody>
-                {deploys}
-              </tbody>
-            </table>
+              <PieChart
+                data={{ label: "user", values: vals} }
+                width={800}
+                height={800}
+                margin={{top: 10, bottom: 10, left: 100, right: 100}}
+                />
 
-            <br />
-
-              <table className="table table-bordered table-striped">
-                <thead>
-                  <tr><th>User</th><th className="text-right">Deploys</th></tr>
-                </thead>
-                <tbody>
-                  {users}
-                </tbody>
-              </table>
+            </TabPane>
+          </TabbedArea>
           </div>);
     }
 });

@@ -12,11 +12,24 @@
         [HttpGet]
         public object Statistics(DateTime startDate)
         {
+            var apps = db.Deployments
+                            .Where(x => x.StartDate > startDate)
+                            .Select(x => x.Name)
+                            .Distinct()
+                            .ToList();
+
             var deploys = db.Deployments
                             .Where(x => x.StartDate > startDate)
-                            .GroupBy(x => new { x.Name, x.Configuration })
-                            .Select(x => new { x.Key.Name, x.Key.Configuration, Count = x.Count() })
-                            .OrderByDescending(x => x.Count)
+                            .GroupBy(x => x.Configuration)
+                            .Select(x => new
+                            {
+                                app = x.Key,
+                                envs = apps.Select(z => new {
+                                    env= z,
+                                    count = x.Where(y => y.Name == z).Count()
+                                })
+                            })
+                            .OrderBy(x => x.app)
                             .ToList();
 
             var users = db.Deployments
