@@ -29,3 +29,16 @@ $navbar-default-link-hover-color:#bbbbbb;
     display: inline-block;
     width: 100%;
 }
+
+
+svg {
+    display:block;
+    margin: 0 auto;
+    height: 1000px !important;
+}
+
+g.tick text {
+    -ms-writing-mode: tb;
+    writing-mode: tb;
+    text-anchor: inherit;
+}

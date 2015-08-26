@@ -9,7 +9,7 @@
     {
         private ReadContext db = new ReadContext();
 
- 
+
         [HttpGet]
         public object Statistics(DateTime startDate)
         {
@@ -26,8 +26,9 @@
                             .Select(x => new
                             {
                                 app = x.Key,
-                                envs = apps.Select(z => new {
-                                    env= z,
+                                envs = apps.Select(z => new
+                                {
+                                    env = z,
                                     count = x.Count(y => y.Name == z)
                                 }).OrderBy(z => z.env).ToList()
                             })
@@ -49,6 +50,11 @@
             if (current != total)
             {
                 users2.Add(new { UserName = "Other", Count = total - current });
+            }
+
+            if (users.Count <= 10)
+            {
+                users2 = users;
             }
 
             return new { Deploys = deploys, Users = users2 };
