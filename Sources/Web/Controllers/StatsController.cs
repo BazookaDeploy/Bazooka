@@ -12,9 +12,10 @@
         [HttpGet]
         public object Statistics(DateTime startDate)
         {
-            var apps = db.Deployments
+               var apps = db.Deployments
                             .Where(x => x.StartDate > startDate)
                             .Select(x => x.Name)
+                            .OrderBy(x => x)
                             .Distinct()
                             .ToList();
 
@@ -26,8 +27,8 @@
                                 app = x.Key,
                                 envs = apps.Select(z => new {
                                     env= z,
-                                    count = x.Where(y => y.Name == z).Count()
-                                })
+                                    count = x.Count(y => y.Name == z)
+                                }).OrderBy(z => z.env).ToList()
                             })
                             .OrderBy(x => x.app)
                             .ToList();
