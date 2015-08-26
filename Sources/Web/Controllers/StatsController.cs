@@ -9,10 +9,11 @@
     {
         private ReadContext db = new ReadContext();
 
+ 
         [HttpGet]
         public object Statistics(DateTime startDate)
         {
-               var apps = db.Deployments
+            var apps = db.Deployments
                             .Where(x => x.StartDate > startDate)
                             .Select(x => x.Name)
                             .OrderBy(x => x)
@@ -40,7 +41,17 @@
                           .OrderByDescending(x => x.Count)
                           .ToList();
 
-            return new { Deploys = deploys, Users = users };
+            var total = users.Sum(x => x.Count);
+            var current = 0;
+
+            var users2 = users.TakeWhile(x => { current += x.Count; return ((0.9M * total) > current); }).ToList();
+
+            if (current != total)
+            {
+                users2.Add(new { UserName = "Other", Count = total - current });
+            }
+
+            return new { Deploys = deploys, Users = users2 };
         }
 
         protected override void Dispose(bool disposing)
