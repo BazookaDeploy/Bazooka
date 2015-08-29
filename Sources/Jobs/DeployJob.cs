@@ -105,6 +105,9 @@
                         case TaskType.RemoteScript:
                             DeployJob.RemoteScriptTask(task.Id, deploymentId, version, config);
                             break;
+                        case TaskType.Database:
+                            DeployJob.DatabaseTask(task.Id, deploymentId, version, config);
+                            break;
                     }
                 }
             }
@@ -143,6 +146,46 @@
                 });
                 session.Update(dep);
                 session.Flush();
+            }
+        }
+
+        private static void DatabaseTask(int id, int deploymentId, string version, string config)
+        {
+            using (var dc = new ReadContext())
+            {
+                var unit = dc.DatabaseTasks.Single(x => x.Id == id);
+
+                var logger = new StringLogger();
+                using (var session = Store.OpenSession())
+                {
+
+                    session.Save(new DataAccess.Write.LogEntry()
+                    {
+                        DeploymentId = deploymentId,
+                        Error = false,
+                        Text = "Deployng database " + unit.DatabaseName + "with version " + version,
+                        TimeStamp = DateTime.UtcNow
+                    });
+
+                    session.Flush();
+                }
+
+                var dacpac = PackageHelpers.DownloadDacpac(unit.Package, version, unit.Repository);
+                Dacpac.DacpacHelpers.ApplyDacpac(dacpac, unit.ConnectionString, unit.DatabaseName, logger);
+
+                using (var session = Store.OpenSession())
+                {
+
+                    session.Save(new DataAccess.Write.LogEntry()
+                    {
+                        DeploymentId = deploymentId,
+                        Error = false,
+                        Text = String.Join("\r\n", logger.Logs.Select(x => x.Text)),
+                        TimeStamp = DateTime.UtcNow
+                    });
+
+                    session.Flush();
+                }
             }
         }
 
