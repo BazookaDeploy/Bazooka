@@ -221,6 +221,7 @@
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
+    <Compile Include="Controllers\DatabaseTasksControllers.cs" />
     <Compile Include="Controllers\DeployController.cs" />
     <Compile Include="Controllers\DeploymentController.cs" />
     <Compile Include="Controllers\DeployTasksController.cs" />

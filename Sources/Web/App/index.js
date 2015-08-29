@@ -17,6 +17,8 @@ import TasksPage          from "./Tasks/TasksPage";
 import MailTasksEditPAge  from "./Tasks/MailTask/EditPage";
 import LocalScriptTasksEditPAge  from "./Tasks/LocalScriptTask/EditPage";
 import RemoteScriptTasksEditPage  from "./Tasks/RemoteScriptTask/EditPage";
+import DatabaseTasksEditPage  from "./Tasks/DatabaseTasks/EditPage";
+
 
 var routes = (
   <Route handler={App}>
@@ -28,6 +30,7 @@ var routes = (
     <Route name="mailtaskedit" path="mailtask/:applicationName/:enviroment/:mailTaskName/edit/:taskId" handler={MailTasksEditPAge} />
     <Route name="localscripttaskedit" path="localscripttask/:applicationName/:enviroment/:taskName/edit/:taskId" handler={LocalScriptTasksEditPAge} />
     <Route name="remotescripttaskedit" path="remotescripttask/:applicationName/:enviroment/:taskName/edit/:taskId" handler={RemoteScriptTasksEditPage} />
+  <Route name="databasetaskedit" path="databasetask/:applicationName/:enviroment/:taskName/edit/:taskId" handler={DatabaseTasksEditPage} />
 
 
     <Route name="deployments" path="deployments" handler={DeploymentsPage} />

@@ -6,5 +6,6 @@
 	[Package] NVARCHAR(256) NOT NULL,
 	[DatabaseName] NVARcHAR(50) NOT NULL,
 	EnviromentId int NOT NULL, 
+    [Repository] NVARCHAR(256) NOT NULL, 
     CONSTRAINT [FK_DatabaseTasks_ToEnviroments] FOREIGN KEY (EnviromentId) REFERENCES [Enviroments]([Id])
 )

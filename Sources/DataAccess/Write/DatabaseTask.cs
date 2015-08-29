@@ -8,6 +8,6 @@
         public virtual string Package { get; set; }
         public virtual string DatabaseName { get; set; }
         public virtual int EnviromentId { get; set; }
-
+        public virtual string Repository { get; set; }
     }
 }

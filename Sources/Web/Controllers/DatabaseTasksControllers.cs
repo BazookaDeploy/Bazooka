@@ -5,7 +5,7 @@ using System.Web.Http;
 
 namespace Web.Controllers
 {
-    public class DatabaseTasksControllers : ApiController
+    public class DatabaseTasksController : ApiController
     {
         private ReadContext db = new ReadContext();
 
