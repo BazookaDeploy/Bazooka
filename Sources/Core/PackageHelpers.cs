@@ -1,6 +1,8 @@
 ﻿namespace Bazooka.Core
 {
+    using NuGet;
     using System;
+    using System.IO;
     using System.Linq;
 
     /// <summary>
@@ -37,6 +39,19 @@
             var name = ExtractPackageName(filename);
             filename= filename.Replace(name, "").Replace(".nupkg","");
             return filename.Substring(1, filename.Length-1);           
+        }
+
+        public static Stream DownloadDacpac(string packageName, string version, string repository)
+        {
+            var factory = new PackageRepositoryFactory();
+
+            IPackage package;
+
+            var globalRepo = new AggregateRepository(factory,new string[] { repository }, true);
+
+            package = globalRepo.FindPackage(packageName, SemanticVersion.Parse(version), true, true);
+
+            return package.GetFiles().Single(x => x.Path.EndsWith(".dacpac")).GetStream();
         }
     }
 }
