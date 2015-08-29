@@ -20,7 +20,7 @@ namespace Web.Controllers
             {
                 session.SaveOrUpdate(unit);
                 session.Flush();
-            };
+            }
         }
 
         public void Post(DatabaseTask unit)
@@ -29,7 +29,7 @@ namespace Web.Controllers
             {
                 session.SaveOrUpdate(unit);
                 session.Flush();
-            };
+            }
         }
 
         protected override void Dispose(bool disposing)
