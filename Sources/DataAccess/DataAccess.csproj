@@ -58,6 +58,7 @@
     <Compile Include="Read\AllowedGroupsDto.cs" />
     <Compile Include="Read\AllowedUsersDto.cs" />
     <Compile Include="Read\ApplicationDto.cs" />
+    <Compile Include="Read\DatabaseTaskDto.cs" />
     <Compile Include="Read\DeployerDto.cs" />
     <Compile Include="Read\DeploymentDto.cs" />
     <Compile Include="Read\DeployTaskDto.cs" />
@@ -78,6 +79,8 @@
     <Compile Include="Write\AllowedUserMap.cs" />
     <Compile Include="Write\Application.cs" />
     <Compile Include="Write\ApplicationMap.cs" />
+    <Compile Include="Write\DatabaseTask.cs" />
+    <Compile Include="Write\DatabaseTaskMap.cs" />
     <Compile Include="Write\Deployment.cs" />
     <Compile Include="Write\DeploymentMap.cs" />
     <Compile Include="Write\DeployTask.cs" />

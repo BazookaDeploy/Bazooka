@@ -35,6 +35,8 @@ namespace Web
             mapper.AddMapping<MailTaskMap>();
             mapper.AddMapping<LocalScriptTaskMap>();
             mapper.AddMapping<RemoteScriptTaskMap>();
+            mapper.AddMapping<DatabaseTaskMap>();
+
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 
