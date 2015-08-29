@@ -7,4 +7,6 @@
 		SELECT Id,Name,2 AS Type, EnviromentId FROM [dbo].LocalScriptTasks
 		UNION
 		SELECT Id,Name,3 AS Type, EnviromentId FROM [dbo].RemoteScriptTasks
+		UNION
+		SELECT Id,Name,4 AS Type, EnviromentId FROM [dbo].DatabaseTasks
 	)
