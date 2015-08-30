@@ -51,7 +51,9 @@
 
             package = globalRepo.FindPackage(packageName, SemanticVersion.Parse(version), true, true);
 
-            return package.GetFiles().Single(x => x.Path.EndsWith(".dacpac")).GetStream();
+            var files = package.GetFiles();
+
+            return files.Single(x => x.Path.EndsWith(".dacpac")).GetStream();
         }
     }
 }
