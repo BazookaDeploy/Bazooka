@@ -185,5 +185,30 @@
                 Log = logger.Logs
             };
         }
+
+        [HttpPost]
+        public ExecutionResult DatabaseDeploy(DatabaseDeployDto options)
+        {
+            var logger = new StringLogger();
+            try
+            {
+                var stream = PackageHelpers.DownloadDacpac(options.PackageName, options.Version, options.Repository);
+                DacpacHelpers.ApplyDacpac(stream, options.ConnectionString, options.DataBase, logger);
+            }
+            catch (Exception e)
+            {
+                return new ExecutionResult()
+                {
+                    Exception = e.InnerException == null ? e.Message : e.InnerException.Message,
+                    Success = false,
+                    Log = logger.Logs
+                };
+            }
+            return new ExecutionResult()
+            {
+                Success = true,
+                Log = logger.Logs
+            };
+        }
     }
 }

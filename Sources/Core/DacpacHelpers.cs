@@ -1,4 +1,4 @@
-﻿namespace Jobs.Dacpac
+﻿namespace Bazooka.Core
 {
     using Bazooka.Core;
     using Microsoft.SqlServer.Dac;

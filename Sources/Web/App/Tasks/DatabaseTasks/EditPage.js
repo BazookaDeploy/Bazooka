@@ -18,7 +18,8 @@ var EditPage = React.createClass({
       ConnectionString:"",
       Pack:"",
       DatabaseName:"",
-			Repository:""
+			Repository:"",
+			Machine:""
     };
   },
 
@@ -30,8 +31,8 @@ var EditPage = React.createClass({
   },
 
   save:function(){
-    if(this.state.Name!="" && this.state.ConnectionString!=""&& this.state.Pack!=""&& this.state.DatabaseName!=""&& this.state.Repository!=""){
-      Actions.updateDatabaseTask(this.state.Id,this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.state.EnviromentId, this.state.Repository)
+    if(this.state.Name!="" && this.state.ConnectionString!=""&& this.state.Pack!=""&& this.state.DatabaseName!=""&& this.state.Repository!=""&& this.state.Machine!=""){
+      Actions.updateDatabaseTask(this.state.Id,this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.state.EnviromentId, this.state.Repository,this.state.Machine)
     }
   },
 
@@ -52,6 +53,10 @@ var EditPage = React.createClass({
 										<div className="form-group">
 											<label htmlFor="Pack">Package</label>
 											<input type="text" className="form-control" id="Pack" placeholder="Package" valueLink={this.linkState('Pack')} />
+										</div>
+										<div className="form-group">
+											<label htmlFor="Machine">Machine</label>
+											<input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('Machine')} />
 										</div>
 										<div className="form-group">
 											<label htmlFor="Repository">Repository</label>

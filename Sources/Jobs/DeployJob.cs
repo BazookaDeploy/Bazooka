@@ -155,35 +155,71 @@
             {
                 var unit = dc.DatabaseTasks.Single(x => x.Id == id);
 
-                var logger = new StringLogger();
+                var res = new List<string>();
+                ExecutionResult ret;
+
                 using (var session = Store.OpenSession())
                 {
-
                     session.Save(new DataAccess.Write.LogEntry()
                     {
                         DeploymentId = deploymentId,
                         Error = false,
-                        Text = "Deployng database " + unit.DatabaseName + "with version " + version,
+                        Text = "Deploying database" + unit.Name,
                         TimeStamp = DateTime.UtcNow
                     });
 
                     session.Flush();
                 }
 
-                var dacpac = PackageHelpers.DownloadDacpac(unit.Package, version, unit.Repository);
-                Dacpac.DacpacHelpers.ApplyDacpac(dacpac, unit.ConnectionString, unit.DatabaseName, logger);
+                var address = unit.Machine;
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(unit.Machine);
+                    client.Timeout = TimeSpan.FromSeconds(300);
+
+                    var result2 = client.PostAsJsonAsync("/api/deploy/databaseDeploy", new DatabaseDeployDto()
+                    {
+                        ConnectionString = unit.ConnectionString,
+                        DataBase = unit.DatabaseName,
+                        PackageName = unit.Package,
+                        Repository = unit.Repository,
+                        Version = version
+                    });
+
+                    var result = result2.Result;
+                    var response = result.Content.ReadAsStringAsync().Result;
+
+                    ret = JsonConvert.DeserializeObject<ExecutionResult>(response);
+
+                    using (var session = Store.OpenSession())
+                    {
+
+                        session.Save(new DataAccess.Write.LogEntry()
+                        {
+                            DeploymentId = deploymentId,
+                            Error = false,
+                            Text = String.Join("\r\n", ret.Log.Select(x => x.Text)),
+                            TimeStamp = DateTime.UtcNow
+                        });
+
+                        session.Flush();
+                    }
+
+                }
 
                 using (var session = Store.OpenSession())
                 {
-
-                    session.Save(new DataAccess.Write.LogEntry()
+                    foreach (var mess in ret.Log)
                     {
-                        DeploymentId = deploymentId,
-                        Error = false,
-                        Text = String.Join("\r\n", logger.Logs.Select(x => x.Text)),
-                        TimeStamp = DateTime.UtcNow
-                    });
-
+                        session.Save(new DataAccess.Write.LogEntry()
+                        {
+                            DeploymentId = deploymentId,
+                            Error = mess.Error,
+                            Text = mess.Text,
+                            TimeStamp = mess.TimeStamp
+                        });
+                    }
                     session.Flush();
                 }
             }

@@ -10,7 +10,7 @@ module.exports = {
     });
   },
 
-  createDatabaseTask: function(name, connectionString, pack, databaseName, enviromentId,repository){
+  createDatabaseTask: function(name, connectionString, pack, databaseName, enviromentId,repository,machine){
     return  reqwest({
       url: "/api/DatabaseTasks",
       type: 'json',
@@ -22,12 +22,13 @@ module.exports = {
         ConnectionString:connectionString,
         Package:pack,
         DatabaseName:databaseName,
-        Repository:repository
+        Repository:repository,
+        Machine:machine
       })
     });
   },
 
-  updateDatabaseTask: function(id, name, connectionString, pack, databaseName, enviromentId,repository){
+  updateDatabaseTask: function(id, name, connectionString, pack, databaseName, enviromentId,repository, machine){
     return  reqwest({
       url: "/api/DatabaseTasks",
       type: 'json',
@@ -40,7 +41,8 @@ module.exports = {
         ConnectionString:connectionString,
         Package:pack,
         DatabaseName:databaseName,
-        Repository:repository
+        Repository:repository,
+        Machine: machine
       })
     });
   },

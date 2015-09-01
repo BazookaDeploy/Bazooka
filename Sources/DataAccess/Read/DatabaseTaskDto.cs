@@ -16,5 +16,6 @@ namespace DataAccess.Read
         public virtual int EnviromentId { get; set; }
 
         public virtual string Repository { get; set; }
+        public virtual string Machine { get; set; }
     }
 }

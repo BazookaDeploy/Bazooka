@@ -9,5 +9,6 @@
         public virtual string DatabaseName { get; set; }
         public virtual int EnviromentId { get; set; }
         public virtual string Repository { get; set; }
+        public virtual string Machine { get; set; }
     }
 }
