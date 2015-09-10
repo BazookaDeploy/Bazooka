@@ -7,7 +7,7 @@
 			  [dbo].[Deployments].[Version], 
 			  [dbo].[Deployments].[UserId], 
 			  Applications.Name, 
-			  Enviroments.Configuration ,
+			  Enviroments.Name ,
 			  AspNetUsers.UserName
 			  FROM [dbo].[Deployments] 
 					INNER JOIN [dbo].[Enviroments] ON Deployments.EnviromentId = Enviroments.Id

@@ -70,4 +70,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="DeployTaskId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="3c45266a-4704-4bdf-b8c4-5fb6e6f93e13" ChangeDateTime="09/07/2015 21:34:23">
+    <Property Name="ElementName" Value="[dbo].[Enviroments].[Configuration]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Enviroments]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4c03d9fa-a05f-413d-9af2-3ffea063d806" ChangeDateTime="09/07/2015 21:36:07">
+    <Property Name="ElementName" Value="[dbo].[AllowedUsers].[AplicationId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AllowedUsers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ApplicationId" />
+  </Operation>
 </Operations>

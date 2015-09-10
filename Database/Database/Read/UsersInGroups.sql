@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [rd].[UsersInGroups]
-	AS SELECT	[Dbo].[AspNetUsers].[Email], 
-				[Dbo].[AspNetUsers].[UserName], 
+	AS SELECT	[dbo].[AspNetUsers].[Email], 
+				[dbo].[AspNetUsers].[UserName], 
 				[dbo].[AspNetUserRoles].[UserId], 
 				[dbo].[AspNetUserRoles].[RoleId], 
 				[dbo].[AspNetRoles].[Name] as RoleName

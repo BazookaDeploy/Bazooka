@@ -6,5 +6,7 @@
 	[Name] NVARCHAR(50) NOT NULL,
 	[EnviromentId] INT NOT NULL, 
     [Folder] NVARCHAR(256) NOT NULL, 
-    CONSTRAINT [FK_RemoteScriptTasks_ToEnviroments] FOREIGN KEY ([EnviromentId]) REFERENCES [Enviroments]([Id])
+    [ApplicationId] INT NOT NULL, 
+    CONSTRAINT [FK_RemoteScriptTasks_ToEnviroments] FOREIGN KEY ([EnviromentId]) REFERENCES [Enviroments]([Id]), 
+    CONSTRAINT [FK_RemoteScriptTasks_ToApplications] FOREIGN KEY (ApplicationId) REFERENCES Applications([Id])
 )
