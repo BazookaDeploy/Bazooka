@@ -23,6 +23,7 @@ namespace DataAccess.Write
 
             Property(x => x.Name, x => x.Length(50));
             Property(x => x.EnviromentId, x => x.NotNullable(true));
+            Property(x => x.ApplicationId, x => x.NotNullable(true));
             Property(x => x.ConnectionString, x => x.Length(256));
             Property(x => x.Package, x => x.Length(256));
             Property(x => x.DatabaseName, x => x.Length(50));

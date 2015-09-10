@@ -16,21 +16,7 @@ namespace DataAccess.Write
                     map.Column("Id");
                 });
 
-            Property(x => x.Configuration, x => x.Length(200));
-            Property(x => x.Description, x => x.Length(200));
-            Property(x => x.ApplicationId, x => x.NotNullable(true));
-            Property(x => x.OwnerId, x => x.NotNullable(true));
-
-            Bag(
-                x => x.DeployUnits,
-                map =>
-                {
-                    map.Key(km => km.Column("EnviromentId"));
-                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
-                    map.Inverse(true);
-                },
-                x => x.OneToMany()
-            );
+            Property(x => x.Name, x => x.Length(200));
         }
     }
 }

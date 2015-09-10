@@ -13,5 +13,7 @@
         public virtual string Folder { get; set; }
 
         public virtual int EnviromentId { get; set; }
+
+        public virtual int ApplicationId { get; set; }
     }
 }

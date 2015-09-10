@@ -21,6 +21,7 @@ namespace DataAccess.Write
             Property(x => x.Machine, x => x.Length(200));
             Property(x => x.Name, x => x.Length(200));
             Property(x => x.EnviromentId, x => x.NotNullable(true));
+            Property(x => x.ApplicationId, x => x.NotNullable(true));
             Property(X => X.PackageName);
             Property(x => x.Repository);
             Property(x => x.CurrentlyDeployedVersion);
