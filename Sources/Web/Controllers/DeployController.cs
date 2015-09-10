@@ -100,28 +100,6 @@ namespace Web.Controllers
             };
         }
 
-        [HttpGet]
-        public void Begin(Guid deployKey, string version)
-        {
-            var env = db.Enviroments.Single(x => x.DeployKey == deployKey);
-
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                var deploy = new Deployment()
-                {
-                    EnviromentId = env.Id,
-                    Status = Status.Queud,
-                    Version = version,
-                    UserId = User.Identity.GetUserId()
-                };
-
-                session.Save(deploy);
-                session.Flush();
-
-                BackgroundJob.Enqueue(() => DeployJob.Execute(deploy.Id));
-            };
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

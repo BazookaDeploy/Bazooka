@@ -28,7 +28,6 @@ namespace DataAccess.Read
 
         public DbSet<AllowedUsersDto> AllowedUsers { get; set; }
         public DbSet<AllowedGroupsDto> AllowedGroups { get; set; }
-        public DbSet<DeployerDto> Deployers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -43,7 +42,6 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new UserDtoConfiguration());
             modelBuilder.Configurations.Add(new AllowedUsersDtoConfiguration());
             modelBuilder.Configurations.Add(new AllowedGroupsDtoConfiguration());
-            modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
             modelBuilder.Configurations.Add(new LogEntryDtoConfiguration());
             modelBuilder.Configurations.Add(new TasksDtoConfiguration());
             modelBuilder.Configurations.Add(new MailTasksDtoConfiguration());
@@ -56,22 +54,6 @@ namespace DataAccess.Read
         }
     }
 
-
-
-
-    public class DeployersDtoConfiguration : EntityTypeConfiguration<DeployerDto>
-    {
-        public DeployersDtoConfiguration()
-        {
-            ToTable("Deployers");
-            HasKey(x => new
-            {
-                x.ApplicationId,
-                x.EnviromentId,
-                x.UserId
-            });
-        }
-    }
 
     public class TasksDtoConfiguration : EntityTypeConfiguration<TaskDto>
     {

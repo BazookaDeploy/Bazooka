@@ -82,7 +82,7 @@
 
                 }
 
-                config = dc.Enviroments.Single(x => x.Id == envId).Configuration;
+                config = dc.Enviroments.Single(x => x.Id == envId).Name;
                 tasks = dc.Tasks.Where(x => x.EnviromentId == envId).ToList();
             }
 

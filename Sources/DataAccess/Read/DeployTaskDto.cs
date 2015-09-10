@@ -9,6 +9,8 @@ namespace DataAccess.Read
 
         public virtual int EnviromentId { get; set; }
 
+        public virtual int ApplicationId { get; set; }
+
         public virtual string Name { get; set; }
 
         public virtual string ApplicationName { get; set; }

@@ -19,13 +19,6 @@ namespace Web.Controllers
             return db.DeploTasks.Where(x => x.EnviromentId == id).ToList();
         }
 
-         [HttpGet, Route("api/DeployTasks/DeployUrl")]
-         public string DeployUrl(int id)
-         {
-             var guid =  db.Enviroments.Single(x => x.Id == id).DeployKey;
-            return  this.Request.RequestUri.GetLeftPart(UriPartial.Authority) + "/api/Deploy/Begin?deployKey=" + guid.ToString() + "&version={version}";
-         }
-
         [HttpGet, Route("api/DeployTasks/DeployTask")]
          public DeployTaskDto DeployTask(int id)
         {

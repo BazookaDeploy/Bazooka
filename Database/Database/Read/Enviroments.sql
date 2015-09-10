@@ -1,3 +1,3 @@
 ﻿CREATE VIEW [rd].[Enviroments]
-	AS SELECT *
+	AS SELECT [Id], [Name]
 		FROM [dbo].Enviroments 

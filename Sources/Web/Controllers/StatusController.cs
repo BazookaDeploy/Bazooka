@@ -14,11 +14,8 @@ namespace Web.Controllers
         public ICollection Get()
         {
             var id = User.Identity.GetUserId();
-            var allowed = db.Deployers.Where(x => x.UserId == id).Select(x => x.EnviromentId).ToList();
-
 
             return db.DeploTasks
-                     .Where(x => allowed.Contains(x.EnviromentId))
                      .GroupBy(x => x.ApplicationName, (key, ele) => new
             {
                 Application = key,

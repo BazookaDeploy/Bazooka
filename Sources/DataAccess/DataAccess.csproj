@@ -59,7 +59,6 @@
     <Compile Include="Read\AllowedUsersDto.cs" />
     <Compile Include="Read\ApplicationDto.cs" />
     <Compile Include="Read\DatabaseTaskDto.cs" />
-    <Compile Include="Read\DeployerDto.cs" />
     <Compile Include="Read\DeploymentDto.cs" />
     <Compile Include="Read\DeployTaskDto.cs" />
     <Compile Include="Read\DeployTaskParameterDto.cs" />
