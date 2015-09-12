@@ -1,10 +1,6 @@
 ﻿using Castle.Windsor;
 using Castle.Windsor.Installer;
-using DataAccess.Write;
 using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Dialect;
-using NHibernate.Mapping.ByCode;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using System.Web.Mvc;

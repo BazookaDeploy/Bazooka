@@ -1,5 +1,4 @@
 ﻿using Castle.MicroKernel;
-using Castle.Windsor;
 
 namespace Web.Commands
 {

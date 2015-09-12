@@ -1,9 +1,4 @@
 ﻿using Castle.MicroKernel.Registration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using System.Web.Http;
@@ -11,7 +6,6 @@ using NHibernate.Mapping.ByCode;
 using DataAccess.Write;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
-using NHibernate.Mapping.ByCode;
 using Web.Commands;
 using NHibernate;
 using DataAccess.Read;

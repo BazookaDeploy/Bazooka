@@ -1,10 +1,8 @@
 ﻿namespace Web.Controllers
 {
-    using DataAccess.Read;
-    using DataAccess.Write;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Http;
+    using DataAccess.Read;
     using Commands;
 
     public class EnviromentsController : BaseController
