@@ -4,6 +4,6 @@ namespace Web.Commands
 {
     public interface IBusinessRule<T> : IBusinessRule where T : ICommand
     {
-        ICollection<string> Validate(T command);
+        IEnumerable<string> Validate(T command);
     }
 }

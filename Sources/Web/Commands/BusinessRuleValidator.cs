@@ -1,7 +1,7 @@
 ﻿using Castle.MicroKernel;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace Web.Commands
 {
     public class BusinessRuleValidator : IBusinessRuleValidator
@@ -21,7 +21,7 @@ namespace Web.Commands
                 return new List<string>();
             }
 
-            return rule.Validate(command);
+            return rule.Validate(command).ToList();
         }
     }
 }

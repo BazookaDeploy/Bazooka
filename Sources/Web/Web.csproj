@@ -235,6 +235,7 @@
     <Compile Include="Commands\CommandExecutor.cs" />
     <Compile Include="Commands\CommandHandler`T.cs" />
     <Compile Include="Commands\CreateEnviroment.cs" />
+    <Compile Include="Commands\CreateEnviromentBusinessRule.cs" />
     <Compile Include="Commands\ExecutionResult.cs" />
     <Compile Include="Commands\IBusinessRule.cs" />
     <Compile Include="Commands\IBusinessRuleValidator.cs" />
