@@ -46,6 +46,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -218,12 +226,28 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\WindsorCompositionRoot.cs" />
+    <Compile Include="App_Start\WindsorInstaller.cs" />
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
+    <Compile Include="CommandHandlers\CreateEnviromentHandler.cs" />
+    <Compile Include="Commands\BusinessRule.cs" />
+    <Compile Include="Commands\BusinessRuleValidator.cs" />
+    <Compile Include="Commands\CommandExecutor.cs" />
+    <Compile Include="Commands\CommandHandler`T.cs" />
+    <Compile Include="Commands\CreateEnviroment.cs" />
+    <Compile Include="Commands\ExecutionResult.cs" />
+    <Compile Include="Commands\IBusinessRule.cs" />
+    <Compile Include="Commands\IBusinessRuleValidator.cs" />
+    <Compile Include="Commands\IBusinessRule`T.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ICommandExecutor.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ICommandHandler`1.cs" />
+    <Compile Include="Commands\IRepository.cs" />
+    <Compile Include="Commands\Repository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DatabaseTasksControllers.cs" />
     <Compile Include="Controllers\DeployController.cs" />
     <Compile Include="Controllers\DeploymentController.cs" />

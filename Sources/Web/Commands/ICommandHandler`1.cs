@@ -2,6 +2,6 @@
 {
     public interface ICommandHandler<T> : ICommandHandler where T : ICommand
     {
-        void Execute(T command);
+        ExecutionResult Execute(T command);
     }
 }

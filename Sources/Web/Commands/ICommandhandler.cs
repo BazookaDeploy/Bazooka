@@ -2,6 +2,6 @@
 {
     public interface ICommandHandler
     {
-        void Execute(ICommand command);
+        ExecutionResult Execute(ICommand command);
     }
 }

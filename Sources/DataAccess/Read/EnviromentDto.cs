@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DataAccess.Read
+﻿namespace DataAccess.Read
 {
     public class EnviromentDto
     {

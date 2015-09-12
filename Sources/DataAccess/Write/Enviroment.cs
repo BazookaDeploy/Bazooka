@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DataAccess.Write
+﻿namespace DataAccess.Write
 {
     public class Enviroment
     {
