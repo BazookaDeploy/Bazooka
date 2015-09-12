@@ -1,8 +1,6 @@
 ﻿using NHibernate;
-
 namespace Web.Commands
 {
-
     public class Repository : IRepository
     {
         public ISession Session { get; set; }
