@@ -9,34 +9,16 @@
 
     public class EnviromentsController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext ReadContext { get; set; }
 
         public ICollection<EnviromentDto> Get()
         {
-            return db.Enviroments.ToList();
+            return ReadContext.Query<EnviromentDto>().ToList();
         }
-
-        //public void Post(Enviroment env)
-        //{
-        //    using (var session = WebApiApplication.Store.OpenSession())
-        //    {
-        //        session.Save(env);
-        //        session.Flush();
-        //    };
-        //}
 
         public ExecutionResult Create(CreateEnviroment command)
         {
             return Execute(command);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="Read\DeployTaskParameterDto.cs" />
     <Compile Include="Read\EnviromentDto.cs" />
     <Compile Include="Read\GroupDto.cs" />
+    <Compile Include="Read\IReadContext.cs" />
     <Compile Include="Read\LocalScriptTaskDto.cs" />
     <Compile Include="Read\MailTaskDto.cs" />
     <Compile Include="Read\ReadContext.cs" />

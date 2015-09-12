@@ -14,6 +14,7 @@ using NHibernate.Dialect;
 using NHibernate.Mapping.ByCode;
 using Web.Commands;
 using NHibernate;
+using DataAccess.Read;
 
 namespace Web.App_Start
 {
@@ -71,6 +72,10 @@ namespace Web.App_Start
 
             container.Register(Component.For<ISession>()
                                         .UsingFactoryMethod(x => x.Resolve<ISessionFactory>().OpenSession())
+                                        .LifestylePerWebRequest());
+
+            container.Register(Component.For<IReadContext>()
+                                        .UsingFactoryMethod(x => new ReadContext())
                                         .LifestylePerWebRequest());
 
             container.Register(Component.For<ICommandExecutor>()

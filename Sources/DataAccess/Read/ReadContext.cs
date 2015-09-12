@@ -1,9 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
+using System.Linq;
 
 namespace DataAccess.Read
 {
-    public class ReadContext : DbContext
+    public class ReadContext : DbContext, IReadContext
     {
         public ReadContext() : base("DataContext") { }
 
@@ -51,6 +53,11 @@ namespace DataAccess.Read
 
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        public IQueryable<T> Query<T>() where T :class
+        {
+            return this.Set<T>().AsQueryable();
         }
     }
 
