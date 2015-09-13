@@ -17,6 +17,17 @@ namespace DataAccess.Write
                 });
 
             Property(x => x.Name, x => x.Length(200));
+
+            Bag(
+                x => x.Agents,
+                map =>
+                {
+                    map.Key(km => km.Column("EnviromentId"));
+                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                    map.Inverse(true);
+                },
+                x => x.OneToMany()
+            );
         }
     }
 }

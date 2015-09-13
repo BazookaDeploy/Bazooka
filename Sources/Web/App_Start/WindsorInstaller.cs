@@ -54,7 +54,7 @@ namespace Web.App_Start
             mapper.AddMapping<LocalScriptTaskMap>();
             mapper.AddMapping<RemoteScriptTaskMap>();
             mapper.AddMapping<DatabaseTaskMap>();
-
+            mapper.AddMapping<AgentMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 
