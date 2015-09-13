@@ -229,7 +229,10 @@
     <Compile Include="App_Start\WindsorCompositionRoot.cs" />
     <Compile Include="App_Start\WindsorInstaller.cs" />
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
+    <Compile Include="CommandHandlers\AddAgentToEnviromentBusinessRule.cs" />
+    <Compile Include="CommandHandlers\AddAgentToEnviromentHandler.cs" />
     <Compile Include="CommandHandlers\CreateEnviromentHandler.cs" />
+    <Compile Include="Commands\AddAgentToEnviroment.cs" />
     <Compile Include="Infrastructure\BusinessRule.cs" />
     <Compile Include="Infrastructure\BusinessRuleValidator.cs" />
     <Compile Include="Infrastructure\CommandExecutor.cs" />

@@ -2,7 +2,7 @@
 
 namespace Web.Commands
 {
-    public class ICommand
+    public abstract class ICommand
     {
         public int AggregateId { get; set; }
 
