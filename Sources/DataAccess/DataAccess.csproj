@@ -73,6 +73,8 @@
     <Compile Include="Read\TaskType.cs" />
     <Compile Include="Read\UserDto.cs" />
     <Compile Include="Read\UsersInGroupsDto.cs" />
+    <Compile Include="Write\Agent.cs" />
+    <Compile Include="Write\AgentMap.cs" />
     <Compile Include="Write\AllowedGroup.cs" />
     <Compile Include="Write\AllowedGroupMap.cs" />
     <Compile Include="Write\AllowedUser.cs" />
