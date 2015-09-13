@@ -11,12 +11,6 @@ namespace Web.Commands
 
         public override IEnumerable<string> Validate(CreateEnviroment command)
         {
-            if (command.CurrentUserId == Guid.Empty)
-            {
-                yield return "Only authorized users can create an enviroment";
-                yield break;
-            }
-
             var user = ReadContext.Query<UserDto>().SingleOrDefault(x => x.Id == command.CurrentUserId.ToString());
 
             if (user == null)
@@ -27,7 +21,7 @@ namespace Web.Commands
 
             if (!user.Administrator)
             {
-                yield return "Only an administrator can create enviroments";
+                yield return "Only an administrator can create an enviroment";
                 yield break;
             }
 
