@@ -49,24 +49,32 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new LocalScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new RemoteScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new DatabaseTasksDtoConfiguration());
-
+            modelBuilder.Configurations.Add(new AgentsDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
 
-        public IQueryable<T> Query<T>() where T :class
+        public IQueryable<T> Query<T>() where T : class
         {
             return this.Set<T>().AsQueryable();
         }
     }
 
+    public class AgentsDtoConfiguration : EntityTypeConfiguration<AgentDto>
+    {
+        public AgentsDtoConfiguration()
+        {
+            ToTable("Agents");
+            HasKey(x => new { x.Id });
+        }
+    }
 
     public class TasksDtoConfiguration : EntityTypeConfiguration<TaskDto>
     {
         public TasksDtoConfiguration()
         {
             ToTable("Tasks");
-            HasKey(x => new {x.EnviromentId, x.Id, x.Type });
+            HasKey(x => new { x.EnviromentId, x.Id, x.Type });
         }
     }
 
@@ -167,6 +175,9 @@ namespace DataAccess.Read
         public EnviromentDtoConfiguration()
         {
             ToTable("Enviroments");
+            HasMany(x => x.Agents)
+                .WithRequired()
+                .HasForeignKey(x => x.EnviromentId);
         }
     }
 

@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Read\AgentDto.cs" />
     <Compile Include="Read\AllowedGroupsDto.cs" />
     <Compile Include="Read\AllowedUsersDto.cs" />
     <Compile Include="Read\ApplicationDto.cs" />
