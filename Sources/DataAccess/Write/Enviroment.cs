@@ -10,7 +10,7 @@ namespace DataAccess.Write
 
         public virtual IList<Agent> Agents { get; set; }
 
-        public void AddAgent(string name, string address)
+        public virtual void AddAgent(string name, string address)
         {
             this.Agents.Add(new Agent()
             {

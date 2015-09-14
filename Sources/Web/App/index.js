@@ -6,6 +6,7 @@ import App                from "./App";
 import HomePage           from "./Home/Homepage";
 import AppPage            from "./Applications/AppPage";
 import EnviromentPage     from "./Enviroments/EnviromentPage";
+import EnvsPage           from "./Envs/EnviromentPage";
 import DeployUnitEditPage from "./Tasks/DeployTasks/DeployUnitEditPage";
 import DeploymentsPage    from "./Deployments/DeploymentsPage";
 import DeploymentPage     from "./Deployment/DeploymentsPage";
@@ -24,7 +25,9 @@ var routes = (
   <Route handler={App}>
     <DefaultRoute name="home" handler={HomePage} />
     <Route name="apps" path="apps" handler={AppPage}/>
+    <Route name="envs" path="envs/" handler={EnvsPage} />
     <Route name="enviroments" path="enviroments/:applicationName/:applicationId" handler={EnviromentPage} />
+
     <Route name="tasks" path="tasks/:applicationName/:enviroment/:enviromentId" handler={TasksPage} />
     <Route name="deployunitedit" path="deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId" handler={DeployUnitEditPage} />
     <Route name="mailtaskedit" path="mailtask/:applicationName/:enviroment/:mailTaskName/edit/:taskId" handler={MailTasksEditPAge} />
