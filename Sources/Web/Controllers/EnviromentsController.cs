@@ -6,6 +6,7 @@
     using Commands;
     using System.Web.Http;
 
+    [Authorize]
     public class EnviromentsController : BaseController
     {
         public IReadContext ReadContext { get; set; }
