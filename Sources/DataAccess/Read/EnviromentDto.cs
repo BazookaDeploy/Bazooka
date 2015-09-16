@@ -9,6 +9,6 @@ namespace DataAccess.Read
 
         public string Name { get; set; }
 
-        public ICollection<AgentDto> Agents { get; set; }
+        public virtual ICollection<AgentDto> Agents { get; set; }
     }
 }

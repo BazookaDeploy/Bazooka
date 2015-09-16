@@ -12,7 +12,7 @@ module.exports = {
 
 	createEnviroment: function(name) {
 		var promise = reqwest({
-			url: "/api/enviroments/createEnviroment",
+			url: "/api/enviroments/create",
 			type: 'json',
 			contentType: 'application/json',
 			method: "post",
@@ -22,5 +22,19 @@ module.exports = {
 		});
 
 		return promise;
+	},
+
+	createAgent:function(enviromentId, name, address){
+		return reqwest({
+			url: "/api/enviroments/addAgent",
+			type: 'json',
+			contentType: 'application/json',
+			method: "post",
+			data: JSON.stringify({
+				EnviromentId:enviromentId,
+				Address:address,
+				Name: name
+			})
+		})
 	}
 };

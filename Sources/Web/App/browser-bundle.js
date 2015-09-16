@@ -27916,13 +27916,81 @@
 	        { className: "modal-footer" },
 	        _react2["default"].createElement(
 	          "button",
+	          { className: "btn", onClick: this.props.onRequestHide },
+	          "Close"
+	        ),
+	        _react2["default"].createElement(
+	          "button",
 	          { className: "btn btn-primary", onClick: this.create },
 	          "Create"
-	        ),
+	        )
+	      )
+	    );
+	  }
+	});
+
+	var AddAgentDialog = _react2["default"].createClass({
+	  displayName: "AddAgentDialog",
+
+	  create: function create() {
+	    var _this2 = this;
+
+	    var name = this.refs.name.getDOMNode().value;
+	    var address = this.refs.address.getDOMNode().value;
+
+	    if (name.length !== 0 && address.length !== 0) {
+	      _ActionsCreator2["default"].createAgent(this.props.EnviromentId, name, address).then(function (x) {
+	        _this2.props.onRequestHide();_this2.props.onCreate();
+	      });
+	    }
+
+	    return false;
+	  },
+
+	  render: function render() {
+	    return _react2["default"].createElement(
+	      _reactBootstrapLibModal2["default"],
+	      _extends({}, this.props, { title: "Add an Agent" }),
+	      _react2["default"].createElement(
+	        "div",
+	        { className: "modal-body" },
+	        _react2["default"].createElement(
+	          "form",
+	          { role: "form", onSubmit: this.create },
+	          _react2["default"].createElement(
+	            "div",
+	            { className: "form-group" },
+	            _react2["default"].createElement(
+	              "label",
+	              { htmlFor: "name" },
+	              "Name"
+	            ),
+	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "name", placeholder: "Name of the agent", ref: "name" })
+	          ),
+	          _react2["default"].createElement(
+	            "div",
+	            { className: "form-group" },
+	            _react2["default"].createElement(
+	              "label",
+	              { htmlFor: "address" },
+	              "Address"
+	            ),
+	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "address", placeholder: "Address of the agent", ref: "address" })
+	          )
+	        )
+	      ),
+	      _react2["default"].createElement(
+	        "div",
+	        { className: "modal-footer" },
 	        _react2["default"].createElement(
 	          "button",
 	          { className: "btn", onClick: this.props.onRequestHide },
 	          "Close"
+	        ),
+	        _react2["default"].createElement(
+	          "button",
+	          { className: "btn btn-primary", onClick: this.create },
+	          "Create"
 	        )
 	      )
 	    );
@@ -27933,18 +28001,42 @@
 	  displayName: "Enviroments",
 
 	  render: function render() {
+	    var agents = this.props.Enviroment.Agents.map(function (x) {
+	      return _react2["default"].createElement(
+	        "span",
+	        null,
+	        _react2["default"].createElement("i", { className: "glyphicon glyphicon-hdd" }),
+	        " ",
+	        x.Name
+	      );
+	    });
+
 	    return _react2["default"].createElement(
 	      "div",
 	      { className: "panel panel-default" },
 	      _react2["default"].createElement(
 	        "div",
 	        { className: "panel-heading" },
-	        this.props.Enviroment.Name
+	        this.props.Enviroment.Name,
+	        _react2["default"].createElement(
+	          _reactBootstrapLibModalTrigger2["default"],
+	          { modal: _react2["default"].createElement(AddAgentDialog, { EnviromentId: this.props.Enviroment.Id, onCreate: this.props.onUpdate }) },
+	          _react2["default"].createElement(
+	            "button",
+	            { className: "btn btn-primary btn-xs pull-right" },
+	            "Add an agent"
+	          )
+	        )
 	      ),
 	      _react2["default"].createElement(
 	        "div",
 	        { className: "panel-body" },
-	        "Panel content"
+	        this.props.Enviroment.Agents.length == 0 && _react2["default"].createElement(
+	          "span",
+	          null,
+	          "No agents for this enviroment"
+	        ),
+	        this.props.Enviroment.Agents.length != 0 && agents
 	      )
 	    );
 	  }
@@ -27965,18 +28057,20 @@
 	  },
 
 	  update: function update() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    _ActionsCreator2["default"].updateAllEnviroments().then(function (x) {
-	      _this2.setState({
+	      _this3.setState({
 	        envs: x
 	      });
 	    });
 	  },
 
 	  render: function render() {
+	    var _this4 = this;
+
 	    var envs = this.state.envs.map(function (a) {
-	      return _react2["default"].createElement(Enviroments, { Enviroment: a });
+	      return _react2["default"].createElement(Enviroments, { Enviroment: a, onUpdate: _this4.update });
 	    });
 
 	    return _react2["default"].createElement(
@@ -27991,8 +28085,8 @@
 	          { modal: _react2["default"].createElement(CreateDialog, { onCreate: this.update }) },
 	          _react2["default"].createElement(
 	            "button",
-	            { className: "btn btn-primary btn-xs pull-right" },
-	            "Create"
+	            { className: "btn btn-primary btn-xs" },
+	            "Create new"
 	          )
 	        )
 	      ),
@@ -28027,7 +28121,7 @@
 
 		createEnviroment: function createEnviroment(name) {
 			var promise = (0, _reqwest2["default"])({
-				url: "/api/enviroments/createEnviroment",
+				url: "/api/enviroments/create",
 				type: 'json',
 				contentType: 'application/json',
 				method: "post",
@@ -28037,6 +28131,20 @@
 			});
 
 			return promise;
+		},
+
+		createAgent: function createAgent(enviromentId, name, address) {
+			return (0, _reqwest2["default"])({
+				url: "/api/enviroments/addAgent",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					EnviromentId: enviromentId,
+					Address: address,
+					Name: name
+				})
+			});
 		}
 	};
 

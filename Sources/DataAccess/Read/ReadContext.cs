@@ -33,6 +33,8 @@ namespace DataAccess.Read
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("rd");
+
+            modelBuilder.Configurations.Add(new AgentsDtoConfiguration());
             modelBuilder.Configurations.Add(new ApplicationDtoConfiguration());
             modelBuilder.Configurations.Add(new EnviromentDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployUnitDtoConfiguration());
@@ -49,7 +51,6 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new LocalScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new RemoteScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new DatabaseTasksDtoConfiguration());
-            modelBuilder.Configurations.Add(new AgentsDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -175,6 +176,7 @@ namespace DataAccess.Read
         public EnviromentDtoConfiguration()
         {
             ToTable("Enviroments");
+
             HasMany(x => x.Agents)
                 .WithRequired()
                 .HasForeignKey(x => x.EnviromentId);

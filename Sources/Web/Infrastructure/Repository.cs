@@ -14,5 +14,11 @@ namespace Web.Commands
         {
             Session.SaveOrUpdate(aggregate);
         }
+
+
+        public void Commit()
+        {
+            Session.Flush();
+        }
     }
 }

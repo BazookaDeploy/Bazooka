@@ -4,6 +4,7 @@
     using System.Linq;
     using DataAccess.Read;
     using Commands;
+    using System.Web.Http;
 
     public class EnviromentsController : BaseController
     {
@@ -15,6 +16,11 @@
         }
 
         public ExecutionResult Create(CreateEnviroment command)
+        {
+            return Execute(command);
+        }
+
+        public ExecutionResult AddAgent(AddAgentToEnviroment command)
         {
             return Execute(command);
         }

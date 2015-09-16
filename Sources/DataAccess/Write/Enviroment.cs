@@ -14,6 +14,7 @@ namespace DataAccess.Write
         {
             this.Agents.Add(new Agent()
             {
+                EnviromentId = this.Id,
                 Name = name,
                 Address = address
             });

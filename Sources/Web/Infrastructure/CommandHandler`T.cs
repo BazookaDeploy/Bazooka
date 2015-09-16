@@ -26,6 +26,8 @@ namespace Web.Commands
             try
             {
                 this.Apply(command);
+                Repository.Commit();
+
                 return new ExecutionResult() { Success = true };
             }
             catch (Exception e)

@@ -5,5 +5,7 @@
         T Get<T>(int id);
 
         void Save<T>(T aggregate);
+
+        void Commit();
     }
 }

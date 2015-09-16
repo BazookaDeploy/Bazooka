@@ -28,22 +28,64 @@ var CreateDialog = React.createClass({
           </form>
         </div>
         <div className="modal-footer">
-          <button className="btn btn-primary" onClick={this.create}>Create</button>
           <button className="btn" onClick={this.props.onRequestHide}>Close</button>
+          <button className="btn btn-primary" onClick={this.create}>Create</button>
         </div>
       </Modal>);
     }
   })
 
+  var AddAgentDialog = React.createClass({
+    create:function(){
+      var name = this.refs.name.getDOMNode().value;
+      var address = this.refs.address.getDOMNode().value;
+
+      if(name.length!==0 && address.length!==0 ){
+        Actions.createAgent(this.props.EnviromentId,name,address).then(x => {this.props.onRequestHide();this.props.onCreate()});
+      }
+
+      return false;
+    },
+
+    render:function(){
+      return(
+        <Modal {...this.props} title="Add an Agent">
+          <div className="modal-body">
+            <form role="form" onSubmit={this.create}>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input type="text" className="form-control" id="name" placeholder="Name of the agent" ref="name" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="address">Address</label>
+                <input type="text" className="form-control" id="address" placeholder="Address of the agent" ref="address" />
+              </div>
+            </form>
+          </div>
+          <div className="modal-footer">
+            <button className="btn" onClick={this.props.onRequestHide}>Close</button>
+            <button className="btn btn-primary" onClick={this.create}>Create</button>
+          </div>
+        </Modal>);
+      }
+    })
 
 var Enviroments = React.createClass({
   render:function(){
-    return (<div className="panel panel-default">
-  <div className="panel-heading">{this.props.Enviroment.Name}</div>
-  <div className="panel-body">
-    Panel content
-  </div>
-</div>)
+    var agents = this.props.Enviroment.Agents.map(x => (<span><i className="glyphicon glyphicon-hdd"></i> {x.Name}</span>))
+
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">{this.props.Enviroment.Name}
+          <ModalTrigger  modal={<AddAgentDialog EnviromentId={this.props.Enviroment.Id} onCreate={this.props.onUpdate}/>}>
+            <button className='btn btn-primary btn-xs pull-right'>Add an agent</button>
+          </ModalTrigger>
+        </div>
+        <div className="panel-body">
+          {this.props.Enviroment.Agents.length==0 && <span>No agents for this enviroment</span>}
+          {this.props.Enviroment.Agents.length!=0 && agents}
+        </div>
+      </div>);
   }
 });
 
@@ -68,11 +110,11 @@ var EnviromentsPage = React.createClass({
   },
 
   render: function () {
-    var envs = this.state.envs.map(a => (<Enviroments Enviroment={a}/>));
+    var envs = this.state.envs.map(a => (<Enviroments Enviroment={a} onUpdate={this.update}/>));
 
     return(<div>
       <h3>Enviroments <ModalTrigger modal={<CreateDialog onCreate={this.update}/>}>
-        <button className='btn btn-primary btn-xs pull-right'>Create</button>
+        <button className='btn btn-primary btn-xs'>Create new</button>
       </ModalTrigger></h3>
 
         {envs}
