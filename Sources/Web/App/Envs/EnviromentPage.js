@@ -72,7 +72,11 @@ var CreateDialog = React.createClass({
 
 var Enviroments = React.createClass({
   render:function(){
-    var agents = this.props.Enviroment.Agents.map(x => (<span><i className="glyphicon glyphicon-hdd"></i> {x.Name}</span>))
+    var agents = this.props.Enviroment.Agents.map(x => (
+      <Link to="agent" params={{id:x.Id}} className="AgentLogo">
+        <i className="glyphicon glyphicon-hdd"></i>
+          {x.Name}
+      </Link>))
 
     return (
       <div className="panel panel-default">

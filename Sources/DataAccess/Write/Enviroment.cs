@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Write
 {
@@ -18,6 +19,16 @@ namespace DataAccess.Write
                 Name = name,
                 Address = address
             });
+        }
+
+        public virtual void ChangeAgentAddress(int agentId, string newAddress)
+        {
+            this.Agents.Single(x => x.Id == agentId).Address = newAddress;
+        }
+
+        public virtual void RenameAgent(int agentId, string name)
+        {
+            this.Agents.Single(x => x.Id == agentId).Name = name;
         }
     }
 }

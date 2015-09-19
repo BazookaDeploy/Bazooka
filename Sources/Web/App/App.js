@@ -26,7 +26,6 @@ var App = React.createClass({
                 <DropdownButton title='Admin'  navItem={true}>
                   <MenuItemLink to="apps">Applications</MenuItemLink>
                   <MenuItemLink to="groups">Groups</MenuItemLink>
-                  <MenuItemLink to="agents">Agents</MenuItemLink>
                 </DropdownButton>
                 : ""
                 }
