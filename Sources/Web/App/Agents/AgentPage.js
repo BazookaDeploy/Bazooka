@@ -51,12 +51,14 @@ var AgentsPage = React.createClass({
           <div className="form-group">
             <label >Agent name</label>
 
-            <div className="input-group">
+
+                {window.Administator ?
+                  <div className="input-group">
               <input type="text" ref="name" className="form-control"  valueLink={this.linkState('Name')} />
                 <span className="input-group-btn">
                   <button className="btn btn-primary" type="button" onClick={this.rename}>Rename</button>
-                </span>
-            </div>
+                </span> </div>: <div className="input-group"><span>{this.state.Name}</span></div>}
+
             <p className="help-block">A descriptive unique name for this agent</p>
           </div>
         </fieldset>
@@ -70,20 +72,25 @@ var AgentsPage = React.createClass({
             <div className="form-group">
               <label >Address</label>
 
-              <div className="input-group">
-                <input type="text" ref="name" className="form-control"  valueLink={this.linkState('Address')}/>
+
+                  {window.Administator ?
+                <div className="input-group"><input type="text" ref="name" className="form-control"  valueLink={this.linkState('Address')}/>
                   <span className="input-group-btn">
                     <button className="btn btn-primary" type="button"  onClick={this.changeAddress}>Change</button>
-                  </span>
-                  <span className="input-group-btn">
+                  </span> <span className="input-group-btn">
                             <button className="btn btn-primary " onClick={this.testConnection} style={{margin: "0 5px"}}>Test connection</button>
                   </span>
-              </div>
+              </div>: <div className="input-group"><span>{this.state.Address}</span><span className="input-group-btn">
+                        <button className="btn btn-primary " onClick={this.testConnection} style={{margin: "0 5px"}}>Test connection</button>
+              </span>
+          </div>}
+
               <p className="help-block">The URL that can be used to reach the agent</p>
             </div>
           </fieldset>
           </form>
 
+  {window.Administator &&
           <form >
             <fieldset>
               <legend>Agent Update</legend>
@@ -100,7 +107,7 @@ var AgentsPage = React.createClass({
             </div>
           </fieldset>
           </form>
-
+}
 
 
 

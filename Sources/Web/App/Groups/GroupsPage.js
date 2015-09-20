@@ -63,9 +63,9 @@ var GroupsPage = React.createClass({
 
     return(<div>
       <table className="table table-striped table-bordered">
-      <thead><tr><th>Groups <ModalTrigger modal={<CreateDialog onCreate={this.update}/>}>
+      <thead><tr><th>Groups {window.Administator == "True" && <ModalTrigger modal={<CreateDialog onCreate={this.update}/>}>
         <button className='btn btn-primary btn-xs pull-right'>Create</button>
-      </ModalTrigger></th></tr></thead>
+      </ModalTrigger>} </th></tr></thead>
       <tbody>
         {envs}
       </tbody>

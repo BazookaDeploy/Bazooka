@@ -13,7 +13,7 @@ var User = React.createClass({
     },
 
     render:function(){
-        return (<tr><td>{this.props.User.UserName}<button className="btn btn-danger btn-xs pull-right" onClick={this.removeUser}>Remove</button></td></tr>);
+        return (<tr><td>{this.props.User.UserName}  {window.Administator == "True" && <button className="btn btn-danger btn-xs pull-right" onClick={this.removeUser}>Remove</button> }</td></tr>);
     }
 })
 
@@ -71,19 +71,22 @@ render: function () {
       <thead><tr><th>Users </th></tr></thead>
       <tbody>
         {envs}
-
+{window.Administator == "True" &&
         <tr>
         <td>
           <div className="input-group">
             <select ref="user" className="form-control">
               {users}
             </select>
-            <span className="input-group-btn">
-              <button  className="btn btn-default" onClick={this.addUser}>Add</button>
-            </span>
+
+               <span className="input-group-btn">
+                <button  className="btn btn-default" onClick={this.addUser}>Add</button>
+              </span>
+
           </div>
         </td>
         </tr>
+                    }
       </tbody>
       </table>
       </div>)

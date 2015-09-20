@@ -3,7 +3,7 @@ import reqwest from "reqwest";
 module.exports = {
 	updateUsers: function(id) {
 		return reqwest({
-			url: "/users/group?groupName="+id,
+			url: "api/users/group?groupName="+id,
 			type: 'json',
 			contentType: 'application/json',
 			method: "get"
@@ -12,7 +12,7 @@ module.exports = {
 
 	getUsers: function() {
 		return reqwest({
-			url: "/users/all",
+			url: "api/users/all",
 			type: 'json',
 			contentType: 'application/json',
 			method: "get"
@@ -21,10 +21,14 @@ module.exports = {
 
 	addUser: function(group, userId) {
 		var promise = reqwest({
-			url: "/users/add?group="+group+"&userId="+userId,
+			url: "api/users/addUserToGroup",
 			type: 'json',
 			contentType: 'application/json',
-			method: "post"
+			method: "post",
+			data:JSON.stringify({
+				Group:group,
+				UserId:userId
+			})
 		});
 
 
@@ -33,10 +37,14 @@ module.exports = {
 
 	removeUser: function(group, userId) {
 		var promise = reqwest({
-			url: "/users/remove?group="+group+"&userId="+userId,
+			url: "api/users/removeUserFromGroup",
 			type: 'json',
 			contentType: 'application/json',
-			method: "post"
+			method: "post",
+			data:JSON.stringify({
+				Group:group,
+				UserId:userId
+			})
 		});
 
 		return promise;

@@ -81,9 +81,9 @@ var Enviroments = React.createClass({
     return (
       <div className="panel panel-default">
         <div className="panel-heading">{this.props.Enviroment.Name}
-          <ModalTrigger  modal={<AddAgentDialog EnviromentId={this.props.Enviroment.Id} onCreate={this.props.onUpdate}/>}>
+            {window.Administator && <ModalTrigger  modal={<AddAgentDialog EnviromentId={this.props.Enviroment.Id} onCreate={this.props.onUpdate}/>}>
             <button className='btn btn-primary btn-xs pull-right'>Add an agent</button>
-          </ModalTrigger>
+          </ModalTrigger>}
         </div>
         <div className="panel-body">
           {this.props.Enviroment.Agents.length==0 && <span>No agents for this enviroment</span>}
@@ -117,9 +117,9 @@ var EnviromentsPage = React.createClass({
     var envs = this.state.envs.map(a => (<Enviroments Enviroment={a} onUpdate={this.update}/>));
 
     return(<div>
-      <h3>Enviroments <ModalTrigger modal={<CreateDialog onCreate={this.update}/>}>
+      <h3>Enviroments   {window.Administator && <ModalTrigger modal={<CreateDialog onCreate={this.update}/>}>
         <button className='btn btn-primary btn-xs'>Create new</button>
-      </ModalTrigger></h3>
+      </ModalTrigger>}</h3>
 
         {envs}
       </div>)

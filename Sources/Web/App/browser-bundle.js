@@ -76,11 +76,11 @@
 
 	var _AgentsAgentpage2 = _interopRequireDefault(_AgentsAgentpage);
 
-	var _EnvsEnviromentPage = __webpack_require__(232);
+	var _EnvsEnviromentPage = __webpack_require__(235);
 
 	var _EnvsEnviromentPage2 = _interopRequireDefault(_EnvsEnviromentPage);
 
-	var _TasksDeployTasksDeployUnitEditPage = __webpack_require__(234);
+	var _TasksDeployTasksDeployUnitEditPage = __webpack_require__(237);
 
 	var _TasksDeployTasksDeployUnitEditPage2 = _interopRequireDefault(_TasksDeployTasksDeployUnitEditPage);
 
@@ -27856,7 +27856,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -27934,7 +27934,7 @@
 	              null,
 	              "Agent name"
 	            ),
-	            _react2["default"].createElement(
+	            window.Administator ? _react2["default"].createElement(
 	              "div",
 	              { className: "input-group" },
 	              _react2["default"].createElement("input", { type: "text", ref: "name", className: "form-control", valueLink: this.linkState('Name') }),
@@ -27946,6 +27946,15 @@
 	                  { className: "btn btn-primary", type: "button", onClick: this.rename },
 	                  "Rename"
 	                )
+	              ),
+	              " "
+	            ) : _react2["default"].createElement(
+	              "div",
+	              { className: "input-group" },
+	              _react2["default"].createElement(
+	                "span",
+	                null,
+	                this.state.Name
 	              )
 	            ),
 	            _react2["default"].createElement(
@@ -27976,7 +27985,7 @@
 	              null,
 	              "Address"
 	            ),
-	            _react2["default"].createElement(
+	            window.Administator ? _react2["default"].createElement(
 	              "div",
 	              { className: "input-group" },
 	              _react2["default"].createElement("input", { type: "text", ref: "name", className: "form-control", valueLink: this.linkState('Address') }),
@@ -27988,6 +27997,24 @@
 	                  { className: "btn btn-primary", type: "button", onClick: this.changeAddress },
 	                  "Change"
 	                )
+	              ),
+	              " ",
+	              _react2["default"].createElement(
+	                "span",
+	                { className: "input-group-btn" },
+	                _react2["default"].createElement(
+	                  "button",
+	                  { className: "btn btn-primary ", onClick: this.testConnection, style: { margin: "0 5px" } },
+	                  "Test connection"
+	                )
+	              )
+	            ) : _react2["default"].createElement(
+	              "div",
+	              { className: "input-group" },
+	              _react2["default"].createElement(
+	                "span",
+	                null,
+	                this.state.Address
 	              ),
 	              _react2["default"].createElement(
 	                "span",
@@ -28007,7 +28034,7 @@
 	          )
 	        )
 	      ),
-	      _react2["default"].createElement(
+	      window.Administator && _react2["default"].createElement(
 	        "form",
 	        null,
 	        _react2["default"].createElement(
@@ -28272,6 +28299,238 @@
 /* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule LinkedStateMixin
+	 * @typechecks static-only
+	 */
+
+	'use strict';
+
+	var ReactLink = __webpack_require__(233);
+	var ReactStateSetters = __webpack_require__(234);
+
+	/**
+	 * A simple mixin around ReactLink.forState().
+	 */
+	var LinkedStateMixin = {
+	  /**
+	   * Create a ReactLink that's linked to part of this component's state. The
+	   * ReactLink will have the current value of this.state[key] and will call
+	   * setState() when a change is requested.
+	   *
+	   * @param {string} key state key to update. Note: you may want to use keyOf()
+	   * if you're using Google Closure Compiler advanced mode.
+	   * @return {ReactLink} ReactLink instance linking to the state.
+	   */
+	  linkState: function(key) {
+	    return new ReactLink(
+	      this.state[key],
+	      ReactStateSetters.createStateKeySetter(this, key)
+	    );
+	  }
+	};
+
+	module.exports = LinkedStateMixin;
+
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactLink
+	 * @typechecks static-only
+	 */
+
+	'use strict';
+
+	/**
+	 * ReactLink encapsulates a common pattern in which a component wants to modify
+	 * a prop received from its parent. ReactLink allows the parent to pass down a
+	 * value coupled with a callback that, when invoked, expresses an intent to
+	 * modify that value. For example:
+	 *
+	 * React.createClass({
+	 *   getInitialState: function() {
+	 *     return {value: ''};
+	 *   },
+	 *   render: function() {
+	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
+	 *     return <input valueLink={valueLink} />;
+	 *   },
+	 *   this._handleValueChange: function(newValue) {
+	 *     this.setState({value: newValue});
+	 *   }
+	 * });
+	 *
+	 * We have provided some sugary mixins to make the creation and
+	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
+	 */
+
+	var React = __webpack_require__(2);
+
+	/**
+	 * @param {*} value current value of the link
+	 * @param {function} requestChange callback to request a change
+	 */
+	function ReactLink(value, requestChange) {
+	  this.value = value;
+	  this.requestChange = requestChange;
+	}
+
+	/**
+	 * Creates a PropType that enforces the ReactLink API and optionally checks the
+	 * type of the value being passed inside the link. Example:
+	 *
+	 * MyComponent.propTypes = {
+	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
+	 * }
+	 */
+	function createLinkTypeChecker(linkType) {
+	  var shapes = {
+	    value: typeof linkType === 'undefined' ?
+	      React.PropTypes.any.isRequired :
+	      linkType.isRequired,
+	    requestChange: React.PropTypes.func.isRequired
+	  };
+	  return React.PropTypes.shape(shapes);
+	}
+
+	ReactLink.PropTypes = {
+	  link: createLinkTypeChecker
+	};
+
+	module.exports = ReactLink;
+
+
+/***/ },
+/* 234 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactStateSetters
+	 */
+
+	'use strict';
+
+	var ReactStateSetters = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function(component, funcReturningState) {
+	    return function(a, b, c, d, e, f) {
+	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
+	      if (partialState) {
+	        component.setState(partialState);
+	      }
+	    };
+	  },
+
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function(component, key) {
+	    // Memoize the setters.
+	    var cache = component.__keySetters || (component.__keySetters = {});
+	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
+	  }
+	};
+
+	function createStateKeySetter(component, key) {
+	  // Partial state is allocated outside of the function closure so it can be
+	  // reused with every call, avoiding memory allocation when this function
+	  // is called.
+	  var partialState = {};
+	  return function stateKeySetter(value) {
+	    partialState[key] = value;
+	    component.setState(partialState);
+	  };
+	}
+
+	ReactStateSetters.Mixin = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateSetter(function(xValue) {
+	   *     return {x: xValue};
+	   *   })(1);
+	   *
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function(funcReturningState) {
+	    return ReactStateSetters.createStateSetter(this, funcReturningState);
+	  },
+
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateKeySetter('x')(1);
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function(key) {
+	    return ReactStateSetters.createStateKeySetter(this, key);
+	  }
+	};
+
+	module.exports = ReactStateSetters;
+
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -28286,7 +28545,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(233);
+	var _ActionsCreator = __webpack_require__(236);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -28448,7 +28707,7 @@
 	        "div",
 	        { className: "panel-heading" },
 	        this.props.Enviroment.Name,
-	        _react2["default"].createElement(
+	        window.Administator && _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
 	          { modal: _react2["default"].createElement(AddAgentDialog, { EnviromentId: this.props.Enviroment.Id, onCreate: this.props.onUpdate }) },
 	          _react2["default"].createElement(
@@ -28509,8 +28768,8 @@
 	      _react2["default"].createElement(
 	        "h3",
 	        null,
-	        "Enviroments ",
-	        _react2["default"].createElement(
+	        "Enviroments   ",
+	        window.Administator && _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
 	          { modal: _react2["default"].createElement(CreateDialog, { onCreate: this.update }) },
 	          _react2["default"].createElement(
@@ -28528,7 +28787,7 @@
 	module.exports = EnviromentsPage;
 
 /***/ },
-/* 233 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28579,7 +28838,7 @@
 	};
 
 /***/ },
-/* 234 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28590,7 +28849,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -28969,238 +29228,6 @@
 	});
 
 	module.exports = EditPage;
-
-/***/ },
-/* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule LinkedStateMixin
-	 * @typechecks static-only
-	 */
-
-	'use strict';
-
-	var ReactLink = __webpack_require__(236);
-	var ReactStateSetters = __webpack_require__(237);
-
-	/**
-	 * A simple mixin around ReactLink.forState().
-	 */
-	var LinkedStateMixin = {
-	  /**
-	   * Create a ReactLink that's linked to part of this component's state. The
-	   * ReactLink will have the current value of this.state[key] and will call
-	   * setState() when a change is requested.
-	   *
-	   * @param {string} key state key to update. Note: you may want to use keyOf()
-	   * if you're using Google Closure Compiler advanced mode.
-	   * @return {ReactLink} ReactLink instance linking to the state.
-	   */
-	  linkState: function(key) {
-	    return new ReactLink(
-	      this.state[key],
-	      ReactStateSetters.createStateKeySetter(this, key)
-	    );
-	  }
-	};
-
-	module.exports = LinkedStateMixin;
-
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactLink
-	 * @typechecks static-only
-	 */
-
-	'use strict';
-
-	/**
-	 * ReactLink encapsulates a common pattern in which a component wants to modify
-	 * a prop received from its parent. ReactLink allows the parent to pass down a
-	 * value coupled with a callback that, when invoked, expresses an intent to
-	 * modify that value. For example:
-	 *
-	 * React.createClass({
-	 *   getInitialState: function() {
-	 *     return {value: ''};
-	 *   },
-	 *   render: function() {
-	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
-	 *     return <input valueLink={valueLink} />;
-	 *   },
-	 *   this._handleValueChange: function(newValue) {
-	 *     this.setState({value: newValue});
-	 *   }
-	 * });
-	 *
-	 * We have provided some sugary mixins to make the creation and
-	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
-	 */
-
-	var React = __webpack_require__(2);
-
-	/**
-	 * @param {*} value current value of the link
-	 * @param {function} requestChange callback to request a change
-	 */
-	function ReactLink(value, requestChange) {
-	  this.value = value;
-	  this.requestChange = requestChange;
-	}
-
-	/**
-	 * Creates a PropType that enforces the ReactLink API and optionally checks the
-	 * type of the value being passed inside the link. Example:
-	 *
-	 * MyComponent.propTypes = {
-	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
-	 * }
-	 */
-	function createLinkTypeChecker(linkType) {
-	  var shapes = {
-	    value: typeof linkType === 'undefined' ?
-	      React.PropTypes.any.isRequired :
-	      linkType.isRequired,
-	    requestChange: React.PropTypes.func.isRequired
-	  };
-	  return React.PropTypes.shape(shapes);
-	}
-
-	ReactLink.PropTypes = {
-	  link: createLinkTypeChecker
-	};
-
-	module.exports = ReactLink;
-
-
-/***/ },
-/* 237 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactStateSetters
-	 */
-
-	'use strict';
-
-	var ReactStateSetters = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function(component, funcReturningState) {
-	    return function(a, b, c, d, e, f) {
-	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
-	      if (partialState) {
-	        component.setState(partialState);
-	      }
-	    };
-	  },
-
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function(component, key) {
-	    // Memoize the setters.
-	    var cache = component.__keySetters || (component.__keySetters = {});
-	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
-	  }
-	};
-
-	function createStateKeySetter(component, key) {
-	  // Partial state is allocated outside of the function closure so it can be
-	  // reused with every call, avoiding memory allocation when this function
-	  // is called.
-	  var partialState = {};
-	  return function stateKeySetter(value) {
-	    partialState[key] = value;
-	    component.setState(partialState);
-	  };
-	}
-
-	ReactStateSetters.Mixin = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateSetter(function(xValue) {
-	   *     return {x: xValue};
-	   *   })(1);
-	   *
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function(funcReturningState) {
-	    return ReactStateSetters.createStateSetter(this, funcReturningState);
-	  },
-
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateKeySetter('x')(1);
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function(key) {
-	    return ReactStateSetters.createStateKeySetter(this, key);
-	  }
-	};
-
-	module.exports = ReactStateSetters;
-
 
 /***/ },
 /* 238 */
@@ -35012,7 +35039,7 @@
 	              "th",
 	              null,
 	              "Groups ",
-	              _react2["default"].createElement(
+	              window.Administator == "True" && _react2["default"].createElement(
 	                _reactBootstrapLibModalTrigger2["default"],
 	                { modal: _react2["default"].createElement(CreateDialog, { onCreate: this.update }) },
 	                _react2["default"].createElement(
@@ -35020,7 +35047,8 @@
 	                  { className: "btn btn-primary btn-xs pull-right" },
 	                  "Create"
 	                )
-	              )
+	              ),
+	              " "
 	            )
 	          )
 	        ),
@@ -35051,7 +35079,7 @@
 	module.exports = {
 		updateGroups: function updateGroups() {
 			return (0, _reqwest2["default"])({
-				url: "/users/groups/",
+				url: "api/users/groups/",
 				type: 'json',
 				contentType: 'application/json',
 				method: "get"
@@ -35060,10 +35088,13 @@
 
 		createGroup: function createGroup(name) {
 			var promise = (0, _reqwest2["default"])({
-				url: "/users/group?groupName=" + name,
+				url: "api/users/CreateGroup",
 				type: 'json',
 				contentType: 'application/json',
-				method: "post"
+				method: "post",
+				data: JSON.stringify({
+					Name: name
+				})
 			});
 
 			return promise;
@@ -35122,7 +35153,8 @@
 	        "td",
 	        null,
 	        this.props.User.UserName,
-	        _react2["default"].createElement(
+	        "  ",
+	        window.Administator == "True" && _react2["default"].createElement(
 	          "button",
 	          { className: "btn btn-danger btn-xs pull-right", onClick: this.removeUser },
 	          "Remove"
@@ -35222,7 +35254,7 @@
 	          "tbody",
 	          null,
 	          envs,
-	          _react2["default"].createElement(
+	          window.Administator == "True" && _react2["default"].createElement(
 	            "tr",
 	            null,
 	            _react2["default"].createElement(
@@ -35271,7 +35303,7 @@
 	module.exports = {
 		updateUsers: function updateUsers(id) {
 			return (0, _reqwest2["default"])({
-				url: "/users/group?groupName=" + id,
+				url: "api/users/group?groupName=" + id,
 				type: 'json',
 				contentType: 'application/json',
 				method: "get"
@@ -35280,7 +35312,7 @@
 
 		getUsers: function getUsers() {
 			return (0, _reqwest2["default"])({
-				url: "/users/all",
+				url: "api/users/all",
 				type: 'json',
 				contentType: 'application/json',
 				method: "get"
@@ -35289,10 +35321,14 @@
 
 		addUser: function addUser(group, userId) {
 			var promise = (0, _reqwest2["default"])({
-				url: "/users/add?group=" + group + "&userId=" + userId,
+				url: "api/users/addUserToGroup",
 				type: 'json',
 				contentType: 'application/json',
-				method: "post"
+				method: "post",
+				data: JSON.stringify({
+					Group: group,
+					UserId: userId
+				})
 			});
 
 			return promise;
@@ -35300,10 +35336,14 @@
 
 		removeUser: function removeUser(group, userId) {
 			var promise = (0, _reqwest2["default"])({
-				url: "/users/remove?group=" + group + "&userId=" + userId,
+				url: "api/users/removeUserFromGroup",
 				type: 'json',
 				contentType: 'application/json',
-				method: "post"
+				method: "post",
+				data: JSON.stringify({
+					Group: group,
+					UserId: userId
+				})
 			});
 
 			return promise;
@@ -46253,7 +46293,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -46975,7 +47015,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47285,7 +47325,7 @@
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47463,7 +47503,7 @@
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47615,7 +47655,7 @@
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47793,7 +47833,7 @@
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47987,7 +48027,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -48110,7 +48150,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -48220,7 +48260,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -48352,7 +48392,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(235);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
