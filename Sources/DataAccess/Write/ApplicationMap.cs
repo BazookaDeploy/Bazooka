@@ -19,7 +19,18 @@ namespace DataAccess.Write
             Property(x => x.Name, x => x.Length(200));
 
             Bag(
-                x => x.Enviroments,
+                x => x.AllowedUsers,
+                map =>
+                {
+                    map.Key(km => km.Column("ApplicationId"));
+                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                    map.Inverse(true);
+                },
+                x => x.OneToMany()
+            );
+
+            Bag(
+                x => x.AllowedGroups,
                 map =>
                 {
                     map.Key(km => km.Column("ApplicationId"));
