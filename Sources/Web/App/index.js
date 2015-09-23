@@ -30,7 +30,7 @@ var routes = (
     <Route name="enviroments" path="enviroments/:applicationName/:applicationId" handler={EnviromentPage} />
     <Route name="agent"       path="agent/:id" handler={AgentPage} />
 
-    <Route name="tasks" path="tasks/:applicationName/:enviroment/:enviromentId" handler={TasksPage} />
+    <Route name="tasks" path="tasks/:applicationName/:applicationId/:enviroment/:enviromentId" handler={TasksPage} />
     <Route name="deployunitedit" path="deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId" handler={DeployUnitEditPage} />
     <Route name="mailtaskedit" path="mailtask/:applicationName/:enviroment/:mailTaskName/edit/:taskId" handler={MailTasksEditPAge} />
     <Route name="localscripttaskedit" path="localscripttask/:applicationName/:enviroment/:taskName/edit/:taskId" handler={LocalScriptTasksEditPAge} />

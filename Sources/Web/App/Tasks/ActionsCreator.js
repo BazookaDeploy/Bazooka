@@ -10,48 +10,58 @@ module.exports = {
     })
   },
 
-  getUsers: function (id) {
+  getUsers: function (enviromentId,applicationId) {
       return reqwest({
-        url: "/users/allowed?id=" + id,
+        url: "/api/applications/AllowedUsers?enviromentId=" + enviromentId+ "&applicationId="+applicationId,
         type: 'json',
         contentType: 'application/json',
         method: "get"
       })
   },
 
-  addUser: function (id, userId) {
+  addUser: function (enviromentId,applicationid, userId) {
       return reqwest({
-        url: "/users/allowed/add?enviromentId=" + id + "&userId=" + userId,
+        url: "/api/applications/AddAllowedUser",
+        type: 'json',
+        contentType: 'application/json',
+        method: "post",
+        data:JSON.stringify({
+          ApplicationId : applicationid,
+          EnviromentId:enviromentId,
+          UserId:userId
+        })
+      })
+  },
+
+  removeUser: function (enviromentId,applicationId) {
+      return reqwest({
+        url: "/users/allowed/remove?enviromentId=" + enviromentId + "&applicationId="+applicationId,
         type: 'json',
         contentType: 'application/json',
         method: "post"
       })
   },
 
-  removeUser: function (id) {
+  getGroups: function (enviromentId,applicationId) {
       return reqwest({
-        url: "/users/allowed/remove?id=" + id,
-        type: 'json',
-        contentType: 'application/json',
-        method: "post"
-      })
-  },
-
-  getGroups: function (id) {
-      return reqwest({
-        url: "/groups/allowed?id=" + id,
+        url: "api/applications/AllowedGroups?enviromentId=" + enviromentId+ "&applicationId="+applicationId,
         type: 'json',
         contentType: 'application/json',
         method: "get"
       })
   },
 
-  addGroup: function (id, groupId) {
+  addGroup: function (enviromentId,applicationid, groupId) {
       return reqwest({
-        url: "/group/allowed/add?enviromentId=" + id + "&groupId=" + groupId,
+        url: "/api/applications/AddAllowedGroup",
         type: 'json',
         contentType: 'application/json',
-        method: "post"
+        method: "post",
+        data:JSON.stringify({
+          ApplicationId : applicationid,
+          EnviromentId:enviromentId,
+          GroupId:groupId
+        })
       })
   },
 
@@ -66,7 +76,7 @@ module.exports = {
 
   getAllUsers: function () {
     return reqwest({
-      url: "/users/all",
+      url: "api/users/all",
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -75,7 +85,7 @@ module.exports = {
 
   getAllGroups: function () {
     return reqwest({
-      url: "/users/groups/",
+      url: "api/users/groups/",
       type: 'json',
       contentType: 'application/json',
       method: "get"

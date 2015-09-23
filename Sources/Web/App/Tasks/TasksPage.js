@@ -91,11 +91,12 @@ var TaskSelectDialog = React.createClass({
 
     componentDidMount: function() {
       var id = this.getParams().enviromentId;
+      var appId=  this.getParams().applicationId;
       Actions.getTasks(id).then(x => {
         this.setState({tasks:x})
       });
 
-      Actions.getUsers(id).then(x => {
+      Actions.getUsers(id,appId).then(x => {
         this.setState({users:x})
       })
 
@@ -103,7 +104,7 @@ var TaskSelectDialog = React.createClass({
         this.setState({allUsers:x})
       })
 
-      Actions.getGroups(id).then(x => {
+      Actions.getGroups(id,appId).then(x => {
         this.setState({groups:x})
       })
 
@@ -114,7 +115,7 @@ var TaskSelectDialog = React.createClass({
 
     removeUser:function(id){
       Actions.removeUser(id).then(x => {
-        Actions.getUsers(this.getParams().enviromentId).then(z => {
+        Actions.getUsers(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({users:z})
         })
       })
@@ -122,23 +123,23 @@ var TaskSelectDialog = React.createClass({
 
     removeGroup:function(id){
       Actions.removeGroups(id).then(x => {
-        Actions.getGroups(this.getParams().enviromentId).then(z => {
+        Actions.getGroups(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({groups:z})
         })
       })
     },
 
     addUser:function(){
-      Actions.addUser(this.getParams().enviromentId,this.refs.user.getDOMNode().value).then(x => {
-        Actions.getUsers(this.getParams().enviromentId).then(z => {
+      Actions.addUser(this.getParams().enviromentId,this.getParams().applicationId,this.refs.user.getDOMNode().value).then(x => {
+        Actions.getUsers(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({users:z})
         })
       })
     },
 
     addGroup:function(){
-      Actions.addGroup(this.getParams().enviromentId,this.refs.group.getDOMNode().value).then(x => {
-        Actions.getGroups(this.getParams().enviromentId).then(z => {
+      Actions.addGroup(this.getParams().enviromentId,this.getParams().applicationId,this.refs.group.getDOMNode().value).then(x => {
+        Actions.getGroups(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({groups:z})
         })
       })

@@ -12,7 +12,7 @@ namespace DataAccess.Write
 
         public virtual IList<AllowedGroup> AllowedGroups { get; set; }
 
-        public void AddAllowedUser(int enviromentId, System.Guid userId)
+        public virtual void AddAllowedUser(int enviromentId, System.Guid userId)
         {
             if (AllowedUsers.Count(x => x.EnviromentId == enviromentId && x.UserId == userId.ToString()) == 0)
             {
@@ -25,7 +25,7 @@ namespace DataAccess.Write
             }
         }
 
-        public void AddAllowedGroup(int enviromentId, string groupId)
+        public virtual void AddAllowedGroup(int enviromentId, string groupId)
         {
             if (AllowedGroups.Count(x => x.EnviromentId == enviromentId && x.GroupId == groupId) == 0)
             {

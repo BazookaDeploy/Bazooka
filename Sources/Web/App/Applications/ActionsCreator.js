@@ -12,10 +12,13 @@ module.exports = {
 
   createApplication:function(name){
     var promise = reqwest({
-      url:"/api/applications?name="+name,
+      url:"/api/applications/Create",
       type:'json',
       contentType: 'application/json',
-      method:"post"
+      method:"post",
+      data:JSON.stringify({
+        Name:name
+      })
     });
 
     return promise;

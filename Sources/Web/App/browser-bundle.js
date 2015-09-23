@@ -137,7 +137,7 @@
 	  _react2["default"].createElement(Route, { name: "envs", path: "envs/", handler: _EnvsEnviromentPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "enviroments", path: "enviroments/:applicationName/:applicationId", handler: _EnviromentsEnviromentPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "agent", path: "agent/:id", handler: _AgentsAgentpage2["default"] }),
-	  _react2["default"].createElement(Route, { name: "tasks", path: "tasks/:applicationName/:enviroment/:enviromentId", handler: _TasksTasksPage2["default"] }),
+	  _react2["default"].createElement(Route, { name: "tasks", path: "tasks/:applicationName/:applicationId/:enviroment/:enviromentId", handler: _TasksTasksPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "deployunitedit", path: "deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId", handler: _TasksDeployTasksDeployUnitEditPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "mailtaskedit", path: "mailtask/:applicationName/:enviroment/:mailTaskName/edit/:taskId", handler: _TasksMailTaskEditPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "localscripttaskedit", path: "localscripttask/:applicationName/:enviroment/:taskName/edit/:taskId", handler: _TasksLocalScriptTaskEditPage2["default"] }),
@@ -27571,10 +27571,13 @@
 
 	  createApplication: function createApplication(name) {
 	    var promise = (0, _reqwest2["default"])({
-	      url: "/api/applications?name=" + name,
+	      url: "/api/applications/Create",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "post"
+	      method: "post",
+	      data: JSON.stringify({
+	        Name: name
+	      })
 	    });
 
 	    return promise;
@@ -27586,8 +27589,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -27616,75 +27617,6 @@
 	var RouteHandler = _reactRouter2["default"].RouteHandler;
 	var Link = _reactRouter2["default"].Link;
 
-	var CreateDialog = _react2["default"].createClass({
-	  displayName: "CreateDialog",
-
-	  create: function create() {
-	    var _this = this;
-
-	    var configuration = this.refs.configuration.getDOMNode().value;
-	    var description = this.refs.description.getDOMNode().value;
-	    var id = this.props.Application;
-
-	    if (configuration.length !== 0) {
-	      _ActionsCreator2["default"].createEnviroment(id, configuration, description).then(function (x) {
-	        _this.props.onRequestHide();_this.props.onCreate();
-	      });
-	    }
-
-	    return false;
-	  },
-
-	  render: function render() {
-	    return _react2["default"].createElement(
-	      _reactBootstrapLibModal2["default"],
-	      _extends({}, this.props, { title: "Create new enviroment" }),
-	      _react2["default"].createElement(
-	        "div",
-	        { className: "modal-body" },
-	        _react2["default"].createElement(
-	          "form",
-	          { role: "form", onSubmit: this.create },
-	          _react2["default"].createElement(
-	            "div",
-	            { className: "form-group" },
-	            _react2["default"].createElement(
-	              "label",
-	              { htmlFor: "configuration" },
-	              "Configuration"
-	            ),
-	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "configuration", placeholder: "Configuration", autoFocus: true, ref: "configuration" })
-	          ),
-	          _react2["default"].createElement(
-	            "div",
-	            { className: "form-group" },
-	            _react2["default"].createElement(
-	              "label",
-	              { htmlFor: "description" },
-	              "Description (Optional)"
-	            ),
-	            _react2["default"].createElement("textarea", { className: "form-control", id: "description", placeholder: "Description of your enviroment ( optional)", ref: "description" })
-	          )
-	        )
-	      ),
-	      _react2["default"].createElement(
-	        "div",
-	        { className: "modal-footer" },
-	        _react2["default"].createElement(
-	          "button",
-	          { className: "btn btn-primary", onClick: this.create },
-	          "Create"
-	        ),
-	        _react2["default"].createElement(
-	          "button",
-	          { className: "btn", onClick: this.props.onRequestHide },
-	          "Close"
-	        )
-	      )
-	    );
-	  }
-	});
-
 	var Enviroments = _react2["default"].createClass({
 	  displayName: "Enviroments",
 
@@ -27698,10 +27630,11 @@
 	        _react2["default"].createElement(
 	          Link,
 	          { to: "tasks", params: {
-	              applicationName: this.props.Enviroment.Name,
-	              enviroment: this.props.Enviroment.Configuration,
+	              applicationName: this.props.application,
+	              applicationId: this.props.applicationId,
+	              enviroment: this.props.Enviroment.Name,
 	              enviromentId: this.props.Enviroment.Id } },
-	          this.props.Enviroment.Configuration
+	          this.props.Enviroment.Name
 	        )
 	      )
 	    );
@@ -27723,19 +27656,20 @@
 	  },
 
 	  update: function update() {
-	    var _this2 = this;
+	    var _this = this;
 
-	    var id = this.getParams().applicationId;
-	    _ActionsCreator2["default"].updateEnviroments(id).then(function (x) {
-	      _this2.setState({
+	    _ActionsCreator2["default"].updateAllEnviroments().then(function (x) {
+	      _this.setState({
 	        envs: x
 	      });
 	    });
 	  },
 
 	  render: function render() {
+	    var _this2 = this;
+
 	    var envs = this.state.envs.map(function (a) {
-	      return _react2["default"].createElement(Enviroments, { Enviroment: a });
+	      return _react2["default"].createElement(Enviroments, { Enviroment: a, application: _this2.getParams().applicationName, applicationId: _this2.getParams().applicationId });
 	    });
 
 	    return _react2["default"].createElement(
@@ -27759,16 +27693,7 @@
 	            _react2["default"].createElement(
 	              "th",
 	              null,
-	              "Enviroments ",
-	              _react2["default"].createElement(
-	                _reactBootstrapLibModalTrigger2["default"],
-	                { modal: _react2["default"].createElement(CreateDialog, { onCreate: this.update, Application: this.getParams().applicationId }) },
-	                _react2["default"].createElement(
-	                  "button",
-	                  { className: "btn btn-primary btn-xs pull-right" },
-	                  "Create"
-	                )
-	              )
+	              "Enviroments"
 	            )
 	          )
 	        ),
@@ -27804,31 +27729,6 @@
 				contentType: 'application/json',
 				method: "get"
 			});
-		},
-
-		updateEnviroments: function updateEnviroments(applicationId) {
-			return (0, _reqwest2["default"])({
-				url: "/api/enviroments/" + applicationId,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-		},
-
-		createEnviroment: function createEnviroment(applicationId, name, description) {
-			var promise = (0, _reqwest2["default"])({
-				url: "/api/enviroments",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					ApplicationId: applicationId,
-					Configuration: name,
-					Description: description
-				})
-			});
-
-			return promise;
 		}
 	};
 
@@ -46497,11 +46397,12 @@
 	    var _this3 = this;
 
 	    var id = this.getParams().enviromentId;
+	    var appId = this.getParams().applicationId;
 	    _ActionsCreator2["default"].getTasks(id).then(function (x) {
 	      _this3.setState({ tasks: x });
 	    });
 
-	    _ActionsCreator2["default"].getUsers(id).then(function (x) {
+	    _ActionsCreator2["default"].getUsers(id, appId).then(function (x) {
 	      _this3.setState({ users: x });
 	    });
 
@@ -46509,7 +46410,7 @@
 	      _this3.setState({ allUsers: x });
 	    });
 
-	    _ActionsCreator2["default"].getGroups(id).then(function (x) {
+	    _ActionsCreator2["default"].getGroups(id, appId).then(function (x) {
 	      _this3.setState({ groups: x });
 	    });
 
@@ -46522,7 +46423,7 @@
 	    var _this4 = this;
 
 	    _ActionsCreator2["default"].removeUser(id).then(function (x) {
-	      _ActionsCreator2["default"].getUsers(_this4.getParams().enviromentId).then(function (z) {
+	      _ActionsCreator2["default"].getUsers(_this4.getParams().enviromentId, _this4.getParams().applicationId).then(function (z) {
 	        _this4.setState({ users: z });
 	      });
 	    });
@@ -46532,7 +46433,7 @@
 	    var _this5 = this;
 
 	    _ActionsCreator2["default"].removeGroups(id).then(function (x) {
-	      _ActionsCreator2["default"].getGroups(_this5.getParams().enviromentId).then(function (z) {
+	      _ActionsCreator2["default"].getGroups(_this5.getParams().enviromentId, _this5.getParams().applicationId).then(function (z) {
 	        _this5.setState({ groups: z });
 	      });
 	    });
@@ -46541,8 +46442,8 @@
 	  addUser: function addUser() {
 	    var _this6 = this;
 
-	    _ActionsCreator2["default"].addUser(this.getParams().enviromentId, this.refs.user.getDOMNode().value).then(function (x) {
-	      _ActionsCreator2["default"].getUsers(_this6.getParams().enviromentId).then(function (z) {
+	    _ActionsCreator2["default"].addUser(this.getParams().enviromentId, this.getParams().applicationId, this.refs.user.getDOMNode().value).then(function (x) {
+	      _ActionsCreator2["default"].getUsers(_this6.getParams().enviromentId, _this6.getParams().applicationId).then(function (z) {
 	        _this6.setState({ users: z });
 	      });
 	    });
@@ -46551,8 +46452,8 @@
 	  addGroup: function addGroup() {
 	    var _this7 = this;
 
-	    _ActionsCreator2["default"].addGroup(this.getParams().enviromentId, this.refs.group.getDOMNode().value).then(function (x) {
-	      _ActionsCreator2["default"].getGroups(_this7.getParams().enviromentId).then(function (z) {
+	    _ActionsCreator2["default"].addGroup(this.getParams().enviromentId, this.getParams().applicationId, this.refs.group.getDOMNode().value).then(function (x) {
+	      _ActionsCreator2["default"].getGroups(_this7.getParams().enviromentId, _this7.getParams().applicationId).then(function (z) {
 	        _this7.setState({ groups: z });
 	      });
 	    });
@@ -46918,48 +46819,58 @@
 	    });
 	  },
 
-	  getUsers: function getUsers(id) {
+	  getUsers: function getUsers(enviromentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/users/allowed?id=" + id,
+	      url: "/api/applications/AllowedUsers?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "get"
 	    });
 	  },
 
-	  addUser: function addUser(id, userId) {
+	  addUser: function addUser(enviromentId, applicationid, userId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/users/allowed/add?enviromentId=" + id + "&userId=" + userId,
+	      url: "/api/applications/AddAllowedUser",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationid,
+	        EnviromentId: enviromentId,
+	        UserId: userId
+	      })
+	    });
+	  },
+
+	  removeUser: function removeUser(enviromentId, applicationId) {
+	    return (0, _reqwest2["default"])({
+	      url: "/users/allowed/remove?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "post"
 	    });
 	  },
 
-	  removeUser: function removeUser(id) {
+	  getGroups: function getGroups(enviromentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/users/allowed/remove?id=" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post"
-	    });
-	  },
-
-	  getGroups: function getGroups(id) {
-	    return (0, _reqwest2["default"])({
-	      url: "/groups/allowed?id=" + id,
+	      url: "api/applications/AllowedGroups?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "get"
 	    });
 	  },
 
-	  addGroup: function addGroup(id, groupId) {
+	  addGroup: function addGroup(enviromentId, applicationid, groupId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/group/allowed/add?enviromentId=" + id + "&groupId=" + groupId,
+	      url: "/api/applications/AddAllowedGroup",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "post"
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationid,
+	        EnviromentId: enviromentId,
+	        GroupId: groupId
+	      })
 	    });
 	  },
 
@@ -46974,7 +46885,7 @@
 
 	  getAllUsers: function getAllUsers() {
 	    return (0, _reqwest2["default"])({
-	      url: "/users/all",
+	      url: "api/users/all",
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "get"
@@ -46983,7 +46894,7 @@
 
 	  getAllGroups: function getAllGroups() {
 	    return (0, _reqwest2["default"])({
-	      url: "/users/groups/",
+	      url: "api/users/groups/",
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "get"
