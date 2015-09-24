@@ -33,13 +33,18 @@ module.exports = {
       })
   },
 
-  removeUser: function (enviromentId,applicationId) {
-      return reqwest({
-        url: "/users/allowed/remove?enviromentId=" + enviromentId + "&applicationId="+applicationId,
-        type: 'json',
-        contentType: 'application/json',
-        method: "post"
+  removeUser: function (enviromentId,applicationid, userId) {
+    return reqwest({
+      url: "/api/applications/RemoveAllowedUser",
+      type: 'json',
+      contentType: 'application/json',
+      method: "post",
+      data:JSON.stringify({
+        ApplicationId : applicationid,
+        EnviromentId:enviromentId,
+        UserId:userId
       })
+    })
   },
 
   getGroups: function (enviromentId,applicationId) {
@@ -65,13 +70,18 @@ module.exports = {
       })
   },
 
-  removeGroups: function (id) {
-      return reqwest({
-        url: "/group/allowed/remove?id=" + id,
-        type: 'json',
-        contentType: 'application/json',
-        method: "post"
+  removeGroups: function (enviromentId,applicationid, groupId) {
+    return reqwest({
+      url: "/api/applications/RemoveAllowedGroup",
+      type: 'json',
+      contentType: 'application/json',
+      method: "post",
+      data:JSON.stringify({
+        ApplicationId : applicationid,
+        EnviromentId:enviromentId,
+        GroupId:groupId
       })
+    })
   },
 
   getAllUsers: function () {

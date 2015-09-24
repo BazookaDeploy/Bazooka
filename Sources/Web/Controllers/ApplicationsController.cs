@@ -30,7 +30,19 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        public ExecutionResult RemoveAllowedUser(RemoveAllowedUserFromApplication command)
+        {
+            return Execute(command);
+        }
+
+        [HttpPost]
         public ExecutionResult AddAllowedGroup(AddAllowedGroupToApplication command)
+        {
+            return Execute(command);
+        }
+
+        [HttpPost]
+        public ExecutionResult RemoveAllowedGroup(RemoveAllowedGroupFromApplication command)
         {
             return Execute(command);
         }

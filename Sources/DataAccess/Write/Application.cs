@@ -37,5 +37,25 @@ namespace DataAccess.Write
                 });
             }
         }
+
+        public virtual void RemoveAllowedUser(int enviromentId, System.Guid userId)
+        {
+            var user = this.AllowedUsers.SingleOrDefault(x => x.EnviromentId == enviromentId && x.UserId == userId.ToString());
+
+            if (user != null)
+            {
+                this.AllowedUsers.Remove(user);
+            }
+        }
+
+        public virtual void RemoveAllowedGroup(int enviromentId, string groupId)
+        {
+            var group = this.AllowedGroups.SingleOrDefault(x => x.EnviromentId == enviromentId && x.GroupId == groupId.ToString());
+
+            if (group != null)
+            {
+                this.AllowedGroups.Remove(group);
+            }
+        }
     }
 }

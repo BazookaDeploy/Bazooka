@@ -46422,7 +46422,7 @@
 	  removeUser: function removeUser(id) {
 	    var _this4 = this;
 
-	    _ActionsCreator2["default"].removeUser(id).then(function (x) {
+	    _ActionsCreator2["default"].removeUser(this.getParams().enviromentId, this.getParams().applicationId, id).then(function (x) {
 	      _ActionsCreator2["default"].getUsers(_this4.getParams().enviromentId, _this4.getParams().applicationId).then(function (z) {
 	        _this4.setState({ users: z });
 	      });
@@ -46432,7 +46432,7 @@
 	  removeGroup: function removeGroup(id) {
 	    var _this5 = this;
 
-	    _ActionsCreator2["default"].removeGroups(id).then(function (x) {
+	    _ActionsCreator2["default"].removeGroups(this.getParams().enviromentId, this.getParams().applicationId, id).then(function (x) {
 	      _ActionsCreator2["default"].getGroups(_this5.getParams().enviromentId, _this5.getParams().applicationId).then(function (z) {
 	        _this5.setState({ groups: z });
 	      });
@@ -46474,7 +46474,7 @@
 	          _react2["default"].createElement(
 	            "button",
 	            { className: "btn btn-danger btn-xs pull-right", onClick: function (z) {
-	                return _this8.removeUser(x.Id);
+	                return _this8.removeUser(x.USerId);
 	              } },
 	            "Remove"
 	          )
@@ -46502,7 +46502,7 @@
 	          _react2["default"].createElement(
 	            "button",
 	            { className: "btn btn-danger btn-xs pull-right", onClick: function (z) {
-	                _this8.removeGroup(x.Id);
+	                _this8.removeGroup(x.GroupId);
 	              } },
 	            "Remove"
 	          )
@@ -46842,12 +46842,17 @@
 	    });
 	  },
 
-	  removeUser: function removeUser(enviromentId, applicationId) {
+	  removeUser: function removeUser(enviromentId, applicationid, userId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/users/allowed/remove?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
+	      url: "/api/applications/RemoveAllowedUser",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "post"
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationid,
+	        EnviromentId: enviromentId,
+	        UserId: userId
+	      })
 	    });
 	  },
 
@@ -46874,12 +46879,17 @@
 	    });
 	  },
 
-	  removeGroups: function removeGroups(id) {
+	  removeGroups: function removeGroups(enviromentId, applicationid, groupId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/group/allowed/remove?id=" + id,
+	      url: "/api/applications/RemoveAllowedGroup",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "post"
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationid,
+	        EnviromentId: enviromentId,
+	        GroupId: groupId
+	      })
 	    });
 	  },
 

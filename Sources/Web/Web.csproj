@@ -248,6 +248,10 @@
     <Compile Include="CommandHandlers\Groups\RemoveUserFromGroupHandler.cs" />
     <Compile Include="CommandHandlers\Enviroments\RenameEnviromentAgentBusinessRule.cs" />
     <Compile Include="CommandHandlers\Enviroments\RenameEnviromentAgentHandler.cs" />
+    <Compile Include="CommandHandlers\Application\RemoveAlllowedUserFromApplicationHandler.cs" />
+    <Compile Include="CommandHandlers\Application\RemoveAllowedUserFromApplicationBusinessRule.cs" />
+    <Compile Include="CommandHandlers\RemoveAllowedGroupFromApplicationBusinessRule.cs" />
+    <Compile Include="CommandHandlers\RemoveAllowedGroupFromApplicationHandler.cs" />
     <Compile Include="Commands\Application\AddAllowedGroupToApplication.cs" />
     <Compile Include="Commands\Application\AddAllowedUserToApplication.cs" />
     <Compile Include="Commands\Enviroments\AddAgentToEnviroment.cs" />
@@ -257,6 +261,8 @@
     <Compile Include="Commands\Groups\CreateGroup.cs" />
     <Compile Include="Commands\Groups\RemoveUserFromGroup.cs" />
     <Compile Include="Commands\Enviroments\RenameEnviromentAgent.cs" />
+    <Compile Include="Commands\Application\RemoveAllowedGroupFromApplication.cs" />
+    <Compile Include="Commands\Application\RemoveAllowedUserFromApplication.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Infrastructure\BusinessRule.cs" />
     <Compile Include="Infrastructure\BusinessRuleValidator.cs" />

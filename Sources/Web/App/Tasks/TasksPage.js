@@ -114,7 +114,7 @@ var TaskSelectDialog = React.createClass({
     },
 
     removeUser:function(id){
-      Actions.removeUser(id).then(x => {
+      Actions.removeUser(this.getParams().enviromentId,this.getParams().applicationId,id).then(x => {
         Actions.getUsers(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({users:z})
         })
@@ -122,7 +122,7 @@ var TaskSelectDialog = React.createClass({
     },
 
     removeGroup:function(id){
-      Actions.removeGroups(id).then(x => {
+      Actions.removeGroups(this.getParams().enviromentId,this.getParams().applicationId,id).then(x => {
         Actions.getGroups(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({groups:z})
         })
@@ -147,7 +147,7 @@ var TaskSelectDialog = React.createClass({
 
     render: function () {
       var users = this.state.users.map(x => {
-        return (<tr><td>{x.UserName}  <button className="btn btn-danger btn-xs pull-right" onClick={z => this.removeUser(x.Id)}>Remove</button></td></tr>);
+        return (<tr><td>{x.UserName}  <button className="btn btn-danger btn-xs pull-right" onClick={z => this.removeUser(x.USerId)}>Remove</button></td></tr>);
       })
 
       var allUsers = this.state.allUsers.map(x => {
@@ -155,7 +155,7 @@ var TaskSelectDialog = React.createClass({
       })
 
       var groups = this.state.groups.map(x => {
-        return (<tr><td>{x.Name}  <button className="btn btn-danger btn-xs pull-right" onClick={z => {this.removeGroup(x.Id)}}>Remove</button></td></tr>);
+        return (<tr><td>{x.Name}  <button className="btn btn-danger btn-xs pull-right" onClick={z => {this.removeGroup(x.GroupId)}}>Remove</button></td></tr>);
       })
 
       var allGroups = this.state.allGroups.map(x => {
