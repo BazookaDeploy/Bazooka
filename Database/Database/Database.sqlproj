@@ -101,8 +101,8 @@
     <Build Include="Read\DatabaseTasks.sql" />
     <Build Include="Write\Agents.sql" />
     <Build Include="Write\ApplicationGroups.sql" />
-    <Build Include="Write\ApplicationsInGroups.sql" />
     <Build Include="Read\Agents.sql" />
+    <Build Include="Read\ApplicationGroups.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />

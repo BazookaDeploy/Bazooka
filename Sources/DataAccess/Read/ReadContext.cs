@@ -61,6 +61,15 @@ namespace DataAccess.Read
         }
     }
 
+    public class ApplicationGroupsDtoConfiguration : EntityTypeConfiguration<ApplicationGroupDto>
+    {
+        public ApplicationGroupsDtoConfiguration()
+        {
+            ToTable("ApplicationGroups");
+            HasKey(x => new { x.Id });
+        }
+    }
+
     public class AgentsDtoConfiguration : EntityTypeConfiguration<AgentDto>
     {
         public AgentsDtoConfiguration()

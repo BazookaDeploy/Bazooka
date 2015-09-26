@@ -1,5 +1,7 @@
 ﻿CREATE TABLE [dbo].[Applications]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	[Name] nvarchar(256) NOT NULL
+	[Name] nvarchar(256) NOT NULL, 
+    [ApplicationGroupId] INT NULL, 
+    CONSTRAINT [FK_Applications_ToApplicationGroups] FOREIGN KEY (ApplicationGroupId) REFERENCES [ApplicationGroups]([Id])
 )
