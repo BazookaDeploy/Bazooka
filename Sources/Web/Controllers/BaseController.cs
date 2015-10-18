@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using System.Web.Http;
-using System.Web.Security;
 using Web.Commands;
 using Microsoft.AspNet.Identity;
 namespace Web.Controllers

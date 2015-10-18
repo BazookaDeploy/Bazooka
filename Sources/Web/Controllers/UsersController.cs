@@ -1,14 +1,10 @@
 ﻿namespace Web.Controllers
 {
     using DataAccess.Read;
-    using DataAccess.Write;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using Web.Commands;
-    using Web.Models;
 
     public class UsersController : BaseController
     {
