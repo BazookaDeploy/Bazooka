@@ -8,6 +8,8 @@ namespace DataAccess.Write
 
         public virtual string Name { get; set; }
 
+        public virtual int? ApplicationGroupId { get; set; }
+
         public virtual IList<AllowedUser> AllowedUsers { get; set; }
 
         public virtual IList<AllowedGroup> AllowedGroups { get; set; }
@@ -56,6 +58,11 @@ namespace DataAccess.Write
             {
                 this.AllowedGroups.Remove(group);
             }
+        }
+
+        public virtual void SetApplicationGroup(int? applicationGroupId)
+        {
+            this.ApplicationGroupId = applicationGroupId;
         }
     }
 }

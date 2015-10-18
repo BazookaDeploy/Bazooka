@@ -17,6 +17,8 @@ namespace DataAccess.Write
                 });
 
             Property(x => x.Name, x => x.Length(200));
+            Property(x => x.ApplicationGroupId);
+
 
             Bag(
                 x => x.AllowedUsers,

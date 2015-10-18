@@ -12,7 +12,7 @@ namespace DataAccess.Write
     {
         public ApplicationGroupMap()
         {
-            Table("AppplicationGroups");
+            Table("ApplicationGroups");
             Schema("dbo");
             Id<int>(x => x.Id,
                 map =>

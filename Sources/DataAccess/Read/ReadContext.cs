@@ -51,6 +51,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new LocalScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new RemoteScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new DatabaseTasksDtoConfiguration());
+            modelBuilder.Configurations.Add(new ApplicationGroupsDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

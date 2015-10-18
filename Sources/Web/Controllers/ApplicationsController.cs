@@ -17,6 +17,11 @@ namespace Web.Controllers
             return db.Query<ApplicationDto>().ToList();
         }
 
+        public ApplicationDto Get(int id)
+        {
+            return db.Query<ApplicationDto>().Single(x => x.Id == id);
+        }
+
         [HttpPost]
         public ExecutionResult Create(CreateApplication command)
         {
@@ -60,6 +65,24 @@ namespace Web.Controllers
                      .Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId)
                      .OrderBy(x => x.Name)
                      .ToList();
+        }
+
+        [HttpGet]
+        public ICollection<ApplicationGroupDto> ApplicationGroups()
+        {
+            return db.Query<ApplicationGroupDto>().ToList();
+        }
+
+        [HttpPost]
+        public ExecutionResult CreateApplicationGroup(CreateApplicationGroup command)
+        {
+            return Execute(command);
+        }
+
+        [HttpPost]
+        public ExecutionResult SetApplicationGroup(SetApplicationGroup command)
+        {
+            return Execute(command);
         }
 
     }

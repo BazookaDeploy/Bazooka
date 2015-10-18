@@ -18,16 +18,58 @@ var Enviroments = React.createClass({
   }
 });
 
+var CreateDialog = React.createClass({
+  create:function(){
+    var name = this.refs.name.getDOMNode().value;
+    if(name.length!==0){
+      Actions.createApplicationGroup(name).then(x => {
+        this.props.onRequestHide();
+        this.props.onCreate();
+      });
+    }
+    return false;
+  },
+
+  render:function(){
+    return(
+      <Modal {...this.props} title="Create new application group">
+        <div className="modal-body">
+          <form role="form" onSubmit={this.create}>
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input type="text" className="form-control" id="name" placeholder="Name" autoFocus ref="name" />
+            </div>
+          </form>
+        </div>
+        <div className="modal-footer">
+          <button className="btn btn-primary" onClick={this.create}>Create</button>
+          <button className="btn" onClick={this.props.onRequestHide}>Close</button>
+        </div>
+      </Modal>);
+    }
+  })
+
+
+
 var EnviromentsPage = React.createClass({
   mixins: [Router.State],
   getInitialState: function() {
     return {
-      envs : []
+      envs : [],
+      groups:[],
+      applicationGroup: null
     };
   },
 
   componentDidMount: function() {
     this.update();
+    this.updateGroups();
+  },
+
+  updateGroups: function(){
+    Actions.getApplicationGroups().then(x => this.setState({groups:x}));
+    Actions.getApplicationInfo(this.getParams().applicationId).then(x => this.setState({applicationGroup:x.GroupName}));
+
   },
 
   update:function(){
@@ -38,11 +80,42 @@ var EnviromentsPage = React.createClass({
     });
   },
 
+  setGroup:function(){
+    Actions.setApplicationGroup(this.getParams().applicationId, this.refs.group.getDOMNode().value).then(x =>
+      this.updateGroups()
+    )
+  },
+
   render: function () {
     var envs = this.state.envs.map(a => (<Enviroments Enviroment={a} application={this.getParams().applicationName} applicationId={this.getParams().applicationId}/>));
 
     return(<div>
       <h3>Application {this.getParams().applicationName}</h3>
+
+      <br />
+      Application group : {this.state.applicationGroup} &nbsp;&nbsp;&nbsp;&nbsp;
+
+      {window.Administator == "True" && <ModalTrigger modal={<CreateDialog onCreate={this.updateGroups}/>}>
+        <button className='btn btn-primary btn-xs '>Create new</button>
+      </ModalTrigger>}
+
+      <br />
+      <br />
+      <div className="input-group">
+      <select ref="group" className="form-control">
+        <option value=""  />
+        {this.state.groups.map(x => <option value={x.Id}>{x.Name}</option>)}
+      </select>
+      <span className="input-group-btn">
+      <button className="btn btn-primary" onClick={this.setGroup}>Set group</button>
+      </span>
+    </div>
+
+
+
+
+      <br />
+
       <table className="table table-striped table-bordered">
       <thead><tr><th>Enviroments</th></tr></thead>
       <tbody>
