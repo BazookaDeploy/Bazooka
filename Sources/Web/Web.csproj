@@ -258,7 +258,12 @@
     <Compile Include="CommandHandlers\Application\RemoveAllowedGroupFromApplicationHandler.cs" />
     <Compile Include="Commands\Application\AddAllowedGroupToApplication.cs" />
     <Compile Include="Commands\Application\AddAllowedUserToApplication.cs" />
-    <Compile Include="Commands\CreateApplicationGroup.cs" />
+    <Compile Include="Commands\Application\CreateApplicationGroup.cs" />
+    <Compile Include="Commands\CreateDatabaseTask.cs" />
+    <Compile Include="Commands\CreateDeployTask.cs" />
+    <Compile Include="Commands\CreateLocalScriptTask.cs" />
+    <Compile Include="Commands\CreateMailTask.cs" />
+    <Compile Include="Commands\CreateRemoteScriptTask.cs" />
     <Compile Include="Commands\Enviroments\AddAgentToEnviroment.cs" />
     <Compile Include="Commands\Groups\AddUserToGroup.cs" />
     <Compile Include="Commands\Enviroments\ChangeAgentAddress.cs" />
@@ -268,7 +273,12 @@
     <Compile Include="Commands\Enviroments\RenameEnviromentAgent.cs" />
     <Compile Include="Commands\Application\RemoveAllowedGroupFromApplication.cs" />
     <Compile Include="Commands\Application\RemoveAllowedUserFromApplication.cs" />
-    <Compile Include="Commands\SetApplicationGroup.cs" />
+    <Compile Include="Commands\Application\SetApplicationGroup.cs" />
+    <Compile Include="Commands\ModifyDatabaseTask.cs" />
+    <Compile Include="Commands\ModifyDeployTask.cs" />
+    <Compile Include="Commands\ModifyLocalScriptTask.cs" />
+    <Compile Include="Commands\ModifyMailTask.cs" />
+    <Compile Include="Commands\ModifyRemoteScriptTask.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Infrastructure\BusinessRule.cs" />
     <Compile Include="Infrastructure\BusinessRuleValidator.cs" />
