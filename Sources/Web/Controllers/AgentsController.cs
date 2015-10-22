@@ -6,8 +6,8 @@
     using System.Web;
     using System.Web.Http;
     using System.Linq;
-using Web.Commands;
-
+    using Web.Commands;
+    using System.Collections.Generic;
     public class AgentsController : BaseController
     {
         public IReadContext ReadContext { get; set; }
@@ -15,6 +15,12 @@ using Web.Commands;
         public AgentDto Get(int id)
         {
             return ReadContext.Query<AgentDto>().Single(x => x.Id == id);
+        }
+
+        [HttpGet]
+        public ICollection<AgentDto> AgentsByEnviroment(int id)
+        {
+            return ReadContext.Query<AgentDto>().Where(x => x.EnviromentId == id).ToList();
         }
 
         [HttpGet]

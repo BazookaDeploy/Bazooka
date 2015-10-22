@@ -229,6 +229,8 @@
     <Compile Include="App_Start\WindsorCompositionRoot.cs" />
     <Compile Include="App_Start\WindsorInstaller.cs" />
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
+    <Compile Include="CommandHandlers\Application\CreateDatabaseTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyDatabaseTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\SetApplicationGroupBusinessRule.cs" />
     <Compile Include="CommandHandlers\Application\CreateApplicationGroupBusinessRule.cs" />
     <Compile Include="CommandHandlers\Application\AddAllowedGroupToApplicationBusinessRule.cs" />

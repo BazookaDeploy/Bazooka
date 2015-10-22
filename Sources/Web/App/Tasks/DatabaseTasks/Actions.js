@@ -1,6 +1,15 @@
 import reqwest from "reqwest";
 
 module.exports = {
+  getAgents:function(id){
+    return reqwest({
+      url: "/api/Agents/AgentsByEnviroment/"+id,
+      type: 'json',
+      contentType: 'application/json',
+      method: "get",
+    });
+  },
+
   getDatabaseTask:function(id){
     return reqwest({
       url: "/api/DatabaseTasks/"+id,
@@ -10,9 +19,12 @@ module.exports = {
     });
   },
 
-  createDatabaseTask: function(name, connectionString, pack, databaseName, enviromentId,repository,machine){
+
+
+
+  createDatabaseTask: function(name, connectionString, pack, databaseName, enviromentId,repository,agentId, applicationId){
     return  reqwest({
-      url: "/api/DatabaseTasks",
+      url: "/api/DatabaseTasks/CreateDatabaseTask",
       type: 'json',
       contentType: 'application/json',
       method: "post",
@@ -23,26 +35,28 @@ module.exports = {
         Package:pack,
         DatabaseName:databaseName,
         Repository:repository,
-        Machine:machine
+        AgentId:agentId,
+        ApplicationId:applicationId
       })
     });
   },
 
-  updateDatabaseTask: function(id, name, connectionString, pack, databaseName, enviromentId,repository, machine){
+  updateDatabaseTask: function(id, name, connectionString, pack, databaseName, enviromentId,repository, agentId,applicationId){
     return  reqwest({
-      url: "/api/DatabaseTasks",
+      url: "/api/DatabaseTasks/ModifyDatabaseTask",
       type: 'json',
       contentType: 'application/json',
-      method: "put",
+      method: "post",
       data: JSON.stringify({
-        Id:id,
+        DatabaseTaskId:id,
         EnviromentId:enviromentId,
         Name:name,
         ConnectionString:connectionString,
         Package:pack,
         DatabaseName:databaseName,
         Repository:repository,
-        Machine: machine
+        AgentId: agentId,
+        ApplicationId:applicationId
       })
     });
   },

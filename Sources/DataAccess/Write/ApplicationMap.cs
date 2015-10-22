@@ -41,6 +41,17 @@ namespace DataAccess.Write
                 },
                 x => x.OneToMany()
             );
+
+            Bag(
+                x => x.DatabaseTasks,
+                map =>
+                {
+                    map.Key(km => km.Column("ApplicationId"));
+                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                    map.Inverse(true);
+                },
+                x => x.OneToMany()
+            );
         }
     }
 }

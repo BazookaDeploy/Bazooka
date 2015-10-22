@@ -14,6 +14,8 @@ namespace DataAccess.Write
 
         public virtual IList<AllowedGroup> AllowedGroups { get; set; }
 
+        public virtual IList<DatabaseTask> DatabaseTasks { get; set; }
+
         public virtual void AddAllowedUser(int enviromentId, System.Guid userId)
         {
             if (AllowedUsers.Count(x => x.EnviromentId == enviromentId && x.UserId == userId.ToString()) == 0)
@@ -63,6 +65,33 @@ namespace DataAccess.Write
         public virtual void SetApplicationGroup(int? applicationGroupId)
         {
             this.ApplicationGroupId = applicationGroupId;
+        }
+
+        public virtual void AddDatabaseTask(string name, string connectionString, string package, string dbName, int enviromentId, string repository, int agentId)
+        {
+            this.DatabaseTasks.Add(new DatabaseTask()
+            {
+                AgentId = agentId,
+                ApplicationId = this.Id,
+                ConnectionString = connectionString,
+                DatabaseName = dbName,
+                EnviromentId = enviromentId,
+                Name = name,
+                Package = package,
+                Repository = repository
+            });
+        }
+
+        public virtual void ModifyDatabaseTask(int taskId, string name, string connectionString, string package, string dbName, string repository, int agentId)
+        {
+            var task = this.DatabaseTasks.Single(x => x.Id == taskId);
+
+            task.AgentId = agentId;
+            task.ConnectionString = connectionString;
+            task.DatabaseName = dbName;
+            task.Name = name;
+            task.Package = package;
+            task.Repository = repository;
         }
     }
 }

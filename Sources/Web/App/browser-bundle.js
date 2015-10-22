@@ -72,55 +72,55 @@
 
 	var _EnviromentsEnviromentPage2 = _interopRequireDefault(_EnviromentsEnviromentPage);
 
-	var _AgentsAgentpage = __webpack_require__(228);
+	var _AgentsAgentpage = __webpack_require__(229);
 
 	var _AgentsAgentpage2 = _interopRequireDefault(_AgentsAgentpage);
 
-	var _EnvsEnviromentPage = __webpack_require__(234);
+	var _EnvsEnviromentPage = __webpack_require__(235);
 
 	var _EnvsEnviromentPage2 = _interopRequireDefault(_EnvsEnviromentPage);
 
-	var _TasksDeployTasksDeployUnitEditPage = __webpack_require__(236);
+	var _TasksDeployTasksDeployUnitEditPage = __webpack_require__(237);
 
 	var _TasksDeployTasksDeployUnitEditPage2 = _interopRequireDefault(_TasksDeployTasksDeployUnitEditPage);
 
-	var _DeploymentsDeploymentsPage = __webpack_require__(252);
+	var _DeploymentsDeploymentsPage = __webpack_require__(253);
 
 	var _DeploymentsDeploymentsPage2 = _interopRequireDefault(_DeploymentsDeploymentsPage);
 
-	var _DeploymentDeploymentsPage = __webpack_require__(287);
+	var _DeploymentDeploymentsPage = __webpack_require__(288);
 
 	var _DeploymentDeploymentsPage2 = _interopRequireDefault(_DeploymentDeploymentsPage);
 
-	var _GroupsGroupsPage = __webpack_require__(289);
+	var _GroupsGroupsPage = __webpack_require__(290);
 
 	var _GroupsGroupsPage2 = _interopRequireDefault(_GroupsGroupsPage);
 
-	var _GroupGroupsPage = __webpack_require__(291);
+	var _GroupGroupsPage = __webpack_require__(292);
 
 	var _GroupGroupsPage2 = _interopRequireDefault(_GroupGroupsPage);
 
-	var _StatsStatsPage = __webpack_require__(293);
+	var _StatsStatsPage = __webpack_require__(294);
 
 	var _StatsStatsPage2 = _interopRequireDefault(_StatsStatsPage);
 
-	var _TasksTasksPage = __webpack_require__(310);
+	var _TasksTasksPage = __webpack_require__(311);
 
 	var _TasksTasksPage2 = _interopRequireDefault(_TasksTasksPage);
 
-	var _TasksMailTaskEditPage = __webpack_require__(321);
+	var _TasksMailTaskEditPage = __webpack_require__(322);
 
 	var _TasksMailTaskEditPage2 = _interopRequireDefault(_TasksMailTaskEditPage);
 
-	var _TasksLocalScriptTaskEditPage = __webpack_require__(322);
+	var _TasksLocalScriptTaskEditPage = __webpack_require__(323);
 
 	var _TasksLocalScriptTaskEditPage2 = _interopRequireDefault(_TasksLocalScriptTaskEditPage);
 
-	var _TasksRemoteScriptTaskEditPage = __webpack_require__(323);
+	var _TasksRemoteScriptTaskEditPage = __webpack_require__(324);
 
 	var _TasksRemoteScriptTaskEditPage2 = _interopRequireDefault(_TasksRemoteScriptTaskEditPage);
 
-	var _TasksDatabaseTasksEditPage = __webpack_require__(324);
+	var _TasksDatabaseTasksEditPage = __webpack_require__(325);
 
 	var _TasksDatabaseTasksEditPage2 = _interopRequireDefault(_TasksDatabaseTasksEditPage);
 
@@ -138,11 +138,11 @@
 	  _react2["default"].createElement(Route, { name: "enviroments", path: "enviroments/:applicationName/:applicationId", handler: _EnviromentsEnviromentPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "agent", path: "agent/:id", handler: _AgentsAgentpage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "tasks", path: "tasks/:applicationName/:applicationId/:enviroment/:enviromentId", handler: _TasksTasksPage2["default"] }),
-	  _react2["default"].createElement(Route, { name: "deployunitedit", path: "deployunits/:applicationName/:enviroment/:deployUnitName/edit/:deployUnitId", handler: _TasksDeployTasksDeployUnitEditPage2["default"] }),
-	  _react2["default"].createElement(Route, { name: "mailtaskedit", path: "mailtask/:applicationName/:enviroment/:mailTaskName/edit/:taskId", handler: _TasksMailTaskEditPage2["default"] }),
-	  _react2["default"].createElement(Route, { name: "localscripttaskedit", path: "localscripttask/:applicationName/:enviroment/:taskName/edit/:taskId", handler: _TasksLocalScriptTaskEditPage2["default"] }),
-	  _react2["default"].createElement(Route, { name: "remotescripttaskedit", path: "remotescripttask/:applicationName/:enviroment/:taskName/edit/:taskId", handler: _TasksRemoteScriptTaskEditPage2["default"] }),
-	  _react2["default"].createElement(Route, { name: "databasetaskedit", path: "databasetask/:applicationName/:enviroment/:taskName/edit/:taskId", handler: _TasksDatabaseTasksEditPage2["default"] }),
+	  _react2["default"].createElement(Route, { name: "deployunitedit", path: "deployunits/:applicationName/:applicationId/:enviroment/:enviromentId/:deployUnitName/edit/:deployUnitId", handler: _TasksDeployTasksDeployUnitEditPage2["default"] }),
+	  _react2["default"].createElement(Route, { name: "mailtaskedit", path: "mailtask/:applicationName/:applicationId/:enviroment/:enviromentId/:mailTaskName/edit/:taskId", handler: _TasksMailTaskEditPage2["default"] }),
+	  _react2["default"].createElement(Route, { name: "localscripttaskedit", path: "localscripttask/:applicationName/:applicationId/:enviroment/:enviromentId/:taskName/edit/:taskId", handler: _TasksLocalScriptTaskEditPage2["default"] }),
+	  _react2["default"].createElement(Route, { name: "remotescripttaskedit", path: "remotescripttask/:applicationName/:applicationId/:enviroment/:enviromentId/:taskName/edit/:taskId", handler: _TasksRemoteScriptTaskEditPage2["default"] }),
+	  _react2["default"].createElement(Route, { name: "databasetaskedit", path: "databasetask/:applicationName/:applicationId/:enviroment/:enviromentId/:taskName/edit/:taskId", handler: _TasksDatabaseTasksEditPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "deployments", path: "deployments", handler: _DeploymentsDeploymentsPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "deployment", path: "deployment/:Id", handler: _DeploymentDeploymentsPage2["default"] }),
 	  _react2["default"].createElement(Route, { name: "groups", path: "groups", handler: _GroupsGroupsPage2["default"] }),
@@ -27602,7 +27602,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(325);
+	var _ActionsCreator = __webpack_require__(228);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -27838,15 +27838,79 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+	var _reqwest = __webpack_require__(213);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	module.exports = {
+		updateAllEnviroments: function updateAllEnviroments() {
+			return (0, _reqwest2["default"])({
+				url: "/api/enviroments/",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		getApplicationInfo: function getApplicationInfo(id) {
+			return (0, _reqwest2["default"])({
+				url: "/api/applications/" + id,
+				method: "get",
+				type: 'json'
+			});
+		},
+
+		getApplicationGroups: function getApplicationGroups() {
+			return (0, _reqwest2["default"])({
+				url: "/api/applications/applicationGroups/",
+				method: "get",
+				type: 'json'
+			});
+		},
+
+		createApplicationGroup: function createApplicationGroup(name) {
+			return (0, _reqwest2["default"])({
+				url: "/api/applications/CreateApplicationGroup",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					Name: name
+				})
+			});
+		},
+
+		setApplicationGroup: function setApplicationGroup(applicationId, groupId) {
+			return (0, _reqwest2["default"])({
+				url: "/api/applications/SetApplicationGroup",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					ApplicationId: applicationId,
+					ApplicationGroupId: groupId
+				})
+			});
+		}
+	};
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ActionsCreator = __webpack_require__(229);
+	var _ActionsCreator = __webpack_require__(230);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
-	var _reactDropzone = __webpack_require__(230);
+	var _reactDropzone = __webpack_require__(231);
 
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -27854,7 +27918,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -28076,7 +28140,7 @@
 	module.exports = AgentsPage;
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28148,7 +28212,7 @@
 	};
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -28294,7 +28358,7 @@
 
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28311,8 +28375,8 @@
 
 	'use strict';
 
-	var ReactLink = __webpack_require__(232);
-	var ReactStateSetters = __webpack_require__(233);
+	var ReactLink = __webpack_require__(233);
+	var ReactStateSetters = __webpack_require__(234);
 
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -28339,7 +28403,7 @@
 
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28416,7 +28480,7 @@
 
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports) {
 
 	/**
@@ -28526,7 +28590,7 @@
 
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28543,7 +28607,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(235);
+	var _ActionsCreator = __webpack_require__(236);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -28785,7 +28849,7 @@
 	module.exports = EnviromentsPage;
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28836,7 +28900,7 @@
 	};
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28847,7 +28911,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -28855,19 +28919,19 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(237);
+	var _ActionsCreator = __webpack_require__(238);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
-	var _Store = __webpack_require__(245);
+	var _Store = __webpack_require__(246);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
-	var _reactBootstrapLibTabbedArea = __webpack_require__(247);
+	var _reactBootstrapLibTabbedArea = __webpack_require__(248);
 
 	var _reactBootstrapLibTabbedArea2 = _interopRequireDefault(_reactBootstrapLibTabbedArea);
 
-	var _reactBootstrapLibTabPane = __webpack_require__(251);
+	var _reactBootstrapLibTabPane = __webpack_require__(252);
 
 	var _reactBootstrapLibTabPane2 = _interopRequireDefault(_reactBootstrapLibTabPane);
 
@@ -29228,18 +29292,18 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _BaseDispatcher = __webpack_require__(238);
+	var _BaseDispatcher = __webpack_require__(239);
 
 	var _BaseDispatcher2 = _interopRequireDefault(_BaseDispatcher);
 
-	var _Constants = __webpack_require__(243);
+	var _Constants = __webpack_require__(244);
 
 	var _reqwest = __webpack_require__(213);
 
@@ -29345,16 +29409,16 @@
 	};
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _flux = __webpack_require__(239);
+	var _flux = __webpack_require__(240);
 
-	var _objectAssign = __webpack_require__(242);
+	var _objectAssign = __webpack_require__(243);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
@@ -29381,7 +29445,7 @@
 	module.exports = Dispatch;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29393,11 +29457,11 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(240)
+	module.exports.Dispatcher = __webpack_require__(241)
 
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29414,7 +29478,7 @@
 
 	"use strict";
 
-	var invariant = __webpack_require__(241);
+	var invariant = __webpack_require__(242);
 
 	var _lastID = 1;
 	var _prefix = 'ID_';
@@ -29653,7 +29717,7 @@
 
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports) {
 
 	/**
@@ -29712,7 +29776,7 @@
 
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29757,14 +29821,14 @@
 
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _keymirror = __webpack_require__(244);
+	var _keymirror = __webpack_require__(245);
 
 	var _keymirror2 = _interopRequireDefault(_keymirror);
 
@@ -29776,7 +29840,7 @@
 	};
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports) {
 
 	/**
@@ -29835,24 +29899,24 @@
 
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _BaseDispatcher = __webpack_require__(238);
+	var _BaseDispatcher = __webpack_require__(239);
 
 	var _BaseDispatcher2 = _interopRequireDefault(_BaseDispatcher);
 
-	var _Constants = __webpack_require__(243);
+	var _Constants = __webpack_require__(244);
 
 	var _Constants2 = _interopRequireDefault(_Constants);
 
-	var _events = __webpack_require__(246);
+	var _events = __webpack_require__(247);
 
-	var _objectAssign = __webpack_require__(242);
+	var _objectAssign = __webpack_require__(243);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
@@ -29914,7 +29978,7 @@
 	module.exports = DeployUnitsStore;
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -30221,7 +30285,7 @@
 
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30248,7 +30312,7 @@
 
 	var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
 
-	var _Nav = __webpack_require__(248);
+	var _Nav = __webpack_require__(249);
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
@@ -30411,7 +30475,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30432,7 +30496,7 @@
 
 	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
 
-	var _CollapsibleMixin = __webpack_require__(249);
+	var _CollapsibleMixin = __webpack_require__(250);
 
 	var _CollapsibleMixin2 = _interopRequireDefault(_CollapsibleMixin);
 
@@ -30559,7 +30623,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30574,7 +30638,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilsTransitionEvents = __webpack_require__(250);
+	var _utilsTransitionEvents = __webpack_require__(251);
 
 	var _utilsTransitionEvents2 = _interopRequireDefault(_utilsTransitionEvents);
 
@@ -30743,7 +30807,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports) {
 
 	/**
@@ -30863,7 +30927,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30884,7 +30948,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _utilsTransitionEvents = __webpack_require__(250);
+	var _utilsTransitionEvents = __webpack_require__(251);
 
 	var _utilsTransitionEvents2 = _interopRequireDefault(_utilsTransitionEvents);
 
@@ -30978,7 +31042,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30993,11 +31057,11 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(253);
+	var _ActionsCreator = __webpack_require__(254);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
-	var _reactIntl = __webpack_require__(254);
+	var _reactIntl = __webpack_require__(255);
 
 	var _reactIntl2 = _interopRequireDefault(_reactIntl);
 
@@ -31317,7 +31381,7 @@
 	module.exports = DeploymentsPage;
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31365,7 +31429,7 @@
 	};
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* jshint node:true */
@@ -31377,8 +31441,8 @@
 
 	// Require the lib and add all locale data to `ReactIntl`. This module will be
 	// ignored when bundling for the browser with Browserify/Webpack.
-	var ReactIntl = __webpack_require__(255);
-	__webpack_require__(286);
+	var ReactIntl = __webpack_require__(256);
+	__webpack_require__(287);
 
 	// Export the Mixin as the default export for back-compat with v1.0.0. This will
 	// be changed to simply re-exporting `ReactIntl` as the default export in v2.0.
@@ -31409,14 +31473,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext: true */
 
 	"use strict";
 	exports.__addLocaleData = __addLocaleData;
-	var intl$messageformat$$ = __webpack_require__(256), intl$relativeformat$$ = __webpack_require__(266), src$en$$ = __webpack_require__(273), src$mixin$$ = __webpack_require__(274), src$components$date$$ = __webpack_require__(279), src$components$time$$ = __webpack_require__(280), src$components$relative$$ = __webpack_require__(281), src$components$number$$ = __webpack_require__(282), src$components$message$$ = __webpack_require__(283), src$components$html$message$$ = __webpack_require__(284);
+	var intl$messageformat$$ = __webpack_require__(257), intl$relativeformat$$ = __webpack_require__(267), src$en$$ = __webpack_require__(274), src$mixin$$ = __webpack_require__(275), src$components$date$$ = __webpack_require__(280), src$components$time$$ = __webpack_require__(281), src$components$relative$$ = __webpack_require__(282), src$components$number$$ = __webpack_require__(283), src$components$message$$ = __webpack_require__(284), src$components$html$message$$ = __webpack_require__(285);
 	function __addLocaleData(data) {
 	    intl$messageformat$$["default"].__addLocaleData(data);
 	    intl$relativeformat$$["default"].__addLocaleData(data);
@@ -31428,18 +31492,18 @@
 	//# sourceMappingURL=react-intl.js.map
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint node:true */
 
 	'use strict';
 
-	var IntlMessageFormat = __webpack_require__(257)['default'];
+	var IntlMessageFormat = __webpack_require__(258)['default'];
 
 	// Add all locale data to `IntlMessageFormat`. This module will be ignored when
 	// bundling for the browser with Browserify/Webpack.
-	__webpack_require__(265);
+	__webpack_require__(266);
 
 	// Re-export `IntlMessageFormat` as the CommonJS default exports with all the
 	// locale data registered, and with English set as the default locale. Define
@@ -31449,13 +31513,13 @@
 
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jslint esnext: true */
 
 	"use strict";
-	var src$core$$ = __webpack_require__(258), src$en$$ = __webpack_require__(264);
+	var src$core$$ = __webpack_require__(259), src$en$$ = __webpack_require__(265);
 
 	src$core$$["default"].__addLocaleData(src$en$$["default"]);
 	src$core$$["default"].defaultLocale = 'en';
@@ -31465,7 +31529,7 @@
 	//# sourceMappingURL=main.js.map
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31477,7 +31541,7 @@
 	/* jslint esnext: true */
 
 	"use strict";
-	var src$utils$$ = __webpack_require__(259), src$es5$$ = __webpack_require__(260), src$compiler$$ = __webpack_require__(261), intl$messageformat$parser$$ = __webpack_require__(262);
+	var src$utils$$ = __webpack_require__(260), src$es5$$ = __webpack_require__(261), src$compiler$$ = __webpack_require__(262), intl$messageformat$parser$$ = __webpack_require__(263);
 	exports["default"] = MessageFormat;
 
 	// -- MessageFormat --------------------------------------------------------
@@ -31734,7 +31798,7 @@
 	//# sourceMappingURL=core.js.map
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports) {
 
 	/*
@@ -31771,7 +31835,7 @@
 	//# sourceMappingURL=utils.js.map
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31783,7 +31847,7 @@
 	/* jslint esnext: true */
 
 	"use strict";
-	var src$utils$$ = __webpack_require__(259);
+	var src$utils$$ = __webpack_require__(260);
 
 	// Purposely using the same implementation as the Intl.js `Intl` polyfill.
 	// Copyright 2013 Andy Earnshaw, MIT License
@@ -31825,7 +31889,7 @@
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports) {
 
 	/*
@@ -32039,17 +32103,17 @@
 	//# sourceMappingURL=compiler.js.map
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports = module.exports = __webpack_require__(263)['default'];
+	exports = module.exports = __webpack_require__(264)['default'];
 	exports['default'] = exports;
 
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -33395,7 +33459,7 @@
 	//# sourceMappingURL=parser.js.map
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports) {
 
 	// GENERATED FILE
@@ -33405,24 +33469,24 @@
 	//# sourceMappingURL=en.js.map
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint node:true */
 
 	'use strict';
 
-	var IntlRelativeFormat = __webpack_require__(267)['default'];
+	var IntlRelativeFormat = __webpack_require__(268)['default'];
 
 	// Add all locale data to `IntlRelativeFormat`. This module will be ignored when
 	// bundling for the browser with Browserify/Webpack.
-	__webpack_require__(272);
+	__webpack_require__(273);
 
 	// Re-export `IntlRelativeFormat` as the CommonJS default exports with all the
 	// locale data registered, and with English set as the default locale. Define
@@ -33432,13 +33496,13 @@
 
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jslint esnext: true */
 
 	"use strict";
-	var src$core$$ = __webpack_require__(268), src$en$$ = __webpack_require__(271);
+	var src$core$$ = __webpack_require__(269), src$en$$ = __webpack_require__(272);
 
 	src$core$$["default"].__addLocaleData(src$en$$["default"]);
 	src$core$$["default"].defaultLocale = 'en';
@@ -33448,7 +33512,7 @@
 	//# sourceMappingURL=main.js.map
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -33460,7 +33524,7 @@
 	/* jslint esnext: true */
 
 	"use strict";
-	var intl$messageformat$$ = __webpack_require__(256), src$diff$$ = __webpack_require__(269), src$es5$$ = __webpack_require__(270);
+	var intl$messageformat$$ = __webpack_require__(257), src$diff$$ = __webpack_require__(270), src$es5$$ = __webpack_require__(271);
 	exports["default"] = RelativeFormat;
 
 	// -----------------------------------------------------------------------------
@@ -33750,7 +33814,7 @@
 	//# sourceMappingURL=core.js.map
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports) {
 
 	/*
@@ -33801,7 +33865,7 @@
 	//# sourceMappingURL=diff.js.map
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports) {
 
 	/*
@@ -33881,7 +33945,7 @@
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports) {
 
 	// GENERATED FILE
@@ -33889,17 +33953,17 @@
 	exports["default"] = {"locale":"en","pluralRuleFunction":function (n,ord){var s=String(n).split("."),v0=!s[1],t0=Number(s[0])==n,n10=t0&&s[0].slice(-1),n100=t0&&s[0].slice(-2);if(ord)return n10==1&&n100!=11?"one":n10==2&&n100!=12?"two":n10==3&&n100!=13?"few":"other";return n==1&&v0?"one":"other"},"fields":{"year":{"displayName":"Year","relative":{"0":"this year","1":"next year","-1":"last year"},"relativeTime":{"future":{"one":"in {0} year","other":"in {0} years"},"past":{"one":"{0} year ago","other":"{0} years ago"}}},"month":{"displayName":"Month","relative":{"0":"this month","1":"next month","-1":"last month"},"relativeTime":{"future":{"one":"in {0} month","other":"in {0} months"},"past":{"one":"{0} month ago","other":"{0} months ago"}}},"day":{"displayName":"Day","relative":{"0":"today","1":"tomorrow","-1":"yesterday"},"relativeTime":{"future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"}}},"hour":{"displayName":"Hour","relativeTime":{"future":{"one":"in {0} hour","other":"in {0} hours"},"past":{"one":"{0} hour ago","other":"{0} hours ago"}}},"minute":{"displayName":"Minute","relativeTime":{"future":{"one":"in {0} minute","other":"in {0} minutes"},"past":{"one":"{0} minute ago","other":"{0} minutes ago"}}},"second":{"displayName":"Second","relative":{"0":"now"},"relativeTime":{"future":{"one":"in {0} second","other":"in {0} seconds"},"past":{"one":"{0} second ago","other":"{0} seconds ago"}}}}};
 
 	//# sourceMappingURL=en.js.map
-
-/***/ },
-/* 272 */
-/***/ function(module, exports) {
-
-	/* (ignored) */
 
 /***/ },
 /* 273 */
 /***/ function(module, exports) {
 
+	/* (ignored) */
+
+/***/ },
+/* 274 */
+/***/ function(module, exports) {
+
 	// GENERATED FILE
 	"use strict";
 	exports["default"] = {"locale":"en","pluralRuleFunction":function (n,ord){var s=String(n).split("."),v0=!s[1],t0=Number(s[0])==n,n10=t0&&s[0].slice(-1),n100=t0&&s[0].slice(-2);if(ord)return n10==1&&n100!=11?"one":n10==2&&n100!=12?"two":n10==3&&n100!=13?"few":"other";return n==1&&v0?"one":"other"},"fields":{"year":{"displayName":"Year","relative":{"0":"this year","1":"next year","-1":"last year"},"relativeTime":{"future":{"one":"in {0} year","other":"in {0} years"},"past":{"one":"{0} year ago","other":"{0} years ago"}}},"month":{"displayName":"Month","relative":{"0":"this month","1":"next month","-1":"last month"},"relativeTime":{"future":{"one":"in {0} month","other":"in {0} months"},"past":{"one":"{0} month ago","other":"{0} months ago"}}},"day":{"displayName":"Day","relative":{"0":"today","1":"tomorrow","-1":"yesterday"},"relativeTime":{"future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"}}},"hour":{"displayName":"Hour","relativeTime":{"future":{"one":"in {0} hour","other":"in {0} hours"},"past":{"one":"{0} hour ago","other":"{0} hours ago"}}},"minute":{"displayName":"Minute","relativeTime":{"future":{"one":"in {0} minute","other":"in {0} minutes"},"past":{"one":"{0} minute ago","other":"{0} minutes ago"}}},"second":{"displayName":"Second","relative":{"0":"now"},"relativeTime":{"future":{"one":"in {0} second","other":"in {0} seconds"},"past":{"one":"{0} second ago","other":"{0} seconds ago"}}}}};
@@ -33907,14 +33971,14 @@
 	//# sourceMappingURL=en.js.map
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(275), intl$messageformat$$ = __webpack_require__(256), intl$relativeformat$$ = __webpack_require__(266), intl$format$cache$$ = __webpack_require__(276);
+	var src$react$$ = __webpack_require__(276), intl$messageformat$$ = __webpack_require__(257), intl$relativeformat$$ = __webpack_require__(267), intl$format$cache$$ = __webpack_require__(277);
 
 	// -----------------------------------------------------------------------------
 
@@ -34073,7 +34137,7 @@
 	//# sourceMappingURL=mixin.js.map
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports) {
 
 	/* global React */
@@ -34088,21 +34152,21 @@
 	//# sourceMappingURL=react.js.map
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports = module.exports = __webpack_require__(277)['default'];
+	exports = module.exports = __webpack_require__(278)['default'];
 	exports['default'] = exports;
 
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var src$es5$$ = __webpack_require__(278);
+	var src$es5$$ = __webpack_require__(279);
 	exports["default"] = createFormatCache;
 
 	// -----------------------------------------------------------------------------
@@ -34179,7 +34243,7 @@
 	//# sourceMappingURL=memoizer.js.map
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -34226,14 +34290,14 @@
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(275), src$mixin$$ = __webpack_require__(274);
+	var src$react$$ = __webpack_require__(276), src$mixin$$ = __webpack_require__(275);
 
 	var FormattedDate = src$react$$["default"].createClass({
 	    displayName: 'FormattedDate',
@@ -34268,14 +34332,14 @@
 	//# sourceMappingURL=date.js.map
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(275), src$mixin$$ = __webpack_require__(274);
+	var src$react$$ = __webpack_require__(276), src$mixin$$ = __webpack_require__(275);
 
 	var FormattedTime = src$react$$["default"].createClass({
 	    displayName: 'FormattedTime',
@@ -34310,14 +34374,14 @@
 	//# sourceMappingURL=time.js.map
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(275), src$mixin$$ = __webpack_require__(274);
+	var src$react$$ = __webpack_require__(276), src$mixin$$ = __webpack_require__(275);
 
 	var FormattedRelative = src$react$$["default"].createClass({
 	    displayName: 'FormattedRelative',
@@ -34355,14 +34419,14 @@
 	//# sourceMappingURL=relative.js.map
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(275), src$mixin$$ = __webpack_require__(274);
+	var src$react$$ = __webpack_require__(276), src$mixin$$ = __webpack_require__(275);
 
 	var FormattedNumber = src$react$$["default"].createClass({
 	    displayName: 'FormattedNumber',
@@ -34398,14 +34462,14 @@
 	//# sourceMappingURL=number.js.map
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(275), src$mixin$$ = __webpack_require__(274);
+	var src$react$$ = __webpack_require__(276), src$mixin$$ = __webpack_require__(275);
 
 	var FormattedMessage = src$react$$["default"].createClass({
 	    displayName: 'FormattedMessage',
@@ -34486,14 +34550,14 @@
 	//# sourceMappingURL=message.js.map
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(275), src$escape$$ = __webpack_require__(285), src$mixin$$ = __webpack_require__(274);
+	var src$react$$ = __webpack_require__(276), src$escape$$ = __webpack_require__(286), src$mixin$$ = __webpack_require__(275);
 
 	var FormattedHTMLMessage = src$react$$["default"].createClass({
 	    displayName: 'FormattedHTMLMessage',
@@ -34552,7 +34616,7 @@
 	//# sourceMappingURL=html-message.js.map
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports) {
 
 	/* jshint esnext:true */
@@ -34587,13 +34651,13 @@
 	//# sourceMappingURL=escape.js.map
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34610,11 +34674,11 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(288);
+	var _ActionsCreator = __webpack_require__(289);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
-	var _reactIntl = __webpack_require__(254);
+	var _reactIntl = __webpack_require__(255);
 
 	var _reactIntl2 = _interopRequireDefault(_reactIntl);
 
@@ -34858,7 +34922,7 @@
 	module.exports = DeploymentPage;
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34890,7 +34954,7 @@
 	};
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34907,7 +34971,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(290);
+	var _ActionsCreator = __webpack_require__(291);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35063,7 +35127,7 @@
 	module.exports = GroupsPage;
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35100,7 +35164,7 @@
 	};
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35115,7 +35179,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(292);
+	var _ActionsCreator = __webpack_require__(293);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35287,7 +35351,7 @@
 	module.exports = GroupsPage;
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35349,7 +35413,7 @@
 	};
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35360,23 +35424,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ActionsCreator = __webpack_require__(294);
+	var _ActionsCreator = __webpack_require__(295);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
-	var _reactBootstrapLibTabbedArea = __webpack_require__(247);
+	var _reactBootstrapLibTabbedArea = __webpack_require__(248);
 
 	var _reactBootstrapLibTabbedArea2 = _interopRequireDefault(_reactBootstrapLibTabbedArea);
 
-	var _reactBootstrapLibTabPane = __webpack_require__(251);
+	var _reactBootstrapLibTabPane = __webpack_require__(252);
 
 	var _reactBootstrapLibTabPane2 = _interopRequireDefault(_reactBootstrapLibTabPane);
 
-	var _reactD3ComponentsLibPieChart = __webpack_require__(295);
+	var _reactD3ComponentsLibPieChart = __webpack_require__(296);
 
 	var _reactD3ComponentsLibPieChart2 = _interopRequireDefault(_reactD3ComponentsLibPieChart);
 
-	var _reactD3ComponentsLibBarChart = __webpack_require__(303);
+	var _reactD3ComponentsLibBarChart = __webpack_require__(304);
 
 	var _reactD3ComponentsLibBarChart2 = _interopRequireDefault(_reactD3ComponentsLibBarChart);
 
@@ -35500,7 +35564,7 @@
 	module.exports = StatsPage;
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35543,21 +35607,21 @@
 	};
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
-	var Chart = __webpack_require__(297);
-	var Tooltip = __webpack_require__(298);
+	var Chart = __webpack_require__(298);
+	var Tooltip = __webpack_require__(299);
 
-	var DefaultPropsMixin = __webpack_require__(299);
-	var HeightWidthMixin = __webpack_require__(300);
-	var AccessorMixin = __webpack_require__(301);
-	var TooltipMixin = __webpack_require__(302);
+	var DefaultPropsMixin = __webpack_require__(300);
+	var HeightWidthMixin = __webpack_require__(301);
+	var AccessorMixin = __webpack_require__(302);
+	var TooltipMixin = __webpack_require__(303);
 
 	var Wedge = React.createClass({
 		displayName: "Wedge",
@@ -35793,7 +35857,7 @@
 	module.exports = PieChart;
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
@@ -45302,7 +45366,7 @@
 	}();
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45345,13 +45409,13 @@
 	module.exports = Chart;
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
 	var Tooltip = React.createClass({
 		displayName: "Tooltip",
@@ -45395,13 +45459,13 @@
 	module.exports = Tooltip;
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
 	var DefaultPropsMixin = {
 		propTypes: {
@@ -45433,7 +45497,7 @@
 	module.exports = DefaultPropsMixin;
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -45460,7 +45524,7 @@
 	module.exports = HeightWidthMixin;
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45500,13 +45564,13 @@
 	module.exports = AccessorMixin;
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
 	var TooltipMixin = {
 		propTypes: {
@@ -45583,7 +45647,7 @@
 	module.exports = TooltipMixin;
 
 /***/ },
-/* 303 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45591,20 +45655,20 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
-	var Chart = __webpack_require__(297);
-	var Axis = __webpack_require__(304);
-	var Bar = __webpack_require__(305);
-	var Tooltip = __webpack_require__(298);
+	var Chart = __webpack_require__(298);
+	var Axis = __webpack_require__(305);
+	var Bar = __webpack_require__(306);
+	var Tooltip = __webpack_require__(299);
 
-	var DefaultPropsMixin = __webpack_require__(299);
-	var HeightWidthMixin = __webpack_require__(300);
-	var ArrayifyMixin = __webpack_require__(306);
-	var StackAccessorMixin = __webpack_require__(307);
-	var StackDataMixin = __webpack_require__(308);
-	var DefaultScalesMixin = __webpack_require__(309);
-	var TooltipMixin = __webpack_require__(302);
+	var DefaultPropsMixin = __webpack_require__(300);
+	var HeightWidthMixin = __webpack_require__(301);
+	var ArrayifyMixin = __webpack_require__(307);
+	var StackAccessorMixin = __webpack_require__(308);
+	var StackDataMixin = __webpack_require__(309);
+	var DefaultScalesMixin = __webpack_require__(310);
+	var TooltipMixin = __webpack_require__(303);
 
 	var DataSet = React.createClass({
 		displayName: "DataSet",
@@ -45737,13 +45801,13 @@
 	module.exports = BarChart;
 
 /***/ },
-/* 304 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
 	var Axis = React.createClass({
 		displayName: "Axis",
@@ -45922,13 +45986,13 @@
 	module.exports = Axis;
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
 	var Bar = React.createClass({
 		displayName: "Bar",
@@ -45975,7 +46039,7 @@
 	module.exports = Bar;
 
 /***/ },
-/* 306 */
+/* 307 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -46006,7 +46070,7 @@
 	module.exports = ArrayifyMixin;
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46046,13 +46110,13 @@
 	module.exports = StackAccessorMixin;
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
 	var StackDataMixin = {
 		propTypes: {
@@ -46090,7 +46154,7 @@
 	module.exports = StackDataMixin;
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46098,7 +46162,7 @@
 	var _slicedToArray = function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { var _arr = []; for (var _iterator = arr[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) { _arr.push(_step.value); if (i && _arr.length === i) break; } return _arr; } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } };
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(297);
 
 	var DefaultScalesMixin = {
 		propTypes: {
@@ -46278,7 +46342,7 @@
 	module.exports = DefaultScalesMixin;
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46291,7 +46355,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -46299,7 +46363,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(311);
+	var _ActionsCreator = __webpack_require__(312);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -46311,31 +46375,31 @@
 
 	var _reactBootstrapLibModalTrigger2 = _interopRequireDefault(_reactBootstrapLibModalTrigger);
 
-	var _reactBootstrapLibTabbedArea = __webpack_require__(247);
+	var _reactBootstrapLibTabbedArea = __webpack_require__(248);
 
 	var _reactBootstrapLibTabbedArea2 = _interopRequireDefault(_reactBootstrapLibTabbedArea);
 
-	var _reactBootstrapLibTabPane = __webpack_require__(251);
+	var _reactBootstrapLibTabPane = __webpack_require__(252);
 
 	var _reactBootstrapLibTabPane2 = _interopRequireDefault(_reactBootstrapLibTabPane);
 
-	var _DeployTasksDeployUnitsDialog = __webpack_require__(312);
+	var _DeployTasksDeployUnitsDialog = __webpack_require__(313);
 
 	var _DeployTasksDeployUnitsDialog2 = _interopRequireDefault(_DeployTasksDeployUnitsDialog);
 
-	var _MailTaskCreateDialog = __webpack_require__(313);
+	var _MailTaskCreateDialog = __webpack_require__(314);
 
 	var _MailTaskCreateDialog2 = _interopRequireDefault(_MailTaskCreateDialog);
 
-	var _LocalScriptTaskCreateDialog = __webpack_require__(315);
+	var _LocalScriptTaskCreateDialog = __webpack_require__(316);
 
 	var _LocalScriptTaskCreateDialog2 = _interopRequireDefault(_LocalScriptTaskCreateDialog);
 
-	var _RemoteScriptTaskCreateDialog = __webpack_require__(317);
+	var _RemoteScriptTaskCreateDialog = __webpack_require__(318);
 
 	var _RemoteScriptTaskCreateDialog2 = _interopRequireDefault(_RemoteScriptTaskCreateDialog);
 
-	var _DatabaseTasksCreateDialog = __webpack_require__(319);
+	var _DatabaseTasksCreateDialog = __webpack_require__(320);
 
 	var _DatabaseTasksCreateDialog2 = _interopRequireDefault(_DatabaseTasksCreateDialog);
 
@@ -46411,7 +46475,7 @@
 	        { className: "modal-body" },
 	        _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
-	          { modal: _react2["default"].createElement(_DeployTasksDeployUnitsDialog2["default"], { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId }) },
+	          { modal: _react2["default"].createElement(_DeployTasksDeployUnitsDialog2["default"], { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, ApplicationId: this.props.ApplicationId }) },
 	          _react2["default"].createElement(
 	            "button",
 	            { type: "button", className: "btn btn-default btn-lg btn-block" },
@@ -46420,7 +46484,7 @@
 	        ),
 	        _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
-	          { modal: _react2["default"].createElement(_MailTaskCreateDialog2["default"], { onCreate: this.props.onCreate, EnviromentId: this.props.EnviromentId }) },
+	          { modal: _react2["default"].createElement(_MailTaskCreateDialog2["default"], { onCreate: this.props.onCreate, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId }) },
 	          _react2["default"].createElement(
 	            "button",
 	            { type: "button", className: "btn btn-default btn-lg btn-block" },
@@ -46429,7 +46493,7 @@
 	        ),
 	        _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
-	          { modal: _react2["default"].createElement(_LocalScriptTaskCreateDialog2["default"], { onCreate: this.props.onCreate, EnviromentId: this.props.EnviromentId }) },
+	          { modal: _react2["default"].createElement(_LocalScriptTaskCreateDialog2["default"], { onCreate: this.props.onCreate, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId }) },
 	          _react2["default"].createElement(
 	            "button",
 	            { type: "button", className: "btn btn-default btn-lg btn-block" },
@@ -46438,7 +46502,7 @@
 	        ),
 	        _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
-	          { modal: _react2["default"].createElement(_RemoteScriptTaskCreateDialog2["default"], { onCreate: this.props.onCreate, EnviromentId: this.props.EnviromentId }) },
+	          { modal: _react2["default"].createElement(_RemoteScriptTaskCreateDialog2["default"], { onCreate: this.props.onCreate, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId }) },
 	          _react2["default"].createElement(
 	            "button",
 	            { type: "button", className: "btn btn-default btn-lg btn-block" },
@@ -46447,7 +46511,7 @@
 	        ),
 	        _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
-	          { modal: _react2["default"].createElement(_DatabaseTasksCreateDialog2["default"], { onCreate: this.props.onCreate, EnviromentId: this.props.EnviromentId }) },
+	          { modal: _react2["default"].createElement(_DatabaseTasksCreateDialog2["default"], { onCreate: this.props.onCreate, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId }) },
 	          _react2["default"].createElement(
 	            "button",
 	            { type: "button", className: "btn btn-default btn-lg btn-block" },
@@ -46651,7 +46715,7 @@
 	                  "Tasks",
 	                  _react2["default"].createElement(
 	                    _reactBootstrapLibModalTrigger2["default"],
-	                    { modal: _react2["default"].createElement(TaskSelectDialog, { onCreate: this.updateTasks, EnviromentId: this.getParams().enviromentId }) },
+	                    { modal: _react2["default"].createElement(TaskSelectDialog, { onCreate: this.updateTasks, EnviromentId: this.getParams().enviromentId, ApplicationId: this.getParams().applicationId }) },
 	                    _react2["default"].createElement(
 	                      "button",
 	                      { className: "btn btn-xs btn-primary pull-right" },
@@ -46675,7 +46739,9 @@
 	                      Link,
 	                      { to: "deployunitedit", params: {
 	                          applicationName: _this8.getParams().applicationName,
+	                          applicationId: _this8.getParams().applicationId,
 	                          enviroment: _this8.getParams().enviroment,
+	                          enviromentId: _this8.getParams().enviromentId,
 	                          deployUnitName: x.Name,
 	                          deployUnitId: x.Id
 	                        } },
@@ -46692,7 +46758,9 @@
 	                      Link,
 	                      { to: "mailtaskedit", params: {
 	                          applicationName: _this8.getParams().applicationName,
+	                          applicationId: _this8.getParams().applicationId,
 	                          enviroment: _this8.getParams().enviroment,
+	                          enviromentId: _this8.getParams().enviromentId,
 	                          mailTaskName: x.Name,
 	                          taskId: x.Id
 	                        } },
@@ -46709,7 +46777,9 @@
 	                      Link,
 	                      { to: "localscripttaskedit", params: {
 	                          applicationName: _this8.getParams().applicationName,
+	                          applicationId: _this8.getParams().applicationId,
 	                          enviroment: _this8.getParams().enviroment,
+	                          enviromentId: _this8.getParams().enviromentId,
 	                          taskName: x.Name,
 	                          taskId: x.Id
 	                        } },
@@ -46726,7 +46796,9 @@
 	                      Link,
 	                      { to: "remotescripttaskedit", params: {
 	                          applicationName: _this8.getParams().applicationName,
+	                          applicationId: _this8.getParams().applicationId,
 	                          enviroment: _this8.getParams().enviroment,
+	                          enviromentId: _this8.getParams().enviromentId,
 	                          taskName: x.Name,
 	                          taskId: x.Id
 	                        } },
@@ -46743,7 +46815,9 @@
 	                      Link,
 	                      { to: "databasetaskedit", params: {
 	                          applicationName: _this8.getParams().applicationName,
+	                          applicationId: _this8.getParams().applicationId,
 	                          enviroment: _this8.getParams().enviroment,
+	                          enviromentId: _this8.getParams().enviromentId,
 	                          taskName: x.Name,
 	                          taskId: x.Id
 	                        } },
@@ -46896,7 +46970,7 @@
 	module.exports = TasksPage;
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47021,7 +47095,7 @@
 	};
 
 /***/ },
-/* 312 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47034,7 +47108,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47042,11 +47116,11 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(237);
+	var _ActionsCreator = __webpack_require__(238);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
-	var _Store = __webpack_require__(245);
+	var _Store = __webpack_require__(246);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -47323,7 +47397,7 @@
 	module.exports = CreateDialog;
 
 /***/ },
-/* 313 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47336,7 +47410,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(314);
+	var _Actions = __webpack_require__(315);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47344,7 +47418,7 @@
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47445,7 +47519,7 @@
 	module.exports = MailTaskCreateDialog;
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47501,7 +47575,7 @@
 	};
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47514,7 +47588,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(316);
+	var _Actions = __webpack_require__(317);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47522,7 +47596,7 @@
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47601,7 +47675,7 @@
 	module.exports = LocalScriptTaskCreateDialog;
 
 /***/ },
-/* 316 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47653,7 +47727,7 @@
 	};
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47666,7 +47740,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(318);
+	var _Actions = __webpack_require__(319);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47674,7 +47748,7 @@
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47775,7 +47849,7 @@
 	module.exports = RemoteScriptTaskCreateDialog;
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47831,7 +47905,7 @@
 	};
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47844,7 +47918,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(320);
+	var _Actions = __webpack_require__(321);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47852,7 +47926,7 @@
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -47867,17 +47941,26 @@
 	      Pack: "",
 	      DatabaseName: "",
 	      "Repository": "",
-	      Machine: ""
+	      Machine: "",
+	      Agents: []
 	    };
 	  },
 
-	  create: function create() {
+	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 
+	    _Actions2["default"].getAgents(this.props.EnviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  create: function create() {
+	    var _this2 = this;
+
 	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
-	      _Actions2["default"].createDatabaseTask(this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.props.EnviromentId, this.state.Repository, this.state.Machine).then(function (x) {
-	        _this.props.onCreate();
-	        _this.props.onRequestHide();
+	      _Actions2["default"].createDatabaseTask(this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.props.EnviromentId, this.state.Repository, this.state.Machine, this.props.ApplicationId).then(function (x) {
+	        _this2.props.onCreate();
+	        _this2.props.onRequestHide();
 	      });
 	    }
 	  },
@@ -47930,7 +48013,19 @@
 	              { htmlFor: "Machine" },
 	              "Machine"
 	            ),
-	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "Machine", placeholder: "Machine", valueLink: this.linkState('Machine') })
+	            _react2["default"].createElement(
+	              "select",
+	              { className: "form-control", id: "Machine", valueLink: this.linkState('Machine') },
+	              this.state.Agents.map(function (x) {
+	                return _react2["default"].createElement(
+	                  "option",
+	                  { value: x.Id },
+	                  x.Name,
+	                  "- ",
+	                  x.Address
+	                );
+	              })
+	            )
 	          ),
 	          _react2["default"].createElement(
 	            "div",
@@ -47975,7 +48070,7 @@
 	module.exports = DatabaseTaskCreateDialog;
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47987,6 +48082,15 @@
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
 	module.exports = {
+	  getAgents: function getAgents(id) {
+	    return (0, _reqwest2["default"])({
+	      url: "/api/Agents/AgentsByEnviroment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
 	  getDatabaseTask: function getDatabaseTask(id) {
 	    return (0, _reqwest2["default"])({
 	      url: "/api/DatabaseTasks/" + id,
@@ -47996,9 +48100,9 @@
 	    });
 	  },
 
-	  createDatabaseTask: function createDatabaseTask(name, connectionString, pack, databaseName, enviromentId, repository, machine) {
+	  createDatabaseTask: function createDatabaseTask(name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/DatabaseTasks",
+	      url: "/api/DatabaseTasks/CreateDatabaseTask",
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "post",
@@ -48009,33 +48113,35 @@
 	        Package: pack,
 	        DatabaseName: databaseName,
 	        Repository: repository,
-	        Machine: machine
+	        AgentId: agentId,
+	        ApplicationId: applicationId
 	      })
 	    });
 	  },
 
-	  updateDatabaseTask: function updateDatabaseTask(id, name, connectionString, pack, databaseName, enviromentId, repository, machine) {
+	  updateDatabaseTask: function updateDatabaseTask(id, name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/DatabaseTasks",
+	      url: "/api/DatabaseTasks/ModifyDatabaseTask",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "put",
+	      method: "post",
 	      data: JSON.stringify({
-	        Id: id,
+	        DatabaseTaskId: id,
 	        EnviromentId: enviromentId,
 	        Name: name,
 	        ConnectionString: connectionString,
 	        Package: pack,
 	        DatabaseName: databaseName,
 	        Repository: repository,
-	        Machine: machine
+	        AgentId: agentId,
+	        ApplicationId: applicationId
 	      })
 	    });
 	  }
 	};
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48046,7 +48152,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -48054,7 +48160,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(314);
+	var _Actions = __webpack_require__(315);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48158,7 +48264,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48169,7 +48275,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -48177,7 +48283,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(316);
+	var _Actions = __webpack_require__(317);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48268,7 +48374,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 323 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48279,7 +48385,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -48287,7 +48393,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(318);
+	var _Actions = __webpack_require__(319);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48400,7 +48506,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 324 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48411,7 +48517,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactLibLinkedStateMixin = __webpack_require__(231);
+	var _reactLibLinkedStateMixin = __webpack_require__(232);
 
 	var _reactLibLinkedStateMixin2 = _interopRequireDefault(_reactLibLinkedStateMixin);
 
@@ -48419,7 +48525,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(320);
+	var _Actions = __webpack_require__(321);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48442,7 +48548,8 @@
 				Pack: "",
 				DatabaseName: "",
 				Repository: "",
-				Machine: ""
+				AgentId: "",
+				Agents: []
 			};
 		},
 
@@ -48453,11 +48560,14 @@
 				x.Pack = x.Package;
 				_this.setState(x);
 			});
+			_Actions2["default"].getAgents(this.getParams().enviromentId).then(function (x) {
+				_this.setState({ Agents: x });
+			});
 		},
 
 		save: function save() {
 			if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
-				_Actions2["default"].updateDatabaseTask(this.state.Id, this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.state.EnviromentId, this.state.Repository, this.state.Machine);
+				_Actions2["default"].updateDatabaseTask(this.state.Id, this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.state.EnviromentId, this.state.Repository, this.state.AgentId, this.state.ApplicationId);
 			}
 		},
 
@@ -48517,10 +48627,22 @@
 						{ className: "form-group" },
 						_react2["default"].createElement(
 							"label",
-							{ htmlFor: "Machine" },
+							{ htmlFor: "AgentId" },
 							"Machine"
 						),
-						_react2["default"].createElement("input", { type: "text", className: "form-control", id: "Machine", placeholder: "Machine", valueLink: this.linkState('Machine') })
+						_react2["default"].createElement(
+							"select",
+							{ className: "form-control", id: "AgentId", valueLink: this.linkState('AgentId') },
+							this.state.Agents.map(function (x) {
+								return _react2["default"].createElement(
+									"option",
+									{ value: x.Id },
+									x.Name,
+									"- ",
+									x.Address
+								);
+							})
+						)
 					),
 					_react2["default"].createElement(
 						"div",
@@ -48553,70 +48675,6 @@
 	});
 
 	module.exports = EditPage;
-
-/***/ },
-/* 325 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _reqwest = __webpack_require__(213);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	module.exports = {
-		updateAllEnviroments: function updateAllEnviroments() {
-			return (0, _reqwest2["default"])({
-				url: "/api/enviroments/",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-		},
-
-		getApplicationInfo: function getApplicationInfo(id) {
-			return (0, _reqwest2["default"])({
-				url: "/api/applications/" + id,
-				method: "get",
-				type: 'json'
-			});
-		},
-
-		getApplicationGroups: function getApplicationGroups() {
-			return (0, _reqwest2["default"])({
-				url: "/api/applications/applicationGroups/",
-				method: "get",
-				type: 'json'
-			});
-		},
-
-		createApplicationGroup: function createApplicationGroup(name) {
-			return (0, _reqwest2["default"])({
-				url: "/api/applications/CreateApplicationGroup",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					Name: name
-				})
-			});
-		},
-
-		setApplicationGroup: function setApplicationGroup(applicationId, groupId) {
-			return (0, _reqwest2["default"])({
-				url: "/api/applications/SetApplicationGroup",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					ApplicationId: applicationId,
-					ApplicationGroupId: groupId
-				})
-			});
-		}
-	};
 
 /***/ }
 /******/ ]);

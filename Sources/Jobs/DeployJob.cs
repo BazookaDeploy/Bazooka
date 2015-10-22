@@ -171,11 +171,11 @@
                     session.Flush();
                 }
 
-                var address = unit.Machine;
+                var address = unit.AgentName;
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(unit.Machine);
+                    client.BaseAddress = new Uri(unit.AgentName);
                     client.Timeout = TimeSpan.FromSeconds(300);
 
                     var result2 = client.PostAsJsonAsync("/api/deploy/databaseDeploy", new DatabaseDeployDto()

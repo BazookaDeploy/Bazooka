@@ -11,6 +11,7 @@
         public virtual int ApplicationId { get; set; }
 
         public virtual string Repository { get; set; }
-        public virtual string Machine { get; set; }
+        public virtual int AgentId { get; set; }
+        public virtual string AgentName { get; set; }
     }
 }

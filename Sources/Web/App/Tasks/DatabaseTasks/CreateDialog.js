@@ -12,13 +12,20 @@ var DatabaseTaskCreateDialog = React.createClass({
       Pack:"",
       DatabaseName:"",
       "Repository":"",
-      Machine:""
+      Machine:"",
+      Agents:[]
     };
+  },
+
+  componentDidMount:function(){
+    Actions.getAgents(this.props.EnviromentId).then(x => {
+      this.setState({Agents:x})
+    })
   },
 
   create:function(){
     if(this.state.Name!="" && this.state.ConnectionString!=""&& this.state.Pack!=""&& this.state.DatabaseName!=""&& this.state.Repository!=""&& this.state.Machine!=""){
-      Actions.createDatabaseTask(this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.props.EnviromentId,this.state.Repository,this.state.Machine).then(x => {
+      Actions.createDatabaseTask(this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.props.EnviromentId,this.state.Repository,this.state.Machine, this.props.ApplicationId).then(x => {
         this.props.onCreate();
         this.props.onRequestHide();
       })
@@ -44,7 +51,9 @@ var DatabaseTaskCreateDialog = React.createClass({
          </div>
          <div className="form-group">
            <label htmlFor="Machine">Machine</label>
-           <input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('Machine')} />
+           <select  className="form-control" id="Machine" valueLink={this.linkState('Machine')}>
+             {this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
+          </select>
          </div>
          <div className="form-group">
            <label htmlFor="Repository">Repository</label>
