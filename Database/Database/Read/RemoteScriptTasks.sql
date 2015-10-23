@@ -1,2 +1,11 @@
 ﻿CREATE VIEW rd.[RemoteScriptTasks]
-	AS SELECT [Id], [Script], [Machine], [Name], [EnviromentId],ApplicationId , Folder FROM [dbo].RemoteScriptTasks
+	AS SELECT [RemoteScriptTasks].[Id], 
+			  [Script], 
+			  AgentId, 
+			  Agents.Name AS AgentName, 
+			  Agents.[Address], 
+			  [RemoteScriptTasks].[Name], 
+			  [RemoteScriptTasks].[EnviromentId],
+			  [RemoteScriptTasks].ApplicationId ,
+			  Folder 
+	FROM [dbo].RemoteScriptTasks JOIN dbo.Agents ON AgentId = Agents.Id

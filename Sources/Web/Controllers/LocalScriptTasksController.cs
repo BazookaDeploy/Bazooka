@@ -1,44 +1,30 @@
 ﻿namespace Web.Controllers
 {
+    using Commands;
     using DataAccess.Read;
     using DataAccess.Write;
     using System.Linq;
     using System.Web.Http;
 
-    public class LocalScriptTasksController : ApiController
+    public class LocalScriptTasksController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext db { get; set; }
 
         public LocalScriptTaskDto Get(int id)
         {
-            return db.LocalScriptTasks.Single(x => x.Id == id);
+            return db.Query<LocalScriptTaskDto>().Single(x => x.Id == id);
         }
 
-        public void Put(LocalScriptTask unit)
+        [HttpPost]
+        public ExecutionResult CreateLocalScriptTask(CreateLocalScriptTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            };
+            return Execute(command);
         }
 
-        public void Post(LocalScriptTask unit)
+        [HttpPost]
+        public ExecutionResult ModifyLocalScriptTask(ModifyLocalScriptTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            };
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return Execute(command);
         }
     }
 }

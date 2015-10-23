@@ -18,7 +18,7 @@ namespace DataAccess.Write
                 });
 
             Property(x => x.Directory, x => x.Length(200));
-            Property(x => x.Machine, x => x.Length(200));
+            Property(x => x.AgentId);
             Property(x => x.Name, x => x.Length(200));
             Property(x => x.EnviromentId, x => x.NotNullable(true));
             Property(x => x.ApplicationId, x => x.NotNullable(true));

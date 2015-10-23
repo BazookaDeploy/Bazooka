@@ -230,6 +230,14 @@
     <Compile Include="App_Start\WindsorInstaller.cs" />
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
     <Compile Include="CommandHandlers\Application\CreateDatabaseTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateRemoteScriptTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateMailTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateLocalScriptTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateDeployTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyRemoteScriptTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyMailTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyLocalScriptTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyDeployTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\ModifyDatabaseTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\SetApplicationGroupBusinessRule.cs" />
     <Compile Include="CommandHandlers\Application\CreateApplicationGroupBusinessRule.cs" />

@@ -7,8 +7,6 @@ namespace Web.Commands
     {
         public virtual int DeployTaskId { get; set; }
 
-        public virtual int EnviromentId { get; set; }
-
         public virtual int ApplicationId { get; set; }
 
         public virtual string Name { get; set; }
@@ -20,8 +18,6 @@ namespace Web.Commands
         public virtual string Directory { get; set; }
 
         public virtual string Repository { get; set; }
-
-        public virtual string CurrentlyDeployedVersion { get; set; }
 
         public virtual string InstallScript { get; set; }
 

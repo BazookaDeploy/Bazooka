@@ -2,7 +2,7 @@
 {
     public class ModifyMailTask : ICommand
     {
-        public virtual string MailtaskId { get; set; }
+        public virtual int MailTaskId { get; set; }
 
         public virtual string Name { get; set; }
 

@@ -52,6 +52,50 @@ namespace DataAccess.Write
                 },
                 x => x.OneToMany()
             );
+
+            Bag(
+                 x => x.DeployTasks,
+                 map =>
+                 {
+                     map.Key(km => km.Column("ApplicationId"));
+                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                     map.Inverse(true);
+                 },
+                 x => x.OneToMany()
+             );
+
+            Bag(
+                 x => x.MailTasks,
+                 map =>
+                 {
+                     map.Key(km => km.Column("ApplicationId"));
+                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                     map.Inverse(true);
+                 },
+                 x => x.OneToMany()
+             );
+
+            Bag(
+                 x => x.LocalScriptTasks,
+                 map =>
+                 {
+                     map.Key(km => km.Column("ApplicationId"));
+                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                     map.Inverse(true);
+                 },
+                 x => x.OneToMany()
+             );
+
+            Bag(
+                 x => x.RemoteScriptTasks,
+                 map =>
+                 {
+                     map.Key(km => km.Column("ApplicationId"));
+                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                     map.Inverse(true);
+                 },
+                 x => x.OneToMany()
+             );
         }
     }
 }

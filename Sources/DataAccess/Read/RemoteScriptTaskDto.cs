@@ -6,7 +6,11 @@
 
         public string Script { get; set; }
 
-        public string Machine { get; set; }
+        public int AgentId { get; set; }
+
+        public string AgentName { get; set; }
+
+        public string Address { get; set; }
 
         public string Name { get; set; }
 

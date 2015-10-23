@@ -6,7 +6,7 @@
 
         public virtual string Script { get; set; }
 
-        public virtual string Machine { get; set; }
+        public virtual int AgentId { get; set; }
 
         public virtual string Name { get; set; }
 

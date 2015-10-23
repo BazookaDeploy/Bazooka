@@ -4,56 +4,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using Web.Commands;
 
 namespace Web.Controllers
 {
-    public class DeployTasksController : ApiController
+    public class DeployTasksController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext db { get; set; }
 
-        // GET: api/Applications
-         [HttpGet, Route("api/DeployTasks/Tasks")]
-        public ICollection<DeployTaskDto> Tasks(int id)
+        public DeployTaskDto Get(int id)
         {
-            return db.DeploTasks.Where(x => x.EnviromentId == id).ToList();
+            return db.Query<DeployTaskDto>().Single(x => x.Id == id);
         }
 
-        [HttpGet, Route("api/DeployTasks/DeployTask")]
-         public DeployTaskDto DeployTask(int id)
+        [HttpPost]
+        public ExecutionResult CreateDeployTask(CreateDeployTask command)
         {
-            return db.DeploTasks.Single(x => x.Id == id);
+            return Execute(command);
         }
 
-        public void Put(DeployTask unit)
+        [HttpPost]
+        public ExecutionResult ModifyDeployTask(ModifyDeployTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                foreach (var p in unit.AdditionalParameters)
-                {
-                    p.DeployTaskId = unit.Id;
-                }
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            };
-        }
-
-        public void Post(DeployTask unit)
-        {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                var parameters = unit.AdditionalParameters;
-                unit.AdditionalParameters = null;
-
-                session.Save(unit);
-                foreach (var p in parameters)
-                {
-                    p.DeployTaskId = unit.Id;
-                }
-                unit.AdditionalParameters = parameters;
-                session.SaveOrUpdate(unit);
-
-                session.Flush();
-            };
+            return Execute(command);
         }
 
         [HttpGet, Route("api/DeployTasks/test")]
@@ -65,15 +38,6 @@ namespace Web.Controllers
             {
                 Success = res.IsSuccessStatusCode
             };
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

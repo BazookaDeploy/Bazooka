@@ -17,7 +17,11 @@ namespace DataAccess.Read
 
         public virtual string EnviromentName { get; set; }
 
-        public virtual string Machine { get; set; }
+        public virtual int AgentId  { get; set; }
+
+        public virtual string AgentName { get; set; }
+
+        public virtual string Address { get; set; }
 
         public virtual string PackageName { get; set; }
 

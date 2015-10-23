@@ -21,7 +21,7 @@
             Property(x => x.Name);
             Property(x => x.Folder);
             Property(x => x.Script, x => { x.NotNullable(true); x.Type(NHibernateUtil.StringClob); });
-            Property(x => x.Machine);
+            Property(x => x.AgentId);
         }
     }
 }
