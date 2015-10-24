@@ -10,13 +10,20 @@ var RemoteScriptTaskCreateDialog = React.createClass({
       Name:"",
       Script:"",
       Machine:"",
-      Folder:""
+      Folder:"",
+      Agents:[]
     };
+  },
+
+  componentDidMount:function(){
+    Actions.getAgents(this.props.EnviromentId).then(x => {
+      this.setState({Agents:x})
+    })
   },
 
   create:function(){
     if(this.state.Name!="" && this.state.Script!=""&& this.state.Machine!=""&& this.state.Folder!=""){
-      Actions.createRemoteScriptTask(this.state.Name, this.state.Script,this.state.Machine,this.state.Folder, this.props.EnviromentId).then(x => {
+      Actions.createRemoteScriptTask(this.state.Name, this.state.Script,this.state.Machine,this.state.Folder, this.props.EnviromentId, this.props.ApplicationId).then(x => {
         this.props.onCreate();
         this.props.onRequestHide();
       })
@@ -34,7 +41,10 @@ var RemoteScriptTaskCreateDialog = React.createClass({
          </div>
          <div className="form-group">
            <label htmlFor="Machine">Machine</label>
-           <input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('Machine')} />
+             <select  className="form-control" id="Machine" valueLink={this.linkState('Machine')}>
+               <option></option>
+               {this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
+            </select>
          </div>
          <div className="form-group">
            <label htmlFor="Folder">Folder</label>

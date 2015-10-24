@@ -47439,7 +47439,7 @@
 	    var _this = this;
 
 	    if (this.state.Name != "" && this.state.Recipients != "" && this.state.Sender != "") {
-	      _Actions2["default"].createMailTask(this.state.Name, this.state.Text, this.state.Recipients, this.state.Sender, this.props.EnviromentId).then(function (x) {
+	      _Actions2["default"].createMailTask(this.state.Name, this.state.Text, this.state.Recipients, this.state.Sender, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
 	        _this.props.onRequestHide();
 	        _this.props.onCreate();
 	      });
@@ -47540,9 +47540,9 @@
 	    });
 	  },
 
-	  createMailTask: function createMailTask(name, text, recipients, sender, enviromentId) {
+	  createMailTask: function createMailTask(name, text, recipients, sender, enviromentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/mailTasks",
+	      url: "/api/mailTasks/CreateMailtask",
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "post",
@@ -47551,24 +47551,26 @@
 	        Name: name,
 	        Text: text,
 	        Recipients: recipients,
-	        Sender: sender
+	        Sender: sender,
+	        ApplicationId: applicationId
 	      })
 	    });
 	  },
 
-	  updateMailTask: function updateMailTask(id, name, text, recipients, sender, enviromentId) {
+	  updateMailTask: function updateMailTask(id, name, text, recipients, sender, enviromentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/mailTasks",
+	      url: "/api/mailTasks/ModifyMailTask",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "put",
+	      method: "post",
 	      data: JSON.stringify({
-	        Id: id,
+	        MailTaskId: id,
 	        EnviromentId: enviromentId,
 	        Name: name,
 	        Text: text,
 	        Recipients: recipients,
-	        Sender: sender
+	        Sender: sender,
+	        ApplicationId: applicationId
 	      })
 	    });
 	  }
@@ -47615,7 +47617,7 @@
 	    var _this = this;
 
 	    if (this.state.Name != "" && this.state.Script != "") {
-	      _Actions2["default"].createLocalScriptTask(this.state.Name, this.state.Script, this.props.EnviromentId).then(function (x) {
+	      _Actions2["default"].createLocalScriptTask(this.state.Name, this.state.Script, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
 	        _this.props.onCreate();
 	        _this.props.onRequestHide();
 	      });
@@ -47696,31 +47698,33 @@
 	    });
 	  },
 
-	  createLocalScriptTask: function createLocalScriptTask(name, script, enviromentId) {
+	  createLocalScriptTask: function createLocalScriptTask(name, script, enviromentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/LocalScriptTasks",
+	      url: "/api/LocalScriptTasks/CreateLocalScriptTask",
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "post",
 	      data: JSON.stringify({
 	        EnviromentId: enviromentId,
 	        Name: name,
-	        Script: script
+	        Script: script,
+	        ApplicationId: applicationId
 	      })
 	    });
 	  },
 
-	  updateLocalScriptTask: function updateLocalScriptTask(id, name, script, enviromentId) {
+	  updateLocalScriptTask: function updateLocalScriptTask(id, name, script, enviromentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/LocalScriptTasks",
+	      url: "/api/LocalScriptTasks/ModifyLocalScriptTask",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "put",
+	      method: "post",
 	      data: JSON.stringify({
-	        Id: id,
+	        LocalScriptTaskId: id,
 	        EnviromentId: enviromentId,
 	        Name: name,
-	        Script: script
+	        Script: script,
+	        ApplicationId: applicationId
 	      })
 	    });
 	  }
@@ -47761,17 +47765,26 @@
 	      Name: "",
 	      Script: "",
 	      Machine: "",
-	      Folder: ""
+	      Folder: "",
+	      Agents: []
 	    };
 	  },
 
-	  create: function create() {
+	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 
+	    _Actions2["default"].getAgents(this.props.EnviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  create: function create() {
+	    var _this2 = this;
+
 	    if (this.state.Name != "" && this.state.Script != "" && this.state.Machine != "" && this.state.Folder != "") {
-	      _Actions2["default"].createRemoteScriptTask(this.state.Name, this.state.Script, this.state.Machine, this.state.Folder, this.props.EnviromentId).then(function (x) {
-	        _this.props.onCreate();
-	        _this.props.onRequestHide();
+	      _Actions2["default"].createRemoteScriptTask(this.state.Name, this.state.Script, this.state.Machine, this.state.Folder, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
+	        _this2.props.onCreate();
+	        _this2.props.onRequestHide();
 	      });
 	    }
 	  },
@@ -47804,7 +47817,20 @@
 	              { htmlFor: "Machine" },
 	              "Machine"
 	            ),
-	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "Machine", placeholder: "Machine", valueLink: this.linkState('Machine') })
+	            _react2["default"].createElement(
+	              "select",
+	              { className: "form-control", id: "Machine", valueLink: this.linkState('Machine') },
+	              _react2["default"].createElement("option", null),
+	              this.state.Agents.map(function (x) {
+	                return _react2["default"].createElement(
+	                  "option",
+	                  { value: x.Id },
+	                  x.Name,
+	                  "- ",
+	                  x.Address
+	                );
+	              })
+	            )
 	          ),
 	          _react2["default"].createElement(
 	            "div",
@@ -47870,9 +47896,18 @@
 	    });
 	  },
 
-	  createRemoteScriptTask: function createRemoteScriptTask(name, script, machine, folder, enviromentId) {
+	  getAgents: function getAgents(id) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/RemoteScriptTasks",
+	      url: "/api/Agents/AgentsByEnviroment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  createRemoteScriptTask: function createRemoteScriptTask(name, script, machine, folder, enviromentId, applicationId) {
+	    return (0, _reqwest2["default"])({
+	      url: "/api/RemoteScriptTasks/CreateRemoteScriptTask",
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "post",
@@ -47880,25 +47915,27 @@
 	        EnviromentId: enviromentId,
 	        Name: name,
 	        Script: script,
-	        Machine: machine,
-	        Folder: folder
+	        AgentId: machine,
+	        Folder: folder,
+	        ApplicationId: applicationId
 	      })
 	    });
 	  },
 
-	  updateRemoteScriptTask: function updateRemoteScriptTask(id, name, script, machine, folder, enviromentId) {
+	  updateRemoteScriptTask: function updateRemoteScriptTask(id, name, script, machine, folder, enviromentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/RemoteScriptTasks",
+	      url: "/api/RemoteScriptTasks/ModifyRemoteScriptTask",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "put",
+	      method: "post",
 	      data: JSON.stringify({
-	        Id: id,
+	        RemoteScriptTaskId: id,
 	        EnviromentId: enviromentId,
 	        Name: name,
 	        Script: script,
-	        Machine: machine,
-	        Folder: folder
+	        AgentId: machine,
+	        Folder: folder,
+	        ApplicationId: applicationId
 	      })
 	    });
 	  }
@@ -48191,13 +48228,16 @@
 	    _Actions2["default"].getMailTask(this.getParams().taskId).then(function (x) {
 	      _this.setState(x);
 	    });
+	    _Actions2["default"].getAgents(this.props.EnviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
 	  },
 
 	  save: function save() {
 	    var _this2 = this;
 
 	    if (this.state.Name != "" && this.state.Recipients != "" && this.state.Sender != "") {
-	      _Actions2["default"].updateMailTask(this.state.Id, this.state.Name, this.state.Text, this.state.Recipients, this.state.Sender, this.state.EnviromentId).then(function (x) {
+	      _Actions2["default"].updateMailTask(this.state.Id, this.state.Name, this.state.Text, this.state.Recipients, this.state.Sender, this.state.EnviromentId, this.state.ApplicationId).then(function (x) {
 	        _this2.props.onRequestHide();
 	        _this2.props.onTaskCreate();
 	      });
@@ -48316,7 +48356,7 @@
 
 	  save: function save() {
 	    if (this.state.Name != "" && this.state.Script != "") {
-	      _Actions2["default"].updateLocalScriptTask(this.state.Id, this.state.Name, this.state.Script, this.state.EnviromentId);
+	      _Actions2["default"].updateLocalScriptTask(this.state.Id, this.state.Name, this.state.Script, this.state.EnviromentId, this.state.ApplicationId);
 	    }
 	  },
 
@@ -48413,8 +48453,9 @@
 	      EnviromentId: 0,
 	      Name: "",
 	      Script: "",
-	      Machine: "",
-	      Folder: ""
+	      AgentId: "",
+	      Folder: "",
+	      Agents: []
 	    };
 	  },
 
@@ -48424,11 +48465,14 @@
 	    _Actions2["default"].getRemoteScriptTask(this.getParams().taskId).then(function (x) {
 	      _this.setState(x);
 	    });
+	    _Actions2["default"].getAgents(this.getParams().enviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
 	  },
 
 	  save: function save() {
 	    if (this.state.Name != "" && this.state.Script != "" && this.state.Machine != "" && this.state.Folder != "") {
-	      _Actions2["default"].updateRemoteScriptTask(this.state.Id, this.state.Name, this.state.Script, this.state.Machine, this.state.Folder, this.state.EnviromentId);
+	      _Actions2["default"].updateRemoteScriptTask(this.state.Id, this.state.Name, this.state.Script, this.state.AgentId, this.state.Folder, this.state.EnviromentId, this.state.ApplicationId);
 	    }
 	  },
 
@@ -48468,10 +48512,22 @@
 	          { className: "form-group" },
 	          _react2["default"].createElement(
 	            "label",
-	            { htmlFor: "Machine" },
+	            { htmlFor: "AgentId" },
 	            "Machine"
 	          ),
-	          _react2["default"].createElement("input", { type: "text", className: "form-control", id: "Machine", placeholder: "Machine", valueLink: this.linkState('Machine') })
+	          _react2["default"].createElement(
+	            "select",
+	            { className: "form-control", id: "AgentId", valueLink: this.linkState('AgentId') },
+	            this.state.Agents.map(function (x) {
+	              return _react2["default"].createElement(
+	                "option",
+	                { value: x.Id },
+	                x.Name,
+	                "- ",
+	                x.Address
+	              );
+	            })
+	          )
 	        ),
 	        _react2["default"].createElement(
 	          "div",

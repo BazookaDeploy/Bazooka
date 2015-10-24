@@ -155,7 +155,7 @@ namespace DataAccess.Write
             {
                 ApplicationId = this.Id,
                 EnviromentId = enviromentId,
-                Name = Name,
+                Name = name,
                 Script = script
             });
         }
@@ -163,7 +163,7 @@ namespace DataAccess.Write
         public virtual void ModifyLocalScriptTask(int id, int enviromentId, string script, string name)
         {
             var task = this.LocalScriptTasks.Single(x => x.Id == id);
-            task.Name = Name;
+            task.Name = name;
             task.Script = script;
         }
 
@@ -183,7 +183,7 @@ namespace DataAccess.Write
         public virtual void ModifyMailTask(int id, int enviromentId, string name, string text, string recipients, string sender)
         {
             var task = this.MailTasks.Single(x => x.Id == id);
-            task.Name = Name;
+            task.Name = name;
             task.Recipients = recipients;
             task.Sender = sender;
             task.Text = text;
@@ -195,7 +195,7 @@ namespace DataAccess.Write
             {
                 ApplicationId = this.Id,
                 EnviromentId = enviromentId,
-                Name = Name,
+                Name = name,
                 Script = script,
                 AgentId = agentId,
                 Folder = folder
@@ -205,7 +205,7 @@ namespace DataAccess.Write
         public virtual void ModifyRemoteScriptTask(int id, int enviromentId, string script, string name, string folder, int agentId)
         {
             var task = this.RemoteScriptTasks.Single(x => x.Id == id);
-            task.Name = Name;
+            task.Name = name;
             task.Script = script;
             task.AgentId = agentId;
             task.Folder = folder;
