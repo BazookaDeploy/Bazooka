@@ -66,6 +66,10 @@ var EditPage = React.createClass({
 		Store.addChangeListener(this._onChange);
 		var id = this.getParams().deployUnitId;
 		Actions.updateDeployUnit(id);
+
+		Actions.getAgents(this.getParams().enviromentId).then(x => {
+			this.setState({Agents:x})
+		})
 	},
 
 	componentWillUnmount: function() {
@@ -79,7 +83,7 @@ var EditPage = React.createClass({
 			Id: env.Id,
 			Enviroment: env.EnviromentId,
 			Name:env.Name,
-			Machine:env.Machine,
+			AgentId:env.AgentId,
 			PackageName: env.PackageName,
 			Directory:env.Directory,
 			Repository:env.Repository,
@@ -99,7 +103,8 @@ var EditPage = React.createClass({
 
 		return {
 			Name:null,
-			Machine:null,
+			AgentId:null,
+			Agents:[],
 			PackageName: null,
 			Directory:null,
 			Repository:null,
@@ -117,11 +122,12 @@ var EditPage = React.createClass({
 	},
 
 	save:function(){
+		debugger;
 		Actions.modifyDeployUnit(
 			this.state.Id,
 			this.state.Enviroment,
 			this.state.Name,
-			this.state.Machine,
+			this.state.AgentId,
 			this.state.PackageName,
 			this.state.Directory,
 			this.state.Repository,
@@ -130,7 +136,8 @@ var EditPage = React.createClass({
 			this.state.InstallationScript,
 			this.state.ConfigurationFile,
 			this.state.ConfigTransform,
-			this.state.Configuration
+			this.state.Configuration,
+			this.props.params.applicationId
 			);
 
     return false;
@@ -150,13 +157,10 @@ var EditPage = React.createClass({
 								<input type="text" className="form-control" id="Name" placeholder="Name" valueLink={this.linkState('Name')} />
 							</div>
 							<div className="form-group">
-								<label htmlFor="Machine">Machine</label>
-									<div className="input-group">
-										<input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('Machine')} />
-										<span className="input-group-btn">
-											<button className="btn btn-primary" onClick={this.testAgent} >Test</button>
-										</span>
-									</div>
+								<label htmlFor="AgentId">Machine</label>
+									<select  className="form-control" id="AgentId" valueLink={this.linkState('AgentId')}>
+											{this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
+									</select>
 									<h5>Additional Params</h5>
 										<ul>
 											{this.state.Parameters.map(a => (<li>{a.Name} = {a.Encrypted? "********" : a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}><i className="glyphicon glyphicon-trash"></i></button></li>))}

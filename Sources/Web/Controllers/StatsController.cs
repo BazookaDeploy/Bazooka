@@ -5,24 +5,26 @@
     using System.Linq;
     using System.Web.Http;
 
-    public class StatsController : ApiController
+    public class StatsController : BaseController
     {
-        private ReadContext db = new ReadContext();
-
+        public IReadContext db
+        {
+            get; set;
+        }
 
         [HttpGet]
         public object Statistics(DateTime startDate)
         {
-            var apps = db.Deployments
+            var apps = db.Query<DeploymentDto>()
                             .Where(x => x.StartDate > startDate)
                             .Select(x => x.Name)
                             .OrderBy(x => x)
                             .Distinct()
                             .ToList();
 
-            var deploys = db.Deployments
+            var deploys = db.Query<DeploymentDto>()
                             .Where(x => x.StartDate > startDate)
-                            .GroupBy(x => x.Configuration)
+                            .GroupBy(x => x.Enviroment)
                             .Select(x => new
                             {
                                 app = x.Key,
@@ -35,7 +37,7 @@
                             .OrderBy(x => x.app)
                             .ToList();
 
-            var users = db.Deployments
+            var users = db.Query<DeploymentDto>()
                           .Where(x => x.StartDate > startDate)
                           .GroupBy(x => new { x.UserName })
                           .Select(x => new { x.Key.UserName, Count = x.Count() })
@@ -58,15 +60,6 @@
             }
 
             return new { Deploys = deploys, Users = users2 };
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

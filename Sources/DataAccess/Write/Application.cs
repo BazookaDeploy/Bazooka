@@ -147,6 +147,23 @@ namespace DataAccess.Write
                     task.AdditionalParameters.Add(new Parameter() { DeployTaskId = task.Id, Encrypted = param.Encrypted, Key = param.Key, Value = param.Value });
                 }
             }
+
+            var list = new List<Parameter>();
+            foreach (var param in task.AdditionalParameters)
+            {
+                if (param.ParameterId != 0)
+                {
+                    if (parameters.Count(x => x.ParameterId == param.ParameterId) == 0)
+                    {
+                        list.Add(param);
+                    }
+                }
+            }
+
+            foreach (var param in list)
+            {
+                task.AdditionalParameters.Remove(param);
+            }
         }
 
         public virtual void CreateLocalScriptTask(int enviromentId, string script, string name)

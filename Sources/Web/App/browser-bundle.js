@@ -28996,9 +28996,15 @@
 		},
 
 		componentDidMount: function componentDidMount() {
+			var _this2 = this;
+
 			_Store2["default"].addChangeListener(this._onChange);
 			var id = this.getParams().deployUnitId;
 			_ActionsCreator2["default"].updateDeployUnit(id);
+
+			_ActionsCreator2["default"].getAgents(this.getParams().enviromentId).then(function (x) {
+				_this2.setState({ Agents: x });
+			});
 		},
 
 		componentWillUnmount: function componentWillUnmount() {
@@ -29012,7 +29018,7 @@
 				Id: env.Id,
 				Enviroment: env.EnviromentId,
 				Name: env.Name,
-				Machine: env.Machine,
+				AgentId: env.AgentId,
 				PackageName: env.PackageName,
 				Directory: env.Directory,
 				Repository: env.Repository,
@@ -29032,7 +29038,8 @@
 
 			return {
 				Name: null,
-				Machine: null,
+				AgentId: null,
+				Agents: [],
 				PackageName: null,
 				Directory: null,
 				Repository: null,
@@ -29049,13 +29056,14 @@
 		},
 
 		save: function save() {
-			_ActionsCreator2["default"].modifyDeployUnit(this.state.Id, this.state.Enviroment, this.state.Name, this.state.Machine, this.state.PackageName, this.state.Directory, this.state.Repository, this.state.Parameters, this.state.UninstallationScript, this.state.InstallationScript, this.state.ConfigurationFile, this.state.ConfigTransform, this.state.Configuration);
+			debugger;
+			_ActionsCreator2["default"].modifyDeployUnit(this.state.Id, this.state.Enviroment, this.state.Name, this.state.AgentId, this.state.PackageName, this.state.Directory, this.state.Repository, this.state.Parameters, this.state.UninstallationScript, this.state.InstallationScript, this.state.ConfigurationFile, this.state.ConfigTransform, this.state.Configuration, this.props.params.applicationId);
 
 			return false;
 		},
 
 		render: function render() {
-			var _this2 = this;
+			var _this3 = this;
 
 			return _react2["default"].createElement(
 				"div",
@@ -29098,22 +29106,21 @@
 								{ className: "form-group" },
 								_react2["default"].createElement(
 									"label",
-									{ htmlFor: "Machine" },
+									{ htmlFor: "AgentId" },
 									"Machine"
 								),
 								_react2["default"].createElement(
-									"div",
-									{ className: "input-group" },
-									_react2["default"].createElement("input", { type: "text", className: "form-control", id: "Machine", placeholder: "Machine", valueLink: this.linkState('Machine') }),
-									_react2["default"].createElement(
-										"span",
-										{ className: "input-group-btn" },
-										_react2["default"].createElement(
-											"button",
-											{ className: "btn btn-primary", onClick: this.testAgent },
-											"Test"
-										)
-									)
+									"select",
+									{ className: "form-control", id: "AgentId", valueLink: this.linkState('AgentId') },
+									this.state.Agents.map(function (x) {
+										return _react2["default"].createElement(
+											"option",
+											{ value: x.Id },
+											x.Name,
+											"- ",
+											x.Address
+										);
+									})
 								),
 								_react2["default"].createElement(
 									"h5",
@@ -29133,7 +29140,7 @@
 											" ",
 											_react2["default"].createElement(
 												"button",
-												{ className: "btn btn-xs btn-danger", onClick: _this2.remove.bind(_this2, a.Key) },
+												{ className: "btn btn-xs btn-danger", onClick: _this3.remove.bind(_this3, a.Key) },
 												_react2["default"].createElement("i", { className: "glyphicon glyphicon-trash" })
 											)
 										);
@@ -29319,9 +29326,18 @@
 	    });
 	  },
 
+	  getAgents: function getAgents(id) {
+	    return (0, _reqwest2['default'])({
+	      url: "/api/Agents/AgentsByEnviroment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
 	  updateDeployUnits: function updateDeployUnits(enviromentId) {
 	    (0, _reqwest2['default'])({
-	      url: "/api/DeployTasks/Tasks/?id=" + enviromentId,
+	      url: "/api/DeployTasks/?id=" + enviromentId,
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "get"
@@ -29335,7 +29351,7 @@
 
 	  updateDeployUnit: function updateDeployUnit(deployUnitId) {
 	    (0, _reqwest2['default'])({
-	      url: "/api/DeployTasks/DeployTask/?id=" + deployUnitId,
+	      url: "/api/DeployTasks/?id=" + deployUnitId,
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "get"
@@ -29347,17 +29363,17 @@
 	    });
 	  },
 
-	  modifyDeployUnit: function modifyDeployUnit(deployUnitId, enviromentId, name, machine, packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration) {
+	  modifyDeployUnit: function modifyDeployUnit(deployUnitId, enviromentId, name, machine, packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration, applicationId) {
 	    var promise = (0, _reqwest2['default'])({
-	      url: "/api/deployTasks",
+	      url: "/api/deployTasks/ModifyDeployTask",
 	      type: 'json',
 	      contentType: 'application/json',
-	      method: "put",
+	      method: "post",
 	      data: JSON.stringify({
-	        Id: deployUnitId,
+	        DeployTaskId: deployUnitId,
 	        EnviromentId: enviromentId,
 	        Name: name,
-	        Machine: machine,
+	        AgentId: machine,
 	        PackageName: packageName,
 	        Directory: directory,
 	        Repository: repository,
@@ -29366,6 +29382,7 @@
 	        ConfigurationFile: configFile,
 	        ConfigurationTransform: configTransform,
 	        Configuration: configuration,
+	        ApplicationId: applicationId,
 	        AdditionalParameters: params.map(function (x) {
 	          x.Key = x.Name;
 	          return x;
@@ -29374,25 +29391,26 @@
 	    });
 
 	    promise.then(function (x) {
-	      module.exports.updateDeployUnits(enviromentId);
+	      module.exports.updateDeployUnits(deployUnitId);
 	    });
 
 	    return promise;
 	  },
 
-	  createDeployUnit: function createDeployUnit(enviromentId, name, machine, packageName, directory, repository, params) {
+	  createDeployUnit: function createDeployUnit(enviromentId, name, machine, packageName, directory, repository, params, applicationId) {
 	    var promise = (0, _reqwest2['default'])({
-	      url: "/api/deployTasks",
+	      url: "/api/deployTasks/CreateDeployTask",
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "post",
 	      data: JSON.stringify({
 	        EnviromentId: enviromentId,
 	        Name: name,
-	        Machine: machine,
+	        AgentId: machine,
 	        PackageName: packageName,
 	        Directory: directory,
 	        Repository: repository,
+	        ApplicationId: applicationId,
 	        AdditionalParameters: params.map(function (x) {
 	          x.Key = x.Name;
 	          return x;
@@ -47157,8 +47175,17 @@
 	      key: "",
 	      value: "",
 	      Encrypted: false,
-	      params: []
+	      params: [],
+	      Agents: []
 	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+
+	    _ActionsCreator2["default"].getAgents(this.props.Enviroment).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
 	  },
 
 	  /**
@@ -47166,19 +47193,19 @@
 	   * parameters are set
 	   */
 	  create: function create() {
-	    var _this = this;
+	    var _this2 = this;
 
-	    if (this.state.name.length != 0 && this.state.machine.length != 0 && this.state.packageName.length != 0 && this.state.repository.length != 0 && this.state.directory.length != 0) {
+	    if (this.state.name.length != 0 && this.state.packageName.length != 0 && this.state.repository.length != 0 && this.state.directory.length != 0) {
 
 	      if (this.props.Env != null) {
 	        _ActionsCreator2["default"].modifyDeployUnit(this.props.Env.Id, this.props.Enviroment, this.state.name, this.state.machine, this.state.packageName, this.state.directory, this.state.repository, this.state.params).then(function (x) {
-	          return _this.props.onRequestHide();
+	          return _this2.props.onRequestHide();
 	        });
 	        return;
 	      }
 
-	      _ActionsCreator2["default"].createDeployUnit(this.props.Enviroment, this.state.name, this.state.machine, this.state.packageName, this.state.directory, this.state.repository, this.state.params).then(function (x) {
-	        _this.props.onCreate();_this.props.onRequestHide();
+	      _ActionsCreator2["default"].createDeployUnit(this.props.Enviroment, this.state.name, this.state.machine, this.state.packageName, this.state.directory, this.state.repository, this.state.params, this.props.ApplicationId).then(function (x) {
+	        _this2.props.onCreate();_this2.props.onRequestHide();
 	      });
 	    }
 	    return false;
@@ -47189,10 +47216,10 @@
 	   * an there isn't already another parameter with the same key
 	   */
 	  addParameter: function addParameter() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    if (this.state.key.length != 0 && this.state.value.length != 0 && !this.state.params.some(function (x) {
-	      return x.Key == _this2.state.key;
+	      return x.Key == _this3.state.key;
 	    })) {
 	      this.setState({
 	        params: this.state.params.concat({
@@ -47232,8 +47259,6 @@
 	  },
 
 	  render: function render() {
-	    var _this3 = this;
-
 	    return _react2["default"].createElement(
 	      _reactBootstrapLibModal2["default"],
 	      _extends({}, this.props, { backdrop: "static", title: "Create new deploy unit" }),
@@ -47262,18 +47287,18 @@
 	              "Machine"
 	            ),
 	            _react2["default"].createElement(
-	              "div",
-	              { className: "input-group" },
-	              _react2["default"].createElement("input", { type: "text", className: "form-control", id: "Machine", placeholder: "Machine", valueLink: this.linkState('machine') }),
-	              _react2["default"].createElement(
-	                "span",
-	                { className: "input-group-btn" },
-	                _react2["default"].createElement(
-	                  "button",
-	                  { className: "btn btn-primary", onClick: this.testAgent },
-	                  "Test"
-	                )
-	              )
+	              "select",
+	              { className: "form-control", id: "Machine", valueLink: this.linkState('machine') },
+	              _react2["default"].createElement("option", null),
+	              this.state.Agents.map(function (x) {
+	                return _react2["default"].createElement(
+	                  "option",
+	                  { value: x.Id },
+	                  x.Name,
+	                  "- ",
+	                  x.Address
+	                );
+	              })
 	            )
 	          ),
 	          _react2["default"].createElement(
@@ -47305,75 +47330,6 @@
 	              "Repository"
 	            ),
 	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "Repository", placeholder: "Repository", valueLink: this.linkState('repository') })
-	          )
-	        ),
-	        _react2["default"].createElement(
-	          "h5",
-	          null,
-	          "Additional Params"
-	        ),
-	        _react2["default"].createElement(
-	          "ul",
-	          null,
-	          this.state.params.map(function (a) {
-	            return _react2["default"].createElement(
-	              "li",
-	              null,
-	              a.Name,
-	              " = ",
-	              a.Encrypted ? "***********" : a.Value,
-	              " ",
-	              _react2["default"].createElement(
-	                "button",
-	                { className: "btn btn-xs btn-danger", onClick: _this3.remove.bind(_this3, a.Key) },
-	                _react2["default"].createElement("i", { className: "glyphicon glyphicon-trash" })
-	              )
-	            );
-	          })
-	        ),
-	        _react2["default"].createElement(
-	          "div",
-	          { className: "form-group row" },
-	          _react2["default"].createElement(
-	            "div",
-	            { className: "col-md-3" },
-	            _react2["default"].createElement(
-	              "label",
-	              { htmlFor: "Key" },
-	              "Key"
-	            ),
-	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "Key", placeholder: "Key", valueLink: this.linkState('key') })
-	          ),
-	          _react2["default"].createElement(
-	            "div",
-	            { className: "col-md-3" },
-	            _react2["default"].createElement(
-	              "label",
-	              { htmlFor: "Value" },
-	              "Value"
-	            ),
-	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "Value", placeholder: "Value", valueLink: this.linkState('value') })
-	          ),
-	          _react2["default"].createElement(
-	            "div",
-	            { className: "col-md-2" },
-	            _react2["default"].createElement(
-	              "label",
-	              { htmlFor: "Encrypted" },
-	              "Encrypted"
-	            ),
-	            _react2["default"].createElement("br", null),
-	            _react2["default"].createElement("input", { type: "checkbox", className: "", id: "Encrypted", checkedLink: this.linkState('Encrypted') })
-	          ),
-	          _react2["default"].createElement(
-	            "div",
-	            { className: "col-md-4" },
-	            _react2["default"].createElement("br", null),
-	            _react2["default"].createElement(
-	              "button",
-	              { className: "btn btn-primary", onClick: this.addParameter },
-	              "Add Parameter"
-	            )
 	          )
 	        )
 	      ),

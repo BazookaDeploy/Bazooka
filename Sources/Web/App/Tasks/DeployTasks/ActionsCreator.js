@@ -12,9 +12,19 @@ module.exports = {
     })
   },
 
+  getAgents:function(id){
+    return reqwest({
+      url: "/api/Agents/AgentsByEnviroment/"+id,
+      type: 'json',
+      contentType: 'application/json',
+      method: "get",
+    });
+  },
+
+
   updateDeployUnits: function (enviromentId) {
     reqwest({
-      url: "/api/DeployTasks/Tasks/?id=" + enviromentId,
+      url: "/api/DeployTasks/?id=" + enviromentId,
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -28,7 +38,7 @@ module.exports = {
 
   updateDeployUnit: function (deployUnitId) {
     reqwest({
-      url: "/api/DeployTasks/DeployTask/?id=" + deployUnitId,
+      url: "/api/DeployTasks/?id=" + deployUnitId,
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -41,17 +51,17 @@ module.exports = {
   },
 
   modifyDeployUnit: function (deployUnitId, enviromentId, name, machine,
-    packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration) {
+    packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration,applicationId) {
     var promise = reqwest({
-      url: "/api/deployTasks",
+      url: "/api/deployTasks/ModifyDeployTask",
       type: 'json',
       contentType: 'application/json',
-      method: "put",
+      method: "post",
       data: JSON.stringify({
-        Id: deployUnitId,
+        DeployTaskId: deployUnitId,
         EnviromentId: enviromentId,
         Name: name,
-        Machine: machine,
+        AgentId: machine,
         PackageName: packageName,
         Directory: directory,
         Repository: repository,
@@ -60,6 +70,7 @@ module.exports = {
         ConfigurationFile: configFile,
         ConfigurationTransform: configTransform,
         Configuration: configuration,
+        ApplicationId: applicationId,
         AdditionalParameters: params.map(x => {
           x.Key = x.Name;
           return x;
@@ -68,26 +79,27 @@ module.exports = {
     });
 
     promise.then(x => {
-      module.exports.updateDeployUnits(enviromentId);
+      module.exports.updateDeployUnits(deployUnitId);
     });
 
     return promise;
   },
 
   createDeployUnit: function (enviromentId, name, machine, packageName,
-    directory, repository, params) {
+    directory, repository, params, applicationId) {
     var promise = reqwest({
-      url: "/api/deployTasks",
+      url: "/api/deployTasks/CreateDeployTask",
       type: 'json',
       contentType: 'application/json',
       method: "post",
       data: JSON.stringify({
         EnviromentId: enviromentId,
         Name: name,
-        Machine: machine,
+        AgentId: machine,
         PackageName: packageName,
         Directory: directory,
         Repository: repository,
+        ApplicationId: applicationId,
         AdditionalParameters: params.map(x => {
           x.Key = x.Name;
           return x;
