@@ -61,6 +61,7 @@
     <Compile Include="Read\ApplicationDto.cs" />
     <Compile Include="Read\ApplicationGroupDto.cs" />
     <Compile Include="Read\DatabaseTaskDto.cs" />
+    <Compile Include="Read\DeployersDto.cs" />
     <Compile Include="Read\DeploymentDto.cs" />
     <Compile Include="Read\DeployTaskDto.cs" />
     <Compile Include="Read\DeployTaskParameterDto.cs" />

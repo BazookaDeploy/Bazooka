@@ -25152,39 +25152,14 @@
 	  }
 	});
 
-	var Application = _react2["default"].createClass({
-	  displayName: "Application",
-
-	  render: function render() {
-	    var envs = this.props.Application.Enviroments.map(function (x) {
-	      return _react2["default"].createElement(Enviroment, { Enviroment: x });
-	    });
-
-	    return _react2["default"].createElement(
-	      "div",
-	      { className: "application" },
-	      _react2["default"].createElement(
-	        "div",
-	        { className: " panel panel-primary" },
-	        _react2["default"].createElement(
-	          "div",
-	          { className: "panel-heading" },
-	          this.props.Application.Application
-	        ),
-	        _react2["default"].createElement(
-	          "div",
-	          { className: "panel-body" },
-	          envs
-	        )
-	      )
-	    );
-	  }
-	});
-
 	var Enviroment = _react2["default"].createClass({
 	  displayName: "Enviroment",
 
 	  render: function render() {
+	    if (this.props.Enviroment == undefined) {
+	      return _react2["default"].createElement("td", null);
+	    }
+
 	    var oneVersion = this.props.Enviroment.Versions.map(function (x) {
 	      return x.CurrentlyDeployedVersion;
 	    }).reduce(function (a, b) {
@@ -25196,32 +25171,24 @@
 	    if (oneVersion) {
 	      var version = this.props.Enviroment.Versions[0].CurrentlyDeployedVersion || "None";
 	      return _react2["default"].createElement(
-	        "div",
-	        { style: { "marginBottom": "10px" } },
-	        "Enviroment: ",
-	        _react2["default"].createElement(
-	          "b",
-	          null,
-	          this.props.Enviroment.Enviroment
-	        ),
-	        " ",
-	        _react2["default"].createElement(
-	          _reactBootstrapLibModalTrigger2["default"],
-	          { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment }) },
-	          _react2["default"].createElement(
-	            "button",
-	            { className: "btn btn-primary btn-xs pull-right" },
-	            "Deploy"
-	          )
-	        ),
-	        _react2["default"].createElement("br", null),
-	        " Version: ",
+	        "td",
+	        null,
+	        "Version: ",
 	        _react2["default"].createElement(
 	          "b",
 	          null,
 	          version
 	        ),
-	        _react2["default"].createElement("br", null)
+	        "   ",
+	        _react2["default"].createElement(
+	          _reactBootstrapLibModalTrigger2["default"],
+	          { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment }) },
+	          _react2["default"].createElement(
+	            "button",
+	            { className: "btn btn-primary btn-xs" },
+	            "Deploy"
+	          )
+	        )
 	      );
 	    }
 
@@ -25240,21 +25207,21 @@
 	    });
 
 	    return _react2["default"].createElement(
-	      "div",
-	      { style: { "marginBottom": "10px" } },
+	      "td",
+	      null,
 	      "Enviroment: ",
 	      _react2["default"].createElement(
 	        "b",
 	        null,
 	        this.props.Enviroment.Enviroment
 	      ),
-	      " ",
+	      "  ",
 	      _react2["default"].createElement(
 	        _reactBootstrapLibModalTrigger2["default"],
 	        { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment }) },
 	        _react2["default"].createElement(
 	          "button",
-	          { className: "btn btn-primary btn-xs pull-right" },
+	          { className: "btn btn-primary btn-xs" },
 	          "Deploy"
 	        )
 	      ),
@@ -25262,8 +25229,75 @@
 	        "ul",
 	        null,
 	        units
+	      )
+	    );
+	  }
+	});
+
+	var Application = _react2["default"].createClass({
+	  displayName: "Application",
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2["default"].createElement(
+	      "tr",
+	      null,
+	      _react2["default"].createElement(
+	        "td",
+	        null,
+	        this.props.Application.Name
 	      ),
-	      _react2["default"].createElement("br", null)
+	      this.props.Enviroments.map(function (x) {
+	        return _react2["default"].createElement(Enviroment, { EnviromentId: x.Id, Enviroment: _this2.props.Application.Enviroments.filter(function (z) {
+	            return z.Id == x.Id;
+	          })[0] });
+	      })
+	    );
+	  }
+	});
+
+	var ApplicationGroup = _react2["default"].createClass({
+	  displayName: "ApplicationGroup",
+
+	  render: function render() {
+	    var _this3 = this;
+
+	    return _react2["default"].createElement(
+	      "div",
+	      null,
+	      _react2["default"].createElement(
+	        "h3",
+	        null,
+	        this.props.Group.GroupName
+	      ),
+	      _react2["default"].createElement(
+	        "table",
+	        { className: "table table-bordered table-striped table-compact" },
+	        _react2["default"].createElement(
+	          "thead",
+	          null,
+	          _react2["default"].createElement(
+	            "tr",
+	            null,
+	            _react2["default"].createElement("th", null),
+	            this.props.Enviroments.map(function (x) {
+	              return _react2["default"].createElement(
+	                "th",
+	                null,
+	                x.Name
+	              );
+	            })
+	          )
+	        ),
+	        _react2["default"].createElement(
+	          "tbody",
+	          null,
+	          this.props.Group.Applications.map(function (x) {
+	            return _react2["default"].createElement(Application, { Application: x, Enviroments: _this3.props.Enviroments });
+	          })
+	        )
+	      )
 	    );
 	  }
 	});
@@ -25273,19 +25307,21 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      envs: []
+	      envs: { Applications: [], Enviroments: [] }
 	    };
 	  },
 
 	  componentDidMount: function componentDidMount() {
-	    var _this2 = this;
+	    var _this4 = this;
 
 	    _ActionsCreator2["default"].updateEnviroments().then(function (x) {
-	      _this2.setState({ envs: x });
+	      _this4.setState({ envs: x });
 	    });
 	  },
 
 	  render: function render() {
+	    var _this5 = this;
+
 	    return _react2["default"].createElement(
 	      "div",
 	      null,
@@ -25297,9 +25333,9 @@
 	      _react2["default"].createElement("br", null),
 	      _react2["default"].createElement(
 	        "div",
-	        { className: "container applicationGrid" },
-	        this.state.envs.map(function (x) {
-	          return _react2["default"].createElement(Application, { Application: x });
+	        { className: "container" },
+	        this.state.envs.Applications.map(function (x) {
+	          return _react2["default"].createElement(ApplicationGroup, { Group: x, Enviroments: _this5.state.envs.Enviroments });
 	        })
 	      )
 	    );
@@ -48183,9 +48219,6 @@
 
 	    _Actions2["default"].getMailTask(this.getParams().taskId).then(function (x) {
 	      _this.setState(x);
-	    });
-	    _Actions2["default"].getAgents(this.props.EnviromentId).then(function (x) {
-	      _this.setState({ Agents: x });
 	    });
 	  },
 

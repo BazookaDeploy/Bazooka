@@ -16,7 +16,9 @@
 			  [dbo].[DeployTasks].[Configuration], 
 			  [dbo].[DeployTasks].[ApplicationId], 
 			  Applications.Name AS ApplicationName,
+			  ApplicationGroups.Name AS GroupName,
 			  Enviroments.Name as EnviromentName
 	FROM [dbo].[DeployTasks] JOIN  [dbo].Enviroments ON [DeployTasks].EnviromentId = Enviroments.Id
 						     JOIN  [dbo].Applications ON [DeployTasks].ApplicationId = Applications.Id
 							 JOIN  [dbo].Agents on [DeployTasks].AgentId = Agents.Id
+							 LEFT JOIN dbo.ApplicationGroups ON Applications.ApplicationGroupId = ApplicationGroups.Id

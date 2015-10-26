@@ -52,6 +52,8 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new RemoteScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new DatabaseTasksDtoConfiguration());
             modelBuilder.Configurations.Add(new ApplicationGroupsDtoConfiguration());
+            modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
+
 
             base.OnModelCreating(modelBuilder);
         }
@@ -59,6 +61,15 @@ namespace DataAccess.Read
         public IQueryable<T> Query<T>() where T : class
         {
             return this.Set<T>().AsQueryable();
+        }
+    }
+
+    public class DeployersDtoConfiguration : EntityTypeConfiguration<DeployersDto>
+    {
+        public DeployersDtoConfiguration()
+        {
+            ToTable("Deployers");
+            HasKey(x => new { x.ApplicationId, x.EnviromentId, x.UserId });
         }
     }
 

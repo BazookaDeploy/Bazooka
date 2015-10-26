@@ -25,9 +25,6 @@ var EditPage = React.createClass({
     Actions.getMailTask(this.getParams().taskId).then(x => {
       this.setState(x);
     })
-		Actions.getAgents(this.props.EnviromentId).then(x => {
-			this.setState({Agents:x})
-		})
   },
 
   save:function(){
