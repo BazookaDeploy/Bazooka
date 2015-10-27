@@ -84,7 +84,7 @@ var TaskSelectDialog = React.createClass({
 
     updateTasks:function(){
       var id = this.getParams().enviromentId;
-      Actions.getTasks(id).then(x => {
+      Actions.getTasks(id,this.getParams().applicationId).then(x => {
         this.setState({tasks:x})
       });
     },
@@ -92,7 +92,7 @@ var TaskSelectDialog = React.createClass({
     componentDidMount: function() {
       var id = this.getParams().enviromentId;
       var appId=  this.getParams().applicationId;
-      Actions.getTasks(id).then(x => {
+      Actions.getTasks(id,appId).then(x => {
         this.setState({tasks:x})
       });
 

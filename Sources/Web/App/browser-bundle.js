@@ -46604,7 +46604,7 @@
 	    var _this2 = this;
 
 	    var id = this.getParams().enviromentId;
-	    _ActionsCreator2["default"].getTasks(id).then(function (x) {
+	    _ActionsCreator2["default"].getTasks(id, this.getParams().applicationId).then(function (x) {
 	      _this2.setState({ tasks: x });
 	    });
 	  },
@@ -46614,7 +46614,7 @@
 
 	    var id = this.getParams().enviromentId;
 	    var appId = this.getParams().applicationId;
-	    _ActionsCreator2["default"].getTasks(id).then(function (x) {
+	    _ActionsCreator2["default"].getTasks(id, appId).then(function (x) {
 	      _this3.setState({ tasks: x });
 	    });
 
@@ -47137,9 +47137,9 @@
 	    });
 	  },
 
-	  getTasks: function getTasks(enviromentId) {
+	  getTasks: function getTasks(enviromentId, applicationId) {
 	    return (0, _reqwest2["default"])({
-	      url: "/api/Tasks/?enviromentId=" + enviromentId,
+	      url: "/api/Tasks/?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "get"

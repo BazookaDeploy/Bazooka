@@ -102,9 +102,9 @@ module.exports = {
     })
   },
 
-  getTasks: function (enviromentId) {
+  getTasks: function (enviromentId,applicationId) {
     return reqwest({
-      url: "/api/Tasks/?enviromentId=" + enviromentId,
+      url: "/api/Tasks/?enviromentId=" + enviromentId+ "&applicationId="+applicationId,
       type: 'json',
       contentType: 'application/json',
       method: "get"
