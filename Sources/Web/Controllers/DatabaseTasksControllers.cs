@@ -1,44 +1,29 @@
 ﻿using DataAccess.Read;
-using DataAccess.Write;
 using System.Linq;
 using System.Web.Http;
+using Web.Commands;
 
 namespace Web.Controllers
 {
-    public class DatabaseTasksController : ApiController
+    public class DatabaseTasksController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext db { get; set; }
 
         public DatabaseTaskDto Get(int id)
         {
-            return db.DatabaseTasks.Single(x => x.Id == id);
+            return db.Query<DatabaseTaskDto>().Single(x => x.Id == id);
         }
 
-        public void Put(DatabaseTask unit)
+        [HttpPost]
+        public ExecutionResult CreateDatabaseTask(CreateDatabaseTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            }
+            return Execute(command);
         }
 
-        public void Post(DatabaseTask unit)
+        [HttpPost]
+        public ExecutionResult ModifyDatabaseTask(ModifyDatabaseTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return Execute(command);
         }
     }
 }

@@ -7,5 +7,8 @@
     [Status] INT NOT NULL, 
     [Version] NCHAR(256) NULL, 
     [UserId] NVARCHAR(128) NOT NULL, 
-    [Scheduled] BIT NOT NULL DEFAULT 0
+    [Scheduled] BIT NOT NULL DEFAULT 0, 
+    [ApplicationId] INT NOT NULL,
+	CONSTRAINT [FK_Deployments_ToEnviroments] FOREIGN KEY (EnviromentId) REFERENCES [Enviroments]([Id]),
+	CONSTRAINT [FK_Deployments_ToApplications] FOREIGN KEY (ApplicationId) REFERENCES Applications([Id])
 )

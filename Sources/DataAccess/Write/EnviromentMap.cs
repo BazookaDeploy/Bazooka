@@ -16,13 +16,10 @@ namespace DataAccess.Write
                     map.Column("Id");
                 });
 
-            Property(x => x.Configuration, x => x.Length(200));
-            Property(x => x.Description, x => x.Length(200));
-            Property(x => x.ApplicationId, x => x.NotNullable(true));
-            Property(x => x.OwnerId, x => x.NotNullable(true));
+            Property(x => x.Name, x => x.Length(200));
 
             Bag(
-                x => x.DeployUnits,
+                x => x.Agents,
                 map =>
                 {
                     map.Key(km => km.Column("EnviromentId"));

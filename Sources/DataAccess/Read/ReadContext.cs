@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
+using System.Linq;
 
 namespace DataAccess.Read
 {
-    public class ReadContext : DbContext
+    public class ReadContext : DbContext, IReadContext
     {
         public ReadContext() : base("DataContext") { }
 
@@ -28,11 +29,12 @@ namespace DataAccess.Read
 
         public DbSet<AllowedUsersDto> AllowedUsers { get; set; }
         public DbSet<AllowedGroupsDto> AllowedGroups { get; set; }
-        public DbSet<DeployerDto> Deployers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("rd");
+
+            modelBuilder.Configurations.Add(new AgentsDtoConfiguration());
             modelBuilder.Configurations.Add(new ApplicationDtoConfiguration());
             modelBuilder.Configurations.Add(new EnviromentDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployUnitDtoConfiguration());
@@ -43,33 +45,49 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new UserDtoConfiguration());
             modelBuilder.Configurations.Add(new AllowedUsersDtoConfiguration());
             modelBuilder.Configurations.Add(new AllowedGroupsDtoConfiguration());
-            modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
             modelBuilder.Configurations.Add(new LogEntryDtoConfiguration());
             modelBuilder.Configurations.Add(new TasksDtoConfiguration());
             modelBuilder.Configurations.Add(new MailTasksDtoConfiguration());
             modelBuilder.Configurations.Add(new LocalScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new RemoteScriptTaskDtoConfiguration());
             modelBuilder.Configurations.Add(new DatabaseTasksDtoConfiguration());
+            modelBuilder.Configurations.Add(new ApplicationGroupsDtoConfiguration());
+            modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
 
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public IQueryable<T> Query<T>() where T : class
+        {
+            return this.Set<T>().AsQueryable();
+        }
     }
 
-
-
-
-    public class DeployersDtoConfiguration : EntityTypeConfiguration<DeployerDto>
+    public class DeployersDtoConfiguration : EntityTypeConfiguration<DeployersDto>
     {
         public DeployersDtoConfiguration()
         {
             ToTable("Deployers");
-            HasKey(x => new
-            {
-                x.ApplicationId,
-                x.EnviromentId,
-                x.UserId
-            });
+            HasKey(x => new { x.ApplicationId, x.EnviromentId, x.UserId });
+        }
+    }
+
+    public class ApplicationGroupsDtoConfiguration : EntityTypeConfiguration<ApplicationGroupDto>
+    {
+        public ApplicationGroupsDtoConfiguration()
+        {
+            ToTable("ApplicationGroups");
+            HasKey(x => new { x.Id });
+        }
+    }
+
+    public class AgentsDtoConfiguration : EntityTypeConfiguration<AgentDto>
+    {
+        public AgentsDtoConfiguration()
+        {
+            ToTable("Agents");
+            HasKey(x => new { x.Id });
         }
     }
 
@@ -78,7 +96,7 @@ namespace DataAccess.Read
         public TasksDtoConfiguration()
         {
             ToTable("Tasks");
-            HasKey(x => new {x.EnviromentId, x.Id, x.Type });
+            HasKey(x => new { x.EnviromentId, x.Id, x.Type });
         }
     }
 
@@ -179,6 +197,10 @@ namespace DataAccess.Read
         public EnviromentDtoConfiguration()
         {
             ToTable("Enviroments");
+
+            HasMany(x => x.Agents)
+                .WithRequired()
+                .HasForeignKey(x => x.EnviromentId);
         }
     }
 

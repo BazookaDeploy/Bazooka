@@ -25,14 +25,14 @@ var DeployDialog = React.createClass({
     var version = this.refs.Version.getDOMNode().value;
     if(version!=null){
       if(!this.state.scheduled){
-        Actions.startDeploy(this.props.Enviroment.Id, version);
+        Actions.startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version);
         this.props.onRequestHide();
       }else{
         var data = this.refs.deployDate.getDOMNode().value;
         var hour = this.refs.hour.getDOMNode().value;
         var minutes = this.refs.minutes.getDOMNode().value;
 
-        Actions.scheduleDeploy(this.props.Enviroment.Id, version,new Date(data + " " + hour + ":" + minutes));
+        Actions.scheduleDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version,new Date(data + " " + hour + ":" + minutes));
         this.props.onRequestHide();
       }
     }
@@ -115,25 +115,13 @@ var DeployDialog = React.createClass({
 });
 
 
-var Application = React.createClass({
-  render: function(){
-    var envs = this.props.Application.Enviroments.map(x => (
-      <Enviroment Enviroment={x}/>
-    ));
-
-    return (<div className="application">
-      <div className=' panel panel-primary'>
-        <div className='panel-heading'>{this.props.Application.Application}</div>
-        <div className='panel-body'>
-          {envs}
-        </div>
-      </div>
-    </div>);
-  }
-})
 
 var Enviroment = React.createClass({
   render: function(){
+    if(this.props.Enviroment==undefined){
+      return <td></td>;
+    }
+
       var oneVersion = this.props
                            .Enviroment
                            .Versions
@@ -144,32 +132,62 @@ var Enviroment = React.createClass({
 
       if(oneVersion){
         var version = this.props.Enviroment.Versions[0].CurrentlyDeployedVersion || "None";
-        return (<div style={{"marginBottom":"10px"}}>
-            Enviroment: <b>{this.props.Enviroment.Enviroment}</b> <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
-                      <button className='btn btn-primary btn-xs pull-right'>Deploy</button>
+        return (<td>
+            Version: <b>{version}</b> &nbsp; <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment} ApplicationId={this.props.ApplicationId} />}>
+                      <button className='btn btn-primary btn-xs'>Deploy</button>
                     </ModalTrigger>
-                    <br /> Version: <b>{version}</b><br /></div>);
+                  </td>);
       }
 
       var units = this.props.Enviroment.Versions.map(x => (
         <li><b>{x.Name}</b> Version: {x.CurrentlyDeployedVersion || "None"}</li>
       ))
 
-      return  (<div style={{"marginBottom":"10px"}}>Enviroment: <b>{this.props.Enviroment.Enviroment}</b> <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
-                      <button className='btn btn-primary btn-xs pull-right'>Deploy</button>
+      return  (<td>Enviroment: <b>{this.props.Enviroment.Enviroment}</b> &nbsp;<ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment} ApplicationId={this.props.ApplicationId} />}>
+                      <button className='btn btn-primary btn-xs'>Deploy</button>
                     </ModalTrigger>
         <ul>
         {units}
         </ul>
-        <br />
-      </div>)
+      </td>)
+  }
+});
+
+var Application = React.createClass({
+  render: function(){
+    return (
+      <tr>
+        <td>{this.props.Application.Name}</td>
+        {this.props.Enviroments.map(x => <Enviroment EnviromentId={x.Id} ApplicationId={this.props.Application.Id} Enviroment={this.props.Application.Enviroments.filter(z => z.Id == x.Id)[0]}/>)}
+      </tr>);
+  }
+});
+
+var ApplicationGroup = React.createClass({
+  render:function(){
+    return (
+      <div>
+        <h3>{this.props.Group.GroupName}</h3>
+        <table className="table table-bordered table-striped table-compact">
+          <thead>
+            <tr>
+              <th></th>
+              {this.props.Enviroments.map(x => (<th>{x.Name}</th>))}
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.Group.Applications.map(x => <Application Application={x} Enviroments={this.props.Enviroments} />)}
+          </tbody>
+        </table>
+    </div>
+    )
   }
 });
 
 var HomePage = React.createClass({
     getInitialState: function() {
       return {
-        envs : []
+        envs : {Applications:[],Enviroments:[]}
       };
     },
 
@@ -184,7 +202,9 @@ var HomePage = React.createClass({
           <div>
             <h2>Current system status</h2>
             <br />
-            <div className='container applicationGrid'>{this.state.envs.map(x => (<Application Application={x} />))}</div>
+            <div className='container'>
+              {this.state.envs.Applications.map(x => (<ApplicationGroup Group={x} Enviroments={this.state.envs.Enviroments}/>))}
+            </div>
           </div>);
     }
 });

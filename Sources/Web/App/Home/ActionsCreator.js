@@ -12,10 +12,9 @@ module.exports = {
 		return promise;
 	},
 
-	startDeploy: function(enviromentId, version) {
+	startDeploy: function(enviromentId,  applicationId, version) {
 		var promise = reqwest({
-			url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&version=" +
-				version,
+		    url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" +	applicationId + "&version=" +	version,
 			type: 'json',
 			contentType: 'application/json',
 			method: "get"
@@ -24,9 +23,9 @@ module.exports = {
 		return promise;
 	},
 
-	scheduleDeploy: function(enviromentId, version, date) {
+	scheduleDeploy: function(enviromentId, applicationId, version, date) {
 		var promise = reqwest({
-			url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&version=" +
+		    url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" +	applicationId  + "&version=" +
 				version + "&start=" + date.toISOString(),
 			type: 'json',
 			contentType: 'application/json',

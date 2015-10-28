@@ -16,7 +16,7 @@
         public ICollection<string> Agents()
         {
             return db.DeploTasks
-                     .Select(x => x.Machine.EndsWith("/") ? x.Machine.Substring(0, x.Machine.Length - 1) : x.Machine)
+                     .Select(x => x.Address.EndsWith("/") ? x.Address.Substring(0, x.Address.Length - 1) : x.Address)
                      .Distinct()
                      .ToList();
         }

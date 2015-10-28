@@ -7,6 +7,8 @@
 
         public virtual int EnviromentId { get; set; }
 
+        public virtual int ApplicationId { get; set; }
+
         public virtual string GroupId { get; set; }
     }
 }

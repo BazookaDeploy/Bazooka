@@ -33,9 +33,17 @@ var CreateDialog = React.createClass({
       key:"",
       value:"",
       Encrypted:false,
-      params : []
+      params : [],
+      Agents:[]
     };
   },
+
+  componentDidMount:function(){
+    Actions.getAgents(this.props.Enviroment).then(x => {
+      this.setState({Agents:x})
+    })
+  },
+
 
   /**
    * Creates the new deployUnit and then closes the dialog if all
@@ -43,7 +51,6 @@ var CreateDialog = React.createClass({
    */
   create:function(){
     if(this.state.name.length != 0 &&
-      this.state.machine.length != 0 &&
       this.state.packageName.length != 0 &&
       this.state.repository.length != 0 &&
       this.state.directory.length != 0){
@@ -69,7 +76,7 @@ var CreateDialog = React.createClass({
         this.state.packageName,
         this.state.directory,
         this.state.repository,
-        this.state.params)
+        this.state.params,this.props.ApplicationId)
              .then(x => {this.props.onCreate();this.props.onRequestHide();});
     }
     return false;
@@ -132,12 +139,10 @@ var CreateDialog = React.createClass({
           </div>
           <div className="form-group">
             <label htmlFor="Machine">Machine</label>
-              <div className="input-group">
-                <input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('machine')} />
-                <span className="input-group-btn">
-                  <button className="btn btn-primary" onClick={this.testAgent} >Test</button>
-                </span>
-              </div>
+              <select  className="form-control" id="Machine" valueLink={this.linkState('machine')}>
+                <option></option>
+                {this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
+             </select>
 
 
           </div>
@@ -154,28 +159,6 @@ var CreateDialog = React.createClass({
           <input type="text" className="form-control" id="Repository" placeholder="Repository" valueLink={this.linkState('repository')} />
           </div>
         </form>
-        <h5>Additional Params</h5>
-          <ul>
-            {this.state.params.map(a => (<li>{a.Name} = {a.Encrypted ? "***********" : a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}><i className="glyphicon glyphicon-trash"></i></button></li>))}
-          </ul>
-        <div className="form-group row">
-          <div className="col-md-3">
-            <label htmlFor="Key">Key</label>
-            <input type="text" className="form-control" id="Key" placeholder="Key" valueLink={this.linkState('key')} />
-          </div>
-          <div className="col-md-3">
-            <label htmlFor="Value">Value</label>
-            <input type="text" className="form-control" id="Value" placeholder="Value" valueLink={this.linkState('value')} />
-          </div>
-          <div className="col-md-2">
-            <label htmlFor="Encrypted">Encrypted</label><br />
-            <input type="checkbox" className="" id="Encrypted" checkedLink={this.linkState('Encrypted')} />
-          </div>
-          <div className="col-md-4">
-            <br />
-            <button className="btn btn-primary" onClick={this.addParameter} >Add Parameter</button>
-          </div>
-        </div>
       </div>
       <div className="modal-footer">
         <button className="btn btn-primary" onClick={this.create}>Create</button>

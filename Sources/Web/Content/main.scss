@@ -1,11 +1,11 @@
-﻿$icon-font-path : "./fonts/bootstrap/";
+﻿$icon-font-path: "./fonts/bootstrap/";
 $navbar-height: 30px;
 $navbar-default-color: white;
 $navbar-default-bg: #303F9F;
-$navbar-default-link-color:white;
-$brand-primary:#303F9F;
-$navbar-default-link-active-color:white;
-$navbar-default-link-hover-color:#bbbbbb;
+$navbar-default-link-color: white;
+$brand-primary: #303F9F;
+$navbar-default-link-active-color: white;
+$navbar-default-link-hover-color: #bbbbbb;
 @import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
 @media only screen and (min-width: 1100px) {
@@ -32,7 +32,7 @@ $navbar-default-link-hover-color:#bbbbbb;
 
 
 svg {
-    display:block;
+    display: block;
     margin: 0 auto;
     height: 1000px !important;
 }
@@ -41,4 +41,21 @@ g.tick text {
     -ms-writing-mode: tb;
     writing-mode: tb;
     text-anchor: inherit;
+}
+
+.AgentLogo {
+    display: inline-block;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.AgentLogo:hover {
+    text-decoration: none;
+}
+
+
+.AgentLogo i {
+    font-size: 50px;
+    margin-bottom: 5px;
+    display: block;
 }

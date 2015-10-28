@@ -9,5 +9,7 @@
         public string Name { get; set; }
 
         public int EnviromentId { get; set; }
+
+        public int ApplicationId { get; set; }
     }
 }

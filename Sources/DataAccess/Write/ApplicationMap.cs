@@ -17,9 +17,11 @@ namespace DataAccess.Write
                 });
 
             Property(x => x.Name, x => x.Length(200));
+            Property(x => x.ApplicationGroupId);
+
 
             Bag(
-                x => x.Enviroments,
+                x => x.AllowedUsers,
                 map =>
                 {
                     map.Key(km => km.Column("ApplicationId"));
@@ -28,6 +30,72 @@ namespace DataAccess.Write
                 },
                 x => x.OneToMany()
             );
+
+            Bag(
+                x => x.AllowedGroups,
+                map =>
+                {
+                    map.Key(km => km.Column("ApplicationId"));
+                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                    map.Inverse(true);
+                },
+                x => x.OneToMany()
+            );
+
+            Bag(
+                x => x.DatabaseTasks,
+                map =>
+                {
+                    map.Key(km => km.Column("ApplicationId"));
+                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                    map.Inverse(true);
+                },
+                x => x.OneToMany()
+            );
+
+            Bag(
+                 x => x.DeployTasks,
+                 map =>
+                 {
+                     map.Key(km => km.Column("ApplicationId"));
+                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                     map.Inverse(true);
+                 },
+                 x => x.OneToMany()
+             );
+
+            Bag(
+                 x => x.MailTasks,
+                 map =>
+                 {
+                     map.Key(km => km.Column("ApplicationId"));
+                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                     map.Inverse(true);
+                 },
+                 x => x.OneToMany()
+             );
+
+            Bag(
+                 x => x.LocalScriptTasks,
+                 map =>
+                 {
+                     map.Key(km => km.Column("ApplicationId"));
+                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                     map.Inverse(true);
+                 },
+                 x => x.OneToMany()
+             );
+
+            Bag(
+                 x => x.RemoteScriptTasks,
+                 map =>
+                 {
+                     map.Key(km => km.Column("ApplicationId"));
+                     map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                     map.Inverse(true);
+                 },
+                 x => x.OneToMany()
+             );
         }
     }
 }

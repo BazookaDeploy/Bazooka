@@ -11,6 +11,8 @@ namespace DataAccess.Read
 
         public int EnviromentId { get; set; }
 
+        public int ApplicationId { get; set; }
+
         public string UserName { get; set; }
     }
 }

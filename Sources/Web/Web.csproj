@@ -46,6 +46,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -218,9 +226,89 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\WindsorCompositionRoot.cs" />
+    <Compile Include="App_Start\WindsorInstaller.cs" />
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
+    <Compile Include="CommandHandlers\Application\CreateDatabaseTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateRemoteScriptTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateMailTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateLocalScriptTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateDeployTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyRemoteScriptTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyMailTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyLocalScriptTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyDeployTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\ModifyDatabaseTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\SetApplicationGroupBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Application\CreateApplicationGroupBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Application\AddAllowedGroupToApplicationBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Application\SetApplicationGroupHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateApplicationGroupHandler.cs" />
+    <Compile Include="CommandHandlers\Application\AddAllowedGroupToApplicationHandler.cs" />
+    <Compile Include="CommandHandlers\Application\AddAllowedUserToApplicationBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Application\AddAllowedUserToApplicationHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateApplicationBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Application\CreateApplicationHandler.cs" />
+    <Compile Include="CommandHandlers\Enviroments\AddAgentToEnviromentBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Enviroments\AddAgentToEnviromentHandler.cs" />
+    <Compile Include="CommandHandlers\Groups\AddUserToGroupBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Groups\AddUserToGroupHandler.cs" />
+    <Compile Include="CommandHandlers\Enviroments\ChangeAgentAddressBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Enviroments\ChangeAgentAddressHandler.cs" />
+    <Compile Include="CommandHandlers\Enviroments\CreateEnviromentHandler.cs" />
+    <Compile Include="CommandHandlers\Groups\CreateGroupBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Groups\CreateGroupHandler.cs" />
+    <Compile Include="CommandHandlers\Groups\RemoveUserFromGroupBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Groups\RemoveUserFromGroupHandler.cs" />
+    <Compile Include="CommandHandlers\Enviroments\RenameEnviromentAgentBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Enviroments\RenameEnviromentAgentHandler.cs" />
+    <Compile Include="CommandHandlers\Application\RemoveAlllowedUserFromApplicationHandler.cs" />
+    <Compile Include="CommandHandlers\Application\RemoveAllowedUserFromApplicationBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Application\RemoveAllowedGroupFromApplicationBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Application\RemoveAllowedGroupFromApplicationHandler.cs" />
+    <Compile Include="Commands\Application\AddAllowedGroupToApplication.cs" />
+    <Compile Include="Commands\Application\AddAllowedUserToApplication.cs" />
+    <Compile Include="Commands\Application\CreateApplicationGroup.cs" />
+    <Compile Include="Commands\Application\CreateDatabaseTask.cs" />
+    <Compile Include="Commands\Application\CreateDeployTask.cs" />
+    <Compile Include="Commands\Application\CreateLocalScriptTask.cs" />
+    <Compile Include="Commands\Application\CreateMailTask.cs" />
+    <Compile Include="Commands\Application\CreateRemoteScriptTask.cs" />
+    <Compile Include="Commands\Enviroments\AddAgentToEnviroment.cs" />
+    <Compile Include="Commands\Groups\AddUserToGroup.cs" />
+    <Compile Include="Commands\Enviroments\ChangeAgentAddress.cs" />
+    <Compile Include="Commands\Application\CreateApplication.cs" />
+    <Compile Include="Commands\Groups\CreateGroup.cs" />
+    <Compile Include="Commands\Groups\RemoveUserFromGroup.cs" />
+    <Compile Include="Commands\Enviroments\RenameEnviromentAgent.cs" />
+    <Compile Include="Commands\Application\RemoveAllowedGroupFromApplication.cs" />
+    <Compile Include="Commands\Application\RemoveAllowedUserFromApplication.cs" />
+    <Compile Include="Commands\Application\SetApplicationGroup.cs" />
+    <Compile Include="Commands\Application\ModifyDatabaseTask.cs" />
+    <Compile Include="Commands\Application\ModifyDeployTask.cs" />
+    <Compile Include="Commands\Application\ModifyLocalScriptTask.cs" />
+    <Compile Include="Commands\Application\ModifyMailTask.cs" />
+    <Compile Include="Commands\Application\ModifyRemoteScriptTask.cs" />
+    <Compile Include="Controllers\AgentsController.cs" />
+    <Compile Include="Infrastructure\BusinessRule.cs" />
+    <Compile Include="Infrastructure\BusinessRuleValidator.cs" />
+    <Compile Include="Infrastructure\CommandExecutor.cs" />
+    <Compile Include="Infrastructure\CommandHandler`T.cs" />
+    <Compile Include="Commands\Enviroments\CreateEnviroment.cs" />
+    <Compile Include="CommandHandlers\Enviroments\CreateEnviromentBusinessRule.cs" />
+    <Compile Include="Infrastructure\ExecutionResult.cs" />
+    <Compile Include="Infrastructure\IBusinessRule.cs" />
+    <Compile Include="Infrastructure\IBusinessRuleValidator.cs" />
+    <Compile Include="Infrastructure\IBusinessRule`T.cs" />
+    <Compile Include="Infrastructure\ICommand.cs" />
+    <Compile Include="Infrastructure\ICommandExecutor.cs" />
+    <Compile Include="Infrastructure\ICommandHandler.cs" />
+    <Compile Include="Infrastructure\ICommandHandler`1.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DatabaseTasksControllers.cs" />
     <Compile Include="Controllers\DeployController.cs" />
     <Compile Include="Controllers\DeploymentController.cs" />
@@ -260,6 +348,8 @@
     <Content Include="App\Deployment\DeploymentsPage.js" />
     <Content Include="App\Enviroments\ActionsCreator.js" />
     <Content Include="App\Enviroments\EnviromentPage.js" />
+    <Content Include="App\Envs\ActionsCreator.js" />
+    <Content Include="App\Envs\EnviromentPage.js" />
     <Content Include="App\Groups\ActionsCreator.js" />
     <Content Include="App\Groups\GroupsPage.js" />
     <Content Include="App\Group\ActionsCreator.js" />

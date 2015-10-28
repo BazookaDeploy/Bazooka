@@ -47,19 +47,19 @@ var TaskSelectDialog = React.createClass({
     return(
      <Modal {...this.props} enforceFocus={false} title="Add new task">
      <div className="modal-body">
-       <ModalTrigger modal={<DeployUnitDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<DeployUnitDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Deploy task</button>
        </ModalTrigger>
-       <ModalTrigger modal={<MailTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<MailTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Mail task</button>
        </ModalTrigger>
-       <ModalTrigger modal={<LocalScriptTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<LocalScriptTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Local script task</button>
        </ModalTrigger>
-       <ModalTrigger modal={<RemoteScriptTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<RemoteScriptTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Remote script task</button>
        </ModalTrigger>
-       <ModalTrigger modal={<DatabaseTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} />} >
+       <ModalTrigger modal={<DatabaseTaskDialog onCreate={this.props.onCreate} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} />} >
          <button type="button" className="btn btn-default btn-lg btn-block">Database task</button>
        </ModalTrigger>
      </div>
@@ -84,18 +84,19 @@ var TaskSelectDialog = React.createClass({
 
     updateTasks:function(){
       var id = this.getParams().enviromentId;
-      Actions.getTasks(id).then(x => {
+      Actions.getTasks(id,this.getParams().applicationId).then(x => {
         this.setState({tasks:x})
       });
     },
 
     componentDidMount: function() {
       var id = this.getParams().enviromentId;
-      Actions.getTasks(id).then(x => {
+      var appId=  this.getParams().applicationId;
+      Actions.getTasks(id,appId).then(x => {
         this.setState({tasks:x})
       });
 
-      Actions.getUsers(id).then(x => {
+      Actions.getUsers(id,appId).then(x => {
         this.setState({users:x})
       })
 
@@ -103,7 +104,7 @@ var TaskSelectDialog = React.createClass({
         this.setState({allUsers:x})
       })
 
-      Actions.getGroups(id).then(x => {
+      Actions.getGroups(id,appId).then(x => {
         this.setState({groups:x})
       })
 
@@ -113,32 +114,32 @@ var TaskSelectDialog = React.createClass({
     },
 
     removeUser:function(id){
-      Actions.removeUser(id).then(x => {
-        Actions.getUsers(this.getParams().enviromentId).then(z => {
+      Actions.removeUser(this.getParams().enviromentId,this.getParams().applicationId,id).then(x => {
+        Actions.getUsers(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({users:z})
         })
       })
     },
 
     removeGroup:function(id){
-      Actions.removeGroups(id).then(x => {
-        Actions.getGroups(this.getParams().enviromentId).then(z => {
+      Actions.removeGroups(this.getParams().enviromentId,this.getParams().applicationId,id).then(x => {
+        Actions.getGroups(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({groups:z})
         })
       })
     },
 
     addUser:function(){
-      Actions.addUser(this.getParams().enviromentId,this.refs.user.getDOMNode().value).then(x => {
-        Actions.getUsers(this.getParams().enviromentId).then(z => {
+      Actions.addUser(this.getParams().enviromentId,this.getParams().applicationId,this.refs.user.getDOMNode().value).then(x => {
+        Actions.getUsers(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({users:z})
         })
       })
     },
 
     addGroup:function(){
-      Actions.addGroup(this.getParams().enviromentId,this.refs.group.getDOMNode().value).then(x => {
-        Actions.getGroups(this.getParams().enviromentId).then(z => {
+      Actions.addGroup(this.getParams().enviromentId,this.getParams().applicationId,this.refs.group.getDOMNode().value).then(x => {
+        Actions.getGroups(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
           this.setState({groups:z})
         })
       })
@@ -146,7 +147,7 @@ var TaskSelectDialog = React.createClass({
 
     render: function () {
       var users = this.state.users.map(x => {
-        return (<tr><td>{x.UserName}  <button className="btn btn-danger btn-xs pull-right" onClick={z => this.removeUser(x.Id)}>Remove</button></td></tr>);
+        return (<tr><td>{x.UserName}  <button className="btn btn-danger btn-xs pull-right" onClick={z => this.removeUser(x.USerId)}>Remove</button></td></tr>);
       })
 
       var allUsers = this.state.allUsers.map(x => {
@@ -154,7 +155,7 @@ var TaskSelectDialog = React.createClass({
       })
 
       var groups = this.state.groups.map(x => {
-        return (<tr><td>{x.Name}  <button className="btn btn-danger btn-xs pull-right" onClick={z => {this.removeGroup(x.Id)}}>Remove</button></td></tr>);
+        return (<tr><td>{x.Name}  <button className="btn btn-danger btn-xs pull-right" onClick={z => {this.removeGroup(x.GroupId)}}>Remove</button></td></tr>);
       })
 
       var allGroups = this.state.allGroups.map(x => {
@@ -170,13 +171,15 @@ var TaskSelectDialog = React.createClass({
 
               <table className="table table-bordered table-striped">
                 <thead><tr><th>Tasks
-                  <ModalTrigger modal={<TaskSelectDialog onCreate={this.updateTasks} EnviromentId={this.getParams().enviromentId}/>}>
+                  <ModalTrigger modal={<TaskSelectDialog onCreate={this.updateTasks} EnviromentId={this.getParams().enviromentId} ApplicationId={this.getParams().applicationId}/>}>
                     <button className='btn btn-xs btn-primary pull-right'>New</button></ModalTrigger></th></tr></thead>
                 <tbody>
                   {this.state.tasks.map(x => x.Type == 0 ? (
                     <tr><td><Link to="deployunitedit" params={{
                         applicationName:this.getParams().applicationName,
+                        applicationId: this.getParams().applicationId,
                         enviroment:this.getParams().enviroment,
+                        enviromentId:this.getParams().enviromentId,
                         deployUnitName : x.Name,
                         deployUnitId: x.Id
                       }}>{x.Name}</Link></td></tr>
@@ -184,7 +187,9 @@ var TaskSelectDialog = React.createClass({
                   (x.Type == 1 ? (
                     <tr><td><Link to="mailtaskedit" params={{
                         applicationName:this.getParams().applicationName,
+                        applicationId: this.getParams().applicationId,
                         enviroment:this.getParams().enviroment,
+                        enviromentId:this.getParams().enviromentId,
                         mailTaskName : x.Name,
                         taskId: x.Id
                       }}>{x.Name}</Link></td></tr>
@@ -192,7 +197,9 @@ var TaskSelectDialog = React.createClass({
                     (
                       <tr><td><Link to="localscripttaskedit" params={{
                           applicationName:this.getParams().applicationName,
+                          applicationId: this.getParams().applicationId,
                           enviroment:this.getParams().enviroment,
+                          enviromentId:this.getParams().enviromentId,
                           taskName : x.Name,
                           taskId: x.Id
                         }}>{x.Name}</Link></td></tr>
@@ -201,14 +208,18 @@ var TaskSelectDialog = React.createClass({
                     (x.Type==3 ?(
                       <tr><td><Link to="remotescripttaskedit" params={{
                           applicationName:this.getParams().applicationName,
+                          applicationId: this.getParams().applicationId,
                           enviroment:this.getParams().enviroment,
+                          enviromentId:this.getParams().enviromentId,
                           taskName : x.Name,
                           taskId: x.Id
                         }}>{x.Name}</Link></td></tr>
                     ):(
                       <tr><td><Link to="databasetaskedit" params={{
                           applicationName:this.getParams().applicationName,
+                          applicationId: this.getParams().applicationId,
                           enviroment:this.getParams().enviroment,
+                          enviromentId:this.getParams().enviromentId,
                           taskName : x.Name,
                           taskId: x.Id
                         }}>{x.Name}</Link></td></tr>

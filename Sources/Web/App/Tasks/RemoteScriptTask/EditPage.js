@@ -16,8 +16,9 @@ var EditPage = React.createClass({
       EnviromentId:0,
       Name:"",
       Script:"",
-			Machine:"",
-			Folder:""
+			AgentId:"",
+			Folder:"",
+      Agents:[]
     };
   },
 
@@ -25,11 +26,14 @@ var EditPage = React.createClass({
     Actions.getRemoteScriptTask(this.getParams().taskId).then(x => {
       this.setState(x);
     })
+		Actions.getAgents(this.getParams().enviromentId).then(x => {
+			this.setState({Agents:x})
+		})
   },
 
   save:function(){
     if(this.state.Name!="" && this.state.Script!=""&& this.state.Machine!=""&& this.state.Folder!=""){
-      Actions.updateRemoteScriptTask(this.state.Id,this.state.Name, this.state.Script,this.state.Machine,this.state.Folder, this.state.EnviromentId)
+      Actions.updateRemoteScriptTask(this.state.Id,this.state.Name, this.state.Script,this.state.AgentId,this.state.Folder, this.state.EnviromentId, this.state.ApplicationId)
     }
   },
 
@@ -44,9 +48,11 @@ var EditPage = React.createClass({
            <input type="text" className="form-control" id="Name" placeholder="Name" autoFocus valueLink={this.linkState('Name')} />
          </div>
 				<div className="form-group">
-           <label htmlFor="Machine">Machine</label>
-           <input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('Machine')} />
-         </div>
+           <label htmlFor="AgentId">Machine</label>
+						<select  className="form-control" id="AgentId" valueLink={this.linkState('AgentId')}>
+								{this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
+						</select>
+				</div>
 				<div className="form-group">
 						<label htmlFor="Folder">Folder</label>
 						<input type="text" className="form-control" id="Folder" placeholder="Folder" valueLink={this.linkState('Folder')} />

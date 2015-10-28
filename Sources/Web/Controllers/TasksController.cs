@@ -9,9 +9,9 @@ namespace Web.Controllers
     {
         private ReadContext db = new ReadContext();
 
-        public ICollection<TaskDto> Get(int enviromentId)
+        public ICollection<TaskDto> Get(int enviromentId, int applicationId)
         {
-            return db.Tasks.Where(x => x.EnviromentId == enviromentId).ToList();
+            return db.Tasks.Where(x => x.EnviromentId == enviromentId & x.ApplicationId==applicationId).ToList();
         }
 
         protected override void Dispose(bool disposing)

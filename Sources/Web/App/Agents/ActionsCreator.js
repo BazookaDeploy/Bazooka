@@ -1,18 +1,46 @@
 import reqwest from "reqwest";
 
 module.exports = {
-  getAgents : function(){
+  getAgent : function(id){
     return reqwest({
-        url:"/api/update/agents",
+        url:"/api/agents/"+id,
         type:'json',
         contentType: 'application/json',
         method:"get"
     })
   },
 
+  rename : function(id, enviromentId, name){
+    return reqwest({
+        url:"/api/agents/Rename",
+        type:'json',
+        contentType: 'application/json',
+        method:"post",
+        data: JSON.stringify({
+          EnviromentId:enviromentId,
+          AgentId : id,
+          Name : name
+        })
+    })
+  },
+
+  changeAddress : function(id, enviromentId, address){
+    return reqwest({
+        url:"/api/agents/ChangeAddress",
+        type:'json',
+        contentType: 'application/json',
+        method:"post",
+        data: JSON.stringify({
+          EnviromentId:enviromentId,
+          AgentId : id,
+          Address : address
+        })
+    })
+  },
+
   testAgent: function (url) {
     return reqwest({
-      url: "/api/deployUnits/test?url=" + url,
+      url: "/api/agents/test?url=" + url,
       type: 'json',
       contentType: 'application/json',
       method: "get"
@@ -25,7 +53,7 @@ module.exports = {
 
     return reqwest({
         processData:false,
-        url:"/api/update/update?agent="+agent,
+        url:"/api/agents/update?agent="+agent,
         method:"post",
         data:data
     })

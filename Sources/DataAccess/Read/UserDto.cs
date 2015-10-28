@@ -9,5 +9,7 @@ namespace DataAccess.Read
         public string Email { get; set; }
 
         public string UserName { get; set; }
+
+        public bool Administrator { get; set; }
     }
 }
