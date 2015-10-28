@@ -8,6 +8,9 @@ namespace Web
         {
             // Web API configuration and services
 
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
