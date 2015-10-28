@@ -25,14 +25,14 @@ var DeployDialog = React.createClass({
     var version = this.refs.Version.getDOMNode().value;
     if(version!=null){
       if(!this.state.scheduled){
-        Actions.startDeploy(this.props.Enviroment.Id, version);
+        Actions.startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version);
         this.props.onRequestHide();
       }else{
         var data = this.refs.deployDate.getDOMNode().value;
         var hour = this.refs.hour.getDOMNode().value;
         var minutes = this.refs.minutes.getDOMNode().value;
 
-        Actions.scheduleDeploy(this.props.Enviroment.Id, version,new Date(data + " " + hour + ":" + minutes));
+        Actions.scheduleDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version,new Date(data + " " + hour + ":" + minutes));
         this.props.onRequestHide();
       }
     }
@@ -133,7 +133,7 @@ var Enviroment = React.createClass({
       if(oneVersion){
         var version = this.props.Enviroment.Versions[0].CurrentlyDeployedVersion || "None";
         return (<td>
-             Version: <b>{version}</b> &nbsp; <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
+            Version: <b>{version}</b> &nbsp; <ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment} ApplicationId={this.props.ApplicationId} />}>
                       <button className='btn btn-primary btn-xs'>Deploy</button>
                     </ModalTrigger>
                   </td>);
@@ -143,7 +143,7 @@ var Enviroment = React.createClass({
         <li><b>{x.Name}</b> Version: {x.CurrentlyDeployedVersion || "None"}</li>
       ))
 
-      return  (<td>Enviroment: <b>{this.props.Enviroment.Enviroment}</b> &nbsp;<ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment}/>}>
+      return  (<td>Enviroment: <b>{this.props.Enviroment.Enviroment}</b> &nbsp;<ModalTrigger modal={<DeployDialog Enviroment={this.props.Enviroment} ApplicationId={this.props.ApplicationId} />}>
                       <button className='btn btn-primary btn-xs'>Deploy</button>
                     </ModalTrigger>
         <ul>
@@ -158,7 +158,7 @@ var Application = React.createClass({
     return (
       <tr>
         <td>{this.props.Application.Name}</td>
-        {this.props.Enviroments.map(x => <Enviroment EnviromentId={x.Id} Enviroment={this.props.Application.Enviroments.filter(z => z.Id == x.Id)[0]}/>)}
+        {this.props.Enviroments.map(x => <Enviroment EnviromentId={x.Id} ApplicationId={this.props.Application.Id} Enviroment={this.props.Application.Enviroments.filter(z => z.Id == x.Id)[0]}/>)}
       </tr>);
   }
 });

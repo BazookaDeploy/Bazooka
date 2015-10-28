@@ -24932,14 +24932,14 @@
 	    var version = this.refs.Version.getDOMNode().value;
 	    if (version != null) {
 	      if (!this.state.scheduled) {
-	        _ActionsCreator2["default"].startDeploy(this.props.Enviroment.Id, version);
+	        _ActionsCreator2["default"].startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version);
 	        this.props.onRequestHide();
 	      } else {
 	        var data = this.refs.deployDate.getDOMNode().value;
 	        var hour = this.refs.hour.getDOMNode().value;
 	        var minutes = this.refs.minutes.getDOMNode().value;
 
-	        _ActionsCreator2["default"].scheduleDeploy(this.props.Enviroment.Id, version, new Date(data + " " + hour + ":" + minutes));
+	        _ActionsCreator2["default"].scheduleDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version, new Date(data + " " + hour + ":" + minutes));
 	        this.props.onRequestHide();
 	      }
 	    }
@@ -25182,7 +25182,7 @@
 	        "   ",
 	        _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
-	          { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment }) },
+	          { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment, ApplicationId: this.props.ApplicationId }) },
 	          _react2["default"].createElement(
 	            "button",
 	            { className: "btn btn-primary btn-xs" },
@@ -25218,7 +25218,7 @@
 	      "  ",
 	      _react2["default"].createElement(
 	        _reactBootstrapLibModalTrigger2["default"],
-	        { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment }) },
+	        { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment, ApplicationId: this.props.ApplicationId }) },
 	        _react2["default"].createElement(
 	          "button",
 	          { className: "btn btn-primary btn-xs" },
@@ -25249,7 +25249,7 @@
 	        this.props.Application.Name
 	      ),
 	      this.props.Enviroments.map(function (x) {
-	        return _react2["default"].createElement(Enviroment, { EnviromentId: x.Id, Enviroment: _this2.props.Application.Enviroments.filter(function (z) {
+	        return _react2["default"].createElement(Enviroment, { EnviromentId: x.Id, ApplicationId: _this2.props.Application.Id, Enviroment: _this2.props.Application.Enviroments.filter(function (z) {
 	            return z.Id == x.Id;
 	          })[0] });
 	      })
@@ -25368,9 +25368,9 @@
 			return promise;
 		},
 
-		startDeploy: function startDeploy(enviromentId, version) {
+		startDeploy: function startDeploy(enviromentId, applicationId, version) {
 			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&version=" + version,
+				url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version,
 				type: 'json',
 				contentType: 'application/json',
 				method: "get"
@@ -25379,9 +25379,9 @@
 			return promise;
 		},
 
-		scheduleDeploy: function scheduleDeploy(enviromentId, version, date) {
+		scheduleDeploy: function scheduleDeploy(enviromentId, applicationId, version, date) {
 			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&version=" + version + "&start=" + date.toISOString(),
+				url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version + "&start=" + date.toISOString(),
 				type: 'json',
 				contentType: 'application/json',
 				method: "get"

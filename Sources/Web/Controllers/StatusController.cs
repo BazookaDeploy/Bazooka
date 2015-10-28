@@ -32,6 +32,7 @@ namespace Web.Controllers
                                               Applications = x.GroupBy(y => y.ApplicationName).Select(y => new
                                               {
                                                   Name = y.Key,
+                                                  Id = y.First().ApplicationId,
                                                   Enviroments = y.GroupBy(z => z.EnviromentName, (envKey, ele2) => new
                                                   {
                                                       Enviroment = envKey,

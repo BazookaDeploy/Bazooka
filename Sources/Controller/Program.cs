@@ -71,6 +71,8 @@
             mapper.AddMapping<DeployTaskMap>();
             mapper.AddMapping<ParameterMap>();
             mapper.AddMapping<DeploymentMap>();
+            mapper.AddMapping<AllowedGroupMap>();
+            mapper.AddMapping<AllowedUserMap>();
             mapper.AddMapping<LogEntryMap>();
             mapper.AddMapping<MailTaskMap>();
             mapper.AddMapping<LocalScriptTaskMap>();
@@ -78,6 +80,7 @@
             mapper.AddMapping<DatabaseTaskMap>();
             mapper.AddMapping<AgentMap>();
             mapper.AddMapping<ApplicationGroupMap>();
+
 
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());

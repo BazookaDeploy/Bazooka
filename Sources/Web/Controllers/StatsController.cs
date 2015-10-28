@@ -24,7 +24,7 @@
 
             var deploys = db.Query<DeploymentDto>()
                             .Where(x => x.StartDate > startDate)
-                            .GroupBy(x => x.Enviroment)
+                            .GroupBy(x => x.Configuration)
                             .Select(x => new
                             {
                                 app = x.Key,

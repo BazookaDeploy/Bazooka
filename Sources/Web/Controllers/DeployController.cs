@@ -33,13 +33,14 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public void Deploy(int enviromentId, string version)
+        public void Deploy(int enviromentId,int applicationId, string version)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
                 var deploy = new Deployment()
                 {
                     EnviromentId = enviromentId,
+                    ApplicationId = applicationId,
                     Status = Status.Queud,
                     Version = version,
                     UserId = User.Identity.GetUserId()
@@ -79,7 +80,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public void Schedule(int enviromentId, string version, DateTime start)
+        public void Schedule(int enviromentId, int applicationId, string version, DateTime start)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
@@ -87,6 +88,7 @@ namespace Web.Controllers
                 {
                     EnviromentId = enviromentId,
                     Status = Status.Scheduled,
+                    ApplicationId = applicationId,
                     Version = version,
                     UserId = User.Identity.GetUserId(),
                     StartDate = start.ToUniversalTime(),
