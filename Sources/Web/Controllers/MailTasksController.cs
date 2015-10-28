@@ -1,44 +1,30 @@
 ﻿namespace Web.Controllers
 {
+    using Commands;
     using DataAccess.Read;
     using DataAccess.Write;
     using System.Linq;
     using System.Web.Http;
 
-    public class MailTasksController : ApiController
+    public class MailTasksController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext db { get; set; }
 
         public MailTaskDto Get(int id)
         {
-            return db.MailTasks.Single(x => x.Id == id);
+            return db.Query<MailTaskDto>().Single(x => x.Id == id);
         }
 
-        public void Put(MailTask unit)
+        [HttpPost]
+        public ExecutionResult CreateMailTask(CreateMailTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            };
+            return Execute(command);
         }
 
-        public void Post(MailTask unit)
+        [HttpPost]
+        public ExecutionResult ModifyMailTask(ModifyMailTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            };
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return Execute(command);
         }
     }
 }

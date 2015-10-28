@@ -9,5 +9,7 @@
         public virtual string Name { get; set; }
 
         public virtual int EnviromentId { get; set; }
+
+        public virtual int ApplicationId { get; set; }
     }
 }

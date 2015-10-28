@@ -27,7 +27,7 @@ var EditPage = React.createClass({
 
   save:function(){
     if(this.state.Name!="" && this.state.Script!=""){
-      Actions.updateLocalScriptTask(this.state.Id,this.state.Name, this.state.Script, this.state.EnviromentId)
+      Actions.updateLocalScriptTask(this.state.Id,this.state.Name, this.state.Script, this.state.EnviromentId, this.state.ApplicationId)
     }
   },
 

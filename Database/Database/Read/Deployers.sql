@@ -1,40 +1,15 @@
-﻿CREATE VIEW [rd].[Deployers]
-	AS 
+﻿
+CREATE VIEW [rd].[Deployers]
+	AS
+	SELECT T.EnviromentId, T.ApplicationId, T.UserId
+	FROM (
+		SELECT	Enviroments.Id as EnviromentId, Applications.Id as ApplicationId, AllowedUsers.UserID as UserId
+			FROM [dbo].Enviroments,  Applications, [Dbo].AllowedUsers 
+			WHERE Applications.Id = AllowedUsers.ApplicationId AND Enviroments.Id = AllowedUsers.EnviromentId
 
-	SELECT Dep.EnviromentId, 
-		   Dep.OwnerId AS UserId, 
-		   Dep.ApplicationId, 
-		   AspNetUsers.UserName, 
-		   Applications.Name AS ApplicationName, 
-		   Dep.Configuration
-	FROM
-	(	SELECT	Id AS EnviromentId, 
-				ApplicationId, 
-				OwnerId, 
-				Configuration 
-		FROM [dbo].Enviroments
-		
-		UNION
+			UNION
 
-		SELECT	Enviroments.Id AS EnviromentId, 
-				ApplicationId, 
-				OwnerId, 
-				Configuration 
-		FROM [dbo].Enviroments	INNER JOIN [dbo].AllowedUsers ON 
-									Enviroments.Id = AllowedUsers.EnviromentId
-
-		UNION
-
-		SELECT	Enviroments.Id AS EnviromentId, 
-				ApplicationId,  
-				AspNetUserRoles.UserId as OwnerId, 
-				Configuration 
-		FROM [dbo].Enviroments	INNER JOIN [dbo].AllowedGroups ON 
-									Enviroments.Id = AllowedGroups.EnviromentId
-								INNER JOIN [dbo].AspNetUserRoles ON 
-									AllowedGroups.GroupId = AspNetUserRoles.RoleId
-	) AS Dep 
-	
-	INNER JOIN [Dbo].AspNetUsers ON Dep.OwnerId =AspNetUsers.Id
-	INNER JOIN [dbo].Applications ON Applications.Id = Dep.ApplicationId
-
+		SELECT	Enviroments.Id as EnviromentId, Applications.Id as ApplicationId, AspNetUserRoles.UserId
+			FROM [dbo].Enviroments, Applications, [Dbo].AllowedGroups , dbo.AspNetUserRoles
+			WHERE Applications.Id = AllowedGroups.ApplicationId AND Enviroments.Id = AllowedGroups.EnviromentId AND AllowedGroups.GroupId = AspNetUserRoles.RoleId
+	) AS T

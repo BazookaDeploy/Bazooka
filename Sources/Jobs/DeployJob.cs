@@ -82,7 +82,7 @@
 
                 }
 
-                config = dc.Enviroments.Single(x => x.Id == envId).Configuration;
+                config = dc.Enviroments.Single(x => x.Id == envId).Name;
                 tasks = dc.Tasks.Where(x => x.EnviromentId == envId).ToList();
             }
 
@@ -171,11 +171,11 @@
                     session.Flush();
                 }
 
-                var address = unit.Machine;
+                var address = unit.AgentName;
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(unit.Machine);
+                    client.BaseAddress = new Uri(unit.AgentName);
                     client.Timeout = TimeSpan.FromSeconds(300);
 
                     var result2 = client.PostAsJsonAsync("/api/deploy/databaseDeploy", new DatabaseDeployDto()
@@ -247,11 +247,11 @@
                     session.Flush();
                 }
 
-                var address = unit.Machine;
+                var address = unit.Address;
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(unit.Machine);
+                    client.BaseAddress = new Uri(unit.Address);
                     client.Timeout = TimeSpan.FromSeconds(300);
 
                     var result2 = client.PostAsJsonAsync("/api/deploy/executeScript", new RemoteScriptDto()
@@ -409,11 +409,11 @@
 
         private static ExecutionResult Install(DeployTaskDto unit, string version, string config)
         {
-            var address = unit.Machine;
+            var address = unit.Address;
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(unit.Machine);
+                client.BaseAddress = new Uri(unit.Address);
                 client.Timeout = TimeSpan.FromSeconds(300);
 
                 var result2 = client.PostAsJsonAsync("/api/deploy/install", new
@@ -443,7 +443,7 @@
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(unit.Machine);
+                client.BaseAddress = new Uri(unit.Address);
                 client.Timeout = TimeSpan.FromSeconds(300);
 
                 var result2 = client.PostAsJsonAsync("/api/deploy/update", new

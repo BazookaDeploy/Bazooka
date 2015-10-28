@@ -5,31 +5,39 @@ import Modal from "react-bootstrap/lib/Modal";
 import ModalTrigger from "react-bootstrap/lib/ModalTrigger";
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
+
+var Enviroments = React.createClass({
+  render:function(){
+    return (<tr>
+      <td><Link to="tasks" params={{
+        applicationName: this.props.application,
+        applicationId: this.props.applicationId,
+        enviroment: this.props.Enviroment.Name,
+        enviromentId: this.props.Enviroment.Id}}>{this.props.Enviroment.Name}</Link></td>
+      </tr>)
+  }
+});
+
 var CreateDialog = React.createClass({
   create:function(){
-    var configuration = this.refs.configuration.getDOMNode().value;
-    var description = this.refs.description.getDOMNode().value;
-    var id = this.props.Application;
-
-    if(configuration.length!==0){
-      Actions.createEnviroment(id, configuration,description).then(x => {this.props.onRequestHide();this.props.onCreate()});
+    var name = this.refs.name.getDOMNode().value;
+    if(name.length!==0){
+      Actions.createApplicationGroup(name).then(x => {
+        this.props.onRequestHide();
+        this.props.onCreate();
+      });
     }
-
     return false;
   },
 
   render:function(){
     return(
-      <Modal {...this.props} title="Create new enviroment">
+      <Modal {...this.props} title="Create new application group">
         <div className="modal-body">
           <form role="form" onSubmit={this.create}>
             <div className="form-group">
-              <label htmlFor="configuration">Configuration</label>
-              <input type="text" className="form-control" id="configuration" placeholder="Configuration" autoFocus ref="configuration" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description (Optional)</label>
-              <textarea className="form-control" id="description" placeholder="Description of your enviroment ( optional)" ref="description" />
+              <label htmlFor="name">Name</label>
+              <input type="text" className="form-control" id="name" placeholder="Name" autoFocus ref="name" />
             </div>
           </form>
         </div>
@@ -42,47 +50,74 @@ var CreateDialog = React.createClass({
   })
 
 
-var Enviroments = React.createClass({
-  render:function(){
-    return (<tr>
-      <td><Link to="tasks" params={{
-        applicationName: this.props.Enviroment.Name,
-        enviroment: this.props.Enviroment.Configuration,
-        enviromentId: this.props.Enviroment.Id}}>{this.props.Enviroment.Configuration}</Link></td>
-      </tr>)
-  }
-});
 
 var EnviromentsPage = React.createClass({
   mixins: [Router.State],
   getInitialState: function() {
     return {
-      envs : []
+      envs : [],
+      groups:[],
+      applicationGroup: null
     };
   },
 
   componentDidMount: function() {
     this.update();
+    this.updateGroups();
+  },
+
+  updateGroups: function(){
+    Actions.getApplicationGroups().then(x => this.setState({groups:x}));
+    Actions.getApplicationInfo(this.getParams().applicationId).then(x => this.setState({applicationGroup:x.GroupName}));
+
   },
 
   update:function(){
-    var id = this.getParams().applicationId;
-    Actions.updateEnviroments(id).then(x =>{
+    Actions.updateAllEnviroments().then(x =>{
       this.setState({
         envs:x
       })
     });
   },
 
+  setGroup:function(){
+    Actions.setApplicationGroup(this.getParams().applicationId, this.refs.group.getDOMNode().value).then(x =>
+      this.updateGroups()
+    )
+  },
+
   render: function () {
-    var envs = this.state.envs.map(a => (<Enviroments Enviroment={a}/>));
+    var envs = this.state.envs.map(a => (<Enviroments Enviroment={a} application={this.getParams().applicationName} applicationId={this.getParams().applicationId}/>));
 
     return(<div>
       <h3>Application {this.getParams().applicationName}</h3>
+
+      <br />
+      Application group : {this.state.applicationGroup} &nbsp;&nbsp;&nbsp;&nbsp;
+
+      {window.Administator == "True" && <ModalTrigger modal={<CreateDialog onCreate={this.updateGroups}/>}>
+        <button className='btn btn-primary btn-xs '>Create new</button>
+      </ModalTrigger>}
+
+      <br />
+      <br />
+      <div className="input-group">
+      <select ref="group" className="form-control">
+        <option value=""  />
+        {this.state.groups.map(x => <option value={x.Id}>{x.Name}</option>)}
+      </select>
+      <span className="input-group-btn">
+      <button className="btn btn-primary" onClick={this.setGroup}>Set group</button>
+      </span>
+    </div>
+
+
+
+
+      <br />
+
       <table className="table table-striped table-bordered">
-      <thead><tr><th>Enviroments <ModalTrigger modal={<CreateDialog onCreate={this.update} Application={this.getParams().applicationId} />}>
-        <button className='btn btn-primary btn-xs pull-right'>Create</button>
-      </ModalTrigger></th></tr></thead>
+      <thead><tr><th>Enviroments</th></tr></thead>
       <tbody>
         {envs}
       </tbody>

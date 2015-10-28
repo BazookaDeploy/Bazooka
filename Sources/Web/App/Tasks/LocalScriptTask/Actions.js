@@ -10,31 +10,33 @@ module.exports = {
     });
   },
 
-  createLocalScriptTask: function(name, script, enviromentId){
+  createLocalScriptTask: function(name, script, enviromentId, applicationId){
     return  reqwest({
-      url: "/api/LocalScriptTasks",
+      url: "/api/LocalScriptTasks/CreateLocalScriptTask",
       type: 'json',
       contentType: 'application/json',
       method: "post",
       data: JSON.stringify({
         EnviromentId:enviromentId,
         Name:name,
-        Script:script
+        Script:script,
+        ApplicationId:applicationId
       })
     });
   },
 
-  updateLocalScriptTask: function(id, name, script, enviromentId){
+  updateLocalScriptTask: function(id, name, script, enviromentId, applicationId){
     return  reqwest({
-      url: "/api/LocalScriptTasks",
+      url: "/api/LocalScriptTasks/ModifyLocalScriptTask",
       type: 'json',
       contentType: 'application/json',
-      method: "put",
+      method: "post",
       data: JSON.stringify({
-        Id:id,
+        LocalScriptTaskId:id,
         EnviromentId:enviromentId,
         Name:name,
-        Script:script
+        Script:script,
+        ApplicationId:applicationId
       })
     });
   },

@@ -3,19 +3,22 @@ import reqwest from "reqwest";
 module.exports = {
 	updateGroups: function() {
 	return	reqwest({
-			url: "/users/groups/",
+			url: "api/users/groups/",
 			type: 'json',
 			contentType: 'application/json',
 			method: "get"
 		})
 	},
 
-	createGroup: function( name) {
+	createGroup: function(name) {
 		var promise = reqwest({
-			url: "/users/group?groupName="+name,
+			url: "api/users/CreateGroup",
 			type: 'json',
 			contentType: 'application/json',
-			method: "post"
+			method: "post",
+			data:JSON.stringify({
+				Name:name
+			})
 		});
 
 		return promise;

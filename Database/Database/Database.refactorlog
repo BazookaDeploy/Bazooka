@@ -70,4 +70,39 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="DeployTaskId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="3c45266a-4704-4bdf-b8c4-5fb6e6f93e13" ChangeDateTime="09/07/2015 21:34:23">
+    <Property Name="ElementName" Value="[dbo].[Enviroments].[Configuration]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Enviroments]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4c03d9fa-a05f-413d-9af2-3ffea063d806" ChangeDateTime="09/07/2015 21:36:07">
+    <Property Name="ElementName" Value="[dbo].[AllowedUsers].[AplicationId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AllowedUsers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ApplicationId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bcb7e351-3b0c-4eb1-b6ca-05add22a7baa" ChangeDateTime="10/22/2015 19:23:44">
+    <Property Name="ElementName" Value="[dbo].[DatabaseTasks].[Machine]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DatabaseTasks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AgentId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ced37460-78b5-4846-997c-0549414f47f0" ChangeDateTime="10/23/2015 19:41:20">
+    <Property Name="ElementName" Value="[dbo].[DeployTasks].[Machine]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DeployTasks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AgentId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0d476971-1449-4f2e-aaa3-3cd8e8bc14f9" ChangeDateTime="10/23/2015 20:00:41">
+    <Property Name="ElementName" Value="[dbo].[RemoteScriptTasks].[Machine]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RemoteScriptTasks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AgentId" />
+  </Operation>
 </Operations>

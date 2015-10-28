@@ -1,6 +1,5 @@
 ﻿namespace Bazooka.Core
 {
-    using Bazooka.Core;
     using Microsoft.SqlServer.Dac;
     using System;
     using System.IO;

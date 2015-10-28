@@ -10,9 +10,19 @@ module.exports = {
     });
   },
 
-  createRemoteScriptTask: function(name, script, machine, folder, enviromentId){
+  getAgents:function(id){
+    return reqwest({
+      url: "/api/Agents/AgentsByEnviroment/"+id,
+      type: 'json',
+      contentType: 'application/json',
+      method: "get",
+    });
+  },
+
+
+  createRemoteScriptTask: function(name, script, machine, folder, enviromentId,applicationId){
     return  reqwest({
-      url: "/api/RemoteScriptTasks",
+      url: "/api/RemoteScriptTasks/CreateRemoteScriptTask",
       type: 'json',
       contentType: 'application/json',
       method: "post",
@@ -20,25 +30,27 @@ module.exports = {
         EnviromentId:enviromentId,
         Name:name,
         Script:script,
-        Machine:machine,
-        Folder:folder
+        AgentId:machine,
+        Folder:folder,
+        ApplicationId: applicationId
       })
     });
   },
 
-  updateRemoteScriptTask: function(id, name, script,machine,folder, enviromentId){
+  updateRemoteScriptTask: function(id, name, script,machine,folder, enviromentId,applicationId){
     return  reqwest({
-      url: "/api/RemoteScriptTasks",
+      url: "/api/RemoteScriptTasks/ModifyRemoteScriptTask",
       type: 'json',
       contentType: 'application/json',
-      method: "put",
+      method: "post",
       data: JSON.stringify({
-        Id:id,
+        RemoteScriptTaskId:id,
         EnviromentId:enviromentId,
         Name:name,
         Script:script,
-        Machine:machine,
-        Folder:folder
+        AgentId:machine,
+        Folder:folder,
+        ApplicationId: applicationId
       })
     });
   },

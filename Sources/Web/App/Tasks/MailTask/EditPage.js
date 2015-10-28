@@ -29,7 +29,7 @@ var EditPage = React.createClass({
 
   save:function(){
     if(this.state.Name!="" && this.state.Recipients!="" && this.state.Sender!=""){
-      Actions.updateMailTask(this.state.Id,this.state.Name, this.state.Text,this.state.Recipients,this.state.Sender, this.state.EnviromentId).then(x => {
+      Actions.updateMailTask(this.state.Id,this.state.Name, this.state.Text,this.state.Recipients,this.state.Sender, this.state.EnviromentId, this.state.ApplicationId).then(x => {
         this.props.onRequestHide()
         this.props.onTaskCreate();
       })

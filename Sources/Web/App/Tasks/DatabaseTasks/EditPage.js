@@ -19,20 +19,25 @@ var EditPage = React.createClass({
       Pack:"",
       DatabaseName:"",
 			Repository:"",
-			Machine:""
+			AgentId:"",
+      Agents:[]
     };
   },
+
 
   componentDidMount:function(){
     Actions.getDatabaseTask(this.getParams().taskId).then(x => {
 			x.Pack=x.Package;
       this.setState(x);
     })
+		Actions.getAgents(this.getParams().enviromentId).then(x => {
+			this.setState({Agents:x})
+		})
   },
 
   save:function(){
     if(this.state.Name!="" && this.state.ConnectionString!=""&& this.state.Pack!=""&& this.state.DatabaseName!=""&& this.state.Repository!=""&& this.state.Machine!=""){
-      Actions.updateDatabaseTask(this.state.Id,this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.state.EnviromentId, this.state.Repository,this.state.Machine)
+      Actions.updateDatabaseTask(this.state.Id,this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.state.EnviromentId, this.state.Repository,this.state.AgentId, this.state.ApplicationId)
     }
   },
 
@@ -55,8 +60,10 @@ var EditPage = React.createClass({
 											<input type="text" className="form-control" id="Pack" placeholder="Package" valueLink={this.linkState('Pack')} />
 										</div>
 										<div className="form-group">
-											<label htmlFor="Machine">Machine</label>
-											<input type="text" className="form-control" id="Machine" placeholder="Machine" valueLink={this.linkState('Machine')} />
+											<label htmlFor="AgentId">Machine</label>
+											<select  className="form-control" id="AgentId" valueLink={this.linkState('AgentId')}>
+													{this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
+											</select>
 										</div>
 										<div className="form-group">
 											<label htmlFor="Repository">Repository</label>

@@ -18,6 +18,7 @@ namespace DataAccess.Write
             Property(x => x.StartDate, x => x.NotNullable(false));
             Property(x => x.EndDate, x => x.NotNullable(false));
             Property(x => x.EnviromentId, x => x.NotNullable(true));
+            Property(x => x.ApplicationId, x => x.NotNullable(true));
             Property(x => x.Status, x => x.NotNullable(true));
             Property(x => x.Version, x => x.NotNullable(true));
             Property(x => x.UserId, x => x.NotNullable(true));

@@ -55,16 +55,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Read\AgentDto.cs" />
     <Compile Include="Read\AllowedGroupsDto.cs" />
     <Compile Include="Read\AllowedUsersDto.cs" />
     <Compile Include="Read\ApplicationDto.cs" />
+    <Compile Include="Read\ApplicationGroupDto.cs" />
     <Compile Include="Read\DatabaseTaskDto.cs" />
-    <Compile Include="Read\DeployerDto.cs" />
+    <Compile Include="Read\DeployersDto.cs" />
     <Compile Include="Read\DeploymentDto.cs" />
     <Compile Include="Read\DeployTaskDto.cs" />
     <Compile Include="Read\DeployTaskParameterDto.cs" />
     <Compile Include="Read\EnviromentDto.cs" />
     <Compile Include="Read\GroupDto.cs" />
+    <Compile Include="Read\IReadContext.cs" />
     <Compile Include="Read\LocalScriptTaskDto.cs" />
     <Compile Include="Read\MailTaskDto.cs" />
     <Compile Include="Read\ReadContext.cs" />
@@ -73,11 +76,15 @@
     <Compile Include="Read\TaskType.cs" />
     <Compile Include="Read\UserDto.cs" />
     <Compile Include="Read\UsersInGroupsDto.cs" />
+    <Compile Include="Write\Agent.cs" />
+    <Compile Include="Write\AgentMap.cs" />
     <Compile Include="Write\AllowedGroup.cs" />
     <Compile Include="Write\AllowedGroupMap.cs" />
     <Compile Include="Write\AllowedUser.cs" />
     <Compile Include="Write\AllowedUserMap.cs" />
     <Compile Include="Write\Application.cs" />
+    <Compile Include="Write\ApplicationGroup.cs" />
+    <Compile Include="Write\ApplicationGroupMap.cs" />
     <Compile Include="Write\ApplicationMap.cs" />
     <Compile Include="Write\DatabaseTask.cs" />
     <Compile Include="Write\DatabaseTaskMap.cs" />

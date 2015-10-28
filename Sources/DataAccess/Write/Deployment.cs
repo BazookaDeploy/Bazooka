@@ -8,6 +8,8 @@ namespace DataAccess.Write
 
         public virtual int EnviromentId { get; set; }
 
+        public virtual int ApplicationId { get; set; }
+
         public virtual DateTime? StartDate { get; set; }
 
         public virtual DateTime? EndDate { get; set; }

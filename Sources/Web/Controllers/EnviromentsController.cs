@@ -1,60 +1,29 @@
 ﻿namespace Web.Controllers
 {
-    using DataAccess.Read;
-    using DataAccess.Write;
-    using Microsoft.AspNet.Identity;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using DataAccess.Read;
+    using Commands;
     using System.Web.Http;
 
-    public class EnviromentsController : ApiController
+    [Authorize]
+    public class EnviromentsController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext ReadContext { get; set; }
 
         public ICollection<EnviromentDto> Get()
         {
-            return db.Enviroments.ToList();
+            return ReadContext.Query<EnviromentDto>().ToList();
         }
 
-        public ICollection<EnviromentDto> Get(int id)
+        public ExecutionResult Create(CreateEnviroment command)
         {
-            return db.Enviroments.Where(x => x.ApplicationId == id).ToList();
+            return Execute(command);
         }
 
-        [HttpGet, Route("api/enviroments/grouped")]
-        public ICollection GroupedEnviroments()
+        public ExecutionResult AddAgent(AddAgentToEnviroment command)
         {
-            var id = User.Identity.GetUserId();
-            var allowed = db.Deployers.Where(x => x.UserId == id).Select(x => x.EnviromentId).ToList();
-
-            return db.Enviroments
-                     .Where(x => allowed.Contains(x.Id))
-                     .GroupBy(x => x.Name, (key, ele) => new
-                        {
-                            Application = key,
-                            Enviroments = ele.ToList()
-                        })
-                     .ToList();
-        }
-
-        public void Post(Enviroment env)
-        {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                env.OwnerId = User.Identity.GetUserId();
-                session.Save(env);
-                session.Flush();
-            };
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return Execute(command);
         }
     }
 }

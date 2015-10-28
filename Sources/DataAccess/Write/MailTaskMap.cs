@@ -17,6 +17,7 @@ namespace DataAccess.Write
                 });
 
             Property(x => x.EnviromentId);
+            Property(x => x.ApplicationId);
             Property(x => x.Name, x => x.Length(50));
             Property(x => x.Recipients, x => x.Length(256));
             Property(x => x.Sender, x => { x.NotNullable(true); x.Length(256); });

@@ -1,44 +1,30 @@
 ﻿namespace Web.Controllers
 {
+    using Commands;
     using DataAccess.Read;
     using DataAccess.Write;
     using System.Linq;
     using System.Web.Http;
 
-    public class RemoteScriptTasksController : ApiController
+    public class RemoteScriptTasksController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext db { get; set; }
 
         public RemoteScriptTaskDto Get(int id)
         {
-            return db.RemoteScriptTasks.Single(x => x.Id == id);
+            return db.Query<RemoteScriptTaskDto>().Single(x => x.Id == id);
         }
 
-        public void Put(RemoteScriptTask unit)
+        [HttpPost]
+        public ExecutionResult CreateRemoteScriptTask(CreateRemoteScriptTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            };
+            return Execute(command);
         }
 
-        public void Post(RemoteScriptTask unit)
+        [HttpPost]
+        public ExecutionResult ModifyRemoteScriptTask(ModifyRemoteScriptTask command)
         {
-            using (var session = WebApiApplication.Store.OpenSession())
-            {
-                session.SaveOrUpdate(unit);
-                session.Flush();
-            };
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return Execute(command);
         }
     }
 }

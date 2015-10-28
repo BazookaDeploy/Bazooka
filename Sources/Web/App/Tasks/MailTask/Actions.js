@@ -6,13 +6,13 @@ module.exports = {
       url: "/api/mailTasks/"+id,
       type: 'json',
       contentType: 'application/json',
-      method: "get",      
+      method: "get",
     });
   },
 
-  createMailTask: function(name, text,recipients,sender, enviromentId){
+  createMailTask: function(name, text,recipients,sender, enviromentId, applicationId){
     return  reqwest({
-      url: "/api/mailTasks",
+      url: "/api/mailTasks/CreateMailtask",
       type: 'json',
       contentType: 'application/json',
       method: "post",
@@ -21,24 +21,26 @@ module.exports = {
         Name:name,
         Text:text,
         Recipients:recipients,
-        Sender:sender
+        Sender:sender,
+        ApplicationId:applicationId
       })
     });
   },
 
-  updateMailTask: function(id, name, text,recipients,sender, enviromentId){
+  updateMailTask: function(id, name, text,recipients,sender, enviromentId, applicationId){
     return  reqwest({
-      url: "/api/mailTasks",
+      url: "/api/mailTasks/ModifyMailTask",
       type: 'json',
       contentType: 'application/json',
-      method: "put",
+      method: "post",
       data: JSON.stringify({
-        Id:id,
+        MailTaskId:id,
         EnviromentId:enviromentId,
         Name:name,
         Text:text,
         Recipients:recipients,
-        Sender:sender
+        Sender:sender,
+        ApplicationId:applicationId
       })
     });
   },

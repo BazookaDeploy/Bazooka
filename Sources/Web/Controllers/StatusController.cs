@@ -6,44 +6,49 @@ using Microsoft.AspNet.Identity;
 
 namespace Web.Controllers
 {
-    public class StatusController : ApiController
+    public class StatusController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext db { get; set; }
 
 
-        public ICollection Get()
+        public object Get()
         {
             var id = User.Identity.GetUserId();
-            var allowed = db.Deployers.Where(x => x.UserId == id).Select(x => x.EnviromentId).ToList();
+
+            var enviroments = db.Query<EnviromentDto>().OrderBy(x => x.Id).ToList();
+            var deployable = db.Query<DeployersDto>().Where(x => x.UserId == id).ToList();
+            var deployableApps = deployable.Select(x => x.ApplicationId).Distinct().ToList();
+
+            var applications = db.Query<DeployTaskDto>().Where(x => x.ApplicationId == x.ApplicationId).ToList();
 
 
-            return db.DeploTasks
-                     .Where(x => allowed.Contains(x.EnviromentId))
-                     .GroupBy(x => x.ApplicationName, (key, ele) => new
+            return new
             {
-                Application = key,
-                Enviroments = ele.GroupBy(z => z.EnviromentName, (envKey, ele2) => new
-                {
-                    Enviroment = envKey,
-                    Name = key,
-                    Configuration = envKey,
-                    Id = ele2.FirstOrDefault().EnviromentId,
-                    Versions = ele2.Select(y => new
-                    {
-                        y.Name,
-                        y.CurrentlyDeployedVersion
-                    }).ToList()
-                }).ToList()
-            }).ToList();
-        }
+                Enviroments = enviroments,
+                Applications = applications.GroupBy(x => x.GroupName ?? "")
+                                          .Select(x => new
+                                          {
+                                              GroupName = x.Key,
+                                              Applications = x.GroupBy(y => y.ApplicationName).Select(y => new
+                                              {
+                                                  Name = y.Key,
+                                                  Id = y.First().ApplicationId,
+                                                  Enviroments = y.GroupBy(z => z.EnviromentName, (envKey, ele2) => new
+                                                  {
+                                                      Enviroment = envKey,
+                                                      Name = y.Key,
+                                                      Configuration = envKey,
+                                                      Id = ele2.FirstOrDefault().EnviromentId,
+                                                      Versions = ele2.Select(yy => new
+                                                      {
+                                                          yy.Name,
+                                                          yy.CurrentlyDeployedVersion
+                                                      }).ToList()
+                                                  }).ToList()
+                                              })
+                                          })
+            };
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
