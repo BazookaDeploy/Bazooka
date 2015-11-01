@@ -29,11 +29,11 @@ namespace Web.Controllers
                                           .Select(x => new
                                           {
                                               GroupName = x.Key,
-                                              Applications = x.GroupBy(y => y.ApplicationName).Select(y => new
+                                              Applications = x.Where(z => deployableApps.Contains(z.ApplicationId)).GroupBy(y => y.ApplicationName).Select(y => new
                                               {
                                                   Name = y.Key,
                                                   Id = y.First().ApplicationId,
-                                                  Enviroments = y.GroupBy(z => z.EnviromentName, (envKey, ele2) => new
+                                                  Enviroments = y.Where(z => deployable.Count(zz => zz.ApplicationId == z.ApplicationId && zz.EnviromentId == z.EnviromentId)> 0).GroupBy(z => z.EnviromentName, (envKey, ele2) => new
                                                   {
                                                       Enviroment = envKey,
                                                       Name = y.Key,
