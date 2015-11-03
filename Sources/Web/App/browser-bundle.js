@@ -92,35 +92,35 @@
 
 	var _DeploymentDeploymentsPage2 = _interopRequireDefault(_DeploymentDeploymentsPage);
 
-	var _GroupsGroupsPage = __webpack_require__(290);
+	var _GroupsGroupsPage = __webpack_require__(289);
 
 	var _GroupsGroupsPage2 = _interopRequireDefault(_GroupsGroupsPage);
 
-	var _GroupGroupsPage = __webpack_require__(292);
+	var _GroupGroupsPage = __webpack_require__(291);
 
 	var _GroupGroupsPage2 = _interopRequireDefault(_GroupGroupsPage);
 
-	var _StatsStatsPage = __webpack_require__(294);
+	var _StatsStatsPage = __webpack_require__(293);
 
 	var _StatsStatsPage2 = _interopRequireDefault(_StatsStatsPage);
 
-	var _TasksTasksPage = __webpack_require__(311);
+	var _TasksTasksPage = __webpack_require__(310);
 
 	var _TasksTasksPage2 = _interopRequireDefault(_TasksTasksPage);
 
-	var _TasksMailTaskEditPage = __webpack_require__(322);
+	var _TasksMailTaskEditPage = __webpack_require__(321);
 
 	var _TasksMailTaskEditPage2 = _interopRequireDefault(_TasksMailTaskEditPage);
 
-	var _TasksLocalScriptTaskEditPage = __webpack_require__(323);
+	var _TasksLocalScriptTaskEditPage = __webpack_require__(322);
 
 	var _TasksLocalScriptTaskEditPage2 = _interopRequireDefault(_TasksLocalScriptTaskEditPage);
 
-	var _TasksRemoteScriptTaskEditPage = __webpack_require__(324);
+	var _TasksRemoteScriptTaskEditPage = __webpack_require__(323);
 
 	var _TasksRemoteScriptTaskEditPage2 = _interopRequireDefault(_TasksRemoteScriptTaskEditPage);
 
-	var _TasksDatabaseTasksEditPage = __webpack_require__(325);
+	var _TasksDatabaseTasksEditPage = __webpack_require__(324);
 
 	var _TasksDatabaseTasksEditPage2 = _interopRequireDefault(_TasksDatabaseTasksEditPage);
 
@@ -34728,13 +34728,17 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(289);
+	var _ActionsCreator = __webpack_require__(325);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
 	var _reactIntl = __webpack_require__(255);
 
 	var _reactIntl2 = _interopRequireDefault(_reactIntl);
+
+	var _reactBootstrapLibPanel = __webpack_require__(326);
+
+	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
 
 	var _reactBootstrapLibModal = __webpack_require__(214);
 
@@ -34752,263 +34756,287 @@
 	var Link = _reactRouter2["default"].Link;
 
 	var format = {
-	  "formats": {
-	    "time": {
-	      "hhmm": {
-	        "hour": "numeric",
-	        "minute": "numeric",
-	        "second": "numeric"
-	      }
+	    "formats": {
+	        "time": {
+	            "hhmm": {
+	                "hour": "numeric",
+	                "minute": "numeric",
+	                "second": "numeric"
+	            }
+	        }
 	    }
-	  }
 	};
 
 	var formats = format.formats;
 
 	function SameDate(a, b) {
-	  if (a == null || b == null) {
-	    return false;
-	  }
+	    if (a == null || b == null) {
+	        return false;
+	    }
 
-	  a = new Date(a);
-	  b = new Date(b);
+	    a = new Date(a);
+	    b = new Date(b);
 
-	  return a.getHours() == b.getHours() && a.getMinutes() == b.getMinutes() && a.getSeconds() == b.getSeconds();
+	    return a.getHours() == b.getHours() && a.getMinutes() == b.getMinutes() && a.getSeconds() == b.getSeconds();
 	}
 
 	var LogLine = _react2["default"].createClass({
-	  displayName: "LogLine",
+	    displayName: "LogLine",
 
-	  render: function render() {
-	    return _react2["default"].createElement(
-	      "span",
-	      null,
-	      _react2["default"].createElement(
-	        "dt",
-	        { style: { width: "80px" } },
-	        SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? _react2["default"].createElement("span", null) : _react2["default"].createElement(FormattedTime, { formats: formats, format: "hhmm", value: this.props.TimeStamp })
-	      ),
-	      _react2["default"].createElement(
-	        "dd",
-	        { style: { marginLeft: "100px" } },
-	        _react2["default"].createElement("span", { className: this.props.Error ? "text-danger" : "",
-	          dangerouslySetInnerHTML: { __html: (this.props.Text || "").replace(/(?:\r\n|\r|\n)/g, '<br />') } })
-	      )
-	    );
-	  }
+	    render: function render() {
+	        return _react2["default"].createElement(
+	            "span",
+	            null,
+	            _react2["default"].createElement(
+	                "dt",
+	                { style: { width: "80px" } },
+	                SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? _react2["default"].createElement("span", null) : _react2["default"].createElement(FormattedTime, { formats: formats, format: "hhmm", value: this.props.TimeStamp })
+	            ),
+	            _react2["default"].createElement(
+	                "dd",
+	                { style: { marginLeft: "100px" } },
+	                _react2["default"].createElement("span", { className: this.props.Error ? "text-danger" : "",
+	                    dangerouslySetInnerHTML: { __html: (this.props.Text || "").replace(/(?:\r\n|\r|\n)/g, '<br />') } })
+	            )
+	        );
+	    }
 	});
 
 	var CancelDialog = _react2["default"].createClass({
-	  displayName: "CancelDialog",
+	    displayName: "CancelDialog",
 
-	  create: function create() {
-	    var _this = this;
+	    create: function create() {
+	        var _this = this;
 
-	    _ActionsCreator2["default"].cancelDeployment(this.props.Id).then(function (x) {
-	      _ActionsCreator2["default"].updateDeployment(_this.props.Id);
-	      _this.props.onRequestHide();
-	    });
-	  },
+	        _ActionsCreator2["default"].cancelDeployment(this.props.Id).then(function (x) {
+	            _ActionsCreator2["default"].updateDeployment(_this.props.Id);
+	            _this.props.onRequestHide();
+	        });
+	    },
 
-	  render: function render() {
-	    return _react2["default"].createElement(
-	      _reactBootstrapLibModal2["default"],
-	      _extends({}, this.props, { title: "Cancel scheduled deploy" }),
-	      _react2["default"].createElement(
-	        "div",
-	        { className: "modal-body" },
-	        _react2["default"].createElement(
-	          "h4",
-	          null,
-	          "Are you really sure that you want to cancel this scheduled deploy?"
-	        )
-	      ),
-	      _react2["default"].createElement(
-	        "div",
-	        { className: "modal-footer" },
-	        _react2["default"].createElement(
-	          "button",
-	          { className: "btn", onClick: this.props.onRequestHide },
-	          "Cancel"
-	        ),
-	        _react2["default"].createElement(
-	          "button",
-	          { className: "btn btn-primary", onClick: this.create },
-	          "Ok"
-	        )
-	      )
-	    );
-	  }
+	    render: function render() {
+	        return _react2["default"].createElement(
+	            _reactBootstrapLibModal2["default"],
+	            _extends({}, this.props, { title: "Cancel scheduled deploy" }),
+	            _react2["default"].createElement(
+	                "div",
+	                { className: "modal-body" },
+	                _react2["default"].createElement(
+	                    "h4",
+	                    null,
+	                    "Are you really sure that you want to cancel this scheduled deploy?"
+	                )
+	            ),
+	            _react2["default"].createElement(
+	                "div",
+	                { className: "modal-footer" },
+	                _react2["default"].createElement(
+	                    "button",
+	                    { className: "btn", onClick: this.props.onRequestHide },
+	                    "Cancel"
+	                ),
+	                _react2["default"].createElement(
+	                    "button",
+	                    { className: "btn btn-primary", onClick: this.create },
+	                    "Ok"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var groupBy = function groupBy(array) {
+	    var a = [];
+	    var last = array[0].TaskName;
+	    var current = [];
+	    var i = 0;
+	    for (i = 0; i < array.length; i++) {
+	        if (array[i].TaskName != last) {
+	            a.push(current);
+	            current = [];
+	            last = array[i].TaskName;
+	        } else {
+	            current.push(array[i]);
+	        }
+	    }
+
+	    if (current.length == 0) {
+	        current.push(array[array.length - 1]);
+	    }
+
+	    a.push(current);
+
+	    return a;
+	};
+
+	var Container = _react2["default"].createClass({
+	    displayName: "Container",
+
+	    getInitialState: function getInitialState() {
+	        return { open: this.props.open || this.props.Logs.some(function (z) {
+	                return z.Error;
+	            }) };
+	    },
+
+	    render: function render() {
+	        var _this2 = this;
+
+	        if (this.props.Logs.length == 1) {
+	            return _react2["default"].createElement(LogLine, { Error: this.props.Logs[0].Error, Text: this.props.Logs[0].Text, TimeStamp: this.props.Logs[0].TimeStamp, PrevTimeStamp: null });
+	        } else {
+
+	            return _react2["default"].createElement(
+	                _reactBootstrapLibPanel2["default"],
+	                { collapsible: true, bsStyle: this.props.Logs.some(function (z) {
+	                        return z.Error;
+	                    }) ? "danger" : "success", header: this.props.TaskName || "Logs", expanded: this.state.open, onClick: function () {
+	                        return _this2.setState({ open: !_this2.state.open });
+	                    } },
+	                this.props.Logs.map(function (x, index) {
+	                    return _react2["default"].createElement(LogLine, { Error: x.Error, Text: x.Text, TimeStamp: x.TimeStamp, PrevTimeStamp: index > 0 ? _this2.props.Logs[index - 1].TimeStamp : null });
+	                })
+	            );
+	        }
+	    }
 	});
 
 	var DeploymentPage = _react2["default"].createClass({
-	  displayName: "DeploymentPage",
+	    displayName: "DeploymentPage",
 
-	  mixins: [_reactRouter2["default"].State, _reactIntl2["default"].IntlMixin],
-	  getInitialState: function getInitialState() {
-	    return {
-	      refreshing: false,
-	      deployments: {}
-	    };
-	  },
+	    mixins: [_reactRouter2["default"].State, _reactIntl2["default"].IntlMixin],
+	    getInitialState: function getInitialState() {
+	        return {
+	            refreshing: false,
+	            deployments: {}
+	        };
+	    },
 
-	  componentDidMount: function componentDidMount() {
-	    this.reload();
-	  },
+	    componentDidMount: function componentDidMount() {
+	        this.reload();
+	    },
 
-	  reload: function reload() {
-	    var _this2 = this;
+	    reload: function reload() {
+	        var _this3 = this;
 
-	    var id = this.getParams().Id;
-	    _ActionsCreator2["default"].updateDeployment(id).then(function (x) {
-	      _this2.setState({
-	        refreshing: false,
-	        deployments: x
-	      });
+	        var id = this.getParams().Id;
+	        _ActionsCreator2["default"].updateDeployment(id).then(function (x) {
+	            _this3.setState({
+	                refreshing: false,
+	                deployments: x
+	            });
 
-	      if (_this2.state.deployments.Status == 1) {
-	        setTimeout(_this2.reload, 10000);
-	      }
-	    });
-	    this.setState({
-	      refreshing: true
-	    });
-	  },
+	            if (_this3.state.deployments.Status == 1) {
+	                setTimeout(_this3.reload, 10000);
+	            }
+	        });
+	        this.setState({
+	            refreshing: true
+	        });
+	    },
 
-	  getStatus: function getStatus(status) {
-	    if (status == 0) {
-	      return "Queued";
-	    } else if (status == 1) {
-	      return "Running";
-	    } else if (status == 2) {
-	      return "Ended";
-	    } else if (status == 3) {
-	      return "Failed";
-	    } else if (status == 4) {
-	      return "Scheduled";
-	    } else {
-	      return "Canceled";
+	    getStatus: function getStatus(status) {
+	        if (status == 0) {
+	            return "Queued";
+	        } else if (status == 1) {
+	            return "Running";
+	        } else if (status == 2) {
+	            return "Ended";
+	        } else if (status == 3) {
+	            return "Failed";
+	        } else if (status == 4) {
+	            return "Scheduled";
+	        } else {
+	            return "Canceled";
+	        }
+	    },
+
+	    render: function render() {
+	        var _this4 = this;
+
+	        var groups = groupBy(this.state.deployments.Logs || [{ TaskName: "" }]);
+
+	        var logs = this.state.deployments.Logs == null ? _react2["default"].createElement("span", null) : groups.map(function (x, index) {
+	            return _react2["default"].createElement(Container, { TaskName: x[0].TaskName, Logs: x, open: _this4.state.deployments.Status == 1 && index == groups.length - 1 });
+	        });
+
+	        return _react2["default"].createElement(
+	            "div",
+	            null,
+	            _react2["default"].createElement(
+	                "h2",
+	                null,
+	                this.state.deployments.Name,
+	                " - ",
+	                this.state.deployments.Configuration,
+	                "         ",
+	                _react2["default"].createElement(
+	                    "button",
+	                    { className: "btn btn-xs btn-default", onClick: this.reload },
+	                    this.state.refreshing ? "Reloading ..." : "Reload"
+	                )
+	            ),
+	            _react2["default"].createElement(
+	                "h4",
+	                null,
+	                "Current deployment status: ",
+	                this.getStatus(this.state.deployments.Status),
+	                "  ",
+	                this.state.deployments.Status == 4 ? _react2["default"].createElement(
+	                    _reactBootstrapLibModalTrigger2["default"],
+	                    { modal: _react2["default"].createElement(CancelDialog, { Id: this.getParams().Id }) },
+	                    _react2["default"].createElement(
+	                        "button",
+	                        { className: "btn btn-warning btn-xs" },
+	                        "Cancel scheduled deploy"
+	                    )
+	                ) : _react2["default"].createElement("span", null)
+	            ),
+	            _react2["default"].createElement(
+	                "h5",
+	                null,
+	                "Deploying version: ",
+	                this.state.deployments.Version
+	            ),
+	            _react2["default"].createElement(
+	                "span",
+	                null,
+	                this.state.deployments.StartDate != null ? _react2["default"].createElement(
+	                    "span",
+	                    null,
+	                    "Deployment ",
+	                    this.state.deployments.Status == 4 ? "scheduled" : "started",
+	                    " on ",
+	                    _react2["default"].createElement(FormattedDate, { value: this.state.deployments.StartDate }),
+	                    " at ",
+	                    _react2["default"].createElement(FormattedTime, { formats: formats, format: "hhmm", value: this.state.deployments.StartDate }),
+	                    "  "
+	                ) : _react2["default"].createElement("span", null),
+	                this.state.deployments.EndDate != null ? _react2["default"].createElement(
+	                    "span",
+	                    null,
+	                    "and ended at ",
+	                    _react2["default"].createElement(FormattedTime, { formats: formats, format: "hhmm", value: this.state.deployments.EndDate })
+	                ) : _react2["default"].createElement("span", null)
+	            ),
+	            _react2["default"].createElement("br", null),
+	            _react2["default"].createElement(
+	                "h4",
+	                null,
+	                "Logs:"
+	            ),
+	            _react2["default"].createElement(
+	                "dl",
+	                { className: "dl-horizontal" },
+	                logs
+	            )
+	        );
 	    }
-	  },
-
-	  render: function render() {
-	    var _this3 = this;
-
-	    debugger;
-	    var logs = this.state.deployments.Logs == null ? _react2["default"].createElement("span", null) : this.state.deployments.Logs.map(function (x, index) {
-	      return _react2["default"].createElement(LogLine, { Error: x.Error, Text: x.Text, TimeStamp: x.TimeStamp, PrevTimeStamp: index > 0 ? _this3.state.deployments.Logs[index - 1].TimeStamp : null });
-	    });
-
-	    return _react2["default"].createElement(
-	      "div",
-	      null,
-	      _react2["default"].createElement(
-	        "h2",
-	        null,
-	        this.state.deployments.Name,
-	        " - ",
-	        this.state.deployments.Configuration,
-	        "         ",
-	        _react2["default"].createElement(
-	          "button",
-	          { className: "btn btn-xs btn-default", onClick: this.reload },
-	          this.state.refreshing ? "Reloading ..." : "Reload"
-	        )
-	      ),
-	      _react2["default"].createElement(
-	        "h4",
-	        null,
-	        "Current deployment status: ",
-	        this.getStatus(this.state.deployments.Status),
-	        "  ",
-	        this.state.deployments.Status == 4 ? _react2["default"].createElement(
-	          _reactBootstrapLibModalTrigger2["default"],
-	          { modal: _react2["default"].createElement(CancelDialog, { Id: this.getParams().Id }) },
-	          _react2["default"].createElement(
-	            "button",
-	            { className: "btn btn-warning btn-xs" },
-	            "Cancel scheduled deploy"
-	          )
-	        ) : _react2["default"].createElement("span", null)
-	      ),
-	      _react2["default"].createElement(
-	        "h5",
-	        null,
-	        "Deploying version: ",
-	        this.state.deployments.Version
-	      ),
-	      _react2["default"].createElement(
-	        "span",
-	        null,
-	        this.state.deployments.StartDate != null ? _react2["default"].createElement(
-	          "span",
-	          null,
-	          "Deployment ",
-	          this.state.deployments.Status == 4 ? "scheduled" : "started",
-	          " on ",
-	          _react2["default"].createElement(FormattedDate, { value: this.state.deployments.StartDate }),
-	          " at ",
-	          _react2["default"].createElement(FormattedTime, { formats: formats, format: "hhmm", value: this.state.deployments.StartDate }),
-	          "  "
-	        ) : _react2["default"].createElement("span", null),
-	        this.state.deployments.EndDate != null ? _react2["default"].createElement(
-	          "span",
-	          null,
-	          "and ended at ",
-	          _react2["default"].createElement(FormattedTime, { formats: formats, format: "hhmm", value: this.state.deployments.EndDate })
-	        ) : _react2["default"].createElement("span", null)
-	      ),
-	      _react2["default"].createElement("br", null),
-	      _react2["default"].createElement(
-	        "h4",
-	        null,
-	        "Logs:"
-	      ),
-	      _react2["default"].createElement(
-	        "dl",
-	        { className: "dl-horizontal" },
-	        logs
-	      )
-	    );
-	  }
 	});
 
 	module.exports = DeploymentPage;
 
 /***/ },
 /* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _reqwest = __webpack_require__(213);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	module.exports = {
-	  cancelDeployment: function cancelDeployment(id) {
-	    return (0, _reqwest2["default"])({
-	      url: "/api/deploy/cancel?deploymentId=" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  updateDeployment: function updateDeployment(id) {
-	    return (0, _reqwest2["default"])({
-	      url: "/api/deployment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  }
-	};
-
-/***/ },
-/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35025,7 +35053,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(291);
+	var _ActionsCreator = __webpack_require__(290);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35181,7 +35209,7 @@
 	module.exports = GroupsPage;
 
 /***/ },
-/* 291 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35218,7 +35246,7 @@
 	};
 
 /***/ },
-/* 292 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35233,7 +35261,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(293);
+	var _ActionsCreator = __webpack_require__(292);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35405,7 +35433,7 @@
 	module.exports = GroupsPage;
 
 /***/ },
-/* 293 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35467,7 +35495,7 @@
 	};
 
 /***/ },
-/* 294 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35478,7 +35506,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ActionsCreator = __webpack_require__(295);
+	var _ActionsCreator = __webpack_require__(294);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35490,11 +35518,11 @@
 
 	var _reactBootstrapLibTabPane2 = _interopRequireDefault(_reactBootstrapLibTabPane);
 
-	var _reactD3ComponentsLibPieChart = __webpack_require__(296);
+	var _reactD3ComponentsLibPieChart = __webpack_require__(295);
 
 	var _reactD3ComponentsLibPieChart2 = _interopRequireDefault(_reactD3ComponentsLibPieChart);
 
-	var _reactD3ComponentsLibBarChart = __webpack_require__(304);
+	var _reactD3ComponentsLibBarChart = __webpack_require__(303);
 
 	var _reactD3ComponentsLibBarChart2 = _interopRequireDefault(_reactD3ComponentsLibBarChart);
 
@@ -35618,7 +35646,7 @@
 	module.exports = StatsPage;
 
 /***/ },
-/* 295 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35661,21 +35689,21 @@
 	};
 
 /***/ },
-/* 296 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
-	var Chart = __webpack_require__(298);
-	var Tooltip = __webpack_require__(299);
+	var Chart = __webpack_require__(297);
+	var Tooltip = __webpack_require__(298);
 
-	var DefaultPropsMixin = __webpack_require__(300);
-	var HeightWidthMixin = __webpack_require__(301);
-	var AccessorMixin = __webpack_require__(302);
-	var TooltipMixin = __webpack_require__(303);
+	var DefaultPropsMixin = __webpack_require__(299);
+	var HeightWidthMixin = __webpack_require__(300);
+	var AccessorMixin = __webpack_require__(301);
+	var TooltipMixin = __webpack_require__(302);
 
 	var Wedge = React.createClass({
 		displayName: "Wedge",
@@ -35911,7 +35939,7 @@
 	module.exports = PieChart;
 
 /***/ },
-/* 297 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
@@ -45420,7 +45448,7 @@
 	}();
 
 /***/ },
-/* 298 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45463,13 +45491,13 @@
 	module.exports = Chart;
 
 /***/ },
-/* 299 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
 	var Tooltip = React.createClass({
 		displayName: "Tooltip",
@@ -45513,13 +45541,13 @@
 	module.exports = Tooltip;
 
 /***/ },
-/* 300 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
 	var DefaultPropsMixin = {
 		propTypes: {
@@ -45551,7 +45579,7 @@
 	module.exports = DefaultPropsMixin;
 
 /***/ },
-/* 301 */
+/* 300 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -45578,7 +45606,7 @@
 	module.exports = HeightWidthMixin;
 
 /***/ },
-/* 302 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45618,13 +45646,13 @@
 	module.exports = AccessorMixin;
 
 /***/ },
-/* 303 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
 	var TooltipMixin = {
 		propTypes: {
@@ -45701,7 +45729,7 @@
 	module.exports = TooltipMixin;
 
 /***/ },
-/* 304 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45709,20 +45737,20 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
-	var Chart = __webpack_require__(298);
-	var Axis = __webpack_require__(305);
-	var Bar = __webpack_require__(306);
-	var Tooltip = __webpack_require__(299);
+	var Chart = __webpack_require__(297);
+	var Axis = __webpack_require__(304);
+	var Bar = __webpack_require__(305);
+	var Tooltip = __webpack_require__(298);
 
-	var DefaultPropsMixin = __webpack_require__(300);
-	var HeightWidthMixin = __webpack_require__(301);
-	var ArrayifyMixin = __webpack_require__(307);
-	var StackAccessorMixin = __webpack_require__(308);
-	var StackDataMixin = __webpack_require__(309);
-	var DefaultScalesMixin = __webpack_require__(310);
-	var TooltipMixin = __webpack_require__(303);
+	var DefaultPropsMixin = __webpack_require__(299);
+	var HeightWidthMixin = __webpack_require__(300);
+	var ArrayifyMixin = __webpack_require__(306);
+	var StackAccessorMixin = __webpack_require__(307);
+	var StackDataMixin = __webpack_require__(308);
+	var DefaultScalesMixin = __webpack_require__(309);
+	var TooltipMixin = __webpack_require__(302);
 
 	var DataSet = React.createClass({
 		displayName: "DataSet",
@@ -45855,13 +45883,13 @@
 	module.exports = BarChart;
 
 /***/ },
-/* 305 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
 	var Axis = React.createClass({
 		displayName: "Axis",
@@ -46040,13 +46068,13 @@
 	module.exports = Axis;
 
 /***/ },
-/* 306 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
 	var Bar = React.createClass({
 		displayName: "Bar",
@@ -46093,7 +46121,7 @@
 	module.exports = Bar;
 
 /***/ },
-/* 307 */
+/* 306 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -46124,7 +46152,7 @@
 	module.exports = ArrayifyMixin;
 
 /***/ },
-/* 308 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46164,13 +46192,13 @@
 	module.exports = StackAccessorMixin;
 
 /***/ },
-/* 309 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
 	var StackDataMixin = {
 		propTypes: {
@@ -46208,7 +46236,7 @@
 	module.exports = StackDataMixin;
 
 /***/ },
-/* 310 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46216,7 +46244,7 @@
 	var _slicedToArray = function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { var _arr = []; for (var _iterator = arr[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) { _arr.push(_step.value); if (i && _arr.length === i) break; } return _arr; } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } };
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(297);
+	var d3 = __webpack_require__(296);
 
 	var DefaultScalesMixin = {
 		propTypes: {
@@ -46396,7 +46424,7 @@
 	module.exports = DefaultScalesMixin;
 
 /***/ },
-/* 311 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46417,7 +46445,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(312);
+	var _ActionsCreator = __webpack_require__(311);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -46437,23 +46465,23 @@
 
 	var _reactBootstrapLibTabPane2 = _interopRequireDefault(_reactBootstrapLibTabPane);
 
-	var _DeployTasksDeployUnitsDialog = __webpack_require__(313);
+	var _DeployTasksDeployUnitsDialog = __webpack_require__(312);
 
 	var _DeployTasksDeployUnitsDialog2 = _interopRequireDefault(_DeployTasksDeployUnitsDialog);
 
-	var _MailTaskCreateDialog = __webpack_require__(314);
+	var _MailTaskCreateDialog = __webpack_require__(313);
 
 	var _MailTaskCreateDialog2 = _interopRequireDefault(_MailTaskCreateDialog);
 
-	var _LocalScriptTaskCreateDialog = __webpack_require__(316);
+	var _LocalScriptTaskCreateDialog = __webpack_require__(315);
 
 	var _LocalScriptTaskCreateDialog2 = _interopRequireDefault(_LocalScriptTaskCreateDialog);
 
-	var _RemoteScriptTaskCreateDialog = __webpack_require__(318);
+	var _RemoteScriptTaskCreateDialog = __webpack_require__(317);
 
 	var _RemoteScriptTaskCreateDialog2 = _interopRequireDefault(_RemoteScriptTaskCreateDialog);
 
-	var _DatabaseTasksCreateDialog = __webpack_require__(320);
+	var _DatabaseTasksCreateDialog = __webpack_require__(319);
 
 	var _DatabaseTasksCreateDialog2 = _interopRequireDefault(_DatabaseTasksCreateDialog);
 
@@ -47024,7 +47052,7 @@
 	module.exports = TasksPage;
 
 /***/ },
-/* 312 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47149,7 +47177,7 @@
 	};
 
 /***/ },
-/* 313 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47389,7 +47417,7 @@
 	module.exports = CreateDialog;
 
 /***/ },
-/* 314 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47402,7 +47430,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(315);
+	var _Actions = __webpack_require__(314);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47511,7 +47539,7 @@
 	module.exports = MailTaskCreateDialog;
 
 /***/ },
-/* 315 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47569,7 +47597,7 @@
 	};
 
 /***/ },
-/* 316 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47582,7 +47610,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(317);
+	var _Actions = __webpack_require__(316);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47669,7 +47697,7 @@
 	module.exports = LocalScriptTaskCreateDialog;
 
 /***/ },
-/* 317 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47723,7 +47751,7 @@
 	};
 
 /***/ },
-/* 318 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47736,7 +47764,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(319);
+	var _Actions = __webpack_require__(318);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47867,7 +47895,7 @@
 	module.exports = RemoteScriptTaskCreateDialog;
 
 /***/ },
-/* 319 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47934,7 +47962,7 @@
 	};
 
 /***/ },
-/* 320 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47947,7 +47975,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(321);
+	var _Actions = __webpack_require__(320);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48099,7 +48127,7 @@
 	module.exports = DatabaseTaskCreateDialog;
 
 /***/ },
-/* 321 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48170,7 +48198,7 @@
 	};
 
 /***/ },
-/* 322 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48189,7 +48217,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(315);
+	var _Actions = __webpack_require__(314);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48293,7 +48321,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 323 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48312,7 +48340,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(317);
+	var _Actions = __webpack_require__(316);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48403,7 +48431,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 324 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48422,7 +48450,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(319);
+	var _Actions = __webpack_require__(318);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48551,7 +48579,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 325 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48570,7 +48598,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(321);
+	var _Actions = __webpack_require__(320);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48720,6 +48748,272 @@
 	});
 
 	module.exports = EditPage;
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _reqwest = __webpack_require__(213);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	module.exports = {
+	  cancelDeployment: function cancelDeployment(id) {
+	    return (0, _reqwest2["default"])({
+	      url: "/api/deploy/cancel?deploymentId=" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  updateDeployment: function updateDeployment(id) {
+	    return (0, _reqwest2["default"])({
+	      url: "/api/deployment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  }
+	};
+
+/***/ },
+/* 326 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(193);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _BootstrapMixin = __webpack_require__(195);
+
+	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
+
+	var _CollapsibleMixin = __webpack_require__(250);
+
+	var _CollapsibleMixin2 = _interopRequireDefault(_CollapsibleMixin);
+
+	var Panel = _react2['default'].createClass({
+	  displayName: 'Panel',
+
+	  mixins: [_BootstrapMixin2['default'], _CollapsibleMixin2['default']],
+
+	  propTypes: {
+	    collapsible: _react2['default'].PropTypes.bool,
+	    onSelect: _react2['default'].PropTypes.func,
+	    header: _react2['default'].PropTypes.node,
+	    id: _react2['default'].PropTypes.string,
+	    footer: _react2['default'].PropTypes.node,
+	    eventKey: _react2['default'].PropTypes.any
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      bsClass: 'panel',
+	      bsStyle: 'default'
+	    };
+	  },
+
+	  handleSelect: function handleSelect(e) {
+	    e.selected = true;
+
+	    if (this.props.onSelect) {
+	      this.props.onSelect(e, this.props.eventKey);
+	    } else {
+	      e.preventDefault();
+	    }
+
+	    if (e.selected) {
+	      this.handleToggle();
+	    }
+	  },
+
+	  handleToggle: function handleToggle() {
+	    this.setState({ expanded: !this.state.expanded });
+	  },
+
+	  getCollapsibleDimensionValue: function getCollapsibleDimensionValue() {
+	    return _react2['default'].findDOMNode(this.refs.panel).scrollHeight;
+	  },
+
+	  getCollapsibleDOMNode: function getCollapsibleDOMNode() {
+	    if (!this.isMounted() || !this.refs || !this.refs.panel) {
+	      return null;
+	    }
+
+	    return _react2['default'].findDOMNode(this.refs.panel);
+	  },
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      _extends({}, this.props, {
+	        className: (0, _classnames2['default'])(this.props.className, this.getBsClassSet()),
+	        id: this.props.collapsible ? null : this.props.id, onSelect: null }),
+	      this.renderHeading(),
+	      this.props.collapsible ? this.renderCollapsibleBody() : this.renderBody(),
+	      this.renderFooter()
+	    );
+	  },
+
+	  renderCollapsibleBody: function renderCollapsibleBody() {
+	    var collapseClass = this.prefixClass('collapse');
+
+	    return _react2['default'].createElement(
+	      'div',
+	      {
+	        className: (0, _classnames2['default'])(this.getCollapsibleClassSet(collapseClass)),
+	        id: this.props.id,
+	        ref: 'panel',
+	        'aria-expanded': this.isExpanded() ? 'true' : 'false' },
+	      this.renderBody()
+	    );
+	  },
+
+	  renderBody: function renderBody() {
+	    var allChildren = this.props.children;
+	    var bodyElements = [];
+	    var panelBodyChildren = [];
+	    var bodyClass = this.prefixClass('body');
+
+	    function getProps() {
+	      return { key: bodyElements.length };
+	    }
+
+	    function addPanelChild(child) {
+	      bodyElements.push((0, _react.cloneElement)(child, getProps()));
+	    }
+
+	    function addPanelBody(children) {
+	      bodyElements.push(_react2['default'].createElement(
+	        'div',
+	        _extends({ className: bodyClass }, getProps()),
+	        children
+	      ));
+	    }
+
+	    function maybeRenderPanelBody() {
+	      if (panelBodyChildren.length === 0) {
+	        return;
+	      }
+
+	      addPanelBody(panelBodyChildren);
+	      panelBodyChildren = [];
+	    }
+
+	    // Handle edge cases where we should not iterate through children.
+	    if (!Array.isArray(allChildren) || allChildren.length === 0) {
+	      if (this.shouldRenderFill(allChildren)) {
+	        addPanelChild(allChildren);
+	      } else {
+	        addPanelBody(allChildren);
+	      }
+	    } else {
+
+	      allChildren.forEach((function (child) {
+	        if (this.shouldRenderFill(child)) {
+	          maybeRenderPanelBody();
+
+	          // Separately add the filled element.
+	          addPanelChild(child);
+	        } else {
+	          panelBodyChildren.push(child);
+	        }
+	      }).bind(this));
+
+	      maybeRenderPanelBody();
+	    }
+
+	    return bodyElements;
+	  },
+
+	  shouldRenderFill: function shouldRenderFill(child) {
+	    return _react2['default'].isValidElement(child) && child.props.fill != null;
+	  },
+
+	  renderHeading: function renderHeading() {
+	    var header = this.props.header;
+
+	    if (!header) {
+	      return null;
+	    }
+
+	    if (!_react2['default'].isValidElement(header) || Array.isArray(header)) {
+	      header = this.props.collapsible ? this.renderCollapsibleTitle(header) : header;
+	    } else {
+	      var className = (0, _classnames2['default'])(this.prefixClass('title'), header.props.className);
+
+	      if (this.props.collapsible) {
+	        header = (0, _react.cloneElement)(header, {
+	          className: className,
+	          children: this.renderAnchor(header.props.children)
+	        });
+	      } else {
+	        header = (0, _react.cloneElement)(header, { className: className });
+	      }
+	    }
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: this.prefixClass('heading') },
+	      header
+	    );
+	  },
+
+	  renderAnchor: function renderAnchor(header) {
+	    return _react2['default'].createElement(
+	      'a',
+	      {
+	        href: '#' + (this.props.id || ''),
+	        'aria-controls': this.props.collapsible ? this.props.id : null,
+	        className: this.isExpanded() ? null : 'collapsed',
+	        'aria-expanded': this.isExpanded() ? 'true' : 'false',
+	        onClick: this.handleSelect },
+	      header
+	    );
+	  },
+
+	  renderCollapsibleTitle: function renderCollapsibleTitle(header) {
+	    return _react2['default'].createElement(
+	      'h4',
+	      { className: this.prefixClass('title') },
+	      this.renderAnchor(header)
+	    );
+	  },
+
+	  renderFooter: function renderFooter() {
+	    if (!this.props.footer) {
+	      return null;
+	    }
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: this.prefixClass('footer') },
+	      this.props.footer
+	    );
+	  }
+	});
+
+	exports['default'] = Panel;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

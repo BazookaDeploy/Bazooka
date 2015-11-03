@@ -164,6 +164,7 @@
                     {
                         DeploymentId = deploymentId,
                         Error = false,
+                        TaskName = unit.Name,
                         Text = "Deploying database" + unit.Name,
                         TimeStamp = DateTime.UtcNow
                     });
@@ -199,6 +200,7 @@
                         {
                             DeploymentId = deploymentId,
                             Error = false,
+                            TaskName = unit.Name,
                             Text = String.Join("\r\n", ret.Log.Select(x => x.Text)),
                             TimeStamp = DateTime.UtcNow
                         });
@@ -216,6 +218,7 @@
                         {
                             DeploymentId = deploymentId,
                             Error = mess.Error,
+                            TaskName = unit.Name,
                             Text = mess.Text,
                             TimeStamp = mess.TimeStamp
                         });
@@ -240,6 +243,7 @@
                     {
                         DeploymentId = deploymentId,
                         Error = false,
+                        TaskName = unit.Name,
                         Text = "Executing remote script " + unit.Name,
                         TimeStamp = DateTime.UtcNow
                     });
@@ -272,6 +276,7 @@
                         {
                             DeploymentId = deploymentId,
                             Error = false,
+                            TaskName = unit.Name,
                             Text = String.Join("\r\n", ret.Log.Select(x => x.Text)),
                             TimeStamp = DateTime.UtcNow
                         });
@@ -289,6 +294,7 @@
                         {
                             DeploymentId = deploymentId,
                             Error = mess.Error,
+                            TaskName = unit.Name,
                             Text = mess.Text,
                             TimeStamp = mess.TimeStamp
                         });
@@ -312,6 +318,7 @@
                     {
                         DeploymentId = deploymentId,
                         Error = false,
+                        TaskName = unit.Name,
                         Text = "Executing local script " + unit.Name,
                         TimeStamp = DateTime.UtcNow
                     });
@@ -328,6 +335,7 @@
                     {
                         DeploymentId = deploymentId,
                         Error = false,
+                        TaskName = unit.Name,
                         Text = String.Join("\r\n", logger.Logs.Select(x => x.Text)),
                         TimeStamp = DateTime.UtcNow
                     });
@@ -358,6 +366,7 @@
                     {
                         DeploymentId = deploymentId,
                         Error = false,
+                        TaskName = unit.Name,
                         Text = "Sent mail to " + unit.Recipients,
                         TimeStamp = DateTime.UtcNow
                     });
@@ -385,6 +394,7 @@
                         {
                             DeploymentId = deploymentId,
                             Error = mess.Error,
+                            TaskName = unit.Name,
                             Text = mess.Text,
                             TimeStamp = mess.TimeStamp
                         });

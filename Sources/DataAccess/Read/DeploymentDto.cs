@@ -39,6 +39,8 @@ namespace DataAccess.Read
 
         public virtual string Text { get; set; }
 
+        public virtual string TaskName { get; set; }
+
         public virtual bool Error { get; set; }
 
         public virtual int DeploymentId { get; set; }

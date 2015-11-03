@@ -343,7 +343,6 @@
     <Content Include="App\browser-bundle.js" />
     <Content Include="App\browser-bundle.js.map" />
     <Content Include="App\Deployments\ActionsCreator.js" />
-    <Content Include="App\Deployments\DeploymentsPage.js" />
     <Content Include="App\Deployment\ActionsCreator.js" />
     <Content Include="App\Deployment\DeploymentsPage.js" />
     <Content Include="App\Enviroments\ActionsCreator.js" />
@@ -418,6 +417,7 @@
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="Content\main.scss" />
+    <Content Include="App\Deployments\DeploymentsPage.js" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />

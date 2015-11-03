@@ -20,6 +20,7 @@ namespace DataAccess.Write
             Property(x => x.DeploymentId, x => x.NotNullable(false));
             Property(x => x.TimeStamp, x => x.NotNullable(false));
             Property(x => x.Error, x => x.NotNullable(true));
+            Property(x => x.TaskName, x => x.NotNullable(false));
             Property(x => x.Text, x => { x.NotNullable(true); x.Type(NHibernateUtil.StringClob); });
        }
     }
