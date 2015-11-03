@@ -165,7 +165,7 @@ var Container = React.createClass({
                 render: function () {
                   var groups = groupBy(this.state.deployments.Logs || [{TaskName:""}]);
 
-                    var logs = this.state.deployments.Logs==null ? (<span />): groups.map((x,index) => <Container TaskName={x[0].TaskName} Logs={x} open={this.state.deployments.Status == 1 && index==groups.length-1}/>)
+                    var logs = this.state.deployments.Logs==null ? (<span />): groups.map((x,index) => <Container TaskName={x[0].TaskName} Logs={x} open={(this.state.deployments.Status == 1 && index==groups.length-1) || groups.length==1 }/>)
 
     return(<div>
       <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}         <button className='btn btn-xs btn-default' onClick={this.reload}>{this.state.refreshing? "Reloading ..." : "Reload"}</button></h2>
