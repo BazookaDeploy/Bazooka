@@ -46,6 +46,8 @@
                         session.Save(new LogEntry()
                         {
                             DeploymentId = deploy,
+                            Error = false,
+                            TaskName = "History",
                             Text = "Logs removed due to compaction",
                             TimeStamp = DateTime.UtcNow
                         });
