@@ -1,18 +1,19 @@
 ﻿using DataAccess.Read;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
 namespace Web.Controllers
 {
-    public class DeploymentController : ApiController
+    public class DeploymentController : BaseController
     {
-        private ReadContext db = new ReadContext();
+        public IReadContext ReadContext { get; set; }
 
-        [Queryable]
-        public IQueryable<object> Get()
+        public ICollection<object> Filter(DateTime startDate)
         {
-            return db.Deployments
+            return ReadContext.Query<DeploymentDto>()
+                     .Where(x => x.StartDate == null || x.StartDate > startDate )
                      .OrderByDescending(x => x.StartDate ?? DateTime.UtcNow)
                      .Select(x => new { 
                         x.Configuration,
@@ -25,24 +26,13 @@ namespace Web.Controllers
                         x.UserId,
                         x.UserName,
                         x.Version
-                     });
+                     }).ToList<object>();
         }
 
 
         public DeploymentDto Get(int id)
         {
-            return db.Deployments.Single(x => x.Id == id);
-        }
-
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return ReadContext.Query<DeploymentDto>().Single(x => x.Id == id);
         }
     }
 }
