@@ -53,7 +53,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new DatabaseTasksDtoConfiguration());
             modelBuilder.Configurations.Add(new ApplicationGroupsDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
-
+            modelBuilder.Configurations.Add(new PackageDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -61,6 +61,15 @@ namespace DataAccess.Read
         public IQueryable<T> Query<T>() where T : class
         {
             return this.Set<T>().AsQueryable();
+        }
+    }
+
+    public class PackageDtoConfiguration : EntityTypeConfiguration<PackageDto>
+    {
+        public PackageDtoConfiguration()
+        {
+            ToTable("Packages");
+            HasKey(x => x.Id);
         }
     }
 

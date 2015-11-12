@@ -2,7 +2,6 @@
 {
     using Commands;
     using DataAccess.Read;
-    using DataAccess.Write;
     using System.Linq;
     using System.Web.Http;
 

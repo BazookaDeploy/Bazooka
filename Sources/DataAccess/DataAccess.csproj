@@ -70,6 +70,7 @@
     <Compile Include="Read\IReadContext.cs" />
     <Compile Include="Read\LocalScriptTaskDto.cs" />
     <Compile Include="Read\MailTaskDto.cs" />
+    <Compile Include="Read\PackageDto.cs" />
     <Compile Include="Read\ReadContext.cs" />
     <Compile Include="Read\RemoteScriptTaskDto.cs" />
     <Compile Include="Read\TaskDto.cs" />
@@ -100,6 +101,8 @@
     <Compile Include="Write\LogEntryMap.cs" />
     <Compile Include="Write\MailTask.cs" />
     <Compile Include="Write\MailTaskMap.cs" />
+    <Compile Include="Write\Package.cs" />
+    <Compile Include="Write\PackageMap.cs" />
     <Compile Include="Write\ParameterMap.cs" />
     <Compile Include="Write\RemoteScriptTask.cs" />
     <Compile Include="Write\RemoteScriptTaskMap.cs" />

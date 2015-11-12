@@ -1,7 +1,5 @@
 ﻿using DataAccess.Read;
-using System.Collections;
 using System.Linq;
-using System.Web.Http;
 using Microsoft.AspNet.Identity;
 
 namespace Web.Controllers

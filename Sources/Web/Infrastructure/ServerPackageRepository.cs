@@ -13,6 +13,7 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Web.Configuration;
+using Web;
 
 namespace NuGet.Server.Infrastructure
 {
@@ -162,6 +163,18 @@ namespace NuGet.Server.Infrastructure
                 using (Stream stream = package.GetStream())
                 {
                     _fileSystem.AddFile(fileName, stream);
+                }
+
+                using(var session = WebApiApplication.Store.OpenSession())
+                {
+                    session.Save(new DataAccess.Write.Package()
+                    {
+                        Identifier = package.Id,
+                        UploadDate = DateTime.UtcNow,
+                        Version = package.Version.ToString()
+                    });
+
+                    session.Flush();
                 }
 
                 InvalidatePackages();
