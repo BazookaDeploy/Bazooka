@@ -229,6 +229,18 @@ namespace NuGet.Server.Infrastructure
         {
             IPackage package = FindPackage(packageId, version);
 
+
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var pack = session.QueryOver<DataAccess.Write.Package>().Where(x => x.Identifier == packageId && x.Version == version.ToString()).SingleOrDefault();
+                if (pack != null)
+                {
+                    session.Delete(pack);
+                }
+
+                session.Flush();
+            }
+
             RemovePackage(package);
         }
 
