@@ -30,6 +30,7 @@
         public static void Execute(int deploymentId)
         {
             int envId;
+            int appId;
             string version;
             string config;
             using (var session = Store.OpenSession())
@@ -52,6 +53,7 @@
                     TimeStamp = DateTime.UtcNow
                 });
                 envId = dep.EnviromentId;
+                appId = dep.ApplicationId;
                 session.Update(dep);
                 session.Flush();
             }
@@ -59,7 +61,7 @@
             ICollection<TaskDto> tasks;
             using (var dc = new ReadContext())
             {
-                var other = dc.Deployments.Where(x => x.EnviromentId == envId && x.Id != deploymentId && x.Status == Status.Running);
+                var other = dc.Deployments.Where(x => x.EnviromentId == envId && x.ApplicationId == appId && x.Id != deploymentId && x.Status == Status.Running);
 
                 if (other.Count() > 0)
                 {
@@ -83,7 +85,7 @@
                 }
 
                 config = dc.Enviroments.Single(x => x.Id == envId).Name;
-                tasks = dc.Tasks.Where(x => x.EnviromentId == envId).ToList();
+                tasks = dc.Tasks.Where(x => x.EnviromentId == envId && x.ApplicationId == appId).ToList();
             }
 
 
@@ -404,7 +406,7 @@
 
                 if (!ret.Success)
                 {
-                    throw new Exception("Deploy failed");
+                    throw new Exception("Deploy failed" + string.Join("\r\n",ret.Log.Select(x => x.Text)) + ret.Exception);
                 }
 
                 using (var session = Store.OpenSession())

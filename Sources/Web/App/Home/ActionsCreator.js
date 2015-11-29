@@ -2,9 +2,9 @@ import reqwest from "reqwest";
 
 module.exports = {
 
-	getVersions: function(enviromentId) {
+	getVersions: function(enviromentId, applicationId) {
 		var promise = reqwest({
-			url: "/api/deploy/search?enviromentId=" + enviromentId,
+			url: "/api/deploy/search?enviromentId=" + enviromentId + "&applicationId="+applicationId,
 			type: 'json',
 			contentType: 'application/json',
 			method: "get"

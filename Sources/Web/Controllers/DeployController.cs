@@ -17,15 +17,15 @@ namespace Web.Controllers
         private ReadContext db = new ReadContext();
 
         [HttpGet]
-        public ICollection<string> Search(int enviromentId)
+        public ICollection<string> Search(int enviromentId, int applicationId)
         {
             var repos = db.DeploTasks
-                          .Where(x => x.EnviromentId == enviromentId)
+                          .Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId)
                           .Select(x => x.Repository)
                           .ToList();
 
             var package = db.DeploTasks
-                          .Where(x => x.EnviromentId == enviromentId)
+                          .Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId)
                           .Select(x => x.PackageName)
                           .First();
 

@@ -96,7 +96,7 @@ namespace DataAccess.Read
         public TasksDtoConfiguration()
         {
             ToTable("Tasks");
-            HasKey(x => new { x.EnviromentId, x.Id, x.Type });
+            HasKey(x => new { x.EnviromentId,x.ApplicationId x.Id, x.Type });
         }
     }
 

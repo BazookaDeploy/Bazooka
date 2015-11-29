@@ -13,7 +13,7 @@ var DeployDialog = React.createClass({
   },
 
   componentDidMount: function() {
-    Actions.getVersions(this.props.Enviroment.Id).then(x => {
+    Actions.getVersions(this.props.Enviroment.Id, this.props.ApplicationId).then(x => {
       this.setState({
         loading : false,
         versions : x
