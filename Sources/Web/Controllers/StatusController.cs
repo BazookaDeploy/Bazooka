@@ -46,7 +46,7 @@ namespace Web.Controllers
                                                       }).ToList()
                                                   }).ToList()
                                               })
-                                          })
+                                          }).Where(x => x.Applications.Count() >=0)
             };
 
         }
