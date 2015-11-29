@@ -10,7 +10,8 @@
         {
             var options = new DacDeployOptions()
             {
-                BlockOnPossibleDataLoss = true
+                BlockOnPossibleDataLoss = true,
+                IncludeTransactionalScripts = true
             };
 
 
