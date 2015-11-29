@@ -43,7 +43,7 @@
 
             var results = pipeline.Invoke();
 
-            log.Log(String.Join("\r\n", results.Select(x => x.ToString())));
+            log.Log(String.Join("\r\n", results.Select(x => x.ToString())), pipeline.PipelineStateInfo.State==PipelineState.Failed);
         }
 
         /// <summary>
@@ -68,8 +68,8 @@
                 }
 
                 var results = PowerShellInstance.Invoke();
-
-                log.Log(String.Join("\r\n", results.Select(x => x.ToString())));
+                
+                log.Log(String.Join("\r\n", results.Select(x => x.ToString())), PowerShellInstance.InvocationStateInfo.State == PSInvocationState.Failed);
             }
         }
 
