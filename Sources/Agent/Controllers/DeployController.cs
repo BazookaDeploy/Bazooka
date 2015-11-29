@@ -18,42 +18,32 @@
             {
                 var files = Directory.GetFiles(installOptions.Directory, "*.nupkg");
 
-                if (files.Count() == 0)
-                {
-                    return new ExecutionResult()
-                    {
-                        Success = false,
-                        Exception = "no package found",
-                        Log = logger.Logs
-                    };
-                }
-
-
                 if (files.Count() > 1)
                 {
                     return new ExecutionResult()
                     {
                         Success = false,
-                        Exception = "multiple packages found",
+                        Exception = "Multiple installed packages found",
                         Log = logger.Logs
                     };
                 }
 
-
-                var filename = PackageHelpers.ExtractPackageName(files.First()).Trim();
-                var packageInfo = new PackageInfo()
+                if (files.Count() == 1)
                 {
-                    Name = filename.Substring(filename.LastIndexOf("\\") + 1),
-                    Version = PackageHelpers.ExtractPackageVersion(files.First()).Trim(),
-                    InstallationDirectory = installOptions.Directory,
-                    Configuration = installOptions.Configuration
-                };
-                var packageRemover = new PackageRemover();
-                packageRemover.Logger = logger;
+                    var filename = PackageHelpers.ExtractPackageName(files.First()).Trim();
+                    var packageInfo = new PackageInfo()
+                    {
+                        Name = filename.Substring(filename.LastIndexOf("\\") + 1),
+                        Version = PackageHelpers.ExtractPackageVersion(files.First()).Trim(),
+                        InstallationDirectory = installOptions.Directory,
+                        Configuration = installOptions.Configuration
+                    };
+                    var packageRemover = new PackageRemover();
+                    packageRemover.Logger = logger;
 
-                var additionalParams = installOptions.AdditionalParameters;
-                packageRemover.Remove(packageInfo, new string[] { installOptions.Directory }, additionalParams, installOptions.UninstallScript);
-
+                    var additionalParams = installOptions.AdditionalParameters;
+                    packageRemover.Remove(packageInfo, new string[] { installOptions.Directory }, additionalParams, installOptions.UninstallScript);
+                }
 
 
                 var packageInfo2 = new PackageInfo()
