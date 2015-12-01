@@ -45,7 +45,7 @@ namespace Web.Controllers
                                                           yy.CurrentlyDeployedVersion
                                                       }).ToList()
                                                   }).ToList()
-                                              })
+                                              }).OrderBy(z => z.Name)
                                           }).Where(x => x.Applications.Count() >=0)
             };
 
