@@ -1,6 +1,8 @@
 ﻿using Bazooka.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpTestsEx;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Tests.Unit
 {
@@ -50,6 +52,23 @@ namespace Core.Tests.Unit
                                .Should()
                                .Be
                                .EqualTo(3);              
+            }
+        }
+
+        [TestClass]
+        public class ExecuteScript
+        {
+            [TestMethod]
+            public void ShouldLogErrorIfExitCode()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+
+                PowershellHelpers.ExecuteScript(".", "throw \"test\"", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Error.Should().Be.True();
+
             }
         }
 

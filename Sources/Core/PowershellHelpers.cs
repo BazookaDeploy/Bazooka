@@ -41,9 +41,18 @@
 
             pipeline.Commands.Add(myCommand);
 
-            var results = pipeline.Invoke();
+            Collection<PSObject> results = new Collection<PSObject>();
+            try
+            {
+                results = pipeline.Invoke();
+            }
+            catch (RuntimeException e)
+            {
+                log.Log(String.Join("\r\n", results.Select(x => x.ToString())) + "\r\n" + e.Message.ToString(), true);
+                return;
+            }
 
-            log.Log(String.Join("\r\n", results.Select(x => x.ToString())), pipeline.PipelineStateInfo.State==PipelineState.Failed);
+            log.Log(String.Join("\r\n", results.Select(x => x.ToString())), pipeline.Error.Count > 0);
         }
 
         /// <summary>
@@ -67,9 +76,16 @@
                     PowerShellInstance.AddParameter(param, parameters[param]);
                 }
 
-                var results = PowerShellInstance.Invoke();
+                Collection<PSObject> results = new Collection<PSObject>();
+                try {
+                    results = PowerShellInstance.Invoke();
+                }catch(RuntimeException e)
+                {
+                    log.Log(String.Join("\r\n", results.Select(x => x.ToString())) + "\r\n"+e.Message.ToString(), true);
+                    return;
+                }
                 
-                log.Log(String.Join("\r\n", results.Select(x => x.ToString())), PowerShellInstance.InvocationStateInfo.State == PSInvocationState.Failed);
+                log.Log(String.Join("\r\n", results.Select(x => x.ToString())), PowerShellInstance.Streams.Error.Count >0);
             }
         }
 
