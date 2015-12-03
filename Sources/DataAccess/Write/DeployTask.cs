@@ -49,6 +49,8 @@ namespace DataAccess.Write
         /// </summary>
         public virtual IList<Parameter> AdditionalParameters { get; set; }
 
+        public virtual int Position { get; set; }
+
     }
 
     public class Parameter

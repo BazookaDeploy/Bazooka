@@ -14,6 +14,7 @@
     [ConfigurationTransform] NVARCHAR(MAX) NULL, 
     [Configuration] NVARCHAR(50) NULL, 
     [ApplicationId] INT NOT NULL, 
+    [Position] INT NOT NULL DEFAULT 1, 
     CONSTRAINT [FK_DeployUnits_Enviroments] FOREIGN KEY ([EnviromentId]) REFERENCES [Enviroments]([Id]), 
     CONSTRAINT [FK_DeployUnits_Applications] FOREIGN KEY (ApplicationId) REFERENCES Applications([Id]), 
     CONSTRAINT [FK_DeployTasks_Agents] FOREIGN KEY (AgentId) REFERENCES Agents(Id)

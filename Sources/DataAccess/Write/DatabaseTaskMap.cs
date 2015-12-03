@@ -24,6 +24,7 @@ namespace DataAccess.Write
             Property(x => x.DatabaseName, x => x.Length(50));
             Property(x => x.Repository, x => x.Length(256));
             Property(x => x.AgentId);
+            Property(x => x.Position);
         }
     }
 }

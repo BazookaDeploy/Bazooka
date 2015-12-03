@@ -9,6 +9,7 @@
     [Repository] NVARCHAR(256) NOT NULL, 
     [AgentId] INT NOT NULL, 
     [ApplicationId] INT NOT NULL, 
+    [Position] INT NOT NULL DEFAULT 1, 
     CONSTRAINT [FK_DatabaseTasks_ToEnviroments] FOREIGN KEY (EnviromentId) REFERENCES [Enviroments]([Id]),
 	CONSTRAINT [FK_DatabaseTasks_ToApplications] FOREIGN KEY (ApplicationId) REFERENCES Applications([Id]), 
     CONSTRAINT [FK_DatabaseTasks_ToAgents] FOREIGN KEY ([AgentId]) REFERENCES [Agents]([Id])

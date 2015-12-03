@@ -11,5 +11,7 @@
         public virtual int EnviromentId { get; set; }
 
         public virtual int ApplicationId { get; set; }
+
+        public virtual int Position { get; set; }
     }
 }

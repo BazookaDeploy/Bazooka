@@ -30,6 +30,7 @@ namespace DataAccess.Write
             Property(x => x.ConfigurationFile);
             Property(x => x.ConfigurationTransform, x => { x.Type(NHibernateUtil.StringClob); });
             Property(x => x.Configuration);
+            Property(x => x.Position);
 
             Bag(
                 x => x.AdditionalParameters,

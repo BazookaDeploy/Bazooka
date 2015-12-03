@@ -20,6 +20,7 @@ namespace DataAccess.Write
             Property(x => x.ApplicationId);
             Property(x => x.Name);
             Property(x => x.Script, x => { x.NotNullable(true); x.Type(NHibernateUtil.StringClob); });
+            Property(x => x.Position);
         }
     }
 }
