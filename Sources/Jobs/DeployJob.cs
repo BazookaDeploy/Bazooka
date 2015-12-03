@@ -85,7 +85,7 @@
                 }
 
                 config = dc.Enviroments.Single(x => x.Id == envId).Name;
-                tasks = dc.Tasks.Where(x => x.EnviromentId == envId && x.ApplicationId == appId).ToList();
+                tasks = dc.Tasks.Where(x => x.EnviromentId == envId && x.ApplicationId == appId).OrderBy(x => x.Position).ToList();
             }
 
 
