@@ -86,7 +86,8 @@ namespace DataAccess.Write
                 EnviromentId = enviromentId,
                 Name = name,
                 Package = package,
-                Repository = repository
+                Repository = repository,
+                Position = this.NewTaskNumber()
             });
         }
 
@@ -114,7 +115,8 @@ namespace DataAccess.Write
                 Name = name,
                 PackageName = package,
                 Repository = repository,
-                AdditionalParameters = parameters
+                AdditionalParameters = parameters,
+                Position = this.NewTaskNumber()
             });
         }
 
@@ -173,7 +175,8 @@ namespace DataAccess.Write
                 ApplicationId = this.Id,
                 EnviromentId = enviromentId,
                 Name = name,
-                Script = script
+                Script = script,
+                Position = this.NewTaskNumber()
             });
         }
 
@@ -193,7 +196,8 @@ namespace DataAccess.Write
                 Name = name,
                 Recipients = recipients,
                 Sender = sender,
-                Text = text
+                Text = text,
+                Position = this.NewTaskNumber()
             });
         }
 
@@ -206,6 +210,18 @@ namespace DataAccess.Write
             task.Text = text;
         }
 
+        private int NewTaskNumber()
+        {
+            var a = this.DatabaseTasks.Select(x => x.Position).Max();
+            var b = this.DeployTasks.Select(x => x.Position).Max();
+            var c = this.LocalScriptTasks.Select(x => x.Position).Max();
+            var d = this.MailTasks.Select(x => x.Position).Max();
+            var e = this.RemoteScriptTasks.Select(x => x.Position).Max();
+            var position = (new int[] { a, b, c, d, e }).ToList().Max();
+
+            return position + 1;
+        }
+
         public virtual void CreateRemoteScriptTask(int enviromentId, string script, string name, string folder, int agentId)
         {
             this.RemoteScriptTasks.Add(new RemoteScriptTask()
@@ -215,7 +231,8 @@ namespace DataAccess.Write
                 Name = name,
                 Script = script,
                 AgentId = agentId,
-                Folder = folder
+                Folder = folder,
+                Position = this.NewTaskNumber()
             });
         }
 
