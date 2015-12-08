@@ -406,7 +406,7 @@
 
                 if (!ret.Success)
                 {
-                    throw new Exception("Deploy failed" + string.Join("\r\n",ret.Log.Select(x => x.Text)) + ret.Exception);
+                    throw new Exception("Deploy failed: " + ret.Exception);
                 }
 
                 using (var session = Store.OpenSession())

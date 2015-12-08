@@ -90,7 +90,7 @@
                             using (var fileStream = File.OpenWrite(dest))
                             {
                                 document.Save(fileStream);
-                                Logger.Log("Transormation applied successfully");
+                                Logger.Log("Transformation applied successfully");
                             }
                         }
                         else
