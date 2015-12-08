@@ -334,7 +334,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Agents\ActionsCreator.js" />
-    <Content Include="App\Agents\AgentsPage.js" />
+    <Content Include="App\Agents\AgentPage.js" />
     <Content Include="App\App.js" />
     <Content Include="App\Applications\ActionsCreator.js" />
     <Content Include="App\Applications\AppPage.js" />
@@ -359,6 +359,9 @@
     <Content Include="App\Stats\ActionsCreator.js" />
     <Content Include="App\Stats\StatsPage.js" />
     <Content Include="App\Tasks\ActionsCreator.js" />
+    <Content Include="App\Tasks\DatabaseTasks\Actions.js" />
+    <Content Include="App\Tasks\DatabaseTasks\CreateDialog.js" />
+    <Content Include="App\Tasks\DatabaseTasks\EditPage.js" />
     <Content Include="App\Tasks\DeployTasks\ActionsCreator.js" />
     <Content Include="App\Tasks\DeployTasks\Constants.js" />
     <Content Include="App\Tasks\DeployTasks\DeployUnitEditPage.js" />

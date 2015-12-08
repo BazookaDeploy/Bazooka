@@ -271,16 +271,6 @@ var TaskSelectDialog = React.createClass({
                   </tbody>
                 </table>
             </TabPane>
-            <TabPane eventKey={3} tab='Hooks'>
-
-                       <h4>Web hook</h4>
-
-                       <p>Deploys can be automated by invoking a specific web hook for each enviroment of your application
-                       <ModalTrigger modal={<HookDialog Enviroment={this.getParams().enviromentId} />}>
-                            <button className='btn btn-xs btn-primary pull-right'>Get Url</button>
-                          </ModalTrigger>
-                        </p>
-            </TabPane>
           </TabbedArea>
 
 

@@ -92,35 +92,35 @@
 
 	var _DeploymentDeploymentsPage2 = _interopRequireDefault(_DeploymentDeploymentsPage);
 
-	var _GroupsGroupsPage = __webpack_require__(289);
+	var _GroupsGroupsPage = __webpack_require__(291);
 
 	var _GroupsGroupsPage2 = _interopRequireDefault(_GroupsGroupsPage);
 
-	var _GroupGroupsPage = __webpack_require__(291);
+	var _GroupGroupsPage = __webpack_require__(293);
 
 	var _GroupGroupsPage2 = _interopRequireDefault(_GroupGroupsPage);
 
-	var _StatsStatsPage = __webpack_require__(293);
+	var _StatsStatsPage = __webpack_require__(295);
 
 	var _StatsStatsPage2 = _interopRequireDefault(_StatsStatsPage);
 
-	var _TasksTasksPage = __webpack_require__(310);
+	var _TasksTasksPage = __webpack_require__(312);
 
 	var _TasksTasksPage2 = _interopRequireDefault(_TasksTasksPage);
 
-	var _TasksMailTaskEditPage = __webpack_require__(321);
+	var _TasksMailTaskEditPage = __webpack_require__(323);
 
 	var _TasksMailTaskEditPage2 = _interopRequireDefault(_TasksMailTaskEditPage);
 
-	var _TasksLocalScriptTaskEditPage = __webpack_require__(322);
+	var _TasksLocalScriptTaskEditPage = __webpack_require__(324);
 
 	var _TasksLocalScriptTaskEditPage2 = _interopRequireDefault(_TasksLocalScriptTaskEditPage);
 
-	var _TasksRemoteScriptTaskEditPage = __webpack_require__(323);
+	var _TasksRemoteScriptTaskEditPage = __webpack_require__(325);
 
 	var _TasksRemoteScriptTaskEditPage2 = _interopRequireDefault(_TasksRemoteScriptTaskEditPage);
 
-	var _TasksDatabaseTasksEditPage = __webpack_require__(324);
+	var _TasksDatabaseTasksEditPage = __webpack_require__(326);
 
 	var _TasksDatabaseTasksEditPage2 = _interopRequireDefault(_TasksDatabaseTasksEditPage);
 
@@ -24920,7 +24920,7 @@
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 
-	    _ActionsCreator2["default"].getVersions(this.props.Enviroment.Id).then(function (x) {
+	    _ActionsCreator2["default"].getVersions(this.props.Enviroment.Id, this.props.ApplicationId).then(function (x) {
 	      _this.setState({
 	        loading: false,
 	        versions: x
@@ -25358,9 +25358,9 @@
 
 	module.exports = {
 
-		getVersions: function getVersions(enviromentId) {
+		getVersions: function getVersions(enviromentId, applicationId) {
 			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/search?enviromentId=" + enviromentId,
+				url: "/api/deploy/search?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
 				type: 'json',
 				contentType: 'application/json',
 				method: "get"
@@ -27986,7 +27986,8 @@
 	    _ActionsCreator2["default"].uploadFiles(files, this.state.OriginalName);
 	  },
 
-	  testConnection: function testConnection() {
+	  testConnection: function testConnection(event) {
+	    event.preventDefault();
 	    _ActionsCreator2["default"].testAgent(this.state.Address).then(function (x) {
 	      return alert("Agent responding");
 	    }).fail(function (x) {
@@ -28083,7 +28084,7 @@
 	              null,
 	              "Address"
 	            ),
-	            window.Administator ? _react2["default"].createElement(
+	            window.Administator == "True" ? _react2["default"].createElement(
 	              "div",
 	              { className: "input-group" },
 	              _react2["default"].createElement("input", { type: "text", ref: "name", className: "form-control", valueLink: this.linkState('Address') }),
@@ -28132,7 +28133,7 @@
 	          )
 	        )
 	      ),
-	      window.Administator && _react2["default"].createElement(
+	      window.Administator == "True" && _react2["default"].createElement(
 	        "form",
 	        null,
 	        _react2["default"].createElement(
@@ -28805,7 +28806,7 @@
 	        "div",
 	        { className: "panel-heading" },
 	        this.props.Enviroment.Name,
-	        window.Administator && _react2["default"].createElement(
+	        window.Administator == "True" && _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
 	          { modal: _react2["default"].createElement(AddAgentDialog, { EnviromentId: this.props.Enviroment.Id, onCreate: this.props.onUpdate }) },
 	          _react2["default"].createElement(
@@ -28867,7 +28868,7 @@
 	        "h3",
 	        null,
 	        "Enviroments   ",
-	        window.Administator && _react2["default"].createElement(
+	        window.Administator == "True" && _react2["default"].createElement(
 	          _reactBootstrapLibModalTrigger2["default"],
 	          { modal: _react2["default"].createElement(CreateDialog, { onCreate: this.update }) },
 	          _react2["default"].createElement(
@@ -29980,10 +29981,11 @@
 	var _deployUnits = [];
 
 	function _addDeployUnits(raw) {
-	  _deployUnits = raw;
+	  _deployUnits = _deployUnits.concat(raw);
 	}
 
 	function _addDeployUnit(raw) {
+	  debugger;
 	  _deployUnits = _deployUnits.concat(raw);
 	}
 
@@ -34728,7 +34730,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(325);
+	var _ActionsCreator = __webpack_require__(289);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -34736,7 +34738,7 @@
 
 	var _reactIntl2 = _interopRequireDefault(_reactIntl);
 
-	var _reactBootstrapLibPanel = __webpack_require__(326);
+	var _reactBootstrapLibPanel = __webpack_require__(290);
 
 	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
 
@@ -34956,7 +34958,7 @@
 	        var groups = groupBy(this.state.deployments.Logs || [{ TaskName: "" }]);
 
 	        var logs = this.state.deployments.Logs == null ? _react2["default"].createElement("span", null) : groups.map(function (x, index) {
-	            return _react2["default"].createElement(Container, { TaskName: x[0].TaskName, Logs: x, open: _this4.state.deployments.Status == 1 && index == groups.length - 1 });
+	            return _react2["default"].createElement(Container, { TaskName: x[0].TaskName, Logs: x, open: _this4.state.deployments.Status == 1 && index == groups.length - 1 || groups.length == 1 });
 	        });
 
 	        return _react2["default"].createElement(
@@ -35041,6 +35043,272 @@
 
 	"use strict";
 
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _reqwest = __webpack_require__(213);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	module.exports = {
+	  cancelDeployment: function cancelDeployment(id) {
+	    return (0, _reqwest2["default"])({
+	      url: "/api/deploy/cancel?deploymentId=" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  updateDeployment: function updateDeployment(id) {
+	    return (0, _reqwest2["default"])({
+	      url: "/api/deployment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  }
+	};
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(193);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _BootstrapMixin = __webpack_require__(195);
+
+	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
+
+	var _CollapsibleMixin = __webpack_require__(250);
+
+	var _CollapsibleMixin2 = _interopRequireDefault(_CollapsibleMixin);
+
+	var Panel = _react2['default'].createClass({
+	  displayName: 'Panel',
+
+	  mixins: [_BootstrapMixin2['default'], _CollapsibleMixin2['default']],
+
+	  propTypes: {
+	    collapsible: _react2['default'].PropTypes.bool,
+	    onSelect: _react2['default'].PropTypes.func,
+	    header: _react2['default'].PropTypes.node,
+	    id: _react2['default'].PropTypes.string,
+	    footer: _react2['default'].PropTypes.node,
+	    eventKey: _react2['default'].PropTypes.any
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      bsClass: 'panel',
+	      bsStyle: 'default'
+	    };
+	  },
+
+	  handleSelect: function handleSelect(e) {
+	    e.selected = true;
+
+	    if (this.props.onSelect) {
+	      this.props.onSelect(e, this.props.eventKey);
+	    } else {
+	      e.preventDefault();
+	    }
+
+	    if (e.selected) {
+	      this.handleToggle();
+	    }
+	  },
+
+	  handleToggle: function handleToggle() {
+	    this.setState({ expanded: !this.state.expanded });
+	  },
+
+	  getCollapsibleDimensionValue: function getCollapsibleDimensionValue() {
+	    return _react2['default'].findDOMNode(this.refs.panel).scrollHeight;
+	  },
+
+	  getCollapsibleDOMNode: function getCollapsibleDOMNode() {
+	    if (!this.isMounted() || !this.refs || !this.refs.panel) {
+	      return null;
+	    }
+
+	    return _react2['default'].findDOMNode(this.refs.panel);
+	  },
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      _extends({}, this.props, {
+	        className: (0, _classnames2['default'])(this.props.className, this.getBsClassSet()),
+	        id: this.props.collapsible ? null : this.props.id, onSelect: null }),
+	      this.renderHeading(),
+	      this.props.collapsible ? this.renderCollapsibleBody() : this.renderBody(),
+	      this.renderFooter()
+	    );
+	  },
+
+	  renderCollapsibleBody: function renderCollapsibleBody() {
+	    var collapseClass = this.prefixClass('collapse');
+
+	    return _react2['default'].createElement(
+	      'div',
+	      {
+	        className: (0, _classnames2['default'])(this.getCollapsibleClassSet(collapseClass)),
+	        id: this.props.id,
+	        ref: 'panel',
+	        'aria-expanded': this.isExpanded() ? 'true' : 'false' },
+	      this.renderBody()
+	    );
+	  },
+
+	  renderBody: function renderBody() {
+	    var allChildren = this.props.children;
+	    var bodyElements = [];
+	    var panelBodyChildren = [];
+	    var bodyClass = this.prefixClass('body');
+
+	    function getProps() {
+	      return { key: bodyElements.length };
+	    }
+
+	    function addPanelChild(child) {
+	      bodyElements.push((0, _react.cloneElement)(child, getProps()));
+	    }
+
+	    function addPanelBody(children) {
+	      bodyElements.push(_react2['default'].createElement(
+	        'div',
+	        _extends({ className: bodyClass }, getProps()),
+	        children
+	      ));
+	    }
+
+	    function maybeRenderPanelBody() {
+	      if (panelBodyChildren.length === 0) {
+	        return;
+	      }
+
+	      addPanelBody(panelBodyChildren);
+	      panelBodyChildren = [];
+	    }
+
+	    // Handle edge cases where we should not iterate through children.
+	    if (!Array.isArray(allChildren) || allChildren.length === 0) {
+	      if (this.shouldRenderFill(allChildren)) {
+	        addPanelChild(allChildren);
+	      } else {
+	        addPanelBody(allChildren);
+	      }
+	    } else {
+
+	      allChildren.forEach((function (child) {
+	        if (this.shouldRenderFill(child)) {
+	          maybeRenderPanelBody();
+
+	          // Separately add the filled element.
+	          addPanelChild(child);
+	        } else {
+	          panelBodyChildren.push(child);
+	        }
+	      }).bind(this));
+
+	      maybeRenderPanelBody();
+	    }
+
+	    return bodyElements;
+	  },
+
+	  shouldRenderFill: function shouldRenderFill(child) {
+	    return _react2['default'].isValidElement(child) && child.props.fill != null;
+	  },
+
+	  renderHeading: function renderHeading() {
+	    var header = this.props.header;
+
+	    if (!header) {
+	      return null;
+	    }
+
+	    if (!_react2['default'].isValidElement(header) || Array.isArray(header)) {
+	      header = this.props.collapsible ? this.renderCollapsibleTitle(header) : header;
+	    } else {
+	      var className = (0, _classnames2['default'])(this.prefixClass('title'), header.props.className);
+
+	      if (this.props.collapsible) {
+	        header = (0, _react.cloneElement)(header, {
+	          className: className,
+	          children: this.renderAnchor(header.props.children)
+	        });
+	      } else {
+	        header = (0, _react.cloneElement)(header, { className: className });
+	      }
+	    }
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: this.prefixClass('heading') },
+	      header
+	    );
+	  },
+
+	  renderAnchor: function renderAnchor(header) {
+	    return _react2['default'].createElement(
+	      'a',
+	      {
+	        href: '#' + (this.props.id || ''),
+	        'aria-controls': this.props.collapsible ? this.props.id : null,
+	        className: this.isExpanded() ? null : 'collapsed',
+	        'aria-expanded': this.isExpanded() ? 'true' : 'false',
+	        onClick: this.handleSelect },
+	      header
+	    );
+	  },
+
+	  renderCollapsibleTitle: function renderCollapsibleTitle(header) {
+	    return _react2['default'].createElement(
+	      'h4',
+	      { className: this.prefixClass('title') },
+	      this.renderAnchor(header)
+	    );
+	  },
+
+	  renderFooter: function renderFooter() {
+	    if (!this.props.footer) {
+	      return null;
+	    }
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: this.prefixClass('footer') },
+	      this.props.footer
+	    );
+	  }
+	});
+
+	exports['default'] = Panel;
+	module.exports = exports['default'];
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -35053,7 +35321,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(290);
+	var _ActionsCreator = __webpack_require__(292);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35209,7 +35477,7 @@
 	module.exports = GroupsPage;
 
 /***/ },
-/* 290 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35246,7 +35514,7 @@
 	};
 
 /***/ },
-/* 291 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35261,7 +35529,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(292);
+	var _ActionsCreator = __webpack_require__(294);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35433,7 +35701,7 @@
 	module.exports = GroupsPage;
 
 /***/ },
-/* 292 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35495,7 +35763,7 @@
 	};
 
 /***/ },
-/* 293 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35506,7 +35774,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ActionsCreator = __webpack_require__(294);
+	var _ActionsCreator = __webpack_require__(296);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35518,11 +35786,11 @@
 
 	var _reactBootstrapLibTabPane2 = _interopRequireDefault(_reactBootstrapLibTabPane);
 
-	var _reactD3ComponentsLibPieChart = __webpack_require__(295);
+	var _reactD3ComponentsLibPieChart = __webpack_require__(297);
 
 	var _reactD3ComponentsLibPieChart2 = _interopRequireDefault(_reactD3ComponentsLibPieChart);
 
-	var _reactD3ComponentsLibBarChart = __webpack_require__(303);
+	var _reactD3ComponentsLibBarChart = __webpack_require__(305);
 
 	var _reactD3ComponentsLibBarChart2 = _interopRequireDefault(_reactD3ComponentsLibBarChart);
 
@@ -35646,7 +35914,7 @@
 	module.exports = StatsPage;
 
 /***/ },
-/* 294 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35689,21 +35957,21 @@
 	};
 
 /***/ },
-/* 295 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
-	var Chart = __webpack_require__(297);
-	var Tooltip = __webpack_require__(298);
+	var Chart = __webpack_require__(299);
+	var Tooltip = __webpack_require__(300);
 
-	var DefaultPropsMixin = __webpack_require__(299);
-	var HeightWidthMixin = __webpack_require__(300);
-	var AccessorMixin = __webpack_require__(301);
-	var TooltipMixin = __webpack_require__(302);
+	var DefaultPropsMixin = __webpack_require__(301);
+	var HeightWidthMixin = __webpack_require__(302);
+	var AccessorMixin = __webpack_require__(303);
+	var TooltipMixin = __webpack_require__(304);
 
 	var Wedge = React.createClass({
 		displayName: "Wedge",
@@ -35939,7 +36207,7 @@
 	module.exports = PieChart;
 
 /***/ },
-/* 296 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
@@ -45448,7 +45716,7 @@
 	}();
 
 /***/ },
-/* 297 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45491,13 +45759,13 @@
 	module.exports = Chart;
 
 /***/ },
-/* 298 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
 	var Tooltip = React.createClass({
 		displayName: "Tooltip",
@@ -45541,13 +45809,13 @@
 	module.exports = Tooltip;
 
 /***/ },
-/* 299 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
 	var DefaultPropsMixin = {
 		propTypes: {
@@ -45579,7 +45847,7 @@
 	module.exports = DefaultPropsMixin;
 
 /***/ },
-/* 300 */
+/* 302 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -45606,7 +45874,7 @@
 	module.exports = HeightWidthMixin;
 
 /***/ },
-/* 301 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45646,13 +45914,13 @@
 	module.exports = AccessorMixin;
 
 /***/ },
-/* 302 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
 	var TooltipMixin = {
 		propTypes: {
@@ -45729,7 +45997,7 @@
 	module.exports = TooltipMixin;
 
 /***/ },
-/* 303 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45737,20 +46005,20 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
-	var Chart = __webpack_require__(297);
-	var Axis = __webpack_require__(304);
-	var Bar = __webpack_require__(305);
-	var Tooltip = __webpack_require__(298);
+	var Chart = __webpack_require__(299);
+	var Axis = __webpack_require__(306);
+	var Bar = __webpack_require__(307);
+	var Tooltip = __webpack_require__(300);
 
-	var DefaultPropsMixin = __webpack_require__(299);
-	var HeightWidthMixin = __webpack_require__(300);
-	var ArrayifyMixin = __webpack_require__(306);
-	var StackAccessorMixin = __webpack_require__(307);
-	var StackDataMixin = __webpack_require__(308);
-	var DefaultScalesMixin = __webpack_require__(309);
-	var TooltipMixin = __webpack_require__(302);
+	var DefaultPropsMixin = __webpack_require__(301);
+	var HeightWidthMixin = __webpack_require__(302);
+	var ArrayifyMixin = __webpack_require__(308);
+	var StackAccessorMixin = __webpack_require__(309);
+	var StackDataMixin = __webpack_require__(310);
+	var DefaultScalesMixin = __webpack_require__(311);
+	var TooltipMixin = __webpack_require__(304);
 
 	var DataSet = React.createClass({
 		displayName: "DataSet",
@@ -45883,13 +46151,13 @@
 	module.exports = BarChart;
 
 /***/ },
-/* 304 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
 	var Axis = React.createClass({
 		displayName: "Axis",
@@ -46068,13 +46336,13 @@
 	module.exports = Axis;
 
 /***/ },
-/* 305 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
 	var Bar = React.createClass({
 		displayName: "Bar",
@@ -46121,7 +46389,7 @@
 	module.exports = Bar;
 
 /***/ },
-/* 306 */
+/* 308 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -46152,7 +46420,7 @@
 	module.exports = ArrayifyMixin;
 
 /***/ },
-/* 307 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46192,13 +46460,13 @@
 	module.exports = StackAccessorMixin;
 
 /***/ },
-/* 308 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
 	var StackDataMixin = {
 		propTypes: {
@@ -46236,7 +46504,7 @@
 	module.exports = StackDataMixin;
 
 /***/ },
-/* 309 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46244,7 +46512,7 @@
 	var _slicedToArray = function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { var _arr = []; for (var _iterator = arr[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) { _arr.push(_step.value); if (i && _arr.length === i) break; } return _arr; } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } };
 
 	var React = __webpack_require__(1);
-	var d3 = __webpack_require__(296);
+	var d3 = __webpack_require__(298);
 
 	var DefaultScalesMixin = {
 		propTypes: {
@@ -46424,7 +46692,7 @@
 	module.exports = DefaultScalesMixin;
 
 /***/ },
-/* 310 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46445,7 +46713,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(311);
+	var _ActionsCreator = __webpack_require__(313);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -46465,23 +46733,23 @@
 
 	var _reactBootstrapLibTabPane2 = _interopRequireDefault(_reactBootstrapLibTabPane);
 
-	var _DeployTasksDeployUnitsDialog = __webpack_require__(312);
+	var _DeployTasksDeployUnitsDialog = __webpack_require__(314);
 
 	var _DeployTasksDeployUnitsDialog2 = _interopRequireDefault(_DeployTasksDeployUnitsDialog);
 
-	var _MailTaskCreateDialog = __webpack_require__(313);
+	var _MailTaskCreateDialog = __webpack_require__(315);
 
 	var _MailTaskCreateDialog2 = _interopRequireDefault(_MailTaskCreateDialog);
 
-	var _LocalScriptTaskCreateDialog = __webpack_require__(315);
+	var _LocalScriptTaskCreateDialog = __webpack_require__(317);
 
 	var _LocalScriptTaskCreateDialog2 = _interopRequireDefault(_LocalScriptTaskCreateDialog);
 
-	var _RemoteScriptTaskCreateDialog = __webpack_require__(317);
+	var _RemoteScriptTaskCreateDialog = __webpack_require__(319);
 
 	var _RemoteScriptTaskCreateDialog2 = _interopRequireDefault(_RemoteScriptTaskCreateDialog);
 
-	var _DatabaseTasksCreateDialog = __webpack_require__(319);
+	var _DatabaseTasksCreateDialog = __webpack_require__(321);
 
 	var _DatabaseTasksCreateDialog2 = _interopRequireDefault(_DatabaseTasksCreateDialog);
 
@@ -47020,29 +47288,6 @@
 	              )
 	            )
 	          )
-	        ),
-	        _react2["default"].createElement(
-	          _reactBootstrapLibTabPane2["default"],
-	          { eventKey: 3, tab: "Hooks" },
-	          _react2["default"].createElement(
-	            "h4",
-	            null,
-	            "Web hook"
-	          ),
-	          _react2["default"].createElement(
-	            "p",
-	            null,
-	            "Deploys can be automated by invoking a specific web hook for each enviroment of your application",
-	            _react2["default"].createElement(
-	              _reactBootstrapLibModalTrigger2["default"],
-	              { modal: _react2["default"].createElement(HookDialog, { Enviroment: this.getParams().enviromentId }) },
-	              _react2["default"].createElement(
-	                "button",
-	                { className: "btn btn-xs btn-primary pull-right" },
-	                "Get Url"
-	              )
-	            )
-	          )
 	        )
 	      )
 	    );
@@ -47052,7 +47297,7 @@
 	module.exports = TasksPage;
 
 /***/ },
-/* 311 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47177,7 +47422,7 @@
 	};
 
 /***/ },
-/* 312 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47417,7 +47662,7 @@
 	module.exports = CreateDialog;
 
 /***/ },
-/* 313 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47430,7 +47675,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(314);
+	var _Actions = __webpack_require__(316);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47539,7 +47784,7 @@
 	module.exports = MailTaskCreateDialog;
 
 /***/ },
-/* 314 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47597,7 +47842,7 @@
 	};
 
 /***/ },
-/* 315 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47610,7 +47855,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(316);
+	var _Actions = __webpack_require__(318);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47697,7 +47942,7 @@
 	module.exports = LocalScriptTaskCreateDialog;
 
 /***/ },
-/* 316 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47751,7 +47996,7 @@
 	};
 
 /***/ },
-/* 317 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47764,7 +48009,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(318);
+	var _Actions = __webpack_require__(320);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -47895,7 +48140,7 @@
 	module.exports = RemoteScriptTaskCreateDialog;
 
 /***/ },
-/* 318 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47962,7 +48207,7 @@
 	};
 
 /***/ },
-/* 319 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47975,7 +48220,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(320);
+	var _Actions = __webpack_require__(322);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48127,7 +48372,7 @@
 	module.exports = DatabaseTaskCreateDialog;
 
 /***/ },
-/* 320 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48198,7 +48443,7 @@
 	};
 
 /***/ },
-/* 321 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48217,7 +48462,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(314);
+	var _Actions = __webpack_require__(316);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48321,7 +48566,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 322 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48340,7 +48585,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(316);
+	var _Actions = __webpack_require__(318);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48431,7 +48676,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 323 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48450,7 +48695,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(318);
+	var _Actions = __webpack_require__(320);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48579,7 +48824,7 @@
 	module.exports = EditPage;
 
 /***/ },
-/* 324 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48598,7 +48843,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _Actions = __webpack_require__(320);
+	var _Actions = __webpack_require__(322);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -48748,272 +48993,6 @@
 	});
 
 	module.exports = EditPage;
-
-/***/ },
-/* 325 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _reqwest = __webpack_require__(213);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	module.exports = {
-	  cancelDeployment: function cancelDeployment(id) {
-	    return (0, _reqwest2["default"])({
-	      url: "/api/deploy/cancel?deploymentId=" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  updateDeployment: function updateDeployment(id) {
-	    return (0, _reqwest2["default"])({
-	      url: "/api/deployment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  }
-	};
-
-/***/ },
-/* 326 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(193);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _BootstrapMixin = __webpack_require__(195);
-
-	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-	var _CollapsibleMixin = __webpack_require__(250);
-
-	var _CollapsibleMixin2 = _interopRequireDefault(_CollapsibleMixin);
-
-	var Panel = _react2['default'].createClass({
-	  displayName: 'Panel',
-
-	  mixins: [_BootstrapMixin2['default'], _CollapsibleMixin2['default']],
-
-	  propTypes: {
-	    collapsible: _react2['default'].PropTypes.bool,
-	    onSelect: _react2['default'].PropTypes.func,
-	    header: _react2['default'].PropTypes.node,
-	    id: _react2['default'].PropTypes.string,
-	    footer: _react2['default'].PropTypes.node,
-	    eventKey: _react2['default'].PropTypes.any
-	  },
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      bsClass: 'panel',
-	      bsStyle: 'default'
-	    };
-	  },
-
-	  handleSelect: function handleSelect(e) {
-	    e.selected = true;
-
-	    if (this.props.onSelect) {
-	      this.props.onSelect(e, this.props.eventKey);
-	    } else {
-	      e.preventDefault();
-	    }
-
-	    if (e.selected) {
-	      this.handleToggle();
-	    }
-	  },
-
-	  handleToggle: function handleToggle() {
-	    this.setState({ expanded: !this.state.expanded });
-	  },
-
-	  getCollapsibleDimensionValue: function getCollapsibleDimensionValue() {
-	    return _react2['default'].findDOMNode(this.refs.panel).scrollHeight;
-	  },
-
-	  getCollapsibleDOMNode: function getCollapsibleDOMNode() {
-	    if (!this.isMounted() || !this.refs || !this.refs.panel) {
-	      return null;
-	    }
-
-	    return _react2['default'].findDOMNode(this.refs.panel);
-	  },
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'div',
-	      _extends({}, this.props, {
-	        className: (0, _classnames2['default'])(this.props.className, this.getBsClassSet()),
-	        id: this.props.collapsible ? null : this.props.id, onSelect: null }),
-	      this.renderHeading(),
-	      this.props.collapsible ? this.renderCollapsibleBody() : this.renderBody(),
-	      this.renderFooter()
-	    );
-	  },
-
-	  renderCollapsibleBody: function renderCollapsibleBody() {
-	    var collapseClass = this.prefixClass('collapse');
-
-	    return _react2['default'].createElement(
-	      'div',
-	      {
-	        className: (0, _classnames2['default'])(this.getCollapsibleClassSet(collapseClass)),
-	        id: this.props.id,
-	        ref: 'panel',
-	        'aria-expanded': this.isExpanded() ? 'true' : 'false' },
-	      this.renderBody()
-	    );
-	  },
-
-	  renderBody: function renderBody() {
-	    var allChildren = this.props.children;
-	    var bodyElements = [];
-	    var panelBodyChildren = [];
-	    var bodyClass = this.prefixClass('body');
-
-	    function getProps() {
-	      return { key: bodyElements.length };
-	    }
-
-	    function addPanelChild(child) {
-	      bodyElements.push((0, _react.cloneElement)(child, getProps()));
-	    }
-
-	    function addPanelBody(children) {
-	      bodyElements.push(_react2['default'].createElement(
-	        'div',
-	        _extends({ className: bodyClass }, getProps()),
-	        children
-	      ));
-	    }
-
-	    function maybeRenderPanelBody() {
-	      if (panelBodyChildren.length === 0) {
-	        return;
-	      }
-
-	      addPanelBody(panelBodyChildren);
-	      panelBodyChildren = [];
-	    }
-
-	    // Handle edge cases where we should not iterate through children.
-	    if (!Array.isArray(allChildren) || allChildren.length === 0) {
-	      if (this.shouldRenderFill(allChildren)) {
-	        addPanelChild(allChildren);
-	      } else {
-	        addPanelBody(allChildren);
-	      }
-	    } else {
-
-	      allChildren.forEach((function (child) {
-	        if (this.shouldRenderFill(child)) {
-	          maybeRenderPanelBody();
-
-	          // Separately add the filled element.
-	          addPanelChild(child);
-	        } else {
-	          panelBodyChildren.push(child);
-	        }
-	      }).bind(this));
-
-	      maybeRenderPanelBody();
-	    }
-
-	    return bodyElements;
-	  },
-
-	  shouldRenderFill: function shouldRenderFill(child) {
-	    return _react2['default'].isValidElement(child) && child.props.fill != null;
-	  },
-
-	  renderHeading: function renderHeading() {
-	    var header = this.props.header;
-
-	    if (!header) {
-	      return null;
-	    }
-
-	    if (!_react2['default'].isValidElement(header) || Array.isArray(header)) {
-	      header = this.props.collapsible ? this.renderCollapsibleTitle(header) : header;
-	    } else {
-	      var className = (0, _classnames2['default'])(this.prefixClass('title'), header.props.className);
-
-	      if (this.props.collapsible) {
-	        header = (0, _react.cloneElement)(header, {
-	          className: className,
-	          children: this.renderAnchor(header.props.children)
-	        });
-	      } else {
-	        header = (0, _react.cloneElement)(header, { className: className });
-	      }
-	    }
-
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: this.prefixClass('heading') },
-	      header
-	    );
-	  },
-
-	  renderAnchor: function renderAnchor(header) {
-	    return _react2['default'].createElement(
-	      'a',
-	      {
-	        href: '#' + (this.props.id || ''),
-	        'aria-controls': this.props.collapsible ? this.props.id : null,
-	        className: this.isExpanded() ? null : 'collapsed',
-	        'aria-expanded': this.isExpanded() ? 'true' : 'false',
-	        onClick: this.handleSelect },
-	      header
-	    );
-	  },
-
-	  renderCollapsibleTitle: function renderCollapsibleTitle(header) {
-	    return _react2['default'].createElement(
-	      'h4',
-	      { className: this.prefixClass('title') },
-	      this.renderAnchor(header)
-	    );
-	  },
-
-	  renderFooter: function renderFooter() {
-	    if (!this.props.footer) {
-	      return null;
-	    }
-
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: this.prefixClass('footer') },
-	      this.props.footer
-	    );
-	  }
-	});
-
-	exports['default'] = Panel;
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

@@ -26,7 +26,8 @@ var AgentsPage = React.createClass({
     Actions.uploadFiles(files,this.state.OriginalName);
   },
 
-  testConnection:function(){
+  testConnection:function(event){
+      event.preventDefault()
     Actions.testAgent(this.state.Address)
       .then(x => alert("Agent responding"))
       .fail(x => alert("Agent not responding"))
@@ -73,7 +74,7 @@ var AgentsPage = React.createClass({
               <label >Address</label>
 
 
-                  {window.Administator ?
+            {window.Administator == "True" ?
                 <div className="input-group"><input type="text" ref="name" className="form-control"  valueLink={this.linkState('Address')}/>
                   <span className="input-group-btn">
                     <button className="btn btn-primary" type="button"  onClick={this.changeAddress}>Change</button>
@@ -90,7 +91,7 @@ var AgentsPage = React.createClass({
           </fieldset>
           </form>
 
-  {window.Administator &&
+            {window.Administator == "True" &&
           <form >
             <fieldset>
               <legend>Agent Update</legend>

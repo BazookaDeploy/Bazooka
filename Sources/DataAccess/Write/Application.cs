@@ -212,11 +212,11 @@ namespace DataAccess.Write
 
         private int NewTaskNumber()
         {
-            var a = this.DatabaseTasks.Select(x => x.Position).Max();
-            var b = this.DeployTasks.Select(x => x.Position).Max();
-            var c = this.LocalScriptTasks.Select(x => x.Position).Max();
-            var d = this.MailTasks.Select(x => x.Position).Max();
-            var e = this.RemoteScriptTasks.Select(x => x.Position).Max();
+            var a = (this.DatabaseTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new DatabaseTask()).Position;
+            var b = (this.DeployTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new DeployTask()).Position;
+            var c = (this.LocalScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new LocalScriptTask()).Position;
+            var d = (this.MailTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new MailTask()).Position;
+            var e = (this.RemoteScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new RemoteScriptTask()).Position;
             var position = (new int[] { a, b, c, d, e }).ToList().Max();
 
             return position + 1;

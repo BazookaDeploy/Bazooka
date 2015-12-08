@@ -6,7 +6,7 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 var gulp = require('gulp');
 var webpackOrig = require('webpack');
 var webpack = require('gulp-webpack');
-var sass = require('gulp-sass');
+
 
 var config = {
     cache: true,
@@ -53,13 +53,15 @@ gulp.task("copy", function () {
       .pipe(gulp.dest('./Content/fonts/'));
 });
 
-gulp.task("css",["copy"], function () {
+gulp.task("css", ["copy"], function () {
+    var sass = require('gulp-sass');
     gulp.src('./Content/main.scss')
       .pipe(sass().on('error', sass.logError))
       .pipe(gulp.dest('./Content/'));
 });
 
 gulp.task("css-prod", ["copy"], function () {
+    var sass = require('gulp-sass');
     gulp.src('./Content/main.scss')
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(gulp.dest('./Content/'));

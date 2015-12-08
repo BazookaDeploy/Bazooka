@@ -9,10 +9,11 @@ var CHANGE_EVENT = 'change';
 var _deployUnits = [];
 
 function _addDeployUnits(raw) {
-  _deployUnits=raw;
+  _deployUnits=_deployUnits.concat(raw);
 }
 
 function _addDeployUnit(raw) {
+    debugger;
   _deployUnits=_deployUnits.concat(raw);
 }
 
