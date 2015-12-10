@@ -66,7 +66,7 @@
         {
             if (configFile != null && transform != null)
             {
-                Logger.Log("EAppling transform passed as parameter");
+                Logger.Log("Applying transform passed as parameter");
 
                 using (var transformation = new XmlTransformation(transform, isTransformAFile: false, logger: null))
                 {
@@ -104,12 +104,12 @@
             }
 
 
-            var files = Directory.GetFiles(info.InstallationDirectory, "*.config")
+            var files = Directory.GetFiles(info.InstallationDirectory, "*.config", SearchOption.AllDirectories)
                                  .Where(file => File.Exists(file.Replace(".config", "." + info.Configuration + ".config")));
 
             foreach (var file in files)
             {
-                Logger.Log("Applying transformation contained in package ...");
+                Logger.Log(String.Format("Applying transformation {0} contained in package ...", Path.GetFileName(file)));
 
                 var sb = new StringBuilder();
                 using (StreamReader sr = new StreamReader(file.Replace(".config", "." + info.Configuration + ".config")))
