@@ -8,9 +8,11 @@
     using NHibernate;
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Net.Http;
     using System.Net.Mail;
+    using static System.Configuration.ConfigurationManager;
 
     /// <summary>
     ///     Job to deploy an application. It must be shared between web and controller so it has been 
@@ -426,6 +428,12 @@
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(unit.Address);
+                int timeout = 300;
+                if (AppSettings["DeployTimeout"] != null)
+                {
+                    timeout = int.Parse(AppSettings["DeployTimeout"]);
+                }
+
                 client.Timeout = TimeSpan.FromSeconds(300);
 
                 var result2 = client.PostAsJsonAsync("/api/deploy/install", new
