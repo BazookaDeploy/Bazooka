@@ -11,9 +11,16 @@
             var options = new DacDeployOptions()
             {
                 BlockOnPossibleDataLoss = true,
-                IncludeTransactionalScripts = true
+                IncludeTransactionalScripts = true,
+                DropConstraintsNotInSource = false,
+                DropIndexesNotInSource = false,
+                DropDmlTriggersNotInSource = false,
+                DropObjectsNotInSource = false,
+                DropExtendedPropertiesNotInSource = false,
+                DropPermissionsNotInSource = false,
+                DropStatisticsNotInSource = false,
+                DropRoleMembersNotInSource = false,
             };
-
 
             var service = new DacServices(connectionString);
             service.Message += (x, y) =>
