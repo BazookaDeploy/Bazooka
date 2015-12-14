@@ -94,6 +94,7 @@
     <Compile Include="Write\DeployTaskMap.cs" />
     <Compile Include="Write\Enviroment.cs" />
     <Compile Include="Write\EnviromentMap.cs" />
+    <Compile Include="Write\IMovable.cs" />
     <Compile Include="Write\LocalScriptTask.cs" />
     <Compile Include="Write\LocalScriptTaskMap.cs" />
     <Compile Include="Write\LogEntry.cs" />

@@ -2,7 +2,7 @@
 
 namespace DataAccess.Write
 {
-    public class DeployTask
+    public class DeployTask : IMovable
     {
         public virtual int Id { get; set; }
 
@@ -51,6 +51,15 @@ namespace DataAccess.Write
 
         public virtual int Position { get; set; }
 
+        public virtual void MoveUp()
+        {
+            this.Position--;
+        }
+
+        public virtual void MoveDown()
+        {
+            this.Position++;
+        }
     }
 
     public class Parameter

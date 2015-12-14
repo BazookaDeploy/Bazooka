@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Write
 {
-    public class DatabaseTask
+    public class DatabaseTask : IMovable
     {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
@@ -12,5 +12,15 @@
         public virtual string Repository { get; set; }
         public virtual int AgentId { get; set; }
         public virtual int Position { get; set; }
+
+        public virtual void MoveUp()
+        {
+            this.Position--;
+        }
+
+        public virtual void MoveDown()
+        {
+            this.Position++;
+        }
     }
 }

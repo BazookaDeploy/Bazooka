@@ -24,6 +24,38 @@ namespace DataAccess.Write
 
         public virtual IList<RemoteScriptTask> RemoteScriptTasks { get; set; }
 
+        public virtual IList<IMovable> AllTasks()
+        {
+            var list = new List<IMovable>();
+
+            if (DatabaseTasks != null)
+            {
+                list.AddRange(DatabaseTasks.Select(x => (IMovable)x).ToList());
+            }
+
+            if (DeployTasks != null)
+            {
+                list.AddRange(DeployTasks.Select(x => (IMovable)x).ToList());
+            }
+
+            if (MailTasks != null)
+            {
+                list.AddRange(MailTasks.Select(x => (IMovable)x).ToList());
+            }
+
+            if (LocalScriptTasks != null)
+            {
+                list.AddRange(LocalScriptTasks.Select(x => (IMovable)x).ToList());
+            }
+
+            if (RemoteScriptTasks != null)
+            {
+                list.AddRange(RemoteScriptTasks.Select(x => (IMovable)x).ToList());
+            }
+
+            return list;
+        }
+
         public virtual void AddAllowedUser(int enviromentId, System.Guid userId)
         {
             if (AllowedUsers.Count(x => x.EnviromentId == enviromentId && x.UserId == userId.ToString()) == 0)
