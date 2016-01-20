@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DataAccess.Read;
+
 namespace DataAccess.Write
 {
     public class Application
@@ -276,5 +279,30 @@ namespace DataAccess.Write
             task.AgentId = agentId;
             task.Folder = folder;
         }
+
+        public virtual void DeleteTask(int taskId, TaskType type)
+        {
+            switch (type)
+            {
+                case TaskType.Deploy:
+                    this.DeployTasks.Remove(this.DeployTasks.Single(x => x.Id == taskId));
+                    break;
+                case TaskType.Mail:
+                    this.MailTasks.Remove(this.MailTasks.Single(x => x.Id == taskId));
+                    break;
+                case TaskType.RemoteScript:
+                    this.RemoteScriptTasks.Remove(this.RemoteScriptTasks.Single(x => x.Id == taskId));
+                    break;
+                case TaskType.LocalScript:
+                    this.LocalScriptTasks.Remove(this.LocalScriptTasks.Single(x => x.Id == taskId));
+                    break;
+                case TaskType.Database:
+                    this.DatabaseTasks.Remove(this.DatabaseTasks.Single(x => x.Id == taskId));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
     }
 }

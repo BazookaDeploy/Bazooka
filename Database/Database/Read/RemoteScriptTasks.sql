@@ -9,3 +9,4 @@
 			  [RemoteScriptTasks].ApplicationId ,
 			  Folder 
 	FROM [dbo].RemoteScriptTasks JOIN dbo.Agents ON AgentId = Agents.Id
+	WHERE Deleted  = 0 

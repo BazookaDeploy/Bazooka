@@ -31,6 +31,7 @@ namespace DataAccess.Write
             Property(x => x.ConfigurationTransform, x => { x.Type(NHibernateUtil.StringClob); });
             Property(x => x.Configuration);
             Property(x => x.Position);
+            Property(x => x.Deleted);
 
             Bag(
                 x => x.AdditionalParameters,

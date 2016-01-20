@@ -8,6 +8,7 @@
     [Folder] NVARCHAR(256) NOT NULL, 
     [ApplicationId] INT NOT NULL, 
     [Position] INT NOT NULL DEFAULT 1, 
+    [Deleted] BIT NOT NULL DEFAULT 0, 
     CONSTRAINT [FK_RemoteScriptTasks_ToEnviroments] FOREIGN KEY ([EnviromentId]) REFERENCES [Enviroments]([Id]), 
     CONSTRAINT [FK_RemoteScriptTasks_ToApplications] FOREIGN KEY (ApplicationId) REFERENCES Applications([Id]), 
     CONSTRAINT [FK_RemoteScriptTasks_Agents] FOREIGN KEY (AgentId) REFERENCES Agents(Id)

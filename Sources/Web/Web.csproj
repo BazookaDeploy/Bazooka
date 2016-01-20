@@ -234,6 +234,7 @@
     <Compile Include="CommandHandlers\Application\CreateMailTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateLocalScriptTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateDeployTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\DeleteTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\ModifyRemoteScriptTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\ModifyMailTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\ModifyLocalScriptTaskHandler.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="Commands\Application\CreateLocalScriptTask.cs" />
     <Compile Include="Commands\Application\CreateMailTask.cs" />
     <Compile Include="Commands\Application\CreateRemoteScriptTask.cs" />
+    <Compile Include="Commands\Application\DeleteTask.cs" />
     <Compile Include="Commands\Enviroments\AddAgentToEnviroment.cs" />
     <Compile Include="Commands\Groups\AddUserToGroup.cs" />
     <Compile Include="Commands\Enviroments\ChangeAgentAddress.cs" />

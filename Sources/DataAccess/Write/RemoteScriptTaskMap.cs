@@ -23,6 +23,7 @@
             Property(x => x.Script, x => { x.NotNullable(true); x.Type(NHibernateUtil.StringClob); });
             Property(x => x.AgentId);
             Property(x => x.Position);
+            Property(x => x.Deleted);
         }
     }
 }

@@ -22,3 +22,4 @@
 						     JOIN  [dbo].Applications ON [DeployTasks].ApplicationId = Applications.Id
 							 JOIN  [dbo].Agents on [DeployTasks].AgentId = Agents.Id
 							 LEFT JOIN dbo.ApplicationGroups ON Applications.ApplicationGroupId = ApplicationGroups.Id
+	WHERE Deleted  = 0 

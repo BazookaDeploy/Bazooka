@@ -6,6 +6,7 @@
 	[EnviromentId] INT NOT NULL, 
     [ApplicationId] INT NOT NULL, 
     [Position] INT NOT NULL DEFAULT 1, 
+    [Deleted] BIT NOT NULL DEFAULT 0, 
     CONSTRAINT [FK_LocalScriptTasks_ToEnviroments] FOREIGN KEY ([EnviromentId]) REFERENCES [Enviroments]([Id]), 
     CONSTRAINT [FK_LocalScriptTasks_ToApplications] FOREIGN KEY (ApplicationId) REFERENCES Applications([Id])
 )

@@ -10,3 +10,4 @@
 			  Agents.Name as AgentName, 
 			  [ApplicationId] 
 		FROM dbo.DatabaseTasks JOIN dbo.Agents ON AgentId = Agents.Id
+		WHERE Deleted  = 0 

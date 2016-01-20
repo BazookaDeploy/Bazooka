@@ -23,6 +23,7 @@ namespace DataAccess.Write
             Property(x => x.Sender, x => { x.NotNullable(true); x.Length(256); });
             Property(X => X.Text, x => { x.NotNullable(true); x.Type(NHibernateUtil.StringClob); });
             Property(x => x.Position);
+            Property(x => x.Deleted);
         }
     }
 }

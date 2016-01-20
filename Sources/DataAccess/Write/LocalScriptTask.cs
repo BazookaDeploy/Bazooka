@@ -14,6 +14,8 @@
 
         public virtual int Position { get; set; }
 
+        public virtual bool Deleted { get; set; }
+
         public virtual void MoveUp()
         {
             this.Position--;
