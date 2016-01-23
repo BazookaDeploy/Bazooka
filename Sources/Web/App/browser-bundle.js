@@ -46934,9 +46934,11 @@
 	  deleteTask: function deleteTask(id, type) {
 	    var _this4 = this;
 
-	    _ActionsCreator2["default"].deleteTask(this.getParams().applicationId, id, type).then(function (x) {
-	      return _this4.updateTasks();
-	    });
+	    if (window.confirm("Are you sure you want to delete this task?")) {
+	      _ActionsCreator2["default"].deleteTask(this.getParams().applicationId, id, type).then(function (x) {
+	        return _this4.updateTasks();
+	      });
+	    }
 	  },
 
 	  removeUser: function removeUser(id) {

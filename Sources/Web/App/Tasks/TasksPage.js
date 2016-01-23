@@ -114,7 +114,9 @@ var TaskSelectDialog = React.createClass({
     },
 
     deleteTask: function(id,type){
-        Actions.deleteTask(this.getParams().applicationId, id,type).then(x => this.updateTasks());
+        if(window.confirm("Are you sure you want to delete this task?")){
+            Actions.deleteTask(this.getParams().applicationId, id,type).then(x => this.updateTasks());
+        }
     },
 
     removeUser:function(id){
