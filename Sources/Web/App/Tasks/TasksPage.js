@@ -113,6 +113,10 @@ var TaskSelectDialog = React.createClass({
       })
     },
 
+    deleteTask: function(id,type){
+        Actions.deleteTask(this.getParams().applicationId, id,type).then(x => this.updateTasks());
+    },
+
     removeUser:function(id){
       Actions.removeUser(this.getParams().enviromentId,this.getParams().applicationId,id).then(x => {
         Actions.getUsers(this.getParams().enviromentId,this.getParams().applicationId).then(z => {
@@ -182,7 +186,7 @@ var TaskSelectDialog = React.createClass({
                         enviromentId:this.getParams().enviromentId,
                         deployUnitName : x.Name,
                         deployUnitId: x.Id
-                      }}>{x.Name}</Link></td></tr>
+                        }}>{x.Name}</Link><button className="btn btn-danger btn-xs pull-right" onClick={() => this.deleteTask(x.Id,0)}><i className="glyphicon glyphicon-remove"></i></button></td></tr>
                   ) :
                   (x.Type == 1 ? (
                     <tr><td><Link to="mailtaskedit" params={{
@@ -192,7 +196,7 @@ var TaskSelectDialog = React.createClass({
                         enviromentId:this.getParams().enviromentId,
                         mailTaskName : x.Name,
                         taskId: x.Id
-                      }}>{x.Name}</Link></td></tr>
+                        }}>{x.Name}</Link><button className="btn btn-danger btn-xs  pull-right" onClick={() => this.deleteTask(x.Id,1)}><i className="glyphicon glyphicon-remove"></i></button></td></tr>
                   ) : (x.Type == 2 ?
                     (
                       <tr><td><Link to="localscripttaskedit" params={{
@@ -202,7 +206,7 @@ var TaskSelectDialog = React.createClass({
                           enviromentId:this.getParams().enviromentId,
                           taskName : x.Name,
                           taskId: x.Id
-                        }}>{x.Name}</Link></td></tr>
+                          }}>{x.Name}</Link><button className="btn btn-danger btn-xs pull-right" onClick={() => this.deleteTask(x.Id,2)}><i className="glyphicon glyphicon-remove"></i></button></td></tr>
                     )
                     :
                     (x.Type==3 ?(
@@ -213,7 +217,7 @@ var TaskSelectDialog = React.createClass({
                           enviromentId:this.getParams().enviromentId,
                           taskName : x.Name,
                           taskId: x.Id
-                        }}>{x.Name}</Link></td></tr>
+                          }}>{x.Name}</Link><button className="btn btn-danger btn-xs pull-right" onClick={() => this.deleteTask(x.Id,3)}><i className="glyphicon glyphicon-remove"></i></button></td></tr>
                     ):(
                       <tr><td><Link to="databasetaskedit" params={{
                           applicationName:this.getParams().applicationName,
@@ -222,7 +226,7 @@ var TaskSelectDialog = React.createClass({
                           enviromentId:this.getParams().enviromentId,
                           taskName : x.Name,
                           taskId: x.Id
-                        }}>{x.Name}</Link></td></tr>
+                          }}>{x.Name}</Link><button className="btn btn-danger btn-xs pull-right" onClick={() => this.deleteTask(x.Id,4)}><i className="glyphicon glyphicon-remove"></i></button></td></tr>
                     ))
                     ))
                   )}

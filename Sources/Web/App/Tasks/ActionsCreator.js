@@ -111,4 +111,18 @@ module.exports = {
     })
   },
 
+  deleteTask : function(applicationId, id, type){
+      return reqwest({
+          url: "/api/tasks/deleteTask",
+          type: 'json',
+          contentType: 'application/json',
+          method: "post",
+          data:JSON.stringify({
+              ApplicationId : applicationId,
+              TaskId:id,
+              Type:type
+          })
+      })
+  }
+
 }

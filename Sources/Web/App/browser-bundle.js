@@ -46931,48 +46931,56 @@
 	    });
 	  },
 
-	  removeUser: function removeUser(id) {
+	  deleteTask: function deleteTask(id, type) {
 	    var _this4 = this;
 
+	    _ActionsCreator2["default"].deleteTask(this.getParams().applicationId, id, type).then(function (x) {
+	      return _this4.updateTasks();
+	    });
+	  },
+
+	  removeUser: function removeUser(id) {
+	    var _this5 = this;
+
 	    _ActionsCreator2["default"].removeUser(this.getParams().enviromentId, this.getParams().applicationId, id).then(function (x) {
-	      _ActionsCreator2["default"].getUsers(_this4.getParams().enviromentId, _this4.getParams().applicationId).then(function (z) {
-	        _this4.setState({ users: z });
+	      _ActionsCreator2["default"].getUsers(_this5.getParams().enviromentId, _this5.getParams().applicationId).then(function (z) {
+	        _this5.setState({ users: z });
 	      });
 	    });
 	  },
 
 	  removeGroup: function removeGroup(id) {
-	    var _this5 = this;
+	    var _this6 = this;
 
 	    _ActionsCreator2["default"].removeGroups(this.getParams().enviromentId, this.getParams().applicationId, id).then(function (x) {
-	      _ActionsCreator2["default"].getGroups(_this5.getParams().enviromentId, _this5.getParams().applicationId).then(function (z) {
-	        _this5.setState({ groups: z });
+	      _ActionsCreator2["default"].getGroups(_this6.getParams().enviromentId, _this6.getParams().applicationId).then(function (z) {
+	        _this6.setState({ groups: z });
 	      });
 	    });
 	  },
 
 	  addUser: function addUser() {
-	    var _this6 = this;
+	    var _this7 = this;
 
 	    _ActionsCreator2["default"].addUser(this.getParams().enviromentId, this.getParams().applicationId, this.refs.user.getDOMNode().value).then(function (x) {
-	      _ActionsCreator2["default"].getUsers(_this6.getParams().enviromentId, _this6.getParams().applicationId).then(function (z) {
-	        _this6.setState({ users: z });
+	      _ActionsCreator2["default"].getUsers(_this7.getParams().enviromentId, _this7.getParams().applicationId).then(function (z) {
+	        _this7.setState({ users: z });
 	      });
 	    });
 	  },
 
 	  addGroup: function addGroup() {
-	    var _this7 = this;
+	    var _this8 = this;
 
 	    _ActionsCreator2["default"].addGroup(this.getParams().enviromentId, this.getParams().applicationId, this.refs.group.getDOMNode().value).then(function (x) {
-	      _ActionsCreator2["default"].getGroups(_this7.getParams().enviromentId, _this7.getParams().applicationId).then(function (z) {
-	        _this7.setState({ groups: z });
+	      _ActionsCreator2["default"].getGroups(_this8.getParams().enviromentId, _this8.getParams().applicationId).then(function (z) {
+	        _this8.setState({ groups: z });
 	      });
 	    });
 	  },
 
 	  render: function render() {
-	    var _this8 = this;
+	    var _this9 = this;
 
 	    var users = this.state.users.map(function (x) {
 	      return _react2["default"].createElement(
@@ -46986,7 +46994,7 @@
 	          _react2["default"].createElement(
 	            "button",
 	            { className: "btn btn-danger btn-xs pull-right", onClick: function (z) {
-	                return _this8.removeUser(x.USerId);
+	                return _this9.removeUser(x.USerId);
 	              } },
 	            "Remove"
 	          )
@@ -47014,7 +47022,7 @@
 	          _react2["default"].createElement(
 	            "button",
 	            { className: "btn btn-danger btn-xs pull-right", onClick: function (z) {
-	                _this8.removeGroup(x.GroupId);
+	                _this9.removeGroup(x.GroupId);
 	              } },
 	            "Remove"
 	          )
@@ -47088,14 +47096,21 @@
 	                    _react2["default"].createElement(
 	                      Link,
 	                      { to: "deployunitedit", params: {
-	                          applicationName: _this8.getParams().applicationName,
-	                          applicationId: _this8.getParams().applicationId,
-	                          enviroment: _this8.getParams().enviroment,
-	                          enviromentId: _this8.getParams().enviromentId,
+	                          applicationName: _this9.getParams().applicationName,
+	                          applicationId: _this9.getParams().applicationId,
+	                          enviroment: _this9.getParams().enviroment,
+	                          enviromentId: _this9.getParams().enviromentId,
 	                          deployUnitName: x.Name,
 	                          deployUnitId: x.Id
 	                        } },
 	                      x.Name
+	                    ),
+	                    _react2["default"].createElement(
+	                      "button",
+	                      { className: "btn btn-danger btn-xs pull-right", onClick: function () {
+	                          return _this9.deleteTask(x.Id, 0);
+	                        } },
+	                      _react2["default"].createElement("i", { className: "glyphicon glyphicon-remove" })
 	                    )
 	                  )
 	                ) : x.Type == 1 ? _react2["default"].createElement(
@@ -47107,14 +47122,21 @@
 	                    _react2["default"].createElement(
 	                      Link,
 	                      { to: "mailtaskedit", params: {
-	                          applicationName: _this8.getParams().applicationName,
-	                          applicationId: _this8.getParams().applicationId,
-	                          enviroment: _this8.getParams().enviroment,
-	                          enviromentId: _this8.getParams().enviromentId,
+	                          applicationName: _this9.getParams().applicationName,
+	                          applicationId: _this9.getParams().applicationId,
+	                          enviroment: _this9.getParams().enviroment,
+	                          enviromentId: _this9.getParams().enviromentId,
 	                          mailTaskName: x.Name,
 	                          taskId: x.Id
 	                        } },
 	                      x.Name
+	                    ),
+	                    _react2["default"].createElement(
+	                      "button",
+	                      { className: "btn btn-danger btn-xs  pull-right", onClick: function () {
+	                          return _this9.deleteTask(x.Id, 1);
+	                        } },
+	                      _react2["default"].createElement("i", { className: "glyphicon glyphicon-remove" })
 	                    )
 	                  )
 	                ) : x.Type == 2 ? _react2["default"].createElement(
@@ -47126,14 +47148,21 @@
 	                    _react2["default"].createElement(
 	                      Link,
 	                      { to: "localscripttaskedit", params: {
-	                          applicationName: _this8.getParams().applicationName,
-	                          applicationId: _this8.getParams().applicationId,
-	                          enviroment: _this8.getParams().enviroment,
-	                          enviromentId: _this8.getParams().enviromentId,
+	                          applicationName: _this9.getParams().applicationName,
+	                          applicationId: _this9.getParams().applicationId,
+	                          enviroment: _this9.getParams().enviroment,
+	                          enviromentId: _this9.getParams().enviromentId,
 	                          taskName: x.Name,
 	                          taskId: x.Id
 	                        } },
 	                      x.Name
+	                    ),
+	                    _react2["default"].createElement(
+	                      "button",
+	                      { className: "btn btn-danger btn-xs pull-right", onClick: function () {
+	                          return _this9.deleteTask(x.Id, 2);
+	                        } },
+	                      _react2["default"].createElement("i", { className: "glyphicon glyphicon-remove" })
 	                    )
 	                  )
 	                ) : x.Type == 3 ? _react2["default"].createElement(
@@ -47145,14 +47174,21 @@
 	                    _react2["default"].createElement(
 	                      Link,
 	                      { to: "remotescripttaskedit", params: {
-	                          applicationName: _this8.getParams().applicationName,
-	                          applicationId: _this8.getParams().applicationId,
-	                          enviroment: _this8.getParams().enviroment,
-	                          enviromentId: _this8.getParams().enviromentId,
+	                          applicationName: _this9.getParams().applicationName,
+	                          applicationId: _this9.getParams().applicationId,
+	                          enviroment: _this9.getParams().enviroment,
+	                          enviromentId: _this9.getParams().enviromentId,
 	                          taskName: x.Name,
 	                          taskId: x.Id
 	                        } },
 	                      x.Name
+	                    ),
+	                    _react2["default"].createElement(
+	                      "button",
+	                      { className: "btn btn-danger btn-xs pull-right", onClick: function () {
+	                          return _this9.deleteTask(x.Id, 3);
+	                        } },
+	                      _react2["default"].createElement("i", { className: "glyphicon glyphicon-remove" })
 	                    )
 	                  )
 	                ) : _react2["default"].createElement(
@@ -47164,14 +47200,21 @@
 	                    _react2["default"].createElement(
 	                      Link,
 	                      { to: "databasetaskedit", params: {
-	                          applicationName: _this8.getParams().applicationName,
-	                          applicationId: _this8.getParams().applicationId,
-	                          enviroment: _this8.getParams().enviroment,
-	                          enviromentId: _this8.getParams().enviromentId,
+	                          applicationName: _this9.getParams().applicationName,
+	                          applicationId: _this9.getParams().applicationId,
+	                          enviroment: _this9.getParams().enviroment,
+	                          enviromentId: _this9.getParams().enviromentId,
 	                          taskName: x.Name,
 	                          taskId: x.Id
 	                        } },
 	                      x.Name
+	                    ),
+	                    _react2["default"].createElement(
+	                      "button",
+	                      { className: "btn btn-danger btn-xs pull-right", onClick: function () {
+	                          return _this9.deleteTask(x.Id, 4);
+	                        } },
+	                      _react2["default"].createElement("i", { className: "glyphicon glyphicon-remove" })
 	                    )
 	                  )
 	                );
@@ -47416,6 +47459,20 @@
 	      type: 'json',
 	      contentType: 'application/json',
 	      method: "get"
+	    });
+	  },
+
+	  deleteTask: function deleteTask(applicationId, id, type) {
+	    return (0, _reqwest2["default"])({
+	      url: "/api/tasks/deleteTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationId,
+	        TaskId: id,
+	        Type: type
+	      })
 	    });
 	  }
 
