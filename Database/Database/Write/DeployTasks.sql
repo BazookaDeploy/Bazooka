@@ -10,7 +10,7 @@
     [CurrentlyDeployedVersion] NVARCHAR(50) NULL, 
     [InstallScript] NVARCHAR(MAX) NULL, 
     [UninstallScript] NVARCHAR(MAX) NULL, 
-    [ConfigurationFile] NVARCHAR(50) NULL, 
+    [ConfigurationFile] NVARCHAR(250) NULL, 
     [ConfigurationTransform] NVARCHAR(MAX) NULL, 
     [Configuration] NVARCHAR(50) NULL, 
     [ApplicationId] INT NOT NULL, 
