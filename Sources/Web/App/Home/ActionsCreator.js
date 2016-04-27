@@ -25,7 +25,7 @@ module.exports = {
 
 	scheduleDeploy: function(enviromentId, applicationId, version, date) {
 		var promise = reqwest({
-		    url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" +	applicationId  + "&version=" +
+		    url: "/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" +	applicationId  + "&version=" +
 				version + "&start=" + date.toISOString(),
 			type: 'json',
 			contentType: 'application/json',

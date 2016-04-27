@@ -22,6 +22,7 @@ var DeployDialog = React.createClass({
   },
 
   create:function(){
+    debugger;
     var version = this.refs.Version.getDOMNode().value;
     if(version!=null){
       if(!this.state.scheduled){
