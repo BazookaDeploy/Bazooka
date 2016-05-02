@@ -40,6 +40,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new DeployUnitDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployUnitParameterDtoConfiguration());
             modelBuilder.Configurations.Add(new DeploymentDtoConfiguration());
+            modelBuilder.Configurations.Add(new DeploymentTasksDtoConfiguration());
             modelBuilder.Configurations.Add(new UsersInGroupsDtoConfiguration());
             modelBuilder.Configurations.Add(new GroupsDtoConfiguration());
             modelBuilder.Configurations.Add(new UserDtoConfiguration());
@@ -231,6 +232,18 @@ namespace DataAccess.Read
             HasMany(x => x.Logs)
                 .WithRequired()
                 .HasForeignKey(x => x.DeploymentId);
+
+            HasMany(x => x.Tasks)
+                .WithRequired()
+                .HasForeignKey(x => x.DeploymentId);
+        }
+    }
+
+    public class DeploymentTasksDtoConfiguration : EntityTypeConfiguration<DeploymentTasksDto>
+    {
+        public DeploymentTasksDtoConfiguration()
+        {
+            ToTable("DeploymentTasks");
         }
     }
 }

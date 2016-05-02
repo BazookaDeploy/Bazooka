@@ -33,7 +33,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public void Deploy(int enviromentId,int applicationId, string version)
+        public void Deploy(int enviromentId,int applicationId, string version, ICollection<DeploymentTasksDto> tasks)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
@@ -45,6 +45,18 @@ namespace Web.Controllers
                     Version = version,
                     UserId = User.Identity.GetUserId()
                 };
+
+                if(tasks!= null && tasks.Count > 0)
+                {
+                    foreach(var task in tasks)
+                    {
+                        deploy.Tasks.Add(new DeploymentTask()
+                        {
+                            DeployTaskId = task.DeployTaskId,
+                            DeployType = (int)task.DeployType
+                        });
+                    }
+                }
 
                 session.Save(deploy);
                 session.Flush();
@@ -80,7 +92,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public void Schedule(int enviromentId, int applicationId, string version, DateTime start)
+        public void Schedule(int enviromentId, int applicationId, string version, DateTime start, ICollection<DeploymentTasksDto> tasks)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
@@ -94,6 +106,18 @@ namespace Web.Controllers
                     StartDate = start.ToUniversalTime(),
                     Scheduled = true
                 };
+
+                if (tasks != null && tasks.Count > 0)
+                {
+                    foreach (var task in tasks)
+                    {
+                        deploy.Tasks.Add(new DeploymentTask()
+                        {
+                            DeployTaskId = task.DeployTaskId,
+                            DeployType = (int)task.DeployType
+                        });
+                    }
+                }
 
                 session.Save(deploy);
                 session.Flush();

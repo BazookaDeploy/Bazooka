@@ -56,6 +56,8 @@ namespace Web.App_Start
             mapper.AddMapping<DatabaseTaskMap>();
             mapper.AddMapping<AgentMap>();
             mapper.AddMapping<ApplicationGroupMap>();
+            mapper.AddMapping<DeploymentTaskMap>();
+
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 

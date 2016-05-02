@@ -24,14 +24,14 @@ namespace Web.Controllers
                         x.Status,
                         x.UserId,
                         x.UserName,
-                        x.Version
+                        x.Version,                        
                      });
         }
 
 
         public DeploymentDto Get(int id)
         {
-            return db.Deployments.Single(x => x.Id == id);
+            return db.Deployments.Include("Tasks").Single(x => x.Id == id);
         }
 
 

@@ -80,6 +80,7 @@
             mapper.AddMapping<DatabaseTaskMap>();
             mapper.AddMapping<AgentMap>();
             mapper.AddMapping<ApplicationGroupMap>();
+            mapper.AddMapping<DeploymentTaskMap>();
 
 
 

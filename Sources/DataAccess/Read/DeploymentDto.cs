@@ -29,6 +29,8 @@ namespace DataAccess.Read
         public virtual string UserName { get; set; }
 
         public virtual ICollection<LogEntryDto> Logs { get; set; }
+
+        public virtual ICollection<DeploymentTasksDto> Tasks { get; set; }
     }
 
     public class LogEntryDto

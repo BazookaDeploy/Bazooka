@@ -63,6 +63,7 @@
     <Compile Include="Read\DatabaseTaskDto.cs" />
     <Compile Include="Read\DeployersDto.cs" />
     <Compile Include="Read\DeploymentDto.cs" />
+    <Compile Include="Read\DeploymentTasksDto.cs" />
     <Compile Include="Read\DeployTaskDto.cs" />
     <Compile Include="Read\DeployTaskParameterDto.cs" />
     <Compile Include="Read\EnviromentDto.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="Write\DatabaseTaskMap.cs" />
     <Compile Include="Write\Deployment.cs" />
     <Compile Include="Write\DeploymentMap.cs" />
+    <Compile Include="Write\DeploymentTask.cs" />
+    <Compile Include="Write\DeploymentTaskMap.cs" />
     <Compile Include="Write\DeployTask.cs" />
     <Compile Include="Write\DeployTaskMap.cs" />
     <Compile Include="Write\Enviroment.cs" />

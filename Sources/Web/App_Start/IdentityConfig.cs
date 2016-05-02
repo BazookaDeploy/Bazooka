@@ -8,6 +8,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Web.Auth;
 using Web.Models;
+using Microsoft.Owin.Security.DataProtection;
+using System.Net.Mail;
 
 namespace Web.App_Start
 {
@@ -19,6 +21,22 @@ namespace Web.App_Start
         {
         }
 
+        public override Task SendEmailAsync(string userId, string subject, string body)
+        {
+            var mail = new System.Net.Mail.MailMessage("bazooka@cgn.it", userId);
+            mail.Subject = subject;
+            mail.Body = body;
+
+            SmtpClient client = new SmtpClient();
+            return client.SendMailAsync(mail);
+        }
+
+        public override Task<bool> IsEmailConfirmedAsync(string userId)
+        {
+            var t = Task.FromResult<bool>(true);
+            return t;
+        }
+
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
@@ -28,6 +46,9 @@ namespace Web.App_Start
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
+
+            var provider = new DpapiDataProtectionProvider("Sample");
+            manager.UserTokenProvider =  new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
 
             if (ActiveDirectoryAuthentication.IsADAuthenticationEnabled())
             {

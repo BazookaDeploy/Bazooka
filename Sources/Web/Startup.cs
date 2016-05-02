@@ -9,6 +9,8 @@ using Web.Models;
 using Hangfire;
 using Hangfire.SqlServer;
 using Hangfire.SqlServer.Msmq;
+using Microsoft.Owin.Security.DataProtection;
+
 [assembly: OwinStartupAttribute(typeof(Web.Startup))]
 namespace Web
 {

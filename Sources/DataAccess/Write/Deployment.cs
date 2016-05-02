@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DataAccess.Write
 {
     public class Deployment
     {
+        public Deployment() {
+            Tasks = new List<DeploymentTask>();
+        }
+
         public virtual int Id { get; set; }
 
         public virtual int EnviromentId { get; set; }
@@ -21,6 +26,8 @@ namespace DataAccess.Write
         public virtual string UserId { get; set; }
 
         public virtual bool Scheduled { get; set; }
+
+        public virtual ICollection<DeploymentTask> Tasks { get; set; }
     }
 
     public enum Status
