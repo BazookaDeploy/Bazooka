@@ -25036,7 +25036,10 @@
 	    return {
 	      loading: true,
 	      scheduled: false,
-	      versions: []
+	      versions: [],
+	      tasks: [],
+	      tasksToDeploy: [],
+	      specificTasks: false
 	    };
 	  },
 
@@ -25049,10 +25052,15 @@
 	        versions: x
 	      });
 	    });
+
+	    _ActionsCreator2["default"].getTasks(this.props.Enviroment.Id, this.props.ApplicationId).then(function (x) {
+	      _this.setState({
+	        tasks: x
+	      });
+	    });
 	  },
 
 	  create: function create() {
-	    debugger;
 	    var version = this.refs.Version.getDOMNode().value;
 	    if (version != null) {
 	      if (!this.state.scheduled) {
@@ -25075,7 +25083,19 @@
 	    });
 	  },
 
+	  setDeployTask: function setDeployTask(deployTaskId) {
+	    if (this.state.tasksToDeploy.indexOf(deployTaskId) == -1) {
+	      this.state.tasksToDeploy.push(deployTaskId);
+	      this.setState({ tasksToDeploy: this.state.tasksToDeploy });
+	    } else {
+	      this.state.tasksToDeploy.splice(this.state.tasksToDeploy.indexOf(deployTaskId), 1);
+	      this.setState({ tasksToDeploy: this.state.tasksToDeploy });
+	    }
+	  },
+
 	  render: function render() {
+	    var _this2 = this;
+
 	    var title = "Start deploy " + this.props.Enviroment.Name + " - " + this.props.Enviroment.Configuration;
 
 	    var versions = this.state.versions.map(function (x) {
@@ -25255,7 +25275,39 @@
 	                );
 	              })
 	            )
-	          ) : _react2["default"].createElement("span", null)
+	          ) : _react2["default"].createElement("span", null),
+	          _react2["default"].createElement(
+	            "div",
+	            { className: "form-group" },
+	            _react2["default"].createElement(
+	              "label",
+	              { htmlFor: "Tasks" },
+	              "Deploy specific tasks: ",
+	              _react2["default"].createElement("input", { type: "checkbox", checked: this.state.specificTasks, onChange: function () {
+	                  return _this2.setState({ specificTasks: !_this2.state.specificTasks });
+	                } })
+	            )
+	          ),
+	          this.state.specificTasks && _react2["default"].createElement(
+	            "div",
+	            null,
+	            _react2["default"].createElement(
+	              "ul",
+	              null,
+	              this.state.tasks.map(function (x) {
+	                return _react2["default"].createElement(
+	                  "li",
+	                  null,
+	                  _react2["default"].createElement("input", { type: "checkbox",
+	                    checked: _this2.state.tasksToDeploy.indexOf(x.DeployTaskId) != -1,
+	                    onChange: function () {
+	                      return _this2.setDeployTask(x.DeployTaskId);
+	                    } }),
+	                  x.Name
+	                );
+	              })
+	            )
+	          )
 	        )
 	      ),
 	      _react2["default"].createElement(
@@ -25339,7 +25391,7 @@
 	        null,
 	        this.props.Enviroment.Enviroment
 	      ),
-	      "  ",
+	      "   ",
 	      _react2["default"].createElement(
 	        _reactBootstrapLibModalTrigger2["default"],
 	        { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment, ApplicationId: this.props.ApplicationId }) },
@@ -25362,7 +25414,7 @@
 	  displayName: "Application",
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    return _react2["default"].createElement(
 	      "tr",
@@ -25373,7 +25425,7 @@
 	        this.props.Application.Name
 	      ),
 	      this.props.Enviroments.map(function (x) {
-	        return _react2["default"].createElement(Enviroment, { EnviromentId: x.Id, ApplicationId: _this2.props.Application.Id, Enviroment: _this2.props.Application.Enviroments.filter(function (z) {
+	        return _react2["default"].createElement(Enviroment, { EnviromentId: x.Id, ApplicationId: _this3.props.Application.Id, Enviroment: _this3.props.Application.Enviroments.filter(function (z) {
 	            return z.Id == x.Id;
 	          })[0] });
 	      })
@@ -25385,7 +25437,7 @@
 	  displayName: "ApplicationGroup",
 
 	  render: function render() {
-	    var _this3 = this;
+	    var _this4 = this;
 
 	    return _react2["default"].createElement(
 	      "div",
@@ -25418,7 +25470,7 @@
 	          "tbody",
 	          null,
 	          this.props.Group.Applications.map(function (x) {
-	            return _react2["default"].createElement(Application, { Application: x, Enviroments: _this3.props.Enviroments });
+	            return _react2["default"].createElement(Application, { Application: x, Enviroments: _this4.props.Enviroments });
 	          })
 	        )
 	      )
@@ -25436,15 +25488,15 @@
 	  },
 
 	  componentDidMount: function componentDidMount() {
-	    var _this4 = this;
+	    var _this5 = this;
 
 	    _ActionsCreator2["default"].updateEnviroments().then(function (x) {
-	      _this4.setState({ envs: x });
+	      _this5.setState({ envs: x });
 	    });
 	  },
 
 	  render: function render() {
-	    var _this5 = this;
+	    var _this6 = this;
 
 	    return _react2["default"].createElement(
 	      "div",
@@ -25459,7 +25511,7 @@
 	        "div",
 	        { className: "container" },
 	        this.state.envs.Applications.map(function (x) {
-	          return _react2["default"].createElement(ApplicationGroup, { Group: x, Enviroments: _this5.state.envs.Enviroments });
+	          return _react2["default"].createElement(ApplicationGroup, { Group: x, Enviroments: _this6.state.envs.Enviroments });
 	        })
 	      )
 	    );
@@ -25476,50 +25528,29 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _reqwest = __webpack_require__(216);
+	var _BaseNet = __webpack_require__(330);
 
-	var _reqwest2 = _interopRequireDefault(_reqwest);
+	var _BaseNet2 = _interopRequireDefault(_BaseNet);
 
 	module.exports = {
-
 		getVersions: function getVersions(enviromentId, applicationId) {
-			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/search?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-			return promise;
+			return _BaseNet2["default"].get("/api/deploy/search?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
 		},
 
-		startDeploy: function startDeploy(enviromentId, applicationId, version) {
-			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-
-			return promise;
+		getTasks: function getTasks(enviromentId, applicationId) {
+			return _BaseNet2["default"].get("/api/deploy/tasks?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
 		},
 
-		scheduleDeploy: function scheduleDeploy(enviromentId, applicationId, version, date) {
-			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version + "&start=" + date.toISOString(),
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-			return promise;
+		startDeploy: function startDeploy(enviromentId, applicationId, version, tasks) {
+			return _BaseNet2["default"].post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, { tasks: tasks });
+		},
+
+		scheduleDeploy: function scheduleDeploy(enviromentId, applicationId, version, date, tasks) {
+			return _BaseNet2["default"].post("/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version + "&start=" + date.toISOString(), { tasks: tasks });
 		},
 
 		updateEnviroments: function updateEnviroments() {
-			return (0, _reqwest2["default"])({
-				url: "/api/status/",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
+			return _BaseNet2["default"].get("/api/status/");
 		}
 	};
 
@@ -49229,6 +49260,43 @@
 	});
 
 	module.exports = EditPage;
+
+/***/ },
+/* 330 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _reqwest = __webpack_require__(216);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	module.exports = {
+	    get: function get(url) {
+	        var promise = (0, _reqwest2['default'])({
+	            url: url,
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "get"
+	        });
+
+	        return promise;
+	    },
+
+	    post: function post(url, data) {
+	        var promise = (0, _reqwest2['default'])({
+	            url: url,
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "post",
+	            data: JSON.stringify(data)
+	        });
+
+	        return promise;
+	    }
+	};
 
 /***/ }
 /******/ ]);

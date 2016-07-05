@@ -33,7 +33,20 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public void Deploy(int enviromentId,int applicationId, string version, ICollection<DeploymentTasksDto> tasks)
+        public ICollection<DeploymentTasksDto> Tasks(int enviromentId, int applicationId)
+        {
+            return db.Tasks.Where(x => x.ApplicationId == applicationId && x.EnviromentId == enviromentId)
+                                .ToList()
+                                .Select(x => new DeploymentTasksDto()
+                                {
+                                    DeployTaskId = x.Id,
+                                    Name = x.Name,
+                                    DeployType = x.Type
+                                }).ToList();
+        }
+
+        [HttpGet]
+        public void Deploy(int enviromentId, int applicationId, string version, ICollection<DeploymentTasksDto> tasks)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
@@ -46,9 +59,9 @@ namespace Web.Controllers
                     UserId = User.Identity.GetUserId()
                 };
 
-                if(tasks!= null && tasks.Count > 0)
+                if (tasks != null && tasks.Count > 0)
                 {
-                    foreach(var task in tasks)
+                    foreach (var task in tasks)
                     {
                         deploy.Tasks.Add(new DeploymentTask()
                         {
@@ -72,7 +85,8 @@ namespace Web.Controllers
             {
                 var deploy = session.Load<Deployment>(deploymentId);
 
-                if (deploy.Status == Status.Scheduled) {
+                if (deploy.Status == Status.Scheduled)
+                {
                     deploy.Status = Status.Canceled;
 
                     session.Save(new DataAccess.Write.LogEntry()
@@ -122,7 +136,7 @@ namespace Web.Controllers
                 session.Save(deploy);
                 session.Flush();
 
-                BackgroundJob.Schedule(() => DeployJob.Execute(deploy.Id),start.ToUniversalTime() - DateTime.UtcNow);
+                BackgroundJob.Schedule(() => DeployJob.Execute(deploy.Id), start.ToUniversalTime() - DateTime.UtcNow);
             };
         }
 
