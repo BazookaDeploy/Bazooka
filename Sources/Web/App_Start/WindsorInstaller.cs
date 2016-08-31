@@ -48,6 +48,7 @@ namespace Web.App_Start
             mapper.AddMapping<ParameterMap>();
             mapper.AddMapping<DeploymentMap>();
             mapper.AddMapping<AllowedGroupMap>();
+            mapper.AddMapping<ApplicationAdministratorsMap>();
             mapper.AddMapping<AllowedUserMap>();
             mapper.AddMapping<LogEntryMap>();
             mapper.AddMapping<MailTaskMap>();

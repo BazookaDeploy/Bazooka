@@ -27,6 +27,8 @@ namespace DataAccess.Write
 
         public virtual IList<RemoteScriptTask> RemoteScriptTasks { get; set; }
 
+        public virtual IList<ApplicationAdministrator> Administrators { get; set; }
+
         public virtual IList<IMovable> AllTasks()
         {
             var list = new List<IMovable>();

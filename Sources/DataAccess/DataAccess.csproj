@@ -58,6 +58,7 @@
     <Compile Include="Read\AgentDto.cs" />
     <Compile Include="Read\AllowedGroupsDto.cs" />
     <Compile Include="Read\AllowedUsersDto.cs" />
+    <Compile Include="Read\ApplicationAdministratorDto.cs" />
     <Compile Include="Read\ApplicationDto.cs" />
     <Compile Include="Read\ApplicationGroupDto.cs" />
     <Compile Include="Read\DatabaseTaskDto.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="Write\AllowedUser.cs" />
     <Compile Include="Write\AllowedUserMap.cs" />
     <Compile Include="Write\Application.cs" />
+    <Compile Include="Write\ApplicationAdministrator.cs" />
+    <Compile Include="Write\ApplicationAdministratorsMap.cs" />
     <Compile Include="Write\ApplicationGroup.cs" />
     <Compile Include="Write\ApplicationGroupMap.cs" />
     <Compile Include="Write\ApplicationMap.cs" />

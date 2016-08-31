@@ -43,6 +43,17 @@ namespace DataAccess.Write
             );
 
             Bag(
+                x => x.Administrators,
+                map =>
+                {
+                    map.Key(km => km.Column("ApplicationId"));
+                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                    map.Inverse(true);
+                },
+                x => x.OneToMany()
+            );
+
+            Bag(
                 x => x.DatabaseTasks,
                 map =>
                 {

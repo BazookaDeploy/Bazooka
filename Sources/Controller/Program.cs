@@ -71,6 +71,7 @@
             mapper.AddMapping<DeployTaskMap>();
             mapper.AddMapping<ParameterMap>();
             mapper.AddMapping<DeploymentMap>();
+            mapper.AddMapping<ApplicationAdministratorsMap>();
             mapper.AddMapping<AllowedGroupMap>();
             mapper.AddMapping<AllowedUserMap>();
             mapper.AddMapping<LogEntryMap>();

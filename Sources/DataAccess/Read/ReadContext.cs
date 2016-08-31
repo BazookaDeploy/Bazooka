@@ -29,6 +29,7 @@ namespace DataAccess.Read
 
         public DbSet<AllowedUsersDto> AllowedUsers { get; set; }
         public DbSet<AllowedGroupsDto> AllowedGroups { get; set; }
+        public DbSet<ApplicationAdministratorDto> ApplicationAdministrators { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -54,7 +55,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new DatabaseTasksDtoConfiguration());
             modelBuilder.Configurations.Add(new ApplicationGroupsDtoConfiguration());
             modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
-
+            modelBuilder.Configurations.Add(new ApplicationAdministratorsDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -244,6 +245,14 @@ namespace DataAccess.Read
         public DeploymentTasksDtoConfiguration()
         {
             ToTable("DeploymentTasks");
+        }
+    }
+
+    public class ApplicationAdministratorsDtoConfiguration : EntityTypeConfiguration<ApplicationAdministratorDto>
+    {
+        public ApplicationAdministratorsDtoConfiguration()
+        {
+            ToTable("ApplicationAdministrators");
         }
     }
 }
