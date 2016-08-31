@@ -61,6 +61,29 @@ namespace DataAccess.Write
             return list;
         }
 
+        public virtual void AddAdministrator(System.Guid userId)
+        {
+            if (Administrators.Count(x => x.UserId == userId.ToString()) == 0)
+            {
+                Administrators.Add(new ApplicationAdministrator()
+                {
+                    ApplicationId = this.Id,
+                    UserId = userId.ToString()
+                });
+            }
+        }
+
+        public virtual void RemoveAdministrator(System.Guid userId)
+        {
+            var user = this.Administrators.SingleOrDefault(x => x.UserId == userId.ToString());
+
+            if (user != null)
+            {
+                this.Administrators.Remove(user);
+            }
+        }
+
+
         public virtual void AddAllowedUser(int enviromentId, System.Guid userId)
         {
             if (AllowedUsers.Count(x => x.EnviromentId == enviromentId && x.UserId == userId.ToString()) == 0)

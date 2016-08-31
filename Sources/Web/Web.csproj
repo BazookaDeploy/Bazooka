@@ -229,6 +229,7 @@
     <Compile Include="App_Start\WindsorCompositionRoot.cs" />
     <Compile Include="App_Start\WindsorInstaller.cs" />
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
+    <Compile Include="CommandHandlers\Application\AddApplicationAdministratorHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateDatabaseTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateRemoteScriptTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateMailTaskHandler.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="CommandHandlers\Application\ModifyLocalScriptTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\ModifyDeployTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\ModifyDatabaseTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\RemoveApplicationAdministratorHandler.cs" />
     <Compile Include="CommandHandlers\Application\SetApplicationGroupBusinessRule.cs" />
     <Compile Include="CommandHandlers\Application\CreateApplicationGroupBusinessRule.cs" />
     <Compile Include="CommandHandlers\Application\AddAllowedGroupToApplicationBusinessRule.cs" />
@@ -269,6 +271,7 @@
     <Compile Include="CommandHandlers\Application\RemoveAllowedGroupFromApplicationHandler.cs" />
     <Compile Include="Commands\Application\AddAllowedGroupToApplication.cs" />
     <Compile Include="Commands\Application\AddAllowedUserToApplication.cs" />
+    <Compile Include="Commands\Application\AddApplicationAdministrator.cs" />
     <Compile Include="Commands\Application\CreateApplicationGroup.cs" />
     <Compile Include="Commands\Application\CreateDatabaseTask.cs" />
     <Compile Include="Commands\Application\CreateDeployTask.cs" />
@@ -276,6 +279,7 @@
     <Compile Include="Commands\Application\CreateMailTask.cs" />
     <Compile Include="Commands\Application\CreateRemoteScriptTask.cs" />
     <Compile Include="Commands\Application\DeleteTask.cs" />
+    <Compile Include="Commands\Application\RemoveApplicationAdministrator.cs" />
     <Compile Include="Commands\Enviroments\AddAgentToEnviroment.cs" />
     <Compile Include="Commands\Groups\AddUserToGroup.cs" />
     <Compile Include="Commands\Enviroments\ChangeAgentAddress.cs" />
