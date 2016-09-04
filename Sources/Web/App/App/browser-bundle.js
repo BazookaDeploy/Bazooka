@@ -60,7 +60,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _HomeHomepage = __webpack_require__(219);
+	var _HomeHomepage = __webpack_require__(218);
 
 	var _HomeHomepage2 = _interopRequireDefault(_HomeHomepage);
 
@@ -321,14 +321,83 @@
 /***/ function(module, exports) {
 
 	// shim for using process in browser
-
 	var process = module.exports = {};
+
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+
+	(function () {
+	    try {
+	        cachedSetTimeout = setTimeout;
+	    } catch (e) {
+	        cachedSetTimeout = function () {
+	            throw new Error('setTimeout is not defined');
+	        }
+	    }
+	    try {
+	        cachedClearTimeout = clearTimeout;
+	    } catch (e) {
+	        cachedClearTimeout = function () {
+	            throw new Error('clearTimeout is not defined');
+	        }
+	    }
+	} ())
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch(e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch(e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+
+
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+
+
+
+	}
 	var queue = [];
 	var draining = false;
 	var currentQueue;
 	var queueIndex = -1;
 
 	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
 	    draining = false;
 	    if (currentQueue.length) {
 	        queue = currentQueue.concat(queue);
@@ -344,7 +413,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = setTimeout(cleanUpNextTick);
+	    var timeout = runTimeout(cleanUpNextTick);
 	    draining = true;
 
 	    var len = queue.length;
@@ -361,7 +430,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    clearTimeout(timeout);
+	    runClearTimeout(timeout);
 	}
 
 	process.nextTick = function (fun) {
@@ -373,7 +442,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        setTimeout(drainQueue, 0);
+	        runTimeout(drainQueue);
 	    }
 	};
 
@@ -20557,10 +20626,10 @@
 	exports.Navigation = __webpack_require__(186);
 	exports.State = __webpack_require__(187);
 
-	exports.createRoute = __webpack_require__(160).createRoute;
-	exports.createDefaultRoute = __webpack_require__(160).createDefaultRoute;
-	exports.createNotFoundRoute = __webpack_require__(160).createNotFoundRoute;
-	exports.createRedirect = __webpack_require__(160).createRedirect;
+	exports.createRoute = __webpack_require__(161).createRoute;
+	exports.createDefaultRoute = __webpack_require__(161).createDefaultRoute;
+	exports.createNotFoundRoute = __webpack_require__(161).createNotFoundRoute;
+	exports.createRedirect = __webpack_require__(161).createRedirect;
 	exports.createRoutesFromReactChildren = __webpack_require__(188);
 
 	exports.create = __webpack_require__(189);
@@ -20624,9 +20693,9 @@
 
 	'use strict';
 
-	var assign = __webpack_require__(13);
+	var assign = __webpack_require__(160);
 	var ReactPropTypes = __webpack_require__(1).PropTypes;
-	var Route = __webpack_require__(160);
+	var Route = __webpack_require__(161);
 
 	var PropTypes = assign({}, ReactPropTypes, {
 
@@ -20654,6 +20723,38 @@
 
 /***/ },
 /* 160 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	function ToObject(val) {
+		if (val == null) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var keys;
+		var to = ToObject(target);
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = arguments[s];
+			keys = Object.keys(Object(from));
+
+			for (var i = 0; i < keys.length; i++) {
+				to[keys[i]] = from[keys[i]];
+			}
+		}
+
+		return to;
+	};
+
+
+/***/ },
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20662,10 +20763,10 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var assign = __webpack_require__(13);
-	var invariant = __webpack_require__(161);
-	var warning = __webpack_require__(162);
-	var PathUtils = __webpack_require__(163);
+	var assign = __webpack_require__(160);
+	var invariant = __webpack_require__(162);
+	var warning = __webpack_require__(163);
+	var PathUtils = __webpack_require__(164);
 
 	var _currentRoute;
 
@@ -20860,7 +20961,7 @@
 	module.exports = Route;
 
 /***/ },
-/* 161 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20918,7 +21019,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 162 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20983,13 +21084,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 163 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var invariant = __webpack_require__(161);
-	var assign = __webpack_require__(164);
+	var invariant = __webpack_require__(162);
+	var assign = __webpack_require__(160);
 	var qs = __webpack_require__(165);
 
 	var paramCompileMatcher = /:([a-zA-Z_$][a-zA-Z0-9_$]*)|[*.()\[\]\\+|{}^$]/g;
@@ -21139,38 +21240,6 @@
 	};
 
 	module.exports = PathUtils;
-
-/***/ },
-/* 164 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	function ToObject(val) {
-		if (val == null) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-
-		return Object(val);
-	}
-
-	module.exports = Object.assign || function (target, source) {
-		var from;
-		var keys;
-		var to = ToObject(target);
-
-		for (var s = 1; s < arguments.length; s++) {
-			from = arguments[s];
-			keys = Object.keys(Object(from));
-
-			for (var i = 0; i < keys.length; i++) {
-				to[keys[i]] = from[keys[i]];
-			}
-		}
-
-		return to;
-	};
-
 
 /***/ },
 /* 165 */
@@ -21624,7 +21693,7 @@
 
 	var React = __webpack_require__(1);
 	var ContextWrapper = __webpack_require__(171);
-	var assign = __webpack_require__(13);
+	var assign = __webpack_require__(160);
 	var PropTypes = __webpack_require__(159);
 
 	var REF_NAME = '__routeHandler__';
@@ -21779,7 +21848,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(1);
-	var invariant = __webpack_require__(161);
+	var invariant = __webpack_require__(162);
 	var PropTypes = __webpack_require__(159);
 	var RouteHandler = __webpack_require__(170);
 
@@ -21875,7 +21944,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(1);
-	var assign = __webpack_require__(13);
+	var assign = __webpack_require__(160);
 	var PropTypes = __webpack_require__(159);
 
 	function isLeftClickEvent(event) {
@@ -21972,6 +22041,12 @@
 	      });
 
 	      if (props.activeStyle && this.getActiveState()) props.style = props.activeStyle;
+
+	      delete props.to;
+	      delete props.params;
+	      delete props.query;
+	      delete props.activeClassName;
+	      delete props.activeStyle;
 
 	      return React.DOM.a(props, this.props.children);
 	    }
@@ -22253,7 +22328,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(161);
+	var invariant = __webpack_require__(162);
 	var canUseDOM = __webpack_require__(179);
 
 	var History = {
@@ -22429,7 +22504,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var invariant = __webpack_require__(161);
+	var invariant = __webpack_require__(162);
 
 	function throwCannotModify() {
 	  invariant(false, 'You cannot modify a static location');
@@ -22483,7 +22558,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var invariant = __webpack_require__(161);
+	var invariant = __webpack_require__(162);
 	var LocationActions = __webpack_require__(177);
 	var History = __webpack_require__(178);
 
@@ -22784,12 +22859,12 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var assign = __webpack_require__(13);
-	var warning = __webpack_require__(162);
+	var assign = __webpack_require__(160);
+	var warning = __webpack_require__(163);
 	var DefaultRoute = __webpack_require__(158);
 	var NotFoundRoute = __webpack_require__(174);
 	var Redirect = __webpack_require__(175);
-	var Route = __webpack_require__(160);
+	var Route = __webpack_require__(161);
 
 	function checkPropTypes(componentName, propTypes, props) {
 	  componentName = componentName || 'UnknownComponent';
@@ -22870,8 +22945,8 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var warning = __webpack_require__(162);
-	var invariant = __webpack_require__(161);
+	var warning = __webpack_require__(163);
+	var invariant = __webpack_require__(162);
 	var canUseDOM = __webpack_require__(179);
 	var LocationActions = __webpack_require__(177);
 	var ImitateBrowserBehavior = __webpack_require__(184);
@@ -22888,9 +22963,9 @@
 	var History = __webpack_require__(178);
 	var Cancellation = __webpack_require__(194);
 	var Match = __webpack_require__(196);
-	var Route = __webpack_require__(160);
+	var Route = __webpack_require__(161);
 	var supportsHistory = __webpack_require__(197);
-	var PathUtils = __webpack_require__(163);
+	var PathUtils = __webpack_require__(164);
 
 	/**
 	 * The default location for new routers.
@@ -23386,7 +23461,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(161);
+	var invariant = __webpack_require__(162);
 	var canUseDOM = __webpack_require__(179);
 	var getWindowScrollPosition = __webpack_require__(191);
 
@@ -23466,7 +23541,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(161);
+	var invariant = __webpack_require__(162);
 	var canUseDOM = __webpack_require__(179);
 
 	/**
@@ -23623,7 +23698,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var PathUtils = __webpack_require__(163);
+	var PathUtils = __webpack_require__(164);
 
 	function deepSearch(route, pathname, query) {
 	  // Check the subtree first to find the most deeply-nested match.
@@ -23796,7 +23871,7 @@
 
 	var _reactRouterBootstrapLibNavItemLink2 = _interopRequireDefault(_reactRouterBootstrapLibNavItemLink);
 
-	var _reactRouterBootstrapLibMenuItemLink = __webpack_require__(217);
+	var _reactRouterBootstrapLibMenuItemLink = __webpack_require__(216);
 
 	var _reactRouterBootstrapLibMenuItemLink2 = _interopRequireDefault(_reactRouterBootstrapLibMenuItemLink);
 
@@ -23867,7 +23942,7 @@
 	                  window.Profile
 	                )
 	              ),
-	              window.Administator == "True" ? _react2["default"].createElement(
+	              window.Administator == "True" || window.AppsAdmin == "True" ? _react2["default"].createElement(
 	                _reactBootstrapLibDropdownButton2["default"],
 	                { title: "Admin", navItem: true },
 	                _react2["default"].createElement(
@@ -25409,7 +25484,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(216);
+	var _classnames = __webpack_require__(201);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -25499,60 +25574,6 @@
 /* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-		'use strict';
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
-
-/***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -25569,7 +25590,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrapLibMenuItem = __webpack_require__(218);
+	var _reactBootstrapLibMenuItem = __webpack_require__(217);
 
 	var _reactBootstrapLibMenuItem2 = _interopRequireDefault(_reactBootstrapLibMenuItem);
 
@@ -25617,7 +25638,7 @@
 	// eslint-disable-line no-unused-vars
 
 /***/ },
-/* 218 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25707,7 +25728,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 219 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25720,7 +25741,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ActionsCreator = __webpack_require__(220);
+	var _ActionsCreator = __webpack_require__(219);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -25739,7 +25760,10 @@
 	    return {
 	      loading: true,
 	      scheduled: false,
-	      versions: []
+	      versions: [],
+	      tasks: [],
+	      tasksToDeploy: [],
+	      specificTasks: false
 	    };
 	  },
 
@@ -25752,10 +25776,15 @@
 	        versions: x
 	      });
 	    });
+
+	    _ActionsCreator2["default"].getTasks(this.props.Enviroment.Id, this.props.ApplicationId).then(function (x) {
+	      _this.setState({
+	        tasks: x
+	      });
+	    });
 	  },
 
 	  create: function create() {
-	    debugger;
 	    var version = this.refs.Version.getDOMNode().value;
 	    if (version != null) {
 	      if (!this.state.scheduled) {
@@ -25778,7 +25807,19 @@
 	    });
 	  },
 
+	  setDeployTask: function setDeployTask(deployTaskId) {
+	    if (this.state.tasksToDeploy.indexOf(deployTaskId) == -1) {
+	      this.state.tasksToDeploy.push(deployTaskId);
+	      this.setState({ tasksToDeploy: this.state.tasksToDeploy });
+	    } else {
+	      this.state.tasksToDeploy.splice(this.state.tasksToDeploy.indexOf(deployTaskId), 1);
+	      this.setState({ tasksToDeploy: this.state.tasksToDeploy });
+	    }
+	  },
+
 	  render: function render() {
+	    var _this2 = this;
+
 	    var title = "Start deploy " + this.props.Enviroment.Name + " - " + this.props.Enviroment.Configuration;
 
 	    var versions = this.state.versions.map(function (x) {
@@ -25958,7 +25999,39 @@
 	                );
 	              })
 	            )
-	          ) : _react2["default"].createElement("span", null)
+	          ) : _react2["default"].createElement("span", null),
+	          _react2["default"].createElement(
+	            "div",
+	            { className: "form-group" },
+	            _react2["default"].createElement(
+	              "label",
+	              { htmlFor: "Tasks" },
+	              "Deploy specific tasks: ",
+	              _react2["default"].createElement("input", { type: "checkbox", checked: this.state.specificTasks, onChange: function () {
+	                  return _this2.setState({ specificTasks: !_this2.state.specificTasks });
+	                } })
+	            )
+	          ),
+	          this.state.specificTasks && _react2["default"].createElement(
+	            "div",
+	            null,
+	            _react2["default"].createElement(
+	              "ul",
+	              null,
+	              this.state.tasks.map(function (x) {
+	                return _react2["default"].createElement(
+	                  "li",
+	                  null,
+	                  _react2["default"].createElement("input", { type: "checkbox",
+	                    checked: _this2.state.tasksToDeploy.indexOf(x.DeployTaskId) != -1,
+	                    onChange: function () {
+	                      return _this2.setDeployTask(x.DeployTaskId);
+	                    } }),
+	                  x.Name
+	                );
+	              })
+	            )
+	          )
 	        )
 	      ),
 	      _react2["default"].createElement(
@@ -26042,7 +26115,7 @@
 	        null,
 	        this.props.Enviroment.Enviroment
 	      ),
-	      "  ",
+	      "   ",
 	      _react2["default"].createElement(
 	        _reactBootstrapLibModalTrigger2["default"],
 	        { modal: _react2["default"].createElement(DeployDialog, { Enviroment: this.props.Enviroment, ApplicationId: this.props.ApplicationId }) },
@@ -26065,7 +26138,7 @@
 	  displayName: "Application",
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    return _react2["default"].createElement(
 	      "tr",
@@ -26076,7 +26149,7 @@
 	        this.props.Application.Name
 	      ),
 	      this.props.Enviroments.map(function (x) {
-	        return _react2["default"].createElement(Enviroment, { EnviromentId: x.Id, ApplicationId: _this2.props.Application.Id, Enviroment: _this2.props.Application.Enviroments.filter(function (z) {
+	        return _react2["default"].createElement(Enviroment, { EnviromentId: x.Id, ApplicationId: _this3.props.Application.Id, Enviroment: _this3.props.Application.Enviroments.filter(function (z) {
 	            return z.Id == x.Id;
 	          })[0] });
 	      })
@@ -26088,7 +26161,7 @@
 	  displayName: "ApplicationGroup",
 
 	  render: function render() {
-	    var _this3 = this;
+	    var _this4 = this;
 
 	    return _react2["default"].createElement(
 	      "div",
@@ -26121,7 +26194,7 @@
 	          "tbody",
 	          null,
 	          this.props.Group.Applications.map(function (x) {
-	            return _react2["default"].createElement(Application, { Application: x, Enviroments: _this3.props.Enviroments });
+	            return _react2["default"].createElement(Application, { Application: x, Enviroments: _this4.props.Enviroments });
 	          })
 	        )
 	      )
@@ -26139,15 +26212,15 @@
 	  },
 
 	  componentDidMount: function componentDidMount() {
-	    var _this4 = this;
+	    var _this5 = this;
 
 	    _ActionsCreator2["default"].updateEnviroments().then(function (x) {
-	      _this4.setState({ envs: x });
+	      _this5.setState({ envs: x });
 	    });
 	  },
 
 	  render: function render() {
-	    var _this5 = this;
+	    var _this6 = this;
 
 	    return _react2["default"].createElement(
 	      "div",
@@ -26162,7 +26235,7 @@
 	        "div",
 	        { className: "container" },
 	        this.state.envs.Applications.map(function (x) {
-	          return _react2["default"].createElement(ApplicationGroup, { Group: x, Enviroments: _this5.state.envs.Enviroments });
+	          return _react2["default"].createElement(ApplicationGroup, { Group: x, Enviroments: _this6.state.envs.Enviroments });
 	        })
 	      )
 	    );
@@ -26172,58 +26245,74 @@
 	module.exports = HomePage;
 
 /***/ },
-/* 220 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+	var _BaseNet = __webpack_require__(220);
+
+	var _BaseNet2 = _interopRequireDefault(_BaseNet);
+
+	module.exports = {
+		getVersions: function getVersions(enviromentId, applicationId) {
+			return _BaseNet2["default"].get("/api/deploy/search?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
+		},
+
+		getTasks: function getTasks(enviromentId, applicationId) {
+			return _BaseNet2["default"].get("/api/deploy/tasks?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
+		},
+
+		startDeploy: function startDeploy(enviromentId, applicationId, version, tasks) {
+			return _BaseNet2["default"].post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, { tasks: tasks });
+		},
+
+		scheduleDeploy: function scheduleDeploy(enviromentId, applicationId, version, date, tasks) {
+			return _BaseNet2["default"].post("/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version + "&start=" + date.toISOString(), { tasks: tasks });
+		},
+
+		updateEnviroments: function updateEnviroments() {
+			return _BaseNet2["default"].get("/api/status/");
+		}
+	};
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 	var _reqwest = __webpack_require__(221);
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
 	module.exports = {
+	    get: function get(url) {
+	        var promise = (0, _reqwest2['default'])({
+	            url: url,
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "get"
+	        });
 
-		getVersions: function getVersions(enviromentId, applicationId) {
-			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/search?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-			return promise;
-		},
+	        return promise;
+	    },
 
-		startDeploy: function startDeploy(enviromentId, applicationId, version) {
-			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
+	    post: function post(url, data) {
+	        var promise = (0, _reqwest2['default'])({
+	            url: url,
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "post",
+	            data: JSON.stringify(data)
+	        });
 
-			return promise;
-		},
-
-		scheduleDeploy: function scheduleDeploy(enviromentId, applicationId, version, date) {
-			var promise = (0, _reqwest2["default"])({
-				url: "/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version + "&start=" + date.toISOString(),
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-			return promise;
-		},
-
-		updateEnviroments: function updateEnviroments() {
-			return (0, _reqwest2["default"])({
-				url: "/api/status/",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-		}
+	        return promise;
+	    }
 	};
 
 /***/ },
@@ -28571,6 +28660,8 @@
 	    return {
 	      envs: [],
 	      groups: [],
+	      users: [],
+	      admins: [],
 	      applicationGroup: null
 	    };
 	  },
@@ -28578,42 +28669,76 @@
 	  componentDidMount: function componentDidMount() {
 	    this.update();
 	    this.updateGroups();
+	    this.updateAdmins();
+	    this.updateUsers();
+	  },
+
+	  updateUsers: function updateUsers() {
+	    var _this2 = this;
+
+	    _ActionsCreator2["default"].getUsers().then(function (x) {
+	      return _this2.setState({ users: x });
+	    });
+	  },
+
+	  updateAdmins: function updateAdmins() {
+	    var _this3 = this;
+
+	    _ActionsCreator2["default"].getAdmins().then(function (x) {
+	      return _this3.setState({ admins: x });
+	    });
 	  },
 
 	  updateGroups: function updateGroups() {
-	    var _this2 = this;
+	    var _this4 = this;
 
 	    _ActionsCreator2["default"].getApplicationGroups().then(function (x) {
-	      return _this2.setState({ groups: x });
+	      return _this4.setState({ groups: x });
 	    });
 	    _ActionsCreator2["default"].getApplicationInfo(this.getParams().applicationId).then(function (x) {
-	      return _this2.setState({ applicationGroup: x.GroupName });
+	      return _this4.setState({ applicationGroup: x.GroupName });
 	    });
 	  },
 
 	  update: function update() {
-	    var _this3 = this;
+	    var _this5 = this;
 
 	    _ActionsCreator2["default"].updateAllEnviroments().then(function (x) {
-	      _this3.setState({
+	      _this5.setState({
 	        envs: x
 	      });
 	    });
 	  },
 
 	  setGroup: function setGroup() {
-	    var _this4 = this;
+	    var _this6 = this;
 
 	    _ActionsCreator2["default"].setApplicationGroup(this.getParams().applicationId, this.refs.group.getDOMNode().value).then(function (x) {
-	      return _this4.updateGroups();
+	      return _this6.updateGroups();
+	    });
+	  },
+
+	  addAdmin: function addAdmin() {
+	    var _this7 = this;
+
+	    _ActionsCreator2["default"].addAdmin(this.refs.admin.value, this.getParams().applicationId).then(function (x) {
+	      return _this7.updateAdmins();
+	    });
+	  },
+
+	  removeAdmin: function removeAdmin(userid) {
+	    var _this8 = this;
+
+	    _ActionsCreator2["default"].removeAdmin(userId, this.getParams().applicationId).then(function (x) {
+	      return _this8.updateAdmins();
 	    });
 	  },
 
 	  render: function render() {
-	    var _this5 = this;
+	    var _this9 = this;
 
 	    var envs = this.state.envs.map(function (a) {
-	      return _react2["default"].createElement(Enviroments, { Enviroment: a, application: _this5.getParams().applicationName, applicationId: _this5.getParams().applicationId });
+	      return _react2["default"].createElement(Enviroments, { Enviroment: a, application: _this9.getParams().applicationName, applicationId: _this9.getParams().applicationId });
 	    });
 
 	    return _react2["default"].createElement(
@@ -28662,6 +28787,83 @@
 	            "button",
 	            { className: "btn btn-primary", onClick: this.setGroup },
 	            "Set group"
+	          )
+	        )
+	      ),
+	      _react2["default"].createElement(
+	        "h3",
+	        null,
+	        "Administrators"
+	      ),
+	      _react2["default"].createElement(
+	        "table",
+	        { className: "table table-bordered table-hovered" },
+	        _react2["default"].createElement(
+	          "thead",
+	          null,
+	          _react2["default"].createElement(
+	            "tr",
+	            null,
+	            _react2["default"].createElement(
+	              "th",
+	              null,
+	              "Administrators"
+	            )
+	          )
+	        ),
+	        _react2["default"].createElement(
+	          "tbody",
+	          null,
+	          this.state.admins.map(function (x) {
+	            return _react2["default"].createElement(
+	              "tr",
+	              null,
+	              _react2["default"].createElement(
+	                "td",
+	                null,
+	                x.UserName,
+	                " ",
+	                _react2["default"].createElement(
+	                  "button",
+	                  { className: "btn btn-danger btn-xs pull-right", onClick: function (z) {
+	                      _this9.removeAdmin(x.UserId);
+	                    } },
+	                  "Remove"
+	                )
+	              )
+	            );
+	          }),
+	          _react2["default"].createElement(
+	            "tr",
+	            null,
+	            _react2["default"].createElement(
+	              "td",
+	              null,
+	              _react2["default"].createElement(
+	                "div",
+	                { className: "input-group" },
+	                _react2["default"].createElement(
+	                  "select",
+	                  { ref: "admin", className: "form-control" },
+	                  this.state.users.map(function (x) {
+	                    return _react2["default"].createElement(
+	                      "option",
+	                      { value: x.UserId },
+	                      x.UserName
+	                    );
+	                  })
+	                ),
+	                _react2["default"].createElement(
+	                  "span",
+	                  { className: "input-group-btn" },
+	                  _react2["default"].createElement(
+	                    "button",
+	                    { className: "btn btn-default", onClick: this.addAdmin },
+	                    "Add"
+	                  )
+	                )
+	              )
+	            )
 	          )
 	        )
 	      ),
@@ -28755,7 +28957,52 @@
 					ApplicationGroupId: groupId
 				})
 			});
+		},
+
+		getUsers: function getUsers() {
+			return (0, _reqwest2["default"])({
+				url: "api/users/all",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		getAdmins: function getAdmins(applicationId) {
+			return (0, _reqwest2["default"])({
+				url: "api/Applications/Administrators?applicationId=" + applicationId,
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		addAdmin: function addAdmin(userId, applicationId) {
+			return (0, _reqwest2["default"])({
+				url: "/api/applications/AddApplicationAdministrator",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					ApplicationId: applicationId,
+					UserId: userId
+				})
+			});
+		},
+
+		removeAdmin: function removeAdmin(userId, applicationId) {
+			return (0, _reqwest2["default"])({
+				url: "/api/applications/RemoveApplicationAdministrator",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					ApplicationId: applicationId,
+					UserId: userId
+				})
+			});
 		}
+
 	};
 
 /***/ },
@@ -30896,8 +31143,12 @@
 	      er = arguments[1];
 	      if (er instanceof Error) {
 	        throw er; // Unhandled 'error' event
+	      } else {
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
 	      }
-	      throw TypeError('Uncaught, unspecified "error" event.');
 	    }
 	  }
 
@@ -37045,7 +37296,7 @@
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
 	  var d3 = {
-	    version: "3.5.16"
+	    version: "3.5.17"
 	  };
 	  var d3_arraySlice = [].slice, d3_array = function(list) {
 	    return d3_arraySlice.call(list);
@@ -40570,7 +40821,7 @@
 	        λ0 = λ, sinφ0 = sinφ, cosφ0 = cosφ, point0 = point;
 	      }
 	    }
-	    return (polarAngle < -ε || polarAngle < ε && d3_geo_areaRingSum < 0) ^ winding & 1;
+	    return (polarAngle < -ε || polarAngle < ε && d3_geo_areaRingSum < -ε) ^ winding & 1;
 	  }
 	  function d3_geo_clipCircle(radius) {
 	    var cr = Math.cos(radius), smallRadius = cr > 0, notHemisphere = abs(cr) > ε, interpolate = d3_geo_circleInterpolate(radius, 6 * d3_radians);

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Web.Commands;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Web.Controllers
 {
@@ -13,7 +15,18 @@ namespace Web.Controllers
         // GET: api/Applications
         public ICollection<ApplicationDto> Get()
         {
-            return db.Query<ApplicationDto>().ToList();
+            var id = User.Identity.GetUserId();
+            var user = db.Query<UserDto>().Single(x => x.Id == id);
+
+            if (user.Administrator)
+            {
+                return db.Query<ApplicationDto>().ToList();
+            }
+            else
+            {
+                var apps = db.Query<ApplicationAdministratorDto>().Where(x => x.UserId == id).Select(x => x.ApplicationId).ToList();
+                return db.Query<ApplicationDto>().Where(x => apps.Contains(x.Id)).ToList();
+            }
         }
 
         public ApplicationDto Get(int id)
@@ -67,6 +80,15 @@ namespace Web.Controllers
         }
 
         [HttpGet]
+        public ICollection<ApplicationAdministratorDto> Administrators( int applicationId)
+        {
+            return db.Query<ApplicationAdministratorDto>()
+                     .Where(x => x.ApplicationId == applicationId)
+                     .OrderBy(x => x.Name)
+                     .ToList();
+        }
+
+        [HttpGet]
         public ICollection<ApplicationGroupDto> ApplicationGroups()
         {
             return db.Query<ApplicationGroupDto>().ToList();
@@ -84,5 +106,16 @@ namespace Web.Controllers
             return Execute(command);
         }
 
+        [HttpPost]
+        public ExecutionResult AddApplicationAdministrator(AddApplicationAdministrator command)
+        {
+            return Execute(command);
+        }
+
+        [HttpPost]
+        public ExecutionResult RemoveApplicationAdministrator(RemoveApplicationAdministrator command)
+        {
+            return Execute(command);
+        }
     }
 }

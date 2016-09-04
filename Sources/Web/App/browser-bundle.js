@@ -60,7 +60,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _HomeHomepage = __webpack_require__(214);
+	var _HomeHomepage = __webpack_require__(213);
 
 	var _HomeHomepage2 = _interopRequireDefault(_HomeHomepage);
 
@@ -19857,10 +19857,10 @@
 	exports.Navigation = __webpack_require__(181);
 	exports.State = __webpack_require__(182);
 
-	exports.createRoute = __webpack_require__(155).createRoute;
-	exports.createDefaultRoute = __webpack_require__(155).createDefaultRoute;
-	exports.createNotFoundRoute = __webpack_require__(155).createNotFoundRoute;
-	exports.createRedirect = __webpack_require__(155).createRedirect;
+	exports.createRoute = __webpack_require__(156).createRoute;
+	exports.createDefaultRoute = __webpack_require__(156).createDefaultRoute;
+	exports.createNotFoundRoute = __webpack_require__(156).createNotFoundRoute;
+	exports.createRedirect = __webpack_require__(156).createRedirect;
 	exports.createRoutesFromReactChildren = __webpack_require__(183);
 
 	exports.create = __webpack_require__(184);
@@ -19924,9 +19924,9 @@
 
 	'use strict';
 
-	var assign = __webpack_require__(12);
+	var assign = __webpack_require__(155);
 	var ReactPropTypes = __webpack_require__(1).PropTypes;
-	var Route = __webpack_require__(155);
+	var Route = __webpack_require__(156);
 
 	var PropTypes = assign({}, ReactPropTypes, {
 
@@ -19954,6 +19954,38 @@
 
 /***/ },
 /* 155 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	function ToObject(val) {
+		if (val == null) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var keys;
+		var to = ToObject(target);
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = arguments[s];
+			keys = Object.keys(Object(from));
+
+			for (var i = 0; i < keys.length; i++) {
+				to[keys[i]] = from[keys[i]];
+			}
+		}
+
+		return to;
+	};
+
+
+/***/ },
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19962,10 +19994,10 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var assign = __webpack_require__(12);
-	var invariant = __webpack_require__(156);
-	var warning = __webpack_require__(157);
-	var PathUtils = __webpack_require__(158);
+	var assign = __webpack_require__(155);
+	var invariant = __webpack_require__(157);
+	var warning = __webpack_require__(158);
+	var PathUtils = __webpack_require__(159);
 
 	var _currentRoute;
 
@@ -20160,7 +20192,7 @@
 	module.exports = Route;
 
 /***/ },
-/* 156 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20217,7 +20249,7 @@
 
 
 /***/ },
-/* 157 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20281,13 +20313,13 @@
 	module.exports = warning;
 
 /***/ },
-/* 158 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var invariant = __webpack_require__(156);
-	var assign = __webpack_require__(159);
+	var invariant = __webpack_require__(157);
+	var assign = __webpack_require__(155);
 	var qs = __webpack_require__(160);
 
 	var paramCompileMatcher = /:([a-zA-Z_$][a-zA-Z0-9_$]*)|[*.()\[\]\\+|{}^$]/g;
@@ -20437,38 +20469,6 @@
 	};
 
 	module.exports = PathUtils;
-
-/***/ },
-/* 159 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	function ToObject(val) {
-		if (val == null) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-
-		return Object(val);
-	}
-
-	module.exports = Object.assign || function (target, source) {
-		var from;
-		var keys;
-		var to = ToObject(target);
-
-		for (var s = 1; s < arguments.length; s++) {
-			from = arguments[s];
-			keys = Object.keys(Object(from));
-
-			for (var i = 0; i < keys.length; i++) {
-				to[keys[i]] = from[keys[i]];
-			}
-		}
-
-		return to;
-	};
-
 
 /***/ },
 /* 160 */
@@ -20922,7 +20922,7 @@
 
 	var React = __webpack_require__(1);
 	var ContextWrapper = __webpack_require__(166);
-	var assign = __webpack_require__(12);
+	var assign = __webpack_require__(155);
 	var PropTypes = __webpack_require__(154);
 
 	var REF_NAME = '__routeHandler__';
@@ -21077,7 +21077,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(1);
-	var invariant = __webpack_require__(156);
+	var invariant = __webpack_require__(157);
 	var PropTypes = __webpack_require__(154);
 	var RouteHandler = __webpack_require__(165);
 
@@ -21173,7 +21173,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(1);
-	var assign = __webpack_require__(12);
+	var assign = __webpack_require__(155);
 	var PropTypes = __webpack_require__(154);
 
 	function isLeftClickEvent(event) {
@@ -21270,6 +21270,12 @@
 	      });
 
 	      if (props.activeStyle && this.getActiveState()) props.style = props.activeStyle;
+
+	      delete props.to;
+	      delete props.params;
+	      delete props.query;
+	      delete props.activeClassName;
+	      delete props.activeStyle;
 
 	      return React.DOM.a(props, this.props.children);
 	    }
@@ -21551,7 +21557,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(156);
+	var invariant = __webpack_require__(157);
 	var canUseDOM = __webpack_require__(174);
 
 	var History = {
@@ -21727,7 +21733,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var invariant = __webpack_require__(156);
+	var invariant = __webpack_require__(157);
 
 	function throwCannotModify() {
 	  invariant(false, 'You cannot modify a static location');
@@ -21781,7 +21787,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var invariant = __webpack_require__(156);
+	var invariant = __webpack_require__(157);
 	var LocationActions = __webpack_require__(172);
 	var History = __webpack_require__(173);
 
@@ -22082,12 +22088,12 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var assign = __webpack_require__(12);
-	var warning = __webpack_require__(157);
+	var assign = __webpack_require__(155);
+	var warning = __webpack_require__(158);
 	var DefaultRoute = __webpack_require__(153);
 	var NotFoundRoute = __webpack_require__(169);
 	var Redirect = __webpack_require__(170);
-	var Route = __webpack_require__(155);
+	var Route = __webpack_require__(156);
 
 	function checkPropTypes(componentName, propTypes, props) {
 	  componentName = componentName || 'UnknownComponent';
@@ -22168,8 +22174,8 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var warning = __webpack_require__(157);
-	var invariant = __webpack_require__(156);
+	var warning = __webpack_require__(158);
+	var invariant = __webpack_require__(157);
 	var canUseDOM = __webpack_require__(174);
 	var LocationActions = __webpack_require__(172);
 	var ImitateBrowserBehavior = __webpack_require__(179);
@@ -22186,9 +22192,9 @@
 	var History = __webpack_require__(173);
 	var Cancellation = __webpack_require__(189);
 	var Match = __webpack_require__(191);
-	var Route = __webpack_require__(155);
+	var Route = __webpack_require__(156);
 	var supportsHistory = __webpack_require__(192);
-	var PathUtils = __webpack_require__(158);
+	var PathUtils = __webpack_require__(159);
 
 	/**
 	 * The default location for new routers.
@@ -22683,7 +22689,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(156);
+	var invariant = __webpack_require__(157);
 	var canUseDOM = __webpack_require__(174);
 	var getWindowScrollPosition = __webpack_require__(186);
 
@@ -22763,7 +22769,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(156);
+	var invariant = __webpack_require__(157);
 	var canUseDOM = __webpack_require__(174);
 
 	/**
@@ -22920,7 +22926,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var PathUtils = __webpack_require__(158);
+	var PathUtils = __webpack_require__(159);
 
 	function deepSearch(route, pathname, query) {
 	  // Check the subtree first to find the most deeply-nested match.
@@ -23093,7 +23099,7 @@
 
 	var _reactRouterBootstrapLibNavItemLink2 = _interopRequireDefault(_reactRouterBootstrapLibNavItemLink);
 
-	var _reactRouterBootstrapLibMenuItemLink = __webpack_require__(212);
+	var _reactRouterBootstrapLibMenuItemLink = __webpack_require__(211);
 
 	var _reactRouterBootstrapLibMenuItemLink2 = _interopRequireDefault(_reactRouterBootstrapLibMenuItemLink);
 
@@ -23164,7 +23170,7 @@
 	                  window.Profile
 	                )
 	              ),
-	              window.Administator == "True" ? _react2["default"].createElement(
+	              window.Administator == "True" || window.AppsAdmin == "True" ? _react2["default"].createElement(
 	                _reactBootstrapLibDropdownButton2["default"],
 	                { title: "Admin", navItem: true },
 	                _react2["default"].createElement(
@@ -24706,7 +24712,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(211);
+	var _classnames = __webpack_require__(196);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -24796,60 +24802,6 @@
 /* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-		'use strict';
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
-
-/***/ },
-/* 212 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -24866,7 +24818,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrapLibMenuItem = __webpack_require__(213);
+	var _reactBootstrapLibMenuItem = __webpack_require__(212);
 
 	var _reactBootstrapLibMenuItem2 = _interopRequireDefault(_reactBootstrapLibMenuItem);
 
@@ -24914,7 +24866,7 @@
 	// eslint-disable-line no-unused-vars
 
 /***/ },
-/* 213 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25004,7 +24956,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 214 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25017,7 +24969,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ActionsCreator = __webpack_require__(215);
+	var _ActionsCreator = __webpack_require__(214);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -25521,14 +25473,14 @@
 	module.exports = HomePage;
 
 /***/ },
-/* 215 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _BaseNet = __webpack_require__(330);
+	var _BaseNet = __webpack_require__(215);
 
 	var _BaseNet2 = _interopRequireDefault(_BaseNet);
 
@@ -25552,6 +25504,43 @@
 		updateEnviroments: function updateEnviroments() {
 			return _BaseNet2["default"].get("/api/status/");
 		}
+	};
+
+/***/ },
+/* 215 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _reqwest = __webpack_require__(216);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	module.exports = {
+	    get: function get(url) {
+	        var promise = (0, _reqwest2['default'])({
+	            url: url,
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "get"
+	        });
+
+	        return promise;
+	    },
+
+	    post: function post(url, data) {
+	        var promise = (0, _reqwest2['default'])({
+	            url: url,
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "post",
+	            data: JSON.stringify(data)
+	        });
+
+	        return promise;
+	    }
 	};
 
 /***/ },
@@ -27898,6 +27887,8 @@
 	    return {
 	      envs: [],
 	      groups: [],
+	      users: [],
+	      admins: [],
 	      applicationGroup: null
 	    };
 	  },
@@ -27905,42 +27896,76 @@
 	  componentDidMount: function componentDidMount() {
 	    this.update();
 	    this.updateGroups();
+	    this.updateAdmins();
+	    this.updateUsers();
+	  },
+
+	  updateUsers: function updateUsers() {
+	    var _this2 = this;
+
+	    _ActionsCreator2["default"].getUsers().then(function (x) {
+	      return _this2.setState({ users: x });
+	    });
+	  },
+
+	  updateAdmins: function updateAdmins() {
+	    var _this3 = this;
+
+	    _ActionsCreator2["default"].getAdmins(this.getParams().applicationId).then(function (x) {
+	      return _this3.setState({ admins: x });
+	    });
 	  },
 
 	  updateGroups: function updateGroups() {
-	    var _this2 = this;
+	    var _this4 = this;
 
 	    _ActionsCreator2["default"].getApplicationGroups().then(function (x) {
-	      return _this2.setState({ groups: x });
+	      return _this4.setState({ groups: x });
 	    });
 	    _ActionsCreator2["default"].getApplicationInfo(this.getParams().applicationId).then(function (x) {
-	      return _this2.setState({ applicationGroup: x.GroupName });
+	      return _this4.setState({ applicationGroup: x.GroupName });
 	    });
 	  },
 
 	  update: function update() {
-	    var _this3 = this;
+	    var _this5 = this;
 
 	    _ActionsCreator2["default"].updateAllEnviroments().then(function (x) {
-	      _this3.setState({
+	      _this5.setState({
 	        envs: x
 	      });
 	    });
 	  },
 
 	  setGroup: function setGroup() {
-	    var _this4 = this;
+	    var _this6 = this;
 
 	    _ActionsCreator2["default"].setApplicationGroup(this.getParams().applicationId, this.refs.group.getDOMNode().value).then(function (x) {
-	      return _this4.updateGroups();
+	      return _this6.updateGroups();
+	    });
+	  },
+
+	  addAdmin: function addAdmin() {
+	    var _this7 = this;
+
+	    _ActionsCreator2["default"].addAdmin(this.refs.admin.getDOMNode().value, this.getParams().applicationId).then(function (x) {
+	      return _this7.updateAdmins();
+	    });
+	  },
+
+	  removeAdmin: function removeAdmin(userId) {
+	    var _this8 = this;
+
+	    _ActionsCreator2["default"].removeAdmin(userId, this.getParams().applicationId).then(function (x) {
+	      return _this8.updateAdmins();
 	    });
 	  },
 
 	  render: function render() {
-	    var _this5 = this;
+	    var _this9 = this;
 
 	    var envs = this.state.envs.map(function (a) {
-	      return _react2["default"].createElement(Enviroments, { Enviroment: a, application: _this5.getParams().applicationName, applicationId: _this5.getParams().applicationId });
+	      return _react2["default"].createElement(Enviroments, { Enviroment: a, application: _this9.getParams().applicationName, applicationId: _this9.getParams().applicationId });
 	    });
 
 	    return _react2["default"].createElement(
@@ -27989,6 +28014,83 @@
 	            "button",
 	            { className: "btn btn-primary", onClick: this.setGroup },
 	            "Set group"
+	          )
+	        )
+	      ),
+	      _react2["default"].createElement(
+	        "h3",
+	        null,
+	        "Administrators"
+	      ),
+	      _react2["default"].createElement(
+	        "table",
+	        { className: "table table-bordered table-hovered" },
+	        _react2["default"].createElement(
+	          "thead",
+	          null,
+	          _react2["default"].createElement(
+	            "tr",
+	            null,
+	            _react2["default"].createElement(
+	              "th",
+	              null,
+	              "Administrators"
+	            )
+	          )
+	        ),
+	        _react2["default"].createElement(
+	          "tbody",
+	          null,
+	          this.state.admins.map(function (x) {
+	            return _react2["default"].createElement(
+	              "tr",
+	              null,
+	              _react2["default"].createElement(
+	                "td",
+	                null,
+	                x.UserName,
+	                " ",
+	                _react2["default"].createElement(
+	                  "button",
+	                  { className: "btn btn-danger btn-xs pull-right", onClick: function (z) {
+	                      _this9.removeAdmin(x.UserId);
+	                    } },
+	                  "Remove"
+	                )
+	              )
+	            );
+	          }),
+	          _react2["default"].createElement(
+	            "tr",
+	            null,
+	            _react2["default"].createElement(
+	              "td",
+	              null,
+	              _react2["default"].createElement(
+	                "div",
+	                { className: "input-group" },
+	                _react2["default"].createElement(
+	                  "select",
+	                  { ref: "admin", className: "form-control" },
+	                  this.state.users.map(function (x) {
+	                    return _react2["default"].createElement(
+	                      "option",
+	                      { value: x.Id },
+	                      x.UserName
+	                    );
+	                  })
+	                ),
+	                _react2["default"].createElement(
+	                  "span",
+	                  { className: "input-group-btn" },
+	                  _react2["default"].createElement(
+	                    "button",
+	                    { className: "btn btn-default", onClick: this.addAdmin },
+	                    "Add"
+	                  )
+	                )
+	              )
+	            )
 	          )
 	        )
 	      ),
@@ -28082,7 +28184,52 @@
 					ApplicationGroupId: groupId
 				})
 			});
+		},
+
+		getUsers: function getUsers() {
+			return (0, _reqwest2["default"])({
+				url: "api/users/all",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		getAdmins: function getAdmins(applicationId) {
+			return (0, _reqwest2["default"])({
+				url: "api/Applications/Administrators?applicationId=" + applicationId,
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		addAdmin: function addAdmin(userId, applicationId) {
+			return (0, _reqwest2["default"])({
+				url: "/api/applications/AddApplicationAdministrator",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					ApplicationId: applicationId,
+					UserId: userId
+				})
+			});
+		},
+
+		removeAdmin: function removeAdmin(userId, applicationId) {
+			return (0, _reqwest2["default"])({
+				url: "/api/applications/RemoveApplicationAdministrator",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					ApplicationId: applicationId,
+					UserId: userId
+				})
+			});
 		}
+
 	};
 
 /***/ },
@@ -30221,8 +30368,12 @@
 	      er = arguments[1];
 	      if (er instanceof Error) {
 	        throw er; // Unhandled 'error' event
+	      } else {
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
 	      }
-	      throw TypeError('Uncaught, unspecified "error" event.');
 	    }
 	  }
 
@@ -36370,7 +36521,7 @@
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
 	  var d3 = {
-	    version: "3.5.16"
+	    version: "3.5.17"
 	  };
 	  var d3_arraySlice = [].slice, d3_array = function(list) {
 	    return d3_arraySlice.call(list);
@@ -39895,7 +40046,7 @@
 	        λ0 = λ, sinφ0 = sinφ, cosφ0 = cosφ, point0 = point;
 	      }
 	    }
-	    return (polarAngle < -ε || polarAngle < ε && d3_geo_areaRingSum < 0) ^ winding & 1;
+	    return (polarAngle < -ε || polarAngle < ε && d3_geo_areaRingSum < -ε) ^ winding & 1;
 	  }
 	  function d3_geo_clipCircle(radius) {
 	    var cr = Math.cos(radius), smallRadius = cr > 0, notHemisphere = abs(cr) > ε, interpolate = d3_geo_circleInterpolate(radius, 6 * d3_radians);
@@ -49260,43 +49411,6 @@
 	});
 
 	module.exports = EditPage;
-
-/***/ },
-/* 330 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _reqwest = __webpack_require__(216);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	module.exports = {
-	    get: function get(url) {
-	        var promise = (0, _reqwest2['default'])({
-	            url: url,
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "get"
-	        });
-
-	        return promise;
-	    },
-
-	    post: function post(url, data) {
-	        var promise = (0, _reqwest2['default'])({
-	            url: url,
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "post",
-	            data: JSON.stringify(data)
-	        });
-
-	        return promise;
-	    }
-	};
 
 /***/ }
 /******/ ]);

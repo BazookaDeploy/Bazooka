@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DataAccess.Read;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.Mvc;
 using Web.Models;
+using System.Linq;
 
 namespace Web.Controllers
 {
@@ -10,15 +12,23 @@ namespace Web.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            bool admin;
+            bool admin, appsAdmin;
 
             using (var ApplicationDbContext = new ApplicationDbContext())
             {
+                var id = User.Identity.GetUserId();
                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
-                admin = manager.FindById(User.Identity.GetUserId()).Administrator;
+                admin = manager.FindById(id).Administrator;
+
+                using(var context = new ReadContext())
+                {
+                    appsAdmin = context.Query<ApplicationAdministratorDto>().Any(x => x.UserId ==id);
+                }
+                
             }
 
             ViewBag.Admin = admin;
+            ViewBag.AppsAdmin = appsAdmin;
             ViewBag.Title = "Home Page";
 
             return View();

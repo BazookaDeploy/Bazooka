@@ -55,8 +55,10 @@ var EnviromentsPage = React.createClass({
   mixins: [Router.State],
   getInitialState: function() {
     return {
-      envs : [],
+      envs : [],     
       groups:[],
+      users : [],
+      admins : [],
       applicationGroup: null
     };
   },
@@ -64,7 +66,17 @@ var EnviromentsPage = React.createClass({
   componentDidMount: function() {
     this.update();
     this.updateGroups();
+    this.updateAdmins();
+    this.updateUsers();
   },
+
+  updateUsers(){
+    Actions.getUsers().then(x => this.setState({users:x}));
+  },
+
+  updateAdmins(){
+    Actions.getAdmins(this.getParams().applicationId).then(x => this.setState({admins:x}));
+  },  
 
   updateGroups: function(){
     Actions.getApplicationGroups().then(x => this.setState({groups:x}));
@@ -84,6 +96,14 @@ var EnviromentsPage = React.createClass({
     Actions.setApplicationGroup(this.getParams().applicationId, this.refs.group.getDOMNode().value).then(x =>
       this.updateGroups()
     )
+  },
+
+  addAdmin(){
+    Actions.addAdmin(this.refs.admin.getDOMNode().value,this.getParams().applicationId).then(x =>this.updateAdmins());
+  },
+
+  removeAdmin(userId){
+    Actions.removeAdmin(userId,this.getParams().applicationId).then(x =>this.updateAdmins());
   },
 
   render: function () {
@@ -112,7 +132,25 @@ var EnviromentsPage = React.createClass({
     </div>
 
 
+             <h3>Administrators</h3>
 
+                <table className="table table-bordered table-hovered">
+                  <thead><tr><th>Administrators</th></tr></thead>
+                  <tbody>
+                    {this.state.admins.map(x => <tr><td>{x.UserName} <button className="btn btn-danger btn-xs pull-right" onClick={z => {this.removeAdmin(x.UserId)}}>Remove</button></td></tr>)}
+                    <tr>
+                      <td>
+                        <div className="input-group">
+                          <select ref="admin" className="form-control">
+                            {this.state.users.map(x => <option value={x.Id}>{x.UserName}</option>)}
+                          </select>
+                          <span className="input-group-btn">
+                            <button  className="btn btn-default" onClick={this.addAdmin}>Add</button>
+                          </span>
+                        </div>
+                      </td></tr>
+                  </tbody>
+                </table> 
 
       <br />
 
