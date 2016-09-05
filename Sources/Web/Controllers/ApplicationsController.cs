@@ -117,5 +117,11 @@ namespace Web.Controllers
         {
             return Execute(command);
         }
+
+        [HttpPost]
+        public ExecutionResult CopyConfigurationFromEnviroment(CopyConfigurationFromEnviroment command)
+        {
+            return Execute(command);
+        }  
     }
 }

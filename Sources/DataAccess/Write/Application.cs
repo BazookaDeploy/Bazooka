@@ -83,6 +83,94 @@ namespace DataAccess.Write
             }
         }
 
+        public virtual void CopyConfigurationFromEnviroment(int enviromentId, int originalEnviromentId, int machineId)
+        {
+            if (DatabaseTasks != null)
+            {
+                var tasks = this.DatabaseTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new DatabaseTask()
+                {
+                    AgentId = machineId,
+                    ApplicationId = x.ApplicationId,
+                    ConnectionString = x.ConnectionString,
+                    DatabaseName = x.DatabaseName,
+                    EnviromentId = enviromentId,
+                    Name = x.Name,
+                    Package = x.Package,
+                    Repository = x.Repository,
+                Position = this.NewTaskNumber()
+                }).ToList();
+
+                foreach(var task in tasks) { this.DatabaseTasks.Add(task); }
+            }
+
+            if (DeployTasks != null)
+            {
+                var tasks = this.DeployTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new DeployTask()
+                {
+                    AgentId = machineId,
+                    ApplicationId = x.ApplicationId,
+                    Configuration = x.Configuration,
+                    ConfigurationFile = x.ConfigurationFile,
+                    ConfigurationTransform = x.ConfigurationTransform,
+                    Directory = x.Directory,
+                    EnviromentId = enviromentId,
+                    InstallScript = x.InstallScript,
+                    Name = x.Name,
+                    PackageName = x.PackageName,
+                    Repository = x.Repository,
+                    UninstallScript = x.UninstallScript,
+                    Position = this.NewTaskNumber()
+                }).ToList();
+
+                foreach (var task in tasks) { this.DeployTasks.Add(task); }
+            }
+
+            if (MailTasks != null)
+            {
+                var tasks = this.MailTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new MailTask()
+                {
+                    ApplicationId = x.ApplicationId,
+                    EnviromentId = enviromentId,
+                    Name = x.Name,
+                    Position = this.NewTaskNumber(),
+                    Recipients = x.Recipients,
+                    Sender = x.Sender,
+                    Text = x.Text
+                }).ToList();
+
+                foreach (var task in tasks) { this.MailTasks.Add(task); }
+            }
+
+            if (LocalScriptTasks != null)
+            {
+                var tasks = this.LocalScriptTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new LocalScriptTask()
+                {
+                    ApplicationId = x.ApplicationId,
+                    EnviromentId = enviromentId,
+                    Name = x.Name,
+                    Position = this.NewTaskNumber(),
+                    Script = x.Script
+                }).ToList();
+
+                foreach (var task in tasks) { this.LocalScriptTasks.Add(task); }
+            }
+
+            if (RemoteScriptTasks != null)
+            {
+                var tasks = this.RemoteScriptTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new RemoteScriptTask()
+                {
+                    AgentId = machineId,
+                    EnviromentId = enviromentId,
+                    Folder = x.Folder,
+                    Name = x.Name,
+                    Position = this.NewTaskNumber(),
+                    Script = x.Script,
+                    ApplicationId = x.ApplicationId
+                }).ToList();
+
+                foreach (var task in tasks) { this.RemoteScriptTasks.Add(task); }
+            }
+        }
 
         public virtual void AddAllowedUser(int enviromentId, System.Guid userId)
         {

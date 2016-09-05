@@ -230,6 +230,7 @@
     <Compile Include="App_Start\WindsorInstaller.cs" />
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
     <Compile Include="CommandHandlers\Application\AddApplicationAdministratorHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CopyConfigurationFromEnviromentHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateDatabaseTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateRemoteScriptTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateMailTaskHandler.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Commands\Application\AddAllowedGroupToApplication.cs" />
     <Compile Include="Commands\Application\AddAllowedUserToApplication.cs" />
     <Compile Include="Commands\Application\AddApplicationAdministrator.cs" />
+    <Compile Include="Commands\Application\CopyConfigurationFromEnviroment.cs" />
     <Compile Include="Commands\Application\CreateApplicationGroup.cs" />
     <Compile Include="Commands\Application\CreateDatabaseTask.cs" />
     <Compile Include="Commands\Application\CreateDeployTask.cs" />
