@@ -42,6 +42,55 @@ var HookDialog = React.createClass({
   }
 })
 
+var CloneDialog = React.createClass({
+  getInitialState:function(){
+    return {
+      agents : [],
+      enviroments: []
+    }
+  },
+
+  componentDidMount: function(){
+    Actions.getEnviroments().then(x => this.setState({enviroments:x}));
+    Actions.getAgents(this.props.EnviromentId).then(x => this.setState({agents:x}));
+  },
+
+  clone:function(){
+    Actions.cloneEnviroment(this.refs.enviroment.getDOMNode().value, this.refs.machine.getDOMNode().value, this.props.EnviromentId, this.props.ApplicationId).then(x =>
+    {
+      this.props.onCreate();
+      this.props.onRequestHide();
+    })
+  },
+
+  render:function(){
+    return(
+     <Modal {...this.props} enforceFocus={false} title="Clone from enviroment">
+     <div className="modal-body">
+              <form role="form">
+            <div className="form-group">
+              <label htmlFor="name">Clone from enviroment</label>
+              <select className="form-control"  ref="enviroment" >
+                {this.state.enviroments.map(x => <option value={x.Id}>{x.Name}</option>)}
+              </select>
+            </div>
+                        <div className="form-group">
+              <label htmlFor="name">Select machine</label>
+              <select className="form-control"  ref="machine" >
+                {this.state.agents.map(x => <option value={x.Id}>{x.Name}</option>)}
+              </select>
+            </div>
+          </form>
+     </div>
+      <div className="modal-footer">
+        <button className="btn" onClick={this.props.onRequestHide}>Close</button>
+        <button className="btn btn-primary" onClick={this.clone}>Clone</button>
+      </div>
+     </Modal>);
+  }
+});
+
+
 var TaskSelectDialog = React.createClass({
   render:function(){
     return(
@@ -168,6 +217,8 @@ var TaskSelectDialog = React.createClass({
         return (<option value={x.Id}>{x.Name}</option>);
       })
 
+      debugger;
+
       return(<div>
         <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment}</h3>
 
@@ -234,6 +285,12 @@ var TaskSelectDialog = React.createClass({
                   )}
                 </tbody>
               </table>
+                {this.state.tasks.length==0 && 
+                <ModalTrigger modal={<CloneDialog onCreate={this.updateTasks} EnviromentId={this.getParams().enviromentId} ApplicationId={this.getParams().applicationId}/>}>
+                    <button className="btn btn-primary">Clone from another enviroment</button></ModalTrigger>
+                
+              }
+
             </TabPane>
             <TabPane eventKey={2} tab='Permissions'>
               <h3>Allowed Users</h3>
