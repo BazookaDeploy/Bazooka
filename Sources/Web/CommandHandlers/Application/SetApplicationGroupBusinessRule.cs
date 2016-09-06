@@ -21,8 +21,8 @@ namespace Web.CommandHandlers
 
             if (!user.Administrator)
             {
-                yield return "Only an administrator can create an application group";
-                yield break;
+                    yield return "Only an administrator can add an allowed group";
+                    yield break;
             }
         }
     }

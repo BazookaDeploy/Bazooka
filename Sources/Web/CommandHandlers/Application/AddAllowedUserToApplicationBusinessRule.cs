@@ -21,8 +21,11 @@ namespace Web.CommandHandlers
 
             if (!user.Administrator)
             {
-                yield return "Only an administrator can add an allowed user";
-                yield break;
+                if (ReadContext.Query<ApplicationAdministratorDto>().Where(x => x.ApplicationId == command.ApplicationId && x.UserId == command.CurrentUserId.ToString()).Count() == 0)
+                {
+                    yield return "Only an administrator can add an allowed group";
+                    yield break;
+                }
             }
         }
     }
