@@ -274,6 +274,7 @@
     <Compile Include="Commands\Application\AddAllowedUserToApplication.cs" />
     <Compile Include="Commands\Application\AddApplicationAdministrator.cs" />
     <Compile Include="Commands\Application\CopyConfigurationFromEnviroment.cs" />
+    <Compile Include="Commands\Application\CreateApplicationFromExisting.cs" />
     <Compile Include="Commands\Application\CreateApplicationGroup.cs" />
     <Compile Include="Commands\Application\CreateDatabaseTask.cs" />
     <Compile Include="Commands\Application\CreateDeployTask.cs" />

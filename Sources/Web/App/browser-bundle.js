@@ -27575,19 +27575,33 @@
 	var CreateDialog = _react2["default"].createClass({
 	  displayName: "CreateDialog",
 
+	  getInitialState: function getInitialState() {
+	    return { clone: false };
+	  },
+
 	  create: function create() {
 	    var _this = this;
 
 	    var name = this.refs.name.getDOMNode().value;
 
 	    if (name.length !== 0) {
-	      _ActionsCreator2["default"].createApplication(name).then(function (x) {
-	        _this.props.onCreate();
-	        _this.props.onRequestHide();
-	      });
+	      if (!this.state.clone) {
+	        _ActionsCreator2["default"].createApplication(name).then(function (x) {
+	          _this.props.onCreate();
+	          _this.props.onRequestHide();
+	        });
+	      } else {
+	        _ActionsCreator2["default"].cloneApplication(name, this.refs.app.getDOMNode().value).then(function (x) {
+	          _this.props.onCreate();
+	          _this.props.onRequestHide();
+	        });
+	      }
 	    }
-
 	    return false;
+	  },
+
+	  selectClone: function selectClone() {
+	    this.setState({ clone: !this.state.clone });
 	  },
 
 	  render: function render() {
@@ -27609,6 +27623,37 @@
 	              "Application name"
 	            ),
 	            _react2["default"].createElement("input", { type: "text", className: "form-control", id: "name", placeholder: "Name", autoFocus: true, ref: "name" })
+	          ),
+	          _react2["default"].createElement(
+	            "div",
+	            { className: "form-group" },
+	            _react2["default"].createElement(
+	              "label",
+	              { htmlFor: "clone" },
+	              "Clone Application"
+	            ),
+	            _react2["default"].createElement("br", null),
+	            _react2["default"].createElement("input", { type: "checkbox", ref: "clone", onClick: this.selectClone, value: this.state.clone })
+	          ),
+	          this.state.clone && _react2["default"].createElement(
+	            "div",
+	            { className: "form-group" },
+	            _react2["default"].createElement(
+	              "label",
+	              { htmlFor: "app" },
+	              "Select application"
+	            ),
+	            _react2["default"].createElement(
+	              "select",
+	              { className: "form-control", ref: "app" },
+	              this.props.apps.map(function (x) {
+	                return _react2["default"].createElement(
+	                  "option",
+	                  { value: x.Id },
+	                  x.Name
+	                );
+	              })
+	            )
 	          )
 	        )
 	      ),
@@ -27644,7 +27689,8 @@
 	          Link,
 	          { to: "enviroments", params: {
 	              applicationName: this.props.Application.Name,
-	              applicationId: this.props.Application.Id } },
+	              applicationId: this.props.Application.Id
+	            } },
 	          _react2["default"].createElement(
 	            "b",
 	            null,
@@ -27705,7 +27751,7 @@
 	              "Application ",
 	              _react2["default"].createElement(
 	                _reactBootstrapLibModalTrigger2["default"],
-	                { modal: _react2["default"].createElement(CreateDialog, { onCreate: this.update }) },
+	                { modal: _react2["default"].createElement(CreateDialog, { apps: this.state.apps, onCreate: this.update }) },
 	                _react2["default"].createElement(
 	                  "button",
 	                  { className: "btn btn-primary btn-xs pull-right" },
@@ -27757,6 +27803,21 @@
 	      method: "post",
 	      data: JSON.stringify({
 	        Name: name
+	      })
+	    });
+
+	    return promise;
+	  },
+
+	  cloneApplication: function cloneApplication(name, app) {
+	    var promise = (0, _reqwest2["default"])({
+	      url: "/api/applications/CreateApplicationFromExisting",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        Name: name,
+	        OriginalApplicationId: app
 	      })
 	    });
 

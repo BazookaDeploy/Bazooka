@@ -22,5 +22,20 @@ module.exports = {
     });
 
     return promise;
+  },
+
+  cloneApplication: function (name,app){
+    var promise = reqwest({
+      url:"/api/applications/CreateApplicationFromExisting",
+      type:'json',
+      contentType: 'application/json',
+      method:"post",
+      data:JSON.stringify({
+        Name:name,
+        OriginalApplicationId: app
+      })
+    });
+
+    return promise;
   }
 };

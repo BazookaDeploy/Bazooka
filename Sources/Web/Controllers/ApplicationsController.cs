@@ -122,6 +122,12 @@ namespace Web.Controllers
         public ExecutionResult CopyConfigurationFromEnviroment(CopyConfigurationFromEnviroment command)
         {
             return Execute(command);
-        }  
+        }
+
+        [HttpPost]
+        public ExecutionResult CreateApplicationFromExisting(CreateApplicationFromExisting command)
+        {
+            return Execute(command);
+        }
     }
 }
