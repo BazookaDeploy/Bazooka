@@ -230,6 +230,8 @@
     <Compile Include="App_Start\WindsorInstaller.cs" />
     <Compile Include="Auth\ActiveDirectoryAuthentication.cs" />
     <Compile Include="CommandHandlers\Application\AddApplicationAdministratorHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CloneApplicationFromExistingBusinessRule.cs" />
+    <Compile Include="CommandHandlers\Application\CloneApplicationFromExistingHandler.cs" />
     <Compile Include="CommandHandlers\Application\CopyConfigurationFromEnviromentHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateDatabaseTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateRemoteScriptTaskHandler.cs" />

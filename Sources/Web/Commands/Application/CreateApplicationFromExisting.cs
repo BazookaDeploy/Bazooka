@@ -9,6 +9,6 @@ namespace Web.Commands
     {
         public string Name { get; set; }
 
-        public string OriginalApplicationId { get; set; }
+        public int OriginalApplicationId { get; set; }
     }
 }
