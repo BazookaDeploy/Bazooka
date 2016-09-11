@@ -2,8 +2,6 @@ import reqwest from "reqwest";
 
 module.exports = {
   updateDeployments : function(filter){
-    debugger;
-
     var query = "";
     var date = new Date();
     date.setHours(0,0,0,0);

@@ -23,7 +23,6 @@ var EditPage = React.createClass({
       this.state.value.length != 0 &&
        !this.state.Parameters.some(x => x.Key == this.state.key)){
 
-				debugger;
       this.setState({
 				Parameters: this.state.Parameters.concat({
           Name: this.state.key,
@@ -122,7 +121,6 @@ var EditPage = React.createClass({
 	},
 
 	save:function(){
-		debugger;
 		Actions.modifyDeployUnit(
 			this.state.Id,
 			this.state.Enviroment,

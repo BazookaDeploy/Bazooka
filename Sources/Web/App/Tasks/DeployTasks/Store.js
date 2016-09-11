@@ -13,7 +13,6 @@ function _addDeployUnits(raw) {
 }
 
 function _addDeployUnit(raw) {
-    debugger;
   _deployUnits=_deployUnits.concat(raw);
 }
 

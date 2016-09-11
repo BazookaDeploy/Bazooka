@@ -3,6 +3,30 @@ import Actions from "./ActionsCreator";
 import Modal  from "react-bootstrap/lib/Modal";
 import ModalTrigger from "react-bootstrap/lib/ModalTrigger";
 
+if (!Array.prototype.findIndex) {
+  Array.prototype.findIndex = function(predicate) {
+    'use strict';
+    if (this == null) {
+      throw new TypeError('Array.prototype.findIndex called on null or undefined');
+    }
+    if (typeof predicate !== 'function') {
+      throw new TypeError('predicate must be a function');
+    }
+    var list = Object(this);
+    var length = list.length >>> 0;
+    var thisArg = arguments[1];
+    var value;
+
+    for (var i = 0; i < length; i++) {
+      value = list[i];
+      if (predicate.call(thisArg, value, i, list)) {
+        return i;
+      }
+    }
+    return -1;
+  };
+}
+
 var DeployDialog = React.createClass({
   getInitialState: function () {
     return {
@@ -205,7 +229,10 @@ var ApplicationGroup = React.createClass({
   render: function () {
     return (
       <div>
-        <h3>{this.props.Group.GroupName}</h3>
+        <h3>{this.props.Group.GroupName} 
+        {this.props.editMode ? <button className="btn btn-xs btn-primary pull-right" onClick={() => this.props.onMoveUp(this.props.Group)}><i className="glyphicon glyphicon-arrow-up"></i></button> : null}
+        {this.props.editMode ? <button className="btn btn-xs btn-primary pull-right" onClick={() => this.props.onMoveDown(this.props.Group)}><i className="glyphicon glyphicon-arrow-down"></i></button> : null}
+        </h3>
         <table className="table table-bordered table-striped table-compact">
           <thead>
             <tr>
@@ -222,26 +249,89 @@ var ApplicationGroup = React.createClass({
   }
 });
 
+var swapArray = function(A,x,y){
+  A[x] = A.splice(y, 1, A[x])[0];
+};
+
 var HomePage = React.createClass({
   getInitialState: function () {
     return {
+      editMode: false,
       envs: { Applications: [], Enviroments: [] }
     };
   },
 
   componentDidMount: function () {
     Actions.updateEnviroments().then(x => {
-      this.setState({ envs: x })
+      this.setState({ envs: x }, this.ordina);
     });
+  },
+
+  ordina(){
+    if(window.localStorage){
+      var groups = window.localStorage.getItem("homeGroups");
+
+      if(groups == null || groups == ""){
+        groups="[]";
+        window.localStorage.setItem("homeGroups",groups);
+      }
+
+      var gruppi = JSON.parse(groups);
+
+      var i=0;
+      for(i=0; i<this.state.envs.Applications.length; i++){
+        var pos = gruppi.findIndex(x => x.GroupName == this.state.envs.Applications[i].GroupName);
+
+        if(pos!=-1){
+          swapArray(this.state.envs.Applications,i,pos);     
+        }
+      }
+
+      window.localStorage.setItem("homeGroups",JSON.stringify(this.state.envs.Applications));   
+
+      this.setState({envs: this.state.envs});
+    }
+  },
+
+  moveUp(group){
+    if(window.localStorage){
+      var groups = window.localStorage.getItem("homeGroups");
+      var gruppi = JSON.parse(groups);
+      var pos = gruppi.findIndex(x => x.GroupName == group.GroupName);
+      if(pos > 0){
+        swapArray(gruppi,pos,pos-1);
+      }
+
+      window.localStorage.setItem("homeGroups",JSON.stringify(gruppi));    
+      this.ordina();
+    }
+  },
+
+  moveDown(group){
+    if(window.localStorage){
+      var groups = window.localStorage.getItem("homeGroups");
+      var gruppi = JSON.parse(groups);
+      var pos = gruppi.findIndex(x => x.GroupName == group.GroupName);
+      if(pos < gruppi.length-1 ){
+        swapArray(gruppi,pos,pos+1);
+      }
+
+      window.localStorage.setItem("homeGroups",JSON.stringify(gruppi));    
+      this.ordina();
+    }
+  },
+
+  modify(){
+    this.setState({editMode : !this.state.editMode});
   },
 
   render: function () {
     return (
       <div>
-        <h2>Current system status</h2>
+        <h2>Current system status <button className="btn btn-xs pull-right" onClick={this.modify}>{this.state.editMode ? "Save": "Modify"}</button></h2>
         <br />
         <div className='container'>
-          {this.state.envs.Applications.map(x => (<ApplicationGroup Group={x} Enviroments={this.state.envs.Enviroments}/>)) }
+          {this.state.envs.Applications.map(x => (<ApplicationGroup Group={x} Enviroments={this.state.envs.Enviroments} editMode={this.state.editMode} onMoveUp={() => this.moveUp(x)} onMoveDown={() => this.moveDown(x)} />)) }
         </div>
       </div>);
   }

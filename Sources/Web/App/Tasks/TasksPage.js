@@ -217,7 +217,6 @@ var TaskSelectDialog = React.createClass({
         return (<option value={x.Id}>{x.Name}</option>);
       })
 
-      debugger;
 
       return(<div>
         <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment}</h3>
