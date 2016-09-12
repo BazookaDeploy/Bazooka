@@ -45,7 +45,7 @@ namespace Web.Controllers
                                 }).ToList();
         }
 
-        [HttpGet]
+        [HttpPost]
         public void Deploy(int enviromentId, int applicationId, string version, ICollection<DeploymentTasksDto> tasks)
         {
             using (var session = WebApiApplication.Store.OpenSession())
