@@ -70,6 +70,20 @@ namespace Core.Tests.Unit
                 logger.Logs.ElementAt(0).Error.Should().Be.True();
 
             }
+
+            [TestMethod]
+            public void ShouldRunScript()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+                parameters.Add("username", "paolo");
+                parameters.Add("password", "240686pn");
+                PowershellHelpers.Execute(@"C:\\Users\Paolo\Downloads", "Install.ps1","test", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Error.Should().Be.True();
+
+            }
         }
 
     }

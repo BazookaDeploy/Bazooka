@@ -33,11 +33,13 @@
             Pipeline pipeline = runspace.CreatePipeline();
 
             Command myCommand = new Command(Path.Combine(folder, file));
-
+     
             foreach (var param in parameters.Keys)
             {
                 myCommand.Parameters.Add(new CommandParameter("-" + param, parameters[param]));
             }
+
+            myCommand.Parameters.Add(new CommandParameter("-Verb", "RunAs"));
 
             pipeline.Commands.Add(myCommand);
 
@@ -70,11 +72,13 @@
                 // use "AddScript" to add the contents of a script file to the end of the execution pipeline.
                 // use "AddCommand" to add individual commands/cmdlets to the end of the execution pipeline.
                 PowerShellInstance.AddScript(script);
-
+                
                 foreach (var param in parameters.Keys)
                 {
                     PowerShellInstance.AddParameter(param, parameters[param]);
                 }
+
+                PowerShellInstance.AddParameter("Verb", "RunAs");
 
                 Collection<PSObject> results = new Collection<PSObject>();
                 try {
