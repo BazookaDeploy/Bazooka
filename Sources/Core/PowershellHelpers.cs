@@ -40,7 +40,6 @@
             }
 
             myCommand.Parameters.Add(new CommandParameter("-Verb", "RunAs"));
-
             pipeline.Commands.Add(myCommand);
 
             Collection<PSObject> results = new Collection<PSObject>();
@@ -78,7 +77,7 @@
                     PowerShellInstance.AddParameter(param, parameters[param]);
                 }
 
-                PowerShellInstance.AddParameter("Verb", "RunAs");
+                PowerShellInstance.AddParameter("-Verb", "RunAs");
 
                 Collection<PSObject> results = new Collection<PSObject>();
                 try {

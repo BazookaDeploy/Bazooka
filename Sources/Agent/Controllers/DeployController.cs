@@ -18,17 +18,12 @@
             {
                 var files = Directory.GetFiles(installOptions.Directory, "*.nupkg");
 
-                if (files.Count() > 1)
+                if (files.Count() == 0 )
                 {
-                    return new ExecutionResult()
-                    {
-                        Success = false,
-                        Exception = "Multiple installed packages found",
-                        Log = logger.Logs
-                    };
+                    logger.Log("No package to uninstall found, proceeding with a normal install.");
                 }
 
-                if (files.Count() == 1)
+                if (files.Count() >= 1)
                 {
                     var filename = PackageHelpers.ExtractPackageName(files.First()).Trim();
                     var packageInfo = new PackageInfo()
@@ -53,6 +48,7 @@
                     Name = installOptions.Application,
                     Version = installOptions.Version
                 };
+
                 var PackageInstaller = new PackageInstaller();
                 PackageInstaller.Logger = logger;
                 PackageInstaller.Install(packageInfo2, new string[] { installOptions.Repository }, installOptions.AdditionalParameters, installOptions.InstallScript, installOptions.ConfigurationFile, installOptions.ConfigurationTransform);
