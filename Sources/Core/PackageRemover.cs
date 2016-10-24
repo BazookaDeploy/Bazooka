@@ -73,7 +73,7 @@
         /// <param name="optionalScript">optional additiona script to execute</param>
         private void ExecuteRemoveScript(PackageInfo installed, Dictionary<string, string> parameters, string optionalScript)
         {
-            if (optionalScript != null)
+            if (optionalScript != null && optionalScript.Trim().Length > 0)
             {
                 Logger.Log("Executing uninstallation script specified as parameter...");
                 PowershellHelpers.ExecuteScript(installed.InstallationDirectory, optionalScript, Logger, parameters);

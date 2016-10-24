@@ -42,7 +42,7 @@
         /// <param name="info">Pacakge installation informations</param>
         private void ExecuteInstallScript(PackageInfo info, Dictionary<string, string> parameters, string installScript)
         {
-            if (installScript != null)
+            if (installScript != null && installScript.Trim().Length > 0)
             {
                 Logger.Log("Executing install script passed as parameter");
 
