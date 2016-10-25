@@ -67,6 +67,7 @@
     <Compile Include="CleanJob.cs" />
     <Compile Include="DeployJob.cs" />
     <Compile Include="LogsCompactionJob.cs" />
+    <Compile Include="PackageCleanupJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
