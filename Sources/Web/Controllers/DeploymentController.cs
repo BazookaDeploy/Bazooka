@@ -31,7 +31,9 @@ namespace Web.Controllers
 
         public DeploymentDto Get(int id)
         {
-            return db.Deployments.Include("Tasks").Single(x => x.Id == id);
+            var dep =  db.Deployments.Include("Tasks").Single(x => x.Id == id);
+            dep.Logs = dep.Logs.OrderBy(x => x.TimeStamp).ToList();
+            return dep;
         }
 
 
