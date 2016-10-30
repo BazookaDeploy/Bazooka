@@ -1,61 +1,40 @@
-﻿$icon-font-path: "./fonts/bootstrap/";
-$navbar-height: 30px;
+﻿$navbar-height: 30px;
 $navbar-default-color: white;
 $navbar-default-bg: #303F9F;
 $navbar-default-link-color: white;
 $brand-primary: #303F9F;
 $navbar-default-link-active-color: white;
 $navbar-default-link-hover-color: #bbbbbb;
-@import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
-@media only screen and (min-width: 1100px) {
-    .applicationGrid {
-        -moz-column-count: 4;
-        -webkit-column-count: 4;
-        column-count: 4;
-    }
-}
-
-@media only screen and (min-width: 900px) and (max-width: 1100px) {
-    .applicationGrid {
-        -moz-column-count: 3;
-        -webkit-column-count: 3;
-        column-count: 3;
-    }
+html, body {
+     width:100vw;
+    height:100vh;
+    margin:0;
+    padding:0;
 }
 
 
-.application {
-    display: inline-block;
-    width: 100%;
+* {
+    box-sizing:border-box;
 }
 
+.Login {
+    width:100vw;
+    height:100vh;
+    background-color:$brand-primary;
+}
 
-svg {
-    display: block;
+.Login > div {
+    padding-top:20vh;
+}
+
+.Login__form {
+    width:300px;
     margin: 0 auto;
-    height: 1000px !important;
-}
-
-g.tick text {
-    -ms-writing-mode: tb;
-    writing-mode: tb;
-    text-anchor: inherit;
-}
-
-.AgentLogo {
-    display: inline-block;
-    margin: 0 10px;
-    text-align: center;
-}
-
-.AgentLogo:hover {
-    text-decoration: none;
-}
+    padding:10px;
+    background-color:white;
+    border:1px solid #ccc;
+    border-radius:5px;
 
 
-.AgentLogo i {
-    font-size: 50px;
-    margin-bottom: 5px;
-    display: block;
 }

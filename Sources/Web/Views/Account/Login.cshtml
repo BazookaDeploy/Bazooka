@@ -1,27 +1,21 @@
 ﻿@using Web.Models
 @model LoginViewModel
-@{
-    ViewBag.Title = "Log in";
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Bazooka</title>
 
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand">Bazooka</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <section id="loginForm">
-                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-wertical", role = "form" }))
-                    {
-                        <h4>Log in</h4>
-                        <hr />
+    <link href="~/Content/main.css" rel="stylesheet" />
+</head >
+<body class="Login">
+    <div >
+        <div class="Login__form">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-wertical", role = "form" }))
+            {
+                <h4 class="Login__header">Log in</h4>
+                <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                             @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
@@ -53,9 +47,9 @@
                         <p>
                             @Html.ActionLink("Register as a new user", "Register")
                         </p>
-                    }
-                </section>
-            </div>
+            }
         </div>
     </div>
+    </body>
+</html>
 
