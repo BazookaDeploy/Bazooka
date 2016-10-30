@@ -217,7 +217,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppOld\DeployUnits\" />
-    <Folder Include="App\" />
     <Folder Include="App_Data\" />
     <Folder Include="Content\fonts\" />
   </ItemGroup>
@@ -389,6 +388,12 @@
     <Content Include="AppOld\Tasks\RemoteScriptTask\CreateDialog.js" />
     <Content Include="AppOld\Tasks\RemoteScriptTask\EditPage.js" />
     <Content Include="AppOld\Tasks\TasksPage.js" />
+    <Content Include="App\Actions.js" />
+    <Content Include="App\App.js" />
+    <Content Include="App\Homepage\Homepage.js" />
+    <Content Include="App\index.js" />
+    <Content Include="App\Requests.js" />
+    <Content Include="App\Store.js" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\main.css" />
     <Content Include="DataServices\Packages.svc" />

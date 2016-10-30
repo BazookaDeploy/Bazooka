@@ -11,7 +11,10 @@
   "dependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-router": "^3.0.0"
+    "react-redux": "^4.4.5",
+    "react-router": "^3.0.0",
+    "redux": "^3.6.0",
+    "reqwest": "^2.0.5"
   },
   "devDependencies": {
     "babel-core": "^6.18.0",
