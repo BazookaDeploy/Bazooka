@@ -1,59 +1,50 @@
 ﻿@model Web.Models.RegisterViewModel
-@{
-    ViewBag.Title = "Register";
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Bazooka</title>
 
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand">Bazooka</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+    <link href="~/Content/main.css" rel="stylesheet" />
+</head>
+<body class="Login">
+    <div>
+        <h1 class="Login__title">Bazooka</h1>
+        <div class="Login__form">
 
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.AntiForgeryToken()
-                <h4>Create a new account.</h4>
-                <hr />
-                @Html.ValidationSummary("", new { @class = "text-danger" })
+                            @Html.AntiForgeryToken()
+                            <h4 class="Login__header">Create a new account</h4>
+                            <hr class="Login__separator" />
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = " control-label" })
-                    <div class="">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserName, new { @class = "Login__label" })
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "Login__field" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "Login__label" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "Login__field" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "Login__label" })
+                                @Html.PasswordFor(m => m.Password, new { @class = "Login__field" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "Login__label" })
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "Login__field" })
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <div class="">
+                                    <input type="submit" class="Login__submit" value="Register" />
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = " control-label" })
-                    <div class="">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = " control-label" })
-                    <div class="">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = " control-label" })
-                    <div class="">
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="">
-                        <input type="submit" class="btn btn-primary btn-block" value="Register" />
-                    </div>
-                </div>
-            }
-</div>
-</div>
-</div>
+    
+</body>
+</html>

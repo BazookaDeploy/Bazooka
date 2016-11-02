@@ -8,9 +8,9 @@
     <title>Bazooka</title>
 
     <link href="~/Content/main.css" rel="stylesheet" />
-</head >
+</head>
 <body class="Login">
-    <div >
+    <div>
         <h1 class="Login__title">Bazooka</h1>
         <div class="Login__form">
 
@@ -19,38 +19,31 @@
             {
                 <h4 class="Login__header">Log in</h4>
                 <h6 class="Login__subheader">Don't have an account? @Html.ActionLink("Create an account", "Register")</h6>
-                <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <hr class="Login__separator"/>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="Login__label">Username</label>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "Login__field", placeholder="Username" })
+                </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
-                            <div class="">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                            </div>
+                            <label class="Login__label">Password</label>
+                            @Html.PasswordFor(m => m.Password, new { @class = "Login__field", placeholder="Password" })
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Password, new { @class = " control-label" })
-                            <div class="">
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-12">
                                 <div class="checkbox">
-                                    @Html.CheckBoxFor(m => m.RememberMe)
-                                    @Html.LabelFor(m => m.RememberMe)
+                                    <label class="Login__checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe) Remember me
+                                    </label>                                  
                                 </div>
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="">
-                                <input type="submit" value="Log in" class="btn btn-primary btn-block" />
+                                <input type="submit" value="Log in" class="Login__submit" />
                             </div>
                         </div>
             }
         </div>
     </div>
-    </body>
+</body>
 </html>
 
