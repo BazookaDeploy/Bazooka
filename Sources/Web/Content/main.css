@@ -168,9 +168,13 @@ body {
   color: white;
   background-color: #78C7FC;
   border: none;
+  font-size: 18px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.1s ease-in-out; }
+
+.Login__field.Login__field:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important; }
 
 .Login__submit:hover {
   background-color: #46b2fb; }
