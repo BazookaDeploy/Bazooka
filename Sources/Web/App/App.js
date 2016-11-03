@@ -12,7 +12,7 @@ var App = React.createClass({
     render:function(){
         return (<div className="application">
             <div className="application__header">
-                Bazooka
+                <div className="application__header__logo">Bazooka</div>
                 </div>
 
                 <div className="application__body">
@@ -32,12 +32,12 @@ var mapDispatchToProps = function(dispatch){
     return {
         loadApplications:function(){
             Requests.updateApplications().then(x => {
-                dispatch({type: Actions.AddApplications, applications: x})
-            })
+                dispatch({type: Actions.AddApplications, applications: x});
+            });
         }
-    }
-}
+    };
+};
 
-var App = connect(mapStoreToProps,mapDispatchToProps)(App);
+App = connect(mapStoreToProps,mapDispatchToProps)(App);
 
 export default App;

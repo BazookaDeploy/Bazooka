@@ -1,0 +1,110 @@
+﻿
+.Login {
+    width:100vw;
+    height:100vh;
+    background-color:#E1E0EA ;
+}
+
+.Login__header {
+    font-size: 36px;
+    font-weight: 300;
+    text-align: center;
+    margin: 0;
+}
+
+.Login__subheader {
+    font-size: 12px;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom:15px;
+}
+.Login > div {
+    padding-top:10vh;
+}
+
+.Login__separator {
+	border: none;
+	border-bottom:1px solid #ccc;
+}
+
+.Login__title {
+    text-align:center;
+    font-size:52px;
+    font-weight:300;
+        margin-bottom:0.15em;
+    margin-top:0;
+}
+
+.Login__form {
+    width:400px;
+    margin: 0 auto;
+    padding:30px;
+    background-color:white;
+    border:1px solid #ccc;
+    border-radius:5px;
+        -webkit-box-shadow: 0px 5px 17px 0px rgba(50, 50, 50, 0.75);
+-moz-box-shadow:    0px 5px 17px 0px rgba(50, 50, 50, 0.75);
+box-shadow:         0px 5px 17px 0px rgba(50, 50, 50, 0.75);
+
+}
+
+.Login__field {
+	font-size: 18px;
+    line-height: 22px;
+    padding: 6px;
+    width: 100%;
+    border: 1px solid #ccc;
+    font-weight: 100;
+}
+
+.Login__label {
+	width: 100%;
+	font-size: 18px;
+	line-height: 22px;
+	font-weight: 300;
+	margin-top:15px;
+	margin-bottom: 5px;
+	    display: inline-block;
+}
+
+.Login__checkbox {
+	display: inline-block;
+	width: 100%;
+	margin:15px 0;
+}
+
+.Login__submit {
+	display: block;
+	width: 100%;
+	padding: 20px;
+	text-align: center;
+	color:white;
+	background-color: #78C7FC;
+	border:none;
+	font-size:18px;
+	border-radius: 4px; 
+	cursor:pointer;
+	transition: all 0.1s ease-in-out;
+}
+
+.Login__field:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+
+}
+
+.Login__submit:hover {
+	background-color: darken( #78C7FC,10%);
+}
+
+@keyframes wiggle {
+    0% { transform: translateX( 15px); }
+   25% { transform: translateX(-15px);  }
+   50% { transform: translateX( 15px);  }
+   75% { transform: translateX( -15px);  }
+  100% { transform: translateX(  0px);  }
+}
+
+.Login--error {
+	animation: wiggle 0.5s;
+}

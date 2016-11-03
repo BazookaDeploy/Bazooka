@@ -173,8 +173,44 @@ body {
   cursor: pointer;
   transition: all 0.1s ease-in-out; }
 
-.Login__field.Login__field:-webkit-autofill {
+.Login__field:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px white inset !important; }
 
 .Login__submit:hover {
   background-color: #46b2fb; }
+
+@keyframes wiggle {
+  0% {
+    transform: translateX(15px); }
+  25% {
+    transform: translateX(-15px); }
+  50% {
+    transform: translateX(15px); }
+  75% {
+    transform: translateX(-15px); }
+  100% {
+    transform: translateX(0px); } }
+
+.Login--error {
+  animation: wiggle 0.5s; }
+
+.application {
+  height: 100vh;
+  width: 100vw;
+  overflow: auto; }
+
+.application__header {
+  height: 50px;
+  background-color: #0094ff;
+  width: 100%; }
+
+.application__header__logo {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+  padding: 5px 15px; }
+
+.application__body {
+  height: calc(100vh - 50px);
+  overflow: auto;
+  width: 100%; }

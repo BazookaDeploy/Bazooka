@@ -486,6 +486,8 @@
     <Content Include="Content\SourceSansPro-SemiboldIt.ttf" />
     <Content Include="Content\SourceSansPro-SemiboldIt.woff" />
     <Content Include="Content\SourceSansPro-SemiboldIt.woff2" />
+    <Content Include="Content\styles\Login.scss" />
+    <Content Include="Content\styles\Application.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />

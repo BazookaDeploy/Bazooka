@@ -12,22 +12,23 @@
 <body class="Login">
     <div>
         <h1 class="Login__title">Bazooka</h1>
-        <div class="Login__form">
+        <div class="Login__form @(!ViewData.ModelState.IsValid ? "Login--error" : "")">
 
 
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-wertical", role = "form" }))
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-vertical", role = "form" }))
             {
                 <h4 class="Login__header">Log in</h4>
                 <h6 class="Login__subheader">Don't have an account? @Html.ActionLink("Create an account", "Register")</h6>
                 <hr class="Login__separator"/>
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+
                 <div class="form-group">
                     <label class="Login__label">Username</label>
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "Login__field", placeholder="Username" })
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "Login__field"})
                 </div>
                         <div class="form-group">
                             <label class="Login__label">Password</label>
-                            @Html.PasswordFor(m => m.Password, new { @class = "Login__field", placeholder="Password" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "Login__field" })
                         </div>
                         <div class="form-group">
                                 <div class="checkbox">
