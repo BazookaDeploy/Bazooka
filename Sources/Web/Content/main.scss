@@ -158,5 +158,9 @@ body {
     font-family: 'Source Sans Pro';
 }
 
+$primaryDarkColor: #1976D2;
+$primaryBaseColor: #2196F3;
+$primaryLightColor:#BBDEFB;
+
 @import "styles/Login.scss";
 @import "styles/Application.scss";
