@@ -20,7 +20,7 @@ var App = React.createClass({
                      <Link className="application__header__link" activeClassName="active" to="/Deployments">Deployments</Link>
                      <Link className="application__header__link" activeClassName="active" to="/Statistics">Statistics</Link>
                 </div> 
-            </div>
+            </div> 
 
             <div className="application__body">
                {this.props.children}
