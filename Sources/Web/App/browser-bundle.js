@@ -62,9 +62,25 @@
 
 	var _Homepage2 = _interopRequireDefault(_Homepage);
 
+	var _ApplicationsPage = __webpack_require__(252);
+
+	var _ApplicationsPage2 = _interopRequireDefault(_ApplicationsPage);
+
+	var _ConfigurationPage = __webpack_require__(253);
+
+	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
+
+	var _DeploymentsPage = __webpack_require__(254);
+
+	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
+
+	var _StatisticsPage = __webpack_require__(255);
+
+	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
+
 	var _reactRedux = __webpack_require__(219);
 
-	var _Store = __webpack_require__(252);
+	var _Store = __webpack_require__(256);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -75,11 +91,15 @@
 	  { store: _Store2.default },
 	  _react2.default.createElement(
 	    _reactRouter.Router,
-	    { history: _reactRouter.browserHistory },
+	    { history: _reactRouter.hashHistory },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { path: '/', component: _App2.default },
-	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _Homepage2.default })
+	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _Homepage2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'Applications', component: _ApplicationsPage2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'Configurations', component: _ConfigurationPage2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'Deployments', component: _DeploymentsPage2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'Statistics', component: _StatisticsPage2.default })
 	    )
 	  )
 	);
@@ -25377,6 +25397,8 @@
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
+	var _reactRouter = __webpack_require__(163);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var App = _react2.default.createClass({
@@ -25397,6 +25419,35 @@
 	                    "div",
 	                    { className: "application__header__logo" },
 	                    "Bazooka"
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "application__header__links" },
+	                    _react2.default.createElement(
+	                        _reactRouter.IndexLink,
+	                        { className: "application__header__link", activeClassName: "active", to: "/" },
+	                        "Dashboard"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { className: "application__header__link", activeClassName: "active", to: "/Applications" },
+	                        "Applications"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { className: "application__header__link", activeClassName: "active", to: "/Configurations" },
+	                        "Configurations"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { className: "application__header__link", activeClassName: "active", to: "/Deployments" },
+	                        "Deployments"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { className: "application__header__link", activeClassName: "active", to: "/Statistics" },
+	                        "Statistics"
+	                    )
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -27773,6 +27824,142 @@
 
 /***/ },
 /* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ApplicationsPage = _react2.default.createClass({
+	    displayName: "ApplicationsPage",
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h1",
+	                null,
+	                "Applications"
+	            )
+	        );
+	    }
+	});
+
+	exports.default = ApplicationsPage;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ConfigurationPage = _react2.default.createClass({
+	    displayName: "ConfigurationPage",
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h1",
+	                null,
+	                "Configuration"
+	            )
+	        );
+	    }
+	});
+
+	exports.default = ConfigurationPage;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var DeploymentsPage = _react2.default.createClass({
+	    displayName: "DeploymentsPage",
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h1",
+	                null,
+	                "Deployments"
+	            )
+	        );
+	    }
+	});
+
+	exports.default = DeploymentsPage;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var StatisticsPage = _react2.default.createClass({
+	    displayName: "StatisticsPage",
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h1",
+	                null,
+	                "Statistics"
+	            )
+	        );
+	    }
+	});
+
+	exports.default = StatisticsPage;
+
+/***/ },
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

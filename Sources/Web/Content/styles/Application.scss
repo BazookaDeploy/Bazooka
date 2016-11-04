@@ -6,19 +6,46 @@
 
 .application__header{
     height:50px;
-    background-color:#0094ff;
+    background-color:$primaryDarkColor;
     width:100%;
+    box-shadow: 0 1px 4px rgba(0,0,0,.3);
 }
 
 .application__header__logo{
     font-size: 30px;
     font-weight: 600;
     color: white;
-    padding: 5px 15px;
+    padding: 6px 15px;
+    display:inline-block;
 }
 
 .application__body {
     height:calc(100vh - 50px);
     overflow:auto;
     width:100%;
+}
+
+.application__header__links {
+    display: inline-block;
+    height: 50px;
+    float: right;
+}
+
+.application__header__link {
+    padding: 13px 15px;
+    color: white;
+    display: inline-block;
+    font-size: 18px;
+    text-decoration: none;
+    animation: all 0.5s ease-in-out;
+    background-color: inherit;
+}
+
+.application__header__link.active {
+    background-color: darken($primaryDarkColor,10%);
+}
+
+
+.application__header__link:hover {
+    background-color: darken($primaryDarkColor,20%);
 }

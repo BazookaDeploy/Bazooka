@@ -80,7 +80,7 @@ box-shadow:         0px 5px 17px 0px rgba(50, 50, 50, 0.75);
 	padding: 20px;
 	text-align: center;
 	color:white;
-	background-color: #78C7FC;
+	background-color: $primaryBaseColor;
 	border:none;
 	font-size:18px;
 	border-radius: 4px; 
@@ -94,7 +94,7 @@ box-shadow:         0px 5px 17px 0px rgba(50, 50, 50, 0.75);
 }
 
 .Login__submit:hover {
-	background-color: darken( #78C7FC,10%);
+	background-color: darken( $primaryBaseColor,10%);
 }
 
 @keyframes wiggle {

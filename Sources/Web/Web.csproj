@@ -217,8 +217,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppOld\DeployUnits\" />
+    <Folder Include="App\Shared\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Content\fonts\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -390,9 +390,13 @@
     <Content Include="AppOld\Tasks\TasksPage.js" />
     <Content Include="App\Actions.js" />
     <Content Include="App\App.js" />
+    <Content Include="App\Applications\ApplicationsPage.js" />
+    <Content Include="App\Configuration\ConfigurationPage.js" />
+    <Content Include="App\Deployments\DeploymentsPage.js" />
     <Content Include="App\Homepage\Homepage.js" />
     <Content Include="App\index.js" />
     <Content Include="App\Requests.js" />
+    <Content Include="App\Statistics\StatisticsPage.js" />
     <Content Include="App\Store.js" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\main.css" />
@@ -438,54 +442,54 @@
     <Content Include="package.json" />
     <Content Include="Content\main.scss" />
     <Content Include="AppOld\Deployments\DeploymentsPage.js" />
-    <Content Include="Content\SourceSansPro-Black.eot" />
-    <Content Include="Content\SourceSansPro-Black.ttf" />
-    <Content Include="Content\SourceSansPro-Black.woff" />
-    <Content Include="Content\SourceSansPro-Black.woff2" />
-    <Content Include="Content\SourceSansPro-BlackIt.eot" />
-    <Content Include="Content\SourceSansPro-BlackIt.ttf" />
-    <Content Include="Content\SourceSansPro-BlackIt.woff" />
-    <Content Include="Content\SourceSansPro-BlackIt.woff2" />
-    <Content Include="Content\SourceSansPro-Bold.eot" />
-    <Content Include="Content\SourceSansPro-Bold.ttf" />
-    <Content Include="Content\SourceSansPro-Bold.woff" />
-    <Content Include="Content\SourceSansPro-Bold.woff2" />
-    <Content Include="Content\SourceSansPro-BoldIt.eot" />
-    <Content Include="Content\SourceSansPro-BoldIt.ttf" />
-    <Content Include="Content\SourceSansPro-BoldIt.woff" />
-    <Content Include="Content\SourceSansPro-BoldIt.woff2" />
-    <Content Include="Content\SourceSansPro-ExtraLight.eot" />
-    <Content Include="Content\SourceSansPro-ExtraLight.ttf" />
-    <Content Include="Content\SourceSansPro-ExtraLight.woff" />
-    <Content Include="Content\SourceSansPro-ExtraLight.woff2" />
-    <Content Include="Content\SourceSansPro-ExtraLightIt.eot" />
-    <Content Include="Content\SourceSansPro-ExtraLightIt.ttf" />
-    <Content Include="Content\SourceSansPro-ExtraLightIt.woff" />
-    <Content Include="Content\SourceSansPro-ExtraLightIt.woff2" />
-    <Content Include="Content\SourceSansPro-It.eot" />
-    <Content Include="Content\SourceSansPro-It.ttf" />
-    <Content Include="Content\SourceSansPro-It.woff" />
-    <Content Include="Content\SourceSansPro-It.woff2" />
-    <Content Include="Content\SourceSansPro-Light.eot" />
-    <Content Include="Content\SourceSansPro-Light.ttf" />
-    <Content Include="Content\SourceSansPro-Light.woff" />
-    <Content Include="Content\SourceSansPro-Light.woff2" />
-    <Content Include="Content\SourceSansPro-LightIt.eot" />
-    <Content Include="Content\SourceSansPro-LightIt.ttf" />
-    <Content Include="Content\SourceSansPro-LightIt.woff" />
-    <Content Include="Content\SourceSansPro-LightIt.woff2" />
-    <Content Include="Content\SourceSansPro-Regular.eot" />
-    <Content Include="Content\SourceSansPro-Regular.ttf" />
-    <Content Include="Content\SourceSansPro-Regular.woff" />
-    <Content Include="Content\SourceSansPro-Regular.woff2" />
-    <Content Include="Content\SourceSansPro-Semibold.eot" />
-    <Content Include="Content\SourceSansPro-Semibold.ttf" />
-    <Content Include="Content\SourceSansPro-Semibold.woff" />
-    <Content Include="Content\SourceSansPro-Semibold.woff2" />
-    <Content Include="Content\SourceSansPro-SemiboldIt.eot" />
-    <Content Include="Content\SourceSansPro-SemiboldIt.ttf" />
-    <Content Include="Content\SourceSansPro-SemiboldIt.woff" />
-    <Content Include="Content\SourceSansPro-SemiboldIt.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-Black.eot" />
+    <Content Include="Content\fonts\SourceSansPro-Black.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-Black.woff" />
+    <Content Include="Content\fonts\SourceSansPro-Black.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-BlackIt.eot" />
+    <Content Include="Content\fonts\SourceSansPro-BlackIt.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-BlackIt.woff" />
+    <Content Include="Content\fonts\SourceSansPro-BlackIt.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-Bold.eot" />
+    <Content Include="Content\fonts\SourceSansPro-Bold.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-Bold.woff" />
+    <Content Include="Content\fonts\SourceSansPro-Bold.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-BoldIt.eot" />
+    <Content Include="Content\fonts\SourceSansPro-BoldIt.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-BoldIt.woff" />
+    <Content Include="Content\fonts\SourceSansPro-BoldIt.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-ExtraLight.eot" />
+    <Content Include="Content\fonts\SourceSansPro-ExtraLight.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-ExtraLight.woff" />
+    <Content Include="Content\fonts\SourceSansPro-ExtraLight.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-ExtraLightIt.eot" />
+    <Content Include="Content\fonts\SourceSansPro-ExtraLightIt.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-ExtraLightIt.woff" />
+    <Content Include="Content\fonts\SourceSansPro-ExtraLightIt.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-It.eot" />
+    <Content Include="Content\fonts\SourceSansPro-It.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-It.woff" />
+    <Content Include="Content\fonts\SourceSansPro-It.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-Light.eot" />
+    <Content Include="Content\fonts\SourceSansPro-Light.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-Light.woff" />
+    <Content Include="Content\fonts\SourceSansPro-Light.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-LightIt.eot" />
+    <Content Include="Content\fonts\SourceSansPro-LightIt.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-LightIt.woff" />
+    <Content Include="Content\fonts\SourceSansPro-LightIt.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-Regular.eot" />
+    <Content Include="Content\fonts\SourceSansPro-Regular.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-Regular.woff" />
+    <Content Include="Content\fonts\SourceSansPro-Regular.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-Semibold.eot" />
+    <Content Include="Content\fonts\SourceSansPro-Semibold.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-Semibold.woff" />
+    <Content Include="Content\fonts\SourceSansPro-Semibold.woff2" />
+    <Content Include="Content\fonts\SourceSansPro-SemiboldIt.eot" />
+    <Content Include="Content\fonts\SourceSansPro-SemiboldIt.ttf" />
+    <Content Include="Content\fonts\SourceSansPro-SemiboldIt.woff" />
+    <Content Include="Content\fonts\SourceSansPro-SemiboldIt.woff2" />
     <Content Include="Content\styles\Login.scss" />
     <Content Include="Content\styles\Application.scss" />
     <None Include="Project_Readme.html" />
@@ -515,7 +519,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>26443</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:26443/</IISUrl>
+          <IISUrl>http://localhost:26444/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
