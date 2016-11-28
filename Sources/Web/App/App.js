@@ -7,6 +7,10 @@ import { Link, IndexLink } from 'react-router';
 var App = React.createClass({
     componentDidMount: function(){
         this.props.loadApplications();
+        this.props.loadUsers();
+        this.props.loadGroups();
+        this.props.loadEnviroments();
+
     },
 
     render:function(){
@@ -40,6 +44,24 @@ var mapDispatchToProps = function(dispatch){
         loadApplications:function(){
             Requests.updateApplications().then(x => {
                 dispatch({type: Actions.AddApplications, applications: x});
+            });
+        },
+
+        loadUsers:function(){
+            Requests.updateUsers().then(x => {
+                dispatch({type: Actions.AddUsers, users: x});
+            });
+        },
+
+        loadGroups:function(){
+            Requests.updateGroups().then(x => {
+                dispatch({type: Actions.AddGroups, groups: x});
+            });
+        },
+
+        loadEnviroments:function(){
+            Requests.updateEnviroments().then(x => {
+                dispatch({type: Actions.AddEnviroments, enviroments: x});
             });
         }
     };

@@ -10,11 +10,14 @@ var reducer = function(state= {}, action){
             return Object.assign({},state, {users:action.users})
         case Actions.AddGroups:
             return Object.assign({},state, {groups:action.groups})
+        case Actions.AddEnviroments:
+            return Object.assign({},state, {enviroments:action.enviroments})
+
         default:
             return state;
     }
 }
 
-var store = createStore(reducer);
+var store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export default store;

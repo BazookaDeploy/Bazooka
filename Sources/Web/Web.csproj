@@ -217,7 +217,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppOld\DeployUnits\" />
-    <Folder Include="App\Shared\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -392,10 +391,15 @@
     <Content Include="App\App.js" />
     <Content Include="App\Applications\ApplicationsPage.js" />
     <Content Include="App\Configuration\ConfigurationPage.js" />
+    <Content Include="App\Deployments\Actions.js" />
     <Content Include="App\Deployments\DeploymentsPage.js" />
     <Content Include="App\Homepage\Homepage.js" />
     <Content Include="App\index.js" />
     <Content Include="App\Requests.js" />
+    <Content Include="App\Shared\Grid\index.js" />
+    <Content Include="App\Shared\Header\index.js" />
+    <Content Include="App\Shared\Select\index.js" />
+    <Content Include="App\Shared\Table\index.js" />
     <Content Include="App\Statistics\StatisticsPage.js" />
     <Content Include="App\Store.js" />
     <Content Include="App_Readme\Elmah.txt" />
@@ -492,6 +496,10 @@
     <Content Include="Content\fonts\SourceSansPro-SemiboldIt.woff2" />
     <Content Include="Content\styles\Login.scss" />
     <Content Include="Content\styles\Application.scss" />
+    <Content Include="App\Shared\Grid\Grid.scss" />
+    <Content Include="App\Shared\Table\Table.scss" />
+    <Content Include="App\Shared\Select\select.scss" />
+    <Content Include="App\Shared\Header\Header.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
