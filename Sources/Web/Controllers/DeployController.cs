@@ -105,7 +105,7 @@ namespace Web.Controllers
             };
         }
 
-        [HttpGet]
+        [HttpPost]
         public void Schedule(int enviromentId, int applicationId, string version, DateTime start, ICollection<DeploymentTasksDto> tasks)
         {
             using (var session = WebApiApplication.Store.OpenSession())
