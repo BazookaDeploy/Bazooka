@@ -4,26 +4,59 @@ import Select from "../Shared/Select";
 import Grid from "../Shared/Grid";
 import Table from "../Shared/Table";
 import Actions from "./Actions";
+import ListIcon from "../Shared/Icon/ListIcon";
+import PlayIcon from "../Shared/Icon/PlayIcon";
+import CircleOkIcon from "../Shared/Icon/CircleOkIcon";
+import CircleRemoveIcon from "../Shared/Icon/CircleRemoveIcon";
+import WatchIcon from "../Shared/Icon/WatchIcon";
+import EraseIcon from "../Shared/Icon/EraseIcon";
+import {withRouter} from "react-router";
+
+function prettyDate(time) {
+    var date = new Date((time || "").replace(/-/g, "/").replace(/[TZ]/g, " ")),
+        diff = (((new Date()).getTime() - date.getTime()) / 1000),
+        day_diff = Math.floor(diff / 86400);
+
+    if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) return;
+
+    return day_diff == 0 && (
+    diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago";
+}
 
 var Deployment = React.createClass({
-    navigate:function(){
-      this.transitionTo("deployment",{Id:this.props.Deployment.Id});
+    navigate: function () {
+        this.props.router.push("/Deployments/" + this.props.item.Id );
     },
 
-    getStatus(){
-        return <span>{this.props.item.Status}</span>
+    getStatus() {
+
+        if (this.props.item.Status == 0) {
+            return <ListIcon />
+        } else if (this.props.item.Status == 1) {
+                return <PlayIcon style={{ fill: "#15CAFF" }} />
+        } else if (this.props.item.Status == 2) {
+            return <CircleOkIcon style={{ fill: "#17EF43" }} />
+        } else if (this.props.item.Status == 3) {
+                return <CircleRemoveIcon style={{ fill: "#FF3B3B" }} />
+        } else if (this.props.item.Status == 3) {
+            return <WatchIcon />
+        } else {
+            return <EraseIcon />
+        }
     },
 
-    render(){
+    render() {
         return <tr onClick={this.navigate}>
-            <td>{this.getStatus()}</td>
+            <td>{this.getStatus() }</td>
             <td>{this.props.item.Name} - {this.props.item.Configuration}</td>
             <td>{this.props.item.Version}</td>
             <td>{this.props.item.UserName}</td>
-            <td>{this.props.item.StartDate}</td>
+            <td>{prettyDate(this.props.item.StartDate)}</td>
         </tr>
     }
 });
+
+Deployment = withRouter(Deployment);
 
 var DeploymentsPage = React.createClass({
     getInitialState: function () {
@@ -71,7 +104,7 @@ var DeploymentsPage = React.createClass({
                                 </tr>
                             </Table.Head>
                             <Table.Body>
-                                {this.state.deployments.map(x => <Deployment item={x} />)}
+                                {this.state.deployments.map(x => <Deployment item={x} />) }
                             </Table.Body>
                         </Table>
                     </Grid.Col>

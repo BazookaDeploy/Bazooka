@@ -220,6 +220,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Deployments\DeploymentPage.js" />
+    <Content Include="App\Shared\Icon\CircleRemoveIcon.js" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -398,6 +400,12 @@
     <Content Include="App\Requests.js" />
     <Content Include="App\Shared\Grid\index.js" />
     <Content Include="App\Shared\Header\index.js" />
+    <Content Include="App\Shared\Icon\CircleOkIcon.js" />
+    <Content Include="App\Shared\Icon\EraseIcon.js" />
+    <Content Include="App\Shared\Icon\Icon.js" />
+    <Content Include="App\Shared\Icon\ListIcon.js" />
+    <Content Include="App\Shared\Icon\PlayIcon.js" />
+    <Content Include="App\Shared\Icon\WatchIcon.js" />
     <Content Include="App\Shared\Select\index.js" />
     <Content Include="App\Shared\Table\index.js" />
     <Content Include="App\Statistics\StatisticsPage.js" />
@@ -500,6 +508,7 @@
     <Content Include="App\Shared\Table\Table.scss" />
     <Content Include="App\Shared\Select\select.scss" />
     <Content Include="App\Shared\Header\Header.scss" />
+    <Content Include="App\Shared\Icon\Icon.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
@@ -527,7 +536,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>26443</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:26444/</IISUrl>
+          <IISUrl>http://localhost:26445/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
