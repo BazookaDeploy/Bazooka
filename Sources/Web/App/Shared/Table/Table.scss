@@ -1,1 +1,25 @@
-﻿
+﻿.table {
+    width:100%;
+    margin-top:10px;
+    border-collapse:collapse;
+}
+
+.table__head tr {
+    border:none;
+}
+
+.table__head td{
+    padding: .75rem;
+    font-weight: bold; 
+    border-bottom:2px solid #eceeef;
+}
+
+.table__body td {
+    padding: .75rem;
+    border-bottom:1px solid #eceeef;   
+}
+
+.table--hover .table__body tr:hover {
+    cursor:pointer;
+    background-color: lighten(#eceeef, 5%);
+}

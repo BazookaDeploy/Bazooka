@@ -2,18 +2,26 @@
 import classname from "classnames";
 
 var Head = React.createClass({
-    return <thead classname="table__head">{this.props.children}</thead>
+    render() {
+        return <thead className="table__head">{this.props.children}</thead>
+    }
 });
 
 var Body = React.createClass({
-    return <tbody classname="table__body">{this.props.children}</tbody>
+    render() {
+        return <tbody className="table__body">{this.props.children}</tbody>
+    }
 });
 
 var Table = React.createClass({
-    return <table classname="table">{this.props.children}</table>
+    render() {
+        var classes = classname("table",{"table--hover": this.props.hover});
+
+        return <table className={classes}>{this.props.children}</table>
+    }
 });
 
 Table.Head = Head;
-Table.Body = body;
+Table.Body = Body;
 
 export default Table;

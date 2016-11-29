@@ -1,11 +1,10 @@
 ﻿import React from "react";
-import classname from "classnames";
 
 var Header = React.createClass({
     render(){
-        return <div classname="header">
+        return <div className="header">
             {this.props.children}
-            <div classname="header__actions">{this.props.actions}</div>
+            <div className="header__actions">{this.props.actions}</div>
         </div>;
     }
 });

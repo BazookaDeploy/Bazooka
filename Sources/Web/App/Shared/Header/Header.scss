@@ -1,7 +1,14 @@
 ﻿.header {
-
+    height:60px;
+    width: 100%;
+    display:block;
+    background-color:#f4f4f4;
+    border-bottom:1px solid #d7d7d7;
+    padding:15px;
+    line-height:30px;
 }
 
 .header__actions {
-
+    display:block;
+    float:right;
 }
