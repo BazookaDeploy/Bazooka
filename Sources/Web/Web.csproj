@@ -221,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Deployments\DeploymentPage.js" />
+    <Content Include="App\Shared\Button\index.js" />
     <Content Include="App\Shared\Icon\CircleRemoveIcon.js" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -509,6 +510,7 @@
     <Content Include="App\Shared\Select\select.scss" />
     <Content Include="App\Shared\Header\Header.scss" />
     <Content Include="App\Shared\Icon\Icon.scss" />
+    <Content Include="App\Shared\Button\Button.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
