@@ -1,0 +1,22 @@
+﻿.panel {
+    margin: 5px auto;
+        border-radius:2px;
+}
+
+.panel__title {
+    padding: 10px;
+    cursor:pointer;
+}
+
+
+.panel--success .panel__title {
+    background-color:rgba(122,179,23,0.5);
+}
+
+.panel--error .panel__title {
+    background-color:rgba(237,71,71,0.5);
+}
+
+.panel__content {
+        padding: 0 15px 15px 15px;
+}

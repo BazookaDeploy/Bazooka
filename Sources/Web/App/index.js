@@ -18,8 +18,10 @@ var route = <Provider store={store} >
       <IndexRoute component={Homepage}/>
       <Route path="Applications" component={ApplicationsPage} />
       <Route path="Configurations" component={ConfigurationPage} />
-      <Route path="Deployments" component={DeploymentsPage} />
-      <Route path="Deployments/:id" component={DeploymentPage} />
+      <Route path="Deployments">
+        <IndexRoute component={DeploymentsPage}/>
+        <Route path=":id" component={DeploymentPage} />
+      </Route>     
       <Route path="Statistics" component={StatisticsPage} />
     </Route>
   </Router>

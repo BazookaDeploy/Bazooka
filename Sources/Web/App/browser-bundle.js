@@ -78,13 +78,13 @@
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _StatisticsPage = __webpack_require__(269);
+	var _StatisticsPage = __webpack_require__(270);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(219);
 
-	var _Store = __webpack_require__(270);
+	var _Store = __webpack_require__(271);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -102,8 +102,12 @@
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _Homepage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'Applications', component: _ApplicationsPage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'Configurations', component: _ConfigurationPage2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'Deployments', component: _DeploymentsPage2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'Deployments/:id', component: _DeploymentPage2.default }),
+	      _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: 'Deployments' },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _DeploymentsPage2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _DeploymentPage2.default })
+	      ),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'Statistics', component: _StatisticsPage2.default })
 	    )
 	  )
@@ -28791,9 +28795,13 @@
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Button = __webpack_require__(271);
+	var _Button = __webpack_require__(269);
 
 	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Panel = __webpack_require__(272);
+
+	var _Panel2 = _interopRequireDefault(_Panel);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28871,12 +28879,12 @@
 	            null,
 	            _react2.default.createElement(
 	                "dt",
-	                { style: { width: "80px" } },
-	                SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? _react2.default.createElement("span", null) : _react2.default.createElement(FormattedTime, { value: this.props.TimeStamp })
+	                { className: SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? "log__logTime log__logTime--empty" : "log__logTime" },
+	                SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? null : _react2.default.createElement(FormattedTime, { value: this.props.TimeStamp })
 	            ),
 	            _react2.default.createElement(
 	                "dd",
-	                { style: { marginLeft: "100px" } },
+	                { className: SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? "log__logData" : "log__logData log__logData--first" },
 	                _react2.default.createElement("span", { className: this.props.Error ? "text-danger" : "",
 	                    dangerouslySetInnerHTML: { __html: (this.props.Text || "").replace(/(?:\r\n|\r|\n)/g, '<br />') } })
 	            )
@@ -28901,10 +28909,12 @@
 	        } else {
 
 	            return _react2.default.createElement(
-	                "div",
-	                { bsStyle: this.props.Logs.some(function (z) {
+	                _Panel2.default,
+	                { danger: this.props.Logs.some(function (z) {
 	                        return z.Error;
-	                    }) ? "danger" : "success", header: this.props.TaskName || "Logs", expanded: this.state.open, onClick: function onClick() {
+	                    }), success: !this.props.Logs.some(function (z) {
+	                        return z.Error;
+	                    }), title: this.props.TaskName || "Logs", open: this.state.open, onClick: function onClick() {
 	                        return _this.setState({ open: !_this.state.open });
 	                    } },
 	                this.props.Logs.map(function (x, index) {
@@ -29044,6 +29054,7 @@
 	                            ) : _react2.default.createElement("span", null)
 	                        ),
 	                        _react2.default.createElement("br", null),
+	                        _react2.default.createElement("br", null),
 	                        _react2.default.createElement(
 	                            "h4",
 	                            null,
@@ -29051,7 +29062,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            "dl",
-	                            { className: "dl-horizontal" },
+	                            { className: "logs" },
 	                            logs
 	                        )
 	                    )
@@ -29065,6 +29076,42 @@
 
 /***/ },
 /* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(257);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Button = _react2.default.createClass({
+	    displayName: "Button",
+	    render: function render() {
+	        var classes = (0, _classnames2.default)("button", this.props.className);
+	        return _react2.default.createElement(
+	            "button",
+	            _extends({}, this.props, { className: classes }),
+	            this.props.children
+	        );
+	    }
+	});
+
+	exports.default = Button;
+
+/***/ },
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29098,7 +29145,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29139,7 +29186,7 @@
 	exports.default = store;
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29147,8 +29194,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _react = __webpack_require__(1);
 
@@ -29160,19 +29205,29 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Button = _react2.default.createClass({
-	    displayName: "Button",
+	var Panel = _react2.default.createClass({
+	    displayName: "Panel",
 	    render: function render() {
-	        var classes = (0, _classnames2.default)("button", this.props.className);
+	        var classes = (0, _classnames2.default)("panel", { "panel--danger": this.props.danger, "panel--success": this.props.success });
+
 	        return _react2.default.createElement(
-	            "button",
-	            _extends({}, this.props, { className: classes }),
-	            this.props.children
+	            "div",
+	            { className: classes },
+	            this.props.title && _react2.default.createElement(
+	                "div",
+	                { className: "panel__title", onClick: this.props.onClick },
+	                this.props.title
+	            ),
+	            this.props.open && _react2.default.createElement(
+	                "div",
+	                { className: "panel__content" },
+	                this.props.children
+	            )
 	        );
 	    }
 	});
 
-	exports.default = Button;
+	exports.default = Panel;
 
 /***/ }
 /******/ ]);

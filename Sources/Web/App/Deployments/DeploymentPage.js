@@ -3,6 +3,7 @@ import Header from "../Shared/Header";
 import Grid from "../Shared/Grid";
 import Actions from "./Actions";
 import Button from "../Shared/Button";
+import Panel from "../Shared/Panel/Panel";
 
 var groupBy = function (array) {
     var a = [];
@@ -58,8 +59,8 @@ var LogLine = React.createClass({
     render: function () {
         return (
             <span>
-                <dt style={{ width: "80px" }}>{SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? <span /> : <FormattedTime  value={this.props.TimeStamp} />}</dt>
-                <dd style={{ marginLeft: "100px" }}>
+                <dt className={SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? "log__logTime log__logTime--empty" : "log__logTime"}>{SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? null : <FormattedTime  value={this.props.TimeStamp} />}</dt>
+                <dd className={SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? "log__logData" : "log__logData log__logData--first"}>
                     <span className={this.props.Error ? "text-danger" : ""}
                         dangerouslySetInnerHTML={{ __html: (this.props.Text || "").replace(/(?:\r\n|\r|\n)/g, '<br />') }}>
                     </span>
@@ -80,9 +81,9 @@ var Container = React.createClass({
             return (<LogLine Error={this.props.Logs[0].Error} Text={this.props.Logs[0].Text} TimeStamp={this.props.Logs[0].TimeStamp} PrevTimeStamp={null} />);
         } else {
 
-            return (<div  bsStyle={this.props.Logs.some(z => z.Error) ? "danger" : "success"} header={this.props.TaskName || "Logs"} expanded={this.state.open} onClick={ () => this.setState({ open: !this.state.open }) }>
+            return (<Panel  danger={this.props.Logs.some(z => z.Error)} success={!this.props.Logs.some(z => z.Error)} title={this.props.TaskName || "Logs"} open={this.state.open} onClick={ () => this.setState({ open: !this.state.open }) }>
                 {this.props.Logs.map((x, index) => (<LogLine Error={x.Error} Text={x.Text} TimeStamp={x.TimeStamp} PrevTimeStamp={index > 0 ? this.props.Logs[index - 1].TimeStamp : null} />)) }
-            </div>
+            </Panel>
             );
         }
     }
@@ -166,8 +167,9 @@ var DeploymentPage = React.createClass({
 
                         </span>
                         <br />
+                        <br />
                         <h4>Logs: </h4>
-                        <dl className="dl-horizontal">
+                        <dl className="logs">
                             {logs}
                         </dl>
 
