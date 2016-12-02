@@ -412,6 +412,7 @@
     <Content Include="App\Shared\Table\index.js" />
     <Content Include="App\Shared\Utils\FormattedDate.js" />
     <Content Include="App\Shared\Utils\FormattedTime.js" />
+    <Content Include="App\Statistics\Actions.js" />
     <Content Include="App\Statistics\StatisticsPage.js" />
     <Content Include="App\Store.js" />
     <Content Include="App_Readme\Elmah.txt" />

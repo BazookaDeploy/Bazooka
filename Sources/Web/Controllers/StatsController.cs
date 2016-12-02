@@ -24,17 +24,16 @@
 
             var deploys = db.Query<DeploymentDto>()
                             .Where(x => x.StartDate > startDate)
-                            .GroupBy(x => x.Configuration)
+                            .GroupBy(x => new { x.Name, x.Configuration, x.EnviromentId} )
+                            .Select(x => new { x.Key.Name, x.Key.Configuration, x.Key.EnviromentId, Count = x.Count()})
+                            .GroupBy(x => x.Name)
                             .Select(x => new
                             {
                                 app = x.Key,
-                                envs = apps.Select(z => new
-                                {
-                                    env = z,
-                                    count = x.Count(y => y.Name == z)
-                                }).OrderBy(z => z.env).ToList()
+                                envs = x.Select(z => new { z.Configuration, z.EnviromentId, z.Count}).OrderBy(y => y.EnviromentId),
+                                total = x.Select(z => z.Count).Sum()
                             })
-                            .OrderBy(x => x.app)
+                            .OrderByDescending(x => x.total)
                             .ToList();
 
             var users = db.Query<DeploymentDto>()
@@ -44,22 +43,8 @@
                           .OrderByDescending(x => x.Count)
                           .ToList();
 
-            var total = users.Sum(x => x.Count);
-            var current = 0;
 
-            var users2 = users.TakeWhile(x => { current += x.Count; return ((0.9M * total) > current); }).ToList();
-
-            if (current != total)
-            {
-                users2.Add(new { UserName = "Other", Count = total - current });
-            }
-
-            if (users.Count <= 10)
-            {
-                users2 = users;
-            }
-
-            return new { Deploys = deploys, Users = users2 };
+            return new { Deploys = deploys, Users = users };
         }
     }
 }

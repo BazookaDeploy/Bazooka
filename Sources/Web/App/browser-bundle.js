@@ -29186,18 +29186,93 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Header = __webpack_require__(255);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Select = __webpack_require__(256);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Grid = __webpack_require__(258);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Table = __webpack_require__(259);
+
+	var _Table2 = _interopRequireDefault(_Table);
+
+	var _Actions = __webpack_require__(275);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var StatisticsPage = _react2.default.createClass({
 	    displayName: "StatisticsPage",
 
+	    getInitialState: function getInitialState() {
+	        return {
+	            deploys: [],
+	            users: [],
+	            currentFilter: "Today"
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.update();
+	    },
+
+	    update: function update() {
+	        var _this = this;
+
+	        _Actions2.default.getStatistics(this.state.currentFilter).then(function (x) {
+	            _this.setState({
+	                deploys: x.Deploys,
+	                users: x.Users
+	            });
+	        });
+	    },
+
 	    render: function render() {
+	        var _this2 = this;
+
 	        return _react2.default.createElement(
 	            "div",
 	            null,
 	            _react2.default.createElement(
-	                "h1",
-	                null,
+	                _Header2.default,
+	                { actions: _react2.default.createElement(
+	                        _Select2.default,
+	                        { onChange: function onChange(e) {
+	                                return _this2.setState({ currentFilter: e.target.value }, _this2.update);
+	                            } },
+	                        _react2.default.createElement(
+	                            _Select2.default.Option,
+	                            null,
+	                            "Today"
+	                        ),
+	                        _react2.default.createElement(
+	                            _Select2.default.Option,
+	                            null,
+	                            "Yesterday"
+	                        ),
+	                        _react2.default.createElement(
+	                            _Select2.default.Option,
+	                            null,
+	                            "Last week"
+	                        ),
+	                        _react2.default.createElement(
+	                            _Select2.default.Option,
+	                            null,
+	                            "Last month"
+	                        ),
+	                        _react2.default.createElement(
+	                            _Select2.default.Option,
+	                            null,
+	                            "Ever"
+	                        )
+	                    ) },
 	                "Statistics"
 	            )
 	        );
@@ -29312,6 +29387,48 @@
 	});
 
 	exports.default = FormattedTime;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(248);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	    getStatistics: function getStatistics(filter) {
+	        var date = new Date();
+	        date.setHours(0, 0, 0, 0);
+
+	        if (filter === "Yesterday") {
+	            date.setDate(date.getDate() - 1);
+	        }
+
+	        if (filter === "Last week") {
+	            date.setDate(date.getDate() - 7);
+	        }
+
+	        if (filter === "Last month") {
+	            date.setDate(date.getDate() - 30);
+	        }
+
+	        if (filter === "Ever") {
+	            date.setDate(date.getDate() - 30000);
+	        }
+
+	        return (0, _reqwest2.default)({
+	            url: "/api/stats/statistics?startDate=" + date.toISOString(),
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "get"
+	        });
+	    }
+	};
 
 /***/ }
 /******/ ]);
