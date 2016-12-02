@@ -144,7 +144,7 @@ var DeploymentPage = React.createClass({
             );
 
         return <div>
-            <Header actions={<div><Button onClick={this.reload}>{this.state.refreshing ? "Reloading ..." : "Reload"}</Button>{this.state.deployments.Status != 4 && <Button onClick={this.cancelDeployment}>Cancel deployment</Button>}</div>  }>
+            <Header actions={<div><Button onClick={this.reload}>{this.state.refreshing ? "Reloading ..." : "Reload"}</Button>{this.state.deployments.Status == 4 && <Button onClick={this.cancelDeployment}>Cancel deployment</Button>}</div>  }>
                 Deployment
             </Header>
 

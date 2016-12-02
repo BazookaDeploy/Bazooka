@@ -29003,7 +29003,7 @@
 	                            { onClick: this.reload },
 	                            this.state.refreshing ? "Reloading ..." : "Reload"
 	                        ),
-	                        this.state.deployments.Status != 4 && _react2.default.createElement(
+	                        this.state.deployments.Status == 4 && _react2.default.createElement(
 	                            _Button2.default,
 	                            { onClick: this.cancelDeployment },
 	                            "Cancel deployment"
@@ -29198,15 +29198,37 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Table = __webpack_require__(259);
+	var _Tabs = __webpack_require__(276);
 
-	var _Table2 = _interopRequireDefault(_Table);
+	var _Tabs2 = _interopRequireDefault(_Tabs);
 
 	var _Actions = __webpack_require__(275);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ApplicationStatistics = _react2.default.createClass({
+	    displayName: "ApplicationStatistics",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "h2",
+	            null,
+	            "Application stats "
+	        );
+	    }
+	});
+
+	var UserStatistics = _react2.default.createClass({
+	    displayName: "UserStatistics",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "h2",
+	            null,
+	            "User stats "
+	        );
+	    }
+	});
 
 	var StatisticsPage = _react2.default.createClass({
 	    displayName: "StatisticsPage",
@@ -29274,6 +29296,32 @@
 	                        )
 	                    ) },
 	                "Statistics"
+	            ),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: "12" },
+	                        _react2.default.createElement(
+	                            _Tabs2.default,
+	                            null,
+	                            _react2.default.createElement(
+	                                _Tabs2.default.Tab,
+	                                { title: "Applications" },
+	                                _react2.default.createElement(ApplicationStatistics, { apps: this.state.deploys })
+	                            ),
+	                            _react2.default.createElement(
+	                                _Tabs2.default.Tab,
+	                                { title: "Users" },
+	                                _react2.default.createElement(UserStatistics, { users: this.state.users })
+	                            )
+	                        )
+	                    )
+	                )
 	            )
 	        );
 	    }
@@ -29429,6 +29477,77 @@
 	        });
 	    }
 	};
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Tab = _react2.default.createClass({
+	    displayName: "Tab",
+
+	    propTypes: {
+	        title: _react2.default.PropTypes.string.isRequired
+	    },
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "tabs__tab" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Tabs = _react2.default.createClass({
+	    displayName: "Tabs",
+	    getInitialState: function getInitialState() {
+	        return { index: 0 };
+	    },
+	    seleziona: function seleziona(indice) {
+	        this.setState({ index: indice });
+	    },
+	    render: function render() {
+	        var _this = this;
+
+	        var tabTexts = this.props.children.map(function (x) {
+	            return x.props.title;
+	        });
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "tabs" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "tabs__indexes" },
+	                tabTexts.map(function (x, i) {
+	                    return _react2.default.createElement(
+	                        "div",
+	                        { className: i == _this.state.index ? "tabs__index tabs__index--selected" : "tabs__index", onClick: function onClick() {
+	                                return _this.seleziona(i);
+	                            }, key: i },
+	                        x
+	                    );
+	                })
+	            ),
+	            _react2.default.Children.toArray(this.props.children)[this.state.index]
+	        );
+	    }
+	});
+
+	Tabs.Tab = Tab;
+	exports.default = Tabs;
 
 /***/ }
 /******/ ]);

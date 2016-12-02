@@ -2,8 +2,22 @@
 import Header from "../Shared/Header";
 import Select from "../Shared/Select";
 import Grid from "../Shared/Grid";
-import Table from "../Shared/Table";
+import Tabs from "../Shared/Tabs";
 import Actions from "./Actions";
+
+
+var ApplicationStatistics = React.createClass({
+    render(){
+        return <h2>Application stats </h2>;
+    }
+});
+
+
+var UserStatistics = React.createClass({
+    render(){
+        return <h2>User stats </h2>;
+    }
+});
 
 var StatisticsPage = React.createClass({
     getInitialState: function () {
@@ -40,6 +54,25 @@ var StatisticsPage = React.createClass({
 
                 Statistics
             </Header>
+
+            <Grid fluid>
+                <Grid.Row>
+                    <Grid.Col md="12">
+                        <Tabs>
+                            <Tabs.Tab title="Applications">
+                                <ApplicationStatistics apps={this.state.deploys} />
+                            </Tabs.Tab>
+
+                            <Tabs.Tab title="Users">
+                                <UserStatistics users={this.state.users} />
+                            </Tabs.Tab>
+                        </Tabs>
+                    </Grid.Col>
+                </Grid.Row>
+
+            </Grid>
+
+
         </div>);
     }
 });

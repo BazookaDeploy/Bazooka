@@ -410,6 +410,7 @@
     <Content Include="App\Shared\Panel\Panel.js" />
     <Content Include="App\Shared\Select\index.js" />
     <Content Include="App\Shared\Table\index.js" />
+    <Content Include="App\Shared\Tabs\index.js" />
     <Content Include="App\Shared\Utils\FormattedDate.js" />
     <Content Include="App\Shared\Utils\FormattedTime.js" />
     <Content Include="App\Statistics\Actions.js" />
@@ -516,6 +517,7 @@
     <Content Include="App\Shared\Icon\Icon.scss" />
     <Content Include="App\Shared\Button\Button.scss" />
     <Content Include="App\Shared\Panel\Panel.scss" />
+    <Content Include="App\Shared\Tabs\Tabs.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />

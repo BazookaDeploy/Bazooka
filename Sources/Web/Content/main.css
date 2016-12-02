@@ -1458,6 +1458,20 @@ body {
 .panel__content {
   padding: 0 15px 15px 15px; }
 
+.tabs__index {
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: color ease-in 0.2s;
+  font-size: 16px; }
+
+.tabs__index--selected {
+  color: #64B5F6;
+  border-bottom: 2px solid #64B5F6; }
+
+.tabs__tab {
+  padding: 10px; }
+
 .log__logTime {
   width: 80px;
   border-top: 1px solid #ccc;

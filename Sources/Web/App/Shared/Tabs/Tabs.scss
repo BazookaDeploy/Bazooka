@@ -1,0 +1,20 @@
+﻿.tabs {
+
+}
+
+.tabs__index {
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: color ease-in 0.2s;
+    font-size: 16px;
+}
+
+.tabs__index--selected {
+    color:$primaryBaseColor;
+    border-bottom: 2px solid $primaryBaseColor;
+}
+
+.tabs__tab {
+    padding:10px;
+}
