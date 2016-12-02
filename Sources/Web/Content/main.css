@@ -1404,6 +1404,9 @@ body {
   cursor: pointer;
   background-color: #fafafb; }
 
+.table__cell--small {
+  width: 1%; }
+
 .select__input {
   padding: 4px 10px;
   height: 30px; }
@@ -1488,3 +1491,17 @@ body {
 
 .log__logData--first {
   margin-top: -20px; }
+
+.text--align--right {
+  text-align: right; }
+
+.deploys {
+  display: inline-block;
+  padding: 3px 0;
+  text-align: center; }
+
+.statsLegend {
+  margin: 0 5px;
+  font-weight: normal;
+  display: inline-block;
+  padding: 2px 5px; }
