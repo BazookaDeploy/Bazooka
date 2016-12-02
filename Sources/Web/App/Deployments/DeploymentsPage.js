@@ -11,11 +11,16 @@ import CircleRemoveIcon from "../Shared/Icon/CircleRemoveIcon";
 import WatchIcon from "../Shared/Icon/WatchIcon";
 import EraseIcon from "../Shared/Icon/EraseIcon";
 import {withRouter} from "react-router";
+import FormattedDate from "../Shared/Utils/FormattedDate";
+import FormattedTime from "../Shared/Utils/FormattedTime";
 
 function prettyDate(time) {
     var date = new Date((time || "").replace(/-/g, "/").replace(/[TZ]/g, " ")),
         diff = (((new Date()).getTime() - date.getTime()) / 1000),
         day_diff = Math.floor(diff / 86400);
+
+    if (!isNaN(day_diff) && day_diff < 0) 
+        return <span><FormattedTime value={date} /> - <FormattedDate value={date} /> </span>;
 
     if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) return;
 

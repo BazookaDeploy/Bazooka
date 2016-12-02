@@ -78,13 +78,13 @@
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _StatisticsPage = __webpack_require__(270);
+	var _StatisticsPage = __webpack_require__(271);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(219);
 
-	var _Store = __webpack_require__(271);
+	var _Store = __webpack_require__(272);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -28008,12 +28008,29 @@
 
 	var _reactRouter = __webpack_require__(163);
 
+	var _FormattedDate = __webpack_require__(273);
+
+	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
+
+	var _FormattedTime = __webpack_require__(274);
+
+	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function prettyDate(time) {
 	    var date = new Date((time || "").replace(/-/g, "/").replace(/[TZ]/g, " ")),
 	        diff = (new Date().getTime() - date.getTime()) / 1000,
 	        day_diff = Math.floor(diff / 86400);
+
+	    if (!isNaN(day_diff) && day_diff < 0) return _react2.default.createElement(
+	        "span",
+	        null,
+	        _react2.default.createElement(_FormattedTime2.default, { value: date }),
+	        " - ",
+	        _react2.default.createElement(_FormattedDate2.default, { value: date }),
+	        " "
+	    );
 
 	    if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) return;
 
@@ -28799,9 +28816,17 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(272);
+	var _Panel = __webpack_require__(270);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
+
+	var _FormattedDate = __webpack_require__(273);
+
+	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
+
+	var _FormattedTime = __webpack_require__(274);
+
+	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28840,36 +28865,6 @@
 	    return a.getHours() == b.getHours() && a.getMinutes() == b.getMinutes() && a.getSeconds() == b.getSeconds();
 	}
 
-	var FormattedDate = _react2.default.createClass({
-	    displayName: "FormattedDate",
-
-	    render: function render() {
-	        var date = new Date(this.props.value);
-	        return _react2.default.createElement(
-	            "span",
-	            null,
-	            ('00' + date.getDate()).slice(-2) + "/" + ('00' + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
-	        );
-	    }
-	});
-
-	var FormattedTime = _react2.default.createClass({
-	    displayName: "FormattedTime",
-
-	    render: function render() {
-	        var date = new Date(this.props.value);
-	        return _react2.default.createElement(
-	            "span",
-	            null,
-	            ('00' + date.getHours()).slice(-2),
-	            ":",
-	            ('00' + date.getMinutes()).slice(-2),
-	            ":",
-	            ('00' + date.getSeconds()).slice(-2)
-	        );
-	    }
-	});
-
 	var LogLine = _react2.default.createClass({
 	    displayName: "LogLine",
 
@@ -28880,7 +28875,7 @@
 	            _react2.default.createElement(
 	                "dt",
 	                { className: SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? "log__logTime log__logTime--empty" : "log__logTime" },
-	                SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? null : _react2.default.createElement(FormattedTime, { value: this.props.TimeStamp })
+	                SameDate(this.props.PrevTimeStamp, this.props.TimeStamp) ? null : _react2.default.createElement(_FormattedTime2.default, { value: this.props.TimeStamp })
 	            ),
 	            _react2.default.createElement(
 	                "dd",
@@ -28972,13 +28967,27 @@
 	        }
 	    },
 
-	    render: function render() {
+	    cancelDeployment: function cancelDeployment() {
 	        var _this3 = this;
+
+	        var res = window.confirm("Are you sure you want to cancel this deployment?");
+
+	        if (res) {
+	            _Actions2.default.cancelDeployment(this.props.Id).then(function (x) {
+	                _Actions2.default.updateDeployment(_this3.props.Id);
+	                _this3.props.onRequestHide();
+	            });
+	        }
+	    },
+
+
+	    render: function render() {
+	        var _this4 = this;
 
 	        var groups = groupBy(this.state.deployments.Logs || [{ TaskName: "" }]);
 
 	        var logs = this.state.deployments.Logs == null ? _react2.default.createElement("span", null) : groups.map(function (x, index) {
-	            return x.length == 0 ? _react2.default.createElement("span", null) : _react2.default.createElement(Container, { TaskName: x[0].TaskName, Logs: x, open: _this3.state.deployments.Status == 1 && index == groups.length - 1 || groups.length == 1 });
+	            return x.length == 0 ? _react2.default.createElement("span", null) : _react2.default.createElement(Container, { TaskName: x[0].TaskName, Logs: x, open: _this4.state.deployments.Status == 1 && index == groups.length - 1 || groups.length == 1 });
 	        });
 
 	        return _react2.default.createElement(
@@ -28987,9 +28996,18 @@
 	            _react2.default.createElement(
 	                _Header2.default,
 	                { actions: _react2.default.createElement(
-	                        _Button2.default,
-	                        { onClick: this.reload },
-	                        this.state.refreshing ? "Reloading ..." : "Reload"
+	                        "div",
+	                        null,
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            { onClick: this.reload },
+	                            this.state.refreshing ? "Reloading ..." : "Reload"
+	                        ),
+	                        this.state.deployments.Status != 4 && _react2.default.createElement(
+	                            _Button2.default,
+	                            { onClick: this.cancelDeployment },
+	                            "Cancel deployment"
+	                        )
 	                    ) },
 	                "Deployment"
 	            ),
@@ -29041,16 +29059,16 @@
 	                                "Deployment ",
 	                                this.state.deployments.Status == 4 ? "scheduled" : "started",
 	                                " on ",
-	                                _react2.default.createElement(FormattedDate, { value: this.state.deployments.StartDate }),
+	                                _react2.default.createElement(_FormattedDate2.default, { value: this.state.deployments.StartDate }),
 	                                " at ",
-	                                _react2.default.createElement(FormattedTime, { value: this.state.deployments.StartDate }),
+	                                _react2.default.createElement(_FormattedTime2.default, { value: this.state.deployments.StartDate }),
 	                                "  "
 	                            ) : _react2.default.createElement("span", null),
 	                            this.state.deployments.EndDate != null ? _react2.default.createElement(
 	                                "span",
 	                                null,
 	                                "and ended at ",
-	                                _react2.default.createElement(FormattedTime, { value: this.state.deployments.EndDate })
+	                                _react2.default.createElement(_FormattedTime2.default, { value: this.state.deployments.EndDate })
 	                            ) : _react2.default.createElement("span", null)
 	                        ),
 	                        _react2.default.createElement("br", null),
@@ -29124,6 +29142,50 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _classnames = __webpack_require__(257);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Panel = _react2.default.createClass({
+	    displayName: "Panel",
+	    render: function render() {
+	        var classes = (0, _classnames2.default)("panel", { "panel--danger": this.props.danger, "panel--success": this.props.success });
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: classes },
+	            this.props.title && _react2.default.createElement(
+	                "div",
+	                { className: "panel__title", onClick: this.props.onClick },
+	                this.props.title
+	            ),
+	            this.props.open && _react2.default.createElement(
+	                "div",
+	                { className: "panel__content" },
+	                this.props.children
+	            )
+	        );
+	    }
+	});
+
+	exports.default = Panel;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var StatisticsPage = _react2.default.createClass({
@@ -29145,7 +29207,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29186,7 +29248,7 @@
 	exports.default = store;
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29199,35 +29261,57 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(257);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Panel = _react2.default.createClass({
-	    displayName: "Panel",
-	    render: function render() {
-	        var classes = (0, _classnames2.default)("panel", { "panel--danger": this.props.danger, "panel--success": this.props.success });
+	var FormattedDate = _react2.default.createClass({
+	    displayName: "FormattedDate",
 
+	    render: function render() {
+	        var date = new Date(this.props.value);
 	        return _react2.default.createElement(
-	            "div",
-	            { className: classes },
-	            this.props.title && _react2.default.createElement(
-	                "div",
-	                { className: "panel__title", onClick: this.props.onClick },
-	                this.props.title
-	            ),
-	            this.props.open && _react2.default.createElement(
-	                "div",
-	                { className: "panel__content" },
-	                this.props.children
-	            )
+	            "span",
+	            null,
+	            ('00' + date.getDate()).slice(-2) + "/" + ('00' + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
 	        );
 	    }
 	});
 
-	exports.default = Panel;
+	exports.default = FormattedDate;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var FormattedTime = _react2.default.createClass({
+	    displayName: 'FormattedTime',
+
+	    render: function render() {
+	        var date = new Date(this.props.value);
+	        return _react2.default.createElement(
+	            'span',
+	            null,
+	            ('00' + date.getHours()).slice(-2),
+	            ':',
+	            ('00' + date.getMinutes()).slice(-2),
+	            ':',
+	            ('00' + date.getSeconds()).slice(-2)
+	        );
+	    }
+	});
+
+	exports.default = FormattedTime;
 
 /***/ }
 /******/ ]);

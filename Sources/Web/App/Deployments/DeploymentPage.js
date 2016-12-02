@@ -4,6 +4,8 @@ import Grid from "../Shared/Grid";
 import Actions from "./Actions";
 import Button from "../Shared/Button";
 import Panel from "../Shared/Panel/Panel";
+import FormattedDate from "../Shared/Utils/FormattedDate";
+import FormattedTime from "../Shared/Utils/FormattedTime";
 
 var groupBy = function (array) {
     var a = [];
@@ -41,20 +43,6 @@ function SameDate(a, b) {
     return a.getHours() == b.getHours() && a.getMinutes() == b.getMinutes() && a.getSeconds() == b.getSeconds();
 }
 
-var FormattedDate = React.createClass({
-    render: function(){
-        var date = new Date(this.props.value);
-        return <span>{('00' + date.getDate()).slice(-2) + "/" + ('00' + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()}</span>
-    }
-})
-
-var FormattedTime = React.createClass({
-    render: function(){
-        var date = new Date(this.props.value);
-        return <span>{('00' + date.getHours()).slice(-2)}:{('00' + date.getMinutes()).slice(-2)}:{('00' + date.getSeconds()).slice(-2)}</span>
-    }
-})
-
 var LogLine = React.createClass({
     render: function () {
         return (
@@ -81,7 +69,7 @@ var Container = React.createClass({
             return (<LogLine Error={this.props.Logs[0].Error} Text={this.props.Logs[0].Text} TimeStamp={this.props.Logs[0].TimeStamp} PrevTimeStamp={null} />);
         } else {
 
-            return (<Panel  danger={this.props.Logs.some(z => z.Error)} success={!this.props.Logs.some(z => z.Error)} title={this.props.TaskName || "Logs"} open={this.state.open} onClick={ () => this.setState({ open: !this.state.open }) }>
+            return (<Panel  danger={this.props.Logs.some(z => z.Error) } success={!this.props.Logs.some(z => z.Error) } title={this.props.TaskName || "Logs"} open={this.state.open} onClick={ () => this.setState({ open: !this.state.open }) }>
                 {this.props.Logs.map((x, index) => (<LogLine Error={x.Error} Text={x.Text} TimeStamp={x.TimeStamp} PrevTimeStamp={index > 0 ? this.props.Logs[index - 1].TimeStamp : null} />)) }
             </Panel>
             );
@@ -114,7 +102,7 @@ var DeploymentPage = React.createClass({
                 setTimeout(this.reload, 10000);
             }
         });
-        this.setState({refreshing: true})
+        this.setState({ refreshing: true })
     },
 
     getStatus: function (status) {
@@ -133,6 +121,17 @@ var DeploymentPage = React.createClass({
         }
     },
 
+    cancelDeployment() {
+        var res = window.confirm("Are you sure you want to cancel this deployment?");
+
+        if (res) {
+            Actions.cancelDeployment(this.props.Id).then(x => {
+                Actions.updateDeployment(this.props.Id);
+                this.props.onRequestHide();
+            });
+        }
+    },
+
     render: function () {
 
         var groups = groupBy(this.state.deployments.Logs || [{ TaskName: "" }]);
@@ -145,7 +144,7 @@ var DeploymentPage = React.createClass({
             );
 
         return <div>
-            <Header actions={<Button onClick={this.reload}>{this.state.refreshing ? "Reloading ..." : "Reload"}</Button>}>
+            <Header actions={<div><Button onClick={this.reload}>{this.state.refreshing ? "Reloading ..." : "Reload"}</Button>{this.state.deployments.Status != 4 && <Button onClick={this.cancelDeployment}>Cancel deployment</Button>}</div>  }>
                 Deployment
             </Header>
 
@@ -153,7 +152,7 @@ var DeploymentPage = React.createClass({
                 <Grid.Row>
                     <Grid.Col md={12}>
 
-                     <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}         </h2>
+                        <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}         </h2>
 
                         <h4>Current deployment status: {this.getStatus(this.state.deployments.Status) }  {this.state.deployments.Status == 4 ? <ModalTrigger modal={<CancelDialog Id={this.getParams().Id}/>}><button className='btn btn-warning btn-xs'>Cancel scheduled deploy</button></ModalTrigger> : <span />}</h4>
 
