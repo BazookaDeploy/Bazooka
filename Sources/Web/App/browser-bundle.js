@@ -78,6 +78,10 @@
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
+	var _EnviromentsPage = __webpack_require__(278);
+
+	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
+
 	var _StatisticsPage = __webpack_require__(274);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
@@ -102,6 +106,7 @@
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _Homepage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'Applications', component: _ApplicationsPage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'Configurations', component: _ConfigurationPage2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'Enviroments', component: _EnviromentsPage2.default }),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: 'Deployments' },
@@ -25536,13 +25541,13 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { className: "application__header__link", activeClassName: "active", to: "/Configurations" },
-	                        "Configurations"
+	                        { className: "application__header__link", activeClassName: "active", to: "/Deployments" },
+	                        "Deployments"
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { className: "application__header__link", activeClassName: "active", to: "/Deployments" },
-	                        "Deployments"
+	                        { className: "application__header__link", activeClassName: "active", to: "/Enviroments" },
+	                        "Enviroments"
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
@@ -29973,6 +29978,229 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Grid = __webpack_require__(259);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Actions = __webpack_require__(279);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Button = __webpack_require__(272);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _ServerIcon = __webpack_require__(280);
+
+	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Agent = _react2.default.createClass({
+	    displayName: "Agent",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "enviroment__agent" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__agent__icon" },
+	                _react2.default.createElement(_ServerIcon2.default, null)
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__agent__description" },
+	                this.props.agent.Name
+	            )
+	        );
+	    }
+	});
+
+	var Enviroment = _react2.default.createClass({
+	    displayName: "Enviroment",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "enviroment" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__title" },
+	                this.props.Enviroment.Name
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__actions" },
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    null,
+	                    "Add agent"
+	                )
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__agents" },
+	                this.props.Enviroment.Agents.map(function (x) {
+	                    return _react2.default.createElement(Agent, { agent: x });
+	                })
+	            )
+	        );
+	    }
+	});
+
+	var EnviromentsPage = _react2.default.createClass({
+	    displayName: "EnviromentsPage",
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            envs: []
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.update();
+	    },
+
+	    update: function update() {
+	        var _this = this;
+
+	        _Actions2.default.updateAllEnviroments().then(function (x) {
+	            _this.setState({
+	                envs: x
+	            });
+	        });
+	    },
+
+	    render: function render() {
+	        var _this2 = this;
+
+	        var envs = this.state.envs.map(function (a) {
+	            return _react2.default.createElement(Enviroment, { Enviroment: a, onUpdate: _this2.update });
+	        });
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                _Header2.default,
+	                { actions: _react2.default.createElement(
+	                        _Button2.default,
+	                        null,
+	                        "New Enviroment"
+	                    ) },
+	                "Enviroments"
+	            ),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 12 },
+	                        envs
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	exports.default = EnviromentsPage;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+		updateAllEnviroments: function updateAllEnviroments() {
+			return (0, _reqwest2.default)({
+				url: "/api/enviroments/",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		createEnviroment: function createEnviroment(name) {
+			var promise = (0, _reqwest2.default)({
+				url: "/api/enviroments/create",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					Name: name
+				})
+			});
+
+			return promise;
+		},
+
+		createAgent: function createAgent(enviromentId, name, address) {
+			return (0, _reqwest2.default)({
+				url: "/api/enviroments/addAgent",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					EnviromentId: enviromentId,
+					Address: address,
+					Name: name
+				})
+			});
+		}
+	};
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Icon = __webpack_require__(263);
+
+	var _Icon2 = _interopRequireDefault(_Icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CircleOkIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 2 3 C 0.897 3 0 3.897 0 5 L 0 48 C 0 49.103 0.897 50 2 50 L 14 50 C 15.103 50 16 49.103 16 48 L 16 5 C 16 3.897 15.103 3 14 3 L 2 3 z M 18 3 L 18 8 L 44 8 C 44.552 8 45 8.448 45 9 L 45 33 C 45 33.552 44.552 34 44 34 L 18 34 L 18 42 L 48 42 C 49.103 42 50 41.103 50 40 L 50 5 C 50 3.897 49.103 3 48 3 L 18 3 z M 8 41 C 9.104 41 10 41.895 10 43 C 10 44.105 9.104 45 8 45 C 6.896 45 6 44.105 6 43 C 6 41.895 6.896 41 8 41 z M 23 43 L 23 45 L 20.875 45 C 19.282 45 18 46.346 18 48 L 18 50 L 38 50 L 38 48 C 38 46.346 36.718 45 35.125 45 L 33 45 L 33 43 L 23 43 z" }));
+
+	exports.default = CircleOkIcon;
 
 /***/ }
 /******/ ]);

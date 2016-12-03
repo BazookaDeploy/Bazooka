@@ -221,6 +221,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Deployments\DeploymentPage.js" />
+    <Content Include="App\Enviroments\Actions.js" />
+    <Content Include="App\Enviroments\AgentPage.js" />
+    <Content Include="App\Enviroments\EnviromentsPage.js" />
     <Content Include="App\Shared\Button\index.js" />
     <Content Include="App\Shared\Icon\CircleRemoveIcon.js" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -406,6 +409,7 @@
     <Content Include="App\Shared\Icon\Icon.js" />
     <Content Include="App\Shared\Icon\ListIcon.js" />
     <Content Include="App\Shared\Icon\PlayIcon.js" />
+    <Content Include="App\Shared\Icon\ServerIcon.js" />
     <Content Include="App\Shared\Icon\WatchIcon.js" />
     <Content Include="App\Shared\Panel\Panel.js" />
     <Content Include="App\Shared\Select\index.js" />

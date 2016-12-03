@@ -1505,3 +1505,37 @@ body {
   font-weight: normal;
   display: inline-block;
   padding: 2px 5px; }
+
+.enviroment {
+  display: block;
+  margin-top: 10px; }
+
+.enviroment__title {
+  display: inline-block;
+  padding: 5px; }
+
+.enviroment__actions {
+  float: right; }
+
+.enviroment__agents {
+  border-top: 1px solid #ccc; }
+
+.enviroment__agent {
+  width: 200px;
+  padding: 5px;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  margin: 20px 5px; }
+
+.enviroment__agent:hover {
+  background-color: #f2f2f2; }
+
+.enviroment__agent__icon {
+  margin-bottom: 5px; }
+
+.enviroment__agent__icon svg {
+  width: 50px;
+  height: 50px;
+  fill: #aaa; }

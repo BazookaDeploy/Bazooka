@@ -7,6 +7,7 @@ import ApplicationsPage from "./Applications/ApplicationsPage";
 import ConfigurationPage from "./Configuration/ConfigurationPage";
 import DeploymentsPage from "./Deployments/DeploymentsPage";
 import DeploymentPage from "./Deployments/DeploymentPage";
+import EnviromentsPage from "./Enviroments/EnviromentsPage";
 import StatisticsPage from "./Statistics/StatisticsPage";
 import { Provider } from 'react-redux';
 import store from "./Store";
@@ -18,6 +19,7 @@ var route = <Provider store={store} >
       <IndexRoute component={Homepage}/>
       <Route path="Applications" component={ApplicationsPage} />
       <Route path="Configurations" component={ConfigurationPage} />
+      <Route path="Enviroments" component={EnviromentsPage} />
       <Route path="Deployments">
         <IndexRoute component={DeploymentsPage}/>
         <Route path=":id" component={DeploymentPage} />
