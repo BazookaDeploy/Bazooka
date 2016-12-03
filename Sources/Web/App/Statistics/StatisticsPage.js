@@ -99,7 +99,36 @@ ApplicationStatistics = connect(mapStoreToProps,null)(ApplicationStatistics);
 
 var UserStatistics = React.createClass({
     render(){
-        return <h2>User stats </h2>;
+        var totalDeploys = this.props.users.map((x) => x.Count).reduce((a,b) => a+b,0);
+        var maxDeploys = 100;
+        if(this.props.users.length > 0){
+            maxDeploys = this.props.users[0].Count;
+        }
+
+        return (<div>
+
+        <Table>
+            <Table.Head>
+                <tr>
+                    <th className="table__cell--small">User</th>
+                    <th>Deploys</th>
+                    <th className="table__cell--small">Total ({totalDeploys})</th>
+                </tr>
+            </Table.Head>
+
+            <Table.Body>
+                {
+                    this.props.users.map((x,i) => <tr>
+                        <td className="table__cell--small text--align--right">{x.UserName}</td>
+                        <td><div className="deploys" style={{ backgroundColor: colors[0],width: ((x.Count / maxDeploys)*100)+"%" }}>{
+                            x.Count
+                        }</div></td>
+                        <td  className="table__cell--small">{x.Count}</td>
+                    </tr>) 
+                }
+            </Table.Body>
+
+        </Table></div>);
     }
 });
 

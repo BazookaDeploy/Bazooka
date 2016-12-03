@@ -29646,10 +29646,77 @@
 	var UserStatistics = _react2.default.createClass({
 	    displayName: "UserStatistics",
 	    render: function render() {
+	        var totalDeploys = this.props.users.map(function (x) {
+	            return x.Count;
+	        }).reduce(function (a, b) {
+	            return a + b;
+	        }, 0);
+	        var maxDeploys = 100;
+	        if (this.props.users.length > 0) {
+	            maxDeploys = this.props.users[0].Count;
+	        }
+
 	        return _react2.default.createElement(
-	            "h2",
+	            "div",
 	            null,
-	            "User stats "
+	            _react2.default.createElement(
+	                _Table2.default,
+	                null,
+	                _react2.default.createElement(
+	                    _Table2.default.Head,
+	                    null,
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            { className: "table__cell--small" },
+	                            "User"
+	                        ),
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Deploys"
+	                        ),
+	                        _react2.default.createElement(
+	                            "th",
+	                            { className: "table__cell--small" },
+	                            "Total (",
+	                            totalDeploys,
+	                            ")"
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Table2.default.Body,
+	                    null,
+	                    this.props.users.map(function (x, i) {
+	                        return _react2.default.createElement(
+	                            "tr",
+	                            null,
+	                            _react2.default.createElement(
+	                                "td",
+	                                { className: "table__cell--small text--align--right" },
+	                                x.UserName
+	                            ),
+	                            _react2.default.createElement(
+	                                "td",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "deploys", style: { backgroundColor: colors[0], width: x.Count / maxDeploys * 100 + "%" } },
+	                                    x.Count
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "td",
+	                                { className: "table__cell--small" },
+	                                x.Count
+	                            )
+	                        );
+	                    })
+	                )
+	            )
 	        );
 	    }
 	});
