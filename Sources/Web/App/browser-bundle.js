@@ -78,17 +78,21 @@
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(278);
+	var _EnviromentsPage = __webpack_require__(274);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _StatisticsPage = __webpack_require__(274);
+	var _AgentPage = __webpack_require__(281);
+
+	var _AgentPage2 = _interopRequireDefault(_AgentPage);
+
+	var _StatisticsPage = __webpack_require__(277);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Store = __webpack_require__(277);
+	var _Store = __webpack_require__(280);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -106,7 +110,12 @@
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _Homepage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'Applications', component: _ApplicationsPage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'Configurations', component: _ConfigurationPage2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'Enviroments', component: _EnviromentsPage2.default }),
+	      _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: 'Enviroments' },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _EnviromentsPage2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'Agent/:id', component: _AgentPage2.default })
+	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: 'Deployments' },
@@ -29385,7 +29394,7 @@
 	var Button = _react2.default.createClass({
 	    displayName: "Button",
 	    render: function render() {
-	        var classes = (0, _classnames2.default)("button", this.props.className);
+	        var classes = (0, _classnames2.default)("button", { "button--primary": this.props.primary }, this.props.className);
 	        return _react2.default.createElement(
 	            "button",
 	            _extends({}, this.props, { className: classes }),
@@ -29450,6 +29459,377 @@
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Grid = __webpack_require__(259);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Actions = __webpack_require__(275);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Modal = __webpack_require__(282);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(272);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(283);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _ServerIcon = __webpack_require__(276);
+
+	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
+
+	var _reactRouter = __webpack_require__(163);
+
+	var _reactRedux = __webpack_require__(220);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Agent = _react2.default.createClass({
+	    displayName: "Agent",
+
+	    navigate: function navigate() {
+	        this.props.router.push("/Enviroments/Agent/" + this.props.agent.Id);
+	    },
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "enviroment__agent", onClick: this.navigate },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__agent__icon" },
+	                _react2.default.createElement(_ServerIcon2.default, null)
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__agent__description" },
+	                this.props.agent.Name
+	            )
+	        );
+	    }
+	});
+
+	Agent = (0, _reactRouter.withRouter)(Agent);
+
+	var Enviroment = _react2.default.createClass({
+	    displayName: "Enviroment",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "enviroment" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__title" },
+	                this.props.Enviroment.Name
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__actions" },
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    null,
+	                    "Add agent"
+	                )
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "enviroment__agents" },
+	                this.props.Enviroment.Agents.map(function (x) {
+	                    return _react2.default.createElement(Agent, { agent: x });
+	                })
+	            )
+	        );
+	    }
+	});
+
+	var EnviromentCreationDialog = _react2.default.createClass({
+	    displayName: "EnviromentCreationDialog",
+	    getInitialState: function getInitialState() {
+	        return { name: "" };
+	    },
+	    close: function close() {
+	        this.setState({ name: "" });
+	        this.props.onClose();
+	    },
+	    create: function create() {
+	        var _this = this;
+
+	        if (this.state.name == "") {
+	            return;
+	        }
+
+	        _Actions2.default.createEnviroment(this.state.name).then(function () {
+	            _this.props.onClose();
+	            _this.props.onCreate();
+	        });
+	    },
+	    render: function render() {
+	        var _this2 = this;
+
+	        return _react2.default.createElement(
+	            _Modal2.default,
+	            _extends({ onClose: this.onClose }, this.props),
+	            _react2.default.createElement(
+	                _Modal2.default.Header,
+	                null,
+	                "Create new Enviroment"
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Body,
+	                null,
+	                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.name, onChange: function onChange(e) {
+	                        return _this2.setState({ name: e.target.value });
+	                    } })
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Footer,
+	                null,
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: this.onClose },
+	                    "Cancel"
+	                ),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { primary: true, onClick: this.create },
+	                    "Create"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var EnviromentsPage = _react2.default.createClass({
+	    displayName: "EnviromentsPage",
+	    getInitialState: function getInitialState() {
+	        return {
+	            showNewEnviroment: false
+	        };
+	    },
+	    update: function update() {
+	        this.props.loadEnviroments();
+	    },
+
+
+	    render: function render() {
+	        var _this3 = this;
+
+	        var envs = this.props.enviroments.map(function (a) {
+	            return _react2.default.createElement(Enviroment, { Enviroment: a, onUpdate: _this3.update });
+	        });
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                _Header2.default,
+	                { actions: _react2.default.createElement(
+	                        _Button2.default,
+	                        { onClick: function onClick() {
+	                                return _this3.setState({ showNewEnviroment: true });
+	                            } },
+	                        "New Enviroment"
+	                    ) },
+	                "Enviroments"
+	            ),
+	            _react2.default.createElement(EnviromentCreationDialog, { onClose: function onClose() {
+	                    return _this3.setState({ showNewEnviroment: false });
+	                }, onCreate: this.update, show: this.state.showNewEnviroment }),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 12 },
+	                        envs
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var mapStoreToProps = function mapStoreToProps(store) {
+	    return {
+	        enviroments: store.enviroments || []
+	    };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        loadEnviroments: function loadEnviroments() {
+	            _Actions2.default.updateAllEnviroments().then(function (x) {
+	                dispatch({ type: "ADD_ENVIROMENTS", enviroments: x });
+	            });
+	        }
+	    };
+	};
+
+	EnviromentsPage = (0, _reactRedux.connect)(mapStoreToProps, mapDispatchToProps)(EnviromentsPage);
+
+	exports.default = EnviromentsPage;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+		updateAllEnviroments: function updateAllEnviroments() {
+			return (0, _reqwest2.default)({
+				url: "/api/enviroments/",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		createEnviroment: function createEnviroment(name) {
+			var promise = (0, _reqwest2.default)({
+				url: "/api/enviroments/create",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					Name: name
+				})
+			});
+
+			return promise;
+		},
+
+		createAgent: function createAgent(enviromentId, name, address) {
+			return (0, _reqwest2.default)({
+				url: "/api/enviroments/addAgent",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					EnviromentId: enviromentId,
+					Address: address,
+					Name: name
+				})
+			});
+		},
+
+		getAgent: function getAgent(id) {
+			return (0, _reqwest2.default)({
+				url: "/api/agents/" + id,
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		rename: function rename(id, enviromentId, name) {
+			return (0, _reqwest2.default)({
+				url: "/api/agents/Rename",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					EnviromentId: enviromentId,
+					AgentId: id,
+					Name: name
+				})
+			});
+		},
+
+		changeAddress: function changeAddress(id, enviromentId, address) {
+			return (0, _reqwest2.default)({
+				url: "/api/agents/ChangeAddress",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					EnviromentId: enviromentId,
+					AgentId: id,
+					Address: address
+				})
+			});
+		},
+
+		testAgent: function testAgent(url) {
+			return (0, _reqwest2.default)({
+				url: "/api/agents/test?url=" + url,
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		uploadFiles: function uploadFiles(files, agent) {
+			var data = new FormData();
+			data.append(0, files[0]);
+
+			return (0, _reqwest2.default)({
+				processData: false,
+				url: "/api/agents/update?agent=" + agent,
+				method: "post",
+				data: data
+			});
+		}
+	};
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Icon = __webpack_require__(263);
+
+	var _Icon2 = _interopRequireDefault(_Icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CircleOkIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 2 3 C 0.897 3 0 3.897 0 5 L 0 48 C 0 49.103 0.897 50 2 50 L 14 50 C 15.103 50 16 49.103 16 48 L 16 5 C 16 3.897 15.103 3 14 3 L 2 3 z M 18 3 L 18 8 L 44 8 C 44.552 8 45 8.448 45 9 L 45 33 C 45 33.552 44.552 34 44 34 L 18 34 L 18 42 L 48 42 C 49.103 42 50 41.103 50 40 L 50 5 C 50 3.897 49.103 3 48 3 L 18 3 z M 8 41 C 9.104 41 10 41.895 10 43 C 10 44.105 9.104 45 8 45 C 6.896 45 6 44.105 6 43 C 6 41.895 6.896 41 8 41 z M 23 43 L 23 45 L 20.875 45 C 19.282 45 18 46.346 18 48 L 18 50 L 38 50 L 38 48 C 38 46.346 36.718 45 35.125 45 L 33 45 L 33 43 L 23 43 z" }));
+
+	exports.default = CircleOkIcon;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -29466,7 +29846,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(275);
+	var _Tabs = __webpack_require__(278);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -29474,7 +29854,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(276);
+	var _Actions = __webpack_require__(279);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -29826,7 +30206,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 275 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29897,7 +30277,7 @@
 	exports.default = Tabs;
 
 /***/ },
-/* 276 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29939,7 +30319,7 @@
 	};
 
 /***/ },
-/* 277 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29980,7 +30360,7 @@
 	exports.default = store;
 
 /***/ },
-/* 278 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30001,7 +30381,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(279);
+	var _Actions = __webpack_require__(275);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30009,198 +30389,229 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _ServerIcon = __webpack_require__(280);
-
-	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Agent = _react2.default.createClass({
-	    displayName: "Agent",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "enviroment__agent" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "enviroment__agent__icon" },
-	                _react2.default.createElement(_ServerIcon2.default, null)
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "enviroment__agent__description" },
-	                this.props.agent.Name
-	            )
-	        );
-	    }
-	});
-
-	var Enviroment = _react2.default.createClass({
-	    displayName: "Enviroment",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "enviroment" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "enviroment__title" },
-	                this.props.Enviroment.Name
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "enviroment__actions" },
-	                _react2.default.createElement(
-	                    _Button2.default,
-	                    null,
-	                    "Add agent"
-	                )
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "enviroment__agents" },
-	                this.props.Enviroment.Agents.map(function (x) {
-	                    return _react2.default.createElement(Agent, { agent: x });
-	                })
-	            )
-	        );
-	    }
-	});
-
-	var EnviromentsPage = _react2.default.createClass({
-	    displayName: "EnviromentsPage",
+	var AgentPage = _react2.default.createClass({
+	    displayName: "AgentPage",
 
 	    getInitialState: function getInitialState() {
-	        return {
-	            envs: []
-	        };
+	        return {};
 	    },
 
 	    componentDidMount: function componentDidMount() {
-	        this.update();
-	    },
-
-	    update: function update() {
 	        var _this = this;
 
-	        _Actions2.default.updateAllEnviroments().then(function (x) {
-	            _this.setState({
-	                envs: x
+	        _Actions2.default.getAgent(this.props.params.id).then(function (x) {
+	            return _this.setState({
+	                Id: x.Id,
+	                OriginalAddress: x.Address,
+	                OriginalName: x.Name,
+	                Address: x.Address,
+	                Name: x.Name,
+	                EnviromentId: x.EnviromentId
 	            });
 	        });
 	    },
 
-	    render: function render() {
-	        var _this2 = this;
+	    onDrop: function onDrop(files) {
+	        _Actions2.default.uploadFiles(files, this.state.OriginalName);
+	    },
 
-	        var envs = this.state.envs.map(function (a) {
-	            return _react2.default.createElement(Enviroment, { Enviroment: a, onUpdate: _this2.update });
+	    testConnection: function testConnection(event) {
+	        event.preventDefault();
+	        _Actions2.default.testAgent(this.state.Address).then(function (x) {
+	            return alert("Agent responding");
+	        }).fail(function (x) {
+	            return alert("Agent not responding");
 	        });
+	    },
 
+	    rename: function rename() {
+	        _Actions2.default.rename(this.state.Id, this.state.EnviromentId, this.state.Name);
+	    },
+
+	    render: function render() {
 	        return _react2.default.createElement(
 	            "div",
 	            null,
-	            _react2.default.createElement(
-	                _Header2.default,
-	                { actions: _react2.default.createElement(
-	                        _Button2.default,
-	                        null,
-	                        "New Enviroment"
-	                    ) },
-	                "Enviroments"
-	            ),
-	            _react2.default.createElement(
-	                _Grid2.default,
-	                { fluid: true },
-	                _react2.default.createElement(
-	                    _Grid2.default.Row,
-	                    null,
-	                    _react2.default.createElement(
-	                        _Grid2.default.Col,
-	                        { md: 12 },
-	                        envs
-	                    )
-	                )
-	            )
+	            " "
 	        );
 	    }
 	});
 
-	exports.default = EnviromentsPage;
+	exports.default = AgentPage;
 
 /***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(249);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-		updateAllEnviroments: function updateAllEnviroments() {
-			return (0, _reqwest2.default)({
-				url: "/api/enviroments/",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
-		},
-
-		createEnviroment: function createEnviroment(name) {
-			var promise = (0, _reqwest2.default)({
-				url: "/api/enviroments/create",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					Name: name
-				})
-			});
-
-			return promise;
-		},
-
-		createAgent: function createAgent(enviromentId, name, address) {
-			return (0, _reqwest2.default)({
-				url: "/api/enviroments/addAgent",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					EnviromentId: enviromentId,
-					Address: address,
-					Name: name
-				})
-			});
-		}
-	};
-
-/***/ },
-/* 280 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(263);
+	var _reactDom = __webpack_require__(30);
 
-	var _Icon2 = _interopRequireDefault(_Icon);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _classnames = __webpack_require__(258);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var CircleOkIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 2 3 C 0.897 3 0 3.897 0 5 L 0 48 C 0 49.103 0.897 50 2 50 L 14 50 C 15.103 50 16 49.103 16 48 L 16 5 C 16 3.897 15.103 3 14 3 L 2 3 z M 18 3 L 18 8 L 44 8 C 44.552 8 45 8.448 45 9 L 45 33 C 45 33.552 44.552 34 44 34 L 18 34 L 18 42 L 48 42 C 49.103 42 50 41.103 50 40 L 50 5 C 50 3.897 49.103 3 48 3 L 18 3 z M 8 41 C 9.104 41 10 41.895 10 43 C 10 44.105 9.104 45 8 45 C 6.896 45 6 44.105 6 43 C 6 41.895 6.896 41 8 41 z M 23 43 L 23 45 L 20.875 45 C 19.282 45 18 46.346 18 48 L 18 50 L 38 50 L 38 48 C 38 46.346 36.718 45 35.125 45 L 33 45 L 33 43 L 23 43 z" }));
+	var Header = _react2.default.createClass({
+	    displayName: "Header",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--header", onMouseDown: this.props.onMouseDown },
+	            this.props.children
+	        );
+	    }
+	});
 
-	exports.default = CircleOkIcon;
+	var Body = _react2.default.createClass({
+	    displayName: "Body",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--body" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Footer = _react2.default.createClass({
+	    displayName: "Footer",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--footer" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Portal = _react2.default.createClass({
+	    displayName: "Portal",
+
+	    propTypes: {
+	        onClose: _react2.default.PropTypes.func.isRequired
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.portalElement = document.createElement('div');
+	        document.body.appendChild(this.portalElement);
+	        this.componentDidUpdate();
+	        if (window.innerHeight < document.documentElement.scrollHeight) {
+	            document.body.classList.add("modal-open");
+	        }
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+
+	        var classes = (0, _classnames2.default)("modal", this.props.className);
+
+	        var portal = _react2.default.createElement(
+	            "div",
+	            { className: classes },
+	            _react2.default.createElement("div", { className: "modal--overlay" }),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "modal--dialog" },
+	                _react2.default.createElement(
+	                    "div",
+	                    _extends({}, this.props, { className: "modal--content" }),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "modal__close", onClick: this.props.onClose },
+	                        "x"
+	                    ),
+	                    this.props.children
+	                )
+	            )
+	        );
+	        _reactDom2.default.render(portal, this.portalElement);
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        document.body.removeChild(this.portalElement);
+	        document.body.classList.remove("modal-open");
+	    },
+	    render: function render() {
+	        return null;
+	    }
+	});
+
+	var Modal = _react2.default.createClass({
+	    displayName: "Modal",
+
+	    propTypes: {
+	        show: _react2.default.PropTypes.bool.isRequired
+	    },
+
+	    render: function render() {
+	        return this.props.show === true ? _react2.default.createElement(
+	            Portal,
+	            this.props,
+	            " ",
+	            this.props.children,
+	            " "
+	        ) : null;
+	    }
+	});
+
+	Modal.Header = Header;
+	Modal.Body = Body;
+	Modal.Footer = Footer;
+
+	exports.default = Modal;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(258);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Input = _react2.default.createClass({
+	    displayName: "Input",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "input" },
+	            this.props.title && _react2.default.createElement(
+	                "div",
+	                { className: "input__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props))
+	        );
+	    }
+	});
+
+	exports.default = Input;
 
 /***/ }
 /******/ ]);

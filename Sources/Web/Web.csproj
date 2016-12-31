@@ -411,6 +411,8 @@
     <Content Include="App\Shared\Icon\PlayIcon.js" />
     <Content Include="App\Shared\Icon\ServerIcon.js" />
     <Content Include="App\Shared\Icon\WatchIcon.js" />
+    <Content Include="App\Shared\Input\index.js" />
+    <Content Include="App\Shared\Modal\index.js" />
     <Content Include="App\Shared\Panel\Panel.js" />
     <Content Include="App\Shared\Select\index.js" />
     <Content Include="App\Shared\Table\index.js" />
@@ -522,6 +524,8 @@
     <Content Include="App\Shared\Button\Button.scss" />
     <Content Include="App\Shared\Panel\Panel.scss" />
     <Content Include="App\Shared\Tabs\Tabs.scss" />
+    <Content Include="App\Shared\Modal\Modal.scss" />
+    <Content Include="App\Shared\Input\Input.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />

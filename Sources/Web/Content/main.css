@@ -1444,6 +1444,10 @@ body {
   cursor: pointer;
   margin: 0 5px; }
 
+.button--primary {
+  color: white;
+  background-color: #303F9F; }
+
 .panel {
   margin: 5px auto;
   border-radius: 2px; }
@@ -1474,6 +1478,87 @@ body {
 
 .tabs__tab {
   padding: 10px; }
+
+.modal-open {
+  overflow: hidden;
+  padding-right: 17px; }
+
+.modal--overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 990;
+  background-color: #000;
+  opacity: 0.5; }
+
+.modal--dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1010; }
+
+.modal--content {
+  position: relative;
+  margin: 30px auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  background-clip: padding-box;
+  padding: 14px;
+  outline: none; }
+
+.modal--header {
+  min-height: 10px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #3c3c3b; }
+
+.modal--body {
+  position: relative;
+  margin-top: 15px; }
+
+.modal--footer {
+  margin-top: 20px;
+  text-align: right; }
+  .modal--footer .button + .button {
+    margin-left: 10px;
+    margin-bottom: 0; }
+
+.modal__close {
+  position: absolute;
+  top: 15px;
+  right: 16px;
+  cursor: pointer; }
+
+.modal__close {
+  height: 15px;
+  width: 15px;
+  font-size: 17px;
+  line-height: 15px; }
+
+@media screen and (min-width: 700px) {
+  .modal--content {
+    width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); } }
+
+.input {
+  margin-bottom: 6px;
+  width: 100%; }
+
+.input__title {
+  font-size: 14px;
+  margin-bottom: 2px; }
+
+.input__input {
+  padding: 5px;
+  height: 25px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  width: 100%; }
 
 .log__logTime {
   width: 80px;
