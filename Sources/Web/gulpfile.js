@@ -8,18 +8,7 @@ var webpackOrig = require('webpack');
 var webpack = require('gulp-webpack');
 
 
-var config = {
-    cache: true,
-    entry: './App/index',
-    output: {
-        filename: './App/browser-bundle.js'
-    },
-    module: {
-        loaders: [
-        { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
-        ]
-    }
-};
+var config = require("./webpack.config");
 var configProd = JSON.parse(JSON.stringify(config));
 configProd.plugins = [
     new webpackOrig.DefinePlugin({
@@ -41,6 +30,13 @@ gulp.task('javascript', function () {
                .pipe(gulp.dest('App/'));
 });
 
+gulp.task('javascript-watch', function () {
+    // place code for your default task here
+    return gulp.src('App/index.js')
+               .pipe(webpack(config))
+               .pipe(gulp.dest('.'));
+});
+
 gulp.task('javascript-prod', function () {
     // place code for your default task here
     return gulp.src('App/index.js')
@@ -60,6 +56,12 @@ gulp.task("css", ["copy"], function () {
       .pipe(gulp.dest('./Content/'));
 });
 
+gulp.task("css-watch", function () {
+    var sass = require('gulp-sass');
+    gulp.watch(["**/*.scss"], ["css"]);
+});
+
+
 gulp.task("css-prod", ["copy"], function () {
     var sass = require('gulp-sass');
     gulp.src('./Content/main.scss')
@@ -67,5 +69,5 @@ gulp.task("css-prod", ["copy"], function () {
         .pipe(gulp.dest('./Content/'));
 });
 
-gulp.task("default", ["javascript", "css"]);
+gulp.task("default", ["javascript-watch", "css-watch"]);
 gulp.task("build", ["javascript-prod", "css-prod"]);

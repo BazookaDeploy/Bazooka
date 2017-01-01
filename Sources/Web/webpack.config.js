@@ -2,6 +2,7 @@ var webpack = require("webpack");
 
 module.exports = {
     cache: true,
+    watch:true,
     entry: './App/index',
     output: {
         filename: './App/browser-bundle.js'

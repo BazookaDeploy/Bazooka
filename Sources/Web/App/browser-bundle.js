@@ -82,17 +82,17 @@
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(281);
+	var _AgentPage = __webpack_require__(279);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(277);
+	var _StatisticsPage = __webpack_require__(280);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Store = __webpack_require__(280);
+	var _Store = __webpack_require__(283);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -29477,7 +29477,7 @@
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Modal = __webpack_require__(282);
+	var _Modal = __webpack_require__(276);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -29485,11 +29485,11 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(283);
+	var _Input = __webpack_require__(277);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(276);
+	var _ServerIcon = __webpack_require__(278);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -29803,6 +29803,178 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(30);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _classnames = __webpack_require__(258);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Header = _react2.default.createClass({
+	    displayName: "Header",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--header", onMouseDown: this.props.onMouseDown },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Body = _react2.default.createClass({
+	    displayName: "Body",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--body" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Footer = _react2.default.createClass({
+	    displayName: "Footer",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--footer" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Portal = _react2.default.createClass({
+	    displayName: "Portal",
+
+	    propTypes: {
+	        onClose: _react2.default.PropTypes.func.isRequired
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.portalElement = document.createElement('div');
+	        document.body.appendChild(this.portalElement);
+	        this.componentDidUpdate();
+	        if (window.innerHeight < document.documentElement.scrollHeight) {
+	            document.body.classList.add("modal-open");
+	        }
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+
+	        var classes = (0, _classnames2.default)("modal", this.props.className);
+
+	        var portal = _react2.default.createElement(
+	            "div",
+	            { className: classes },
+	            _react2.default.createElement("div", { className: "modal--overlay" }),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "modal--dialog" },
+	                _react2.default.createElement(
+	                    "div",
+	                    _extends({}, this.props, { className: "modal--content" }),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "modal__close", onClick: this.props.onClose },
+	                        "x"
+	                    ),
+	                    this.props.children
+	                )
+	            )
+	        );
+	        _reactDom2.default.render(portal, this.portalElement);
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        document.body.removeChild(this.portalElement);
+	        document.body.classList.remove("modal-open");
+	    },
+	    render: function render() {
+	        return null;
+	    }
+	});
+
+	var Modal = _react2.default.createClass({
+	    displayName: "Modal",
+
+	    propTypes: {
+	        show: _react2.default.PropTypes.bool.isRequired
+	    },
+
+	    render: function render() {
+	        return this.props.show === true ? _react2.default.createElement(
+	            Portal,
+	            this.props,
+	            " ",
+	            this.props.children,
+	            " "
+	        ) : null;
+	    }
+	});
+
+	Modal.Header = Header;
+	Modal.Body = Body;
+	Modal.Footer = Footer;
+
+	exports.default = Modal;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(258);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Input = _react2.default.createClass({
+	    displayName: "Input",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "input" },
+	            this.props.title && _react2.default.createElement(
+	                "div",
+	                { className: "input__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props))
+	        );
+	    }
+	});
+
+	exports.default = Input;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
@@ -29821,7 +29993,89 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 277 */
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Grid = __webpack_require__(259);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Actions = __webpack_require__(275);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Button = __webpack_require__(272);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AgentPage = _react2.default.createClass({
+	    displayName: "AgentPage",
+
+	    getInitialState: function getInitialState() {
+	        return {};
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        _Actions2.default.getAgent(this.props.params.id).then(function (x) {
+	            return _this.setState({
+	                Id: x.Id,
+	                OriginalAddress: x.Address,
+	                OriginalName: x.Name,
+	                Address: x.Address,
+	                Name: x.Name,
+	                EnviromentId: x.EnviromentId
+	            });
+	        });
+	    },
+
+	    onDrop: function onDrop(files) {
+	        _Actions2.default.uploadFiles(files, this.state.OriginalName);
+	    },
+
+	    testConnection: function testConnection(event) {
+	        event.preventDefault();
+	        _Actions2.default.testAgent(this.state.Address).then(function (x) {
+	            return alert("Agent responding");
+	        }).fail(function (x) {
+	            return alert("Agent not responding");
+	        });
+	    },
+
+	    rename: function rename() {
+	        _Actions2.default.rename(this.state.Id, this.state.EnviromentId, this.state.Name);
+	    },
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            " "
+	        );
+	    }
+	});
+
+	exports.default = AgentPage;
+
+/***/ },
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29846,7 +30100,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(278);
+	var _Tabs = __webpack_require__(281);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -29854,7 +30108,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(279);
+	var _Actions = __webpack_require__(282);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30206,7 +30460,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 278 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30277,7 +30531,7 @@
 	exports.default = Tabs;
 
 /***/ },
-/* 279 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30319,7 +30573,7 @@
 	};
 
 /***/ },
-/* 280 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30358,260 +30612,6 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Header = __webpack_require__(256);
-
-	var _Header2 = _interopRequireDefault(_Header);
-
-	var _Grid = __webpack_require__(259);
-
-	var _Grid2 = _interopRequireDefault(_Grid);
-
-	var _Actions = __webpack_require__(275);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	var _Button = __webpack_require__(272);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var AgentPage = _react2.default.createClass({
-	    displayName: "AgentPage",
-
-	    getInitialState: function getInitialState() {
-	        return {};
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-
-	        _Actions2.default.getAgent(this.props.params.id).then(function (x) {
-	            return _this.setState({
-	                Id: x.Id,
-	                OriginalAddress: x.Address,
-	                OriginalName: x.Name,
-	                Address: x.Address,
-	                Name: x.Name,
-	                EnviromentId: x.EnviromentId
-	            });
-	        });
-	    },
-
-	    onDrop: function onDrop(files) {
-	        _Actions2.default.uploadFiles(files, this.state.OriginalName);
-	    },
-
-	    testConnection: function testConnection(event) {
-	        event.preventDefault();
-	        _Actions2.default.testAgent(this.state.Address).then(function (x) {
-	            return alert("Agent responding");
-	        }).fail(function (x) {
-	            return alert("Agent not responding");
-	        });
-	    },
-
-	    rename: function rename() {
-	        _Actions2.default.rename(this.state.Id, this.state.EnviromentId, this.state.Name);
-	    },
-
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            null,
-	            " "
-	        );
-	    }
-	});
-
-	exports.default = AgentPage;
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(30);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _classnames = __webpack_require__(258);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Header = _react2.default.createClass({
-	    displayName: "Header",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "modal--header", onMouseDown: this.props.onMouseDown },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Body = _react2.default.createClass({
-	    displayName: "Body",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "modal--body" },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Footer = _react2.default.createClass({
-	    displayName: "Footer",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "modal--footer" },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Portal = _react2.default.createClass({
-	    displayName: "Portal",
-
-	    propTypes: {
-	        onClose: _react2.default.PropTypes.func.isRequired
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        this.portalElement = document.createElement('div');
-	        document.body.appendChild(this.portalElement);
-	        this.componentDidUpdate();
-	        if (window.innerHeight < document.documentElement.scrollHeight) {
-	            document.body.classList.add("modal-open");
-	        }
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-
-	        var classes = (0, _classnames2.default)("modal", this.props.className);
-
-	        var portal = _react2.default.createElement(
-	            "div",
-	            { className: classes },
-	            _react2.default.createElement("div", { className: "modal--overlay" }),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "modal--dialog" },
-	                _react2.default.createElement(
-	                    "div",
-	                    _extends({}, this.props, { className: "modal--content" }),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "modal__close", onClick: this.props.onClose },
-	                        "x"
-	                    ),
-	                    this.props.children
-	                )
-	            )
-	        );
-	        _reactDom2.default.render(portal, this.portalElement);
-	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        document.body.removeChild(this.portalElement);
-	        document.body.classList.remove("modal-open");
-	    },
-	    render: function render() {
-	        return null;
-	    }
-	});
-
-	var Modal = _react2.default.createClass({
-	    displayName: "Modal",
-
-	    propTypes: {
-	        show: _react2.default.PropTypes.bool.isRequired
-	    },
-
-	    render: function render() {
-	        return this.props.show === true ? _react2.default.createElement(
-	            Portal,
-	            this.props,
-	            " ",
-	            this.props.children,
-	            " "
-	        ) : null;
-	    }
-	});
-
-	Modal.Header = Header;
-	Modal.Body = Body;
-	Modal.Footer = Footer;
-
-	exports.default = Modal;
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(258);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Input = _react2.default.createClass({
-	    displayName: "Input",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "input" },
-	            this.props.title && _react2.default.createElement(
-	                "div",
-	                { className: "input__title" },
-	                this.props.title
-	            ),
-	            _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props))
-	        );
-	    }
-	});
-
-	exports.default = Input;
 
 /***/ }
 /******/ ]);
