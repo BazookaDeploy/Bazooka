@@ -82,17 +82,17 @@
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(279);
+	var _AgentPage = __webpack_require__(280);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(280);
+	var _StatisticsPage = __webpack_require__(281);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Store = __webpack_require__(283);
+	var _Store = __webpack_require__(284);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -29485,11 +29485,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(277);
+	var _Notifications = __webpack_require__(277);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	var _Input = __webpack_require__(278);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(278);
+	var _ServerIcon = __webpack_require__(279);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -29526,9 +29530,79 @@
 
 	Agent = (0, _reactRouter.withRouter)(Agent);
 
+	var AgentCreationDialog = _react2.default.createClass({
+	    displayName: "AgentCreationDialog",
+	    getInitialState: function getInitialState() {
+	        return { name: "", address: "" };
+	    },
+	    close: function close() {
+	        this.setState({ name: "", address: "" });
+	        this.props.onClose();
+	    },
+	    create: function create() {
+	        var _this = this;
+
+	        if (this.state.name == "" || this.state.address == "") {
+	            return;
+	        }
+
+	        _Actions2.default.createAgent(this.props.enviromentId, this.state.name, this.state.address).then(function (x) {
+	            _Notifications2.default.Notify(x);
+	            if (x.Success) {
+	                _this.props.onClose();
+	                _this.props.onCreate();
+	            }
+	        });
+	    },
+	    render: function render() {
+	        var _this2 = this;
+
+	        return _react2.default.createElement(
+	            _Modal2.default,
+	            _extends({ onClose: this.onClose }, this.props),
+	            _react2.default.createElement(
+	                _Modal2.default.Header,
+	                null,
+	                "Create new Agent"
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Body,
+	                null,
+	                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.name, onChange: function onChange(e) {
+	                        return _this2.setState({ name: e.target.value });
+	                    } }),
+	                _react2.default.createElement(_Input2.default, { title: "Address", value: this.state.address, onChange: function onChange(e) {
+	                        return _this2.setState({ address: e.target.value });
+	                    } })
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Footer,
+	                null,
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: this.close },
+	                    "Cancel"
+	                ),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { primary: true, onClick: this.create },
+	                    "Create"
+	                )
+	            )
+	        );
+	    }
+	});
+
 	var Enviroment = _react2.default.createClass({
 	    displayName: "Enviroment",
+	    getInitialState: function getInitialState() {
+	        return {
+	            shownewAgent: false
+	        };
+	    },
 	    render: function render() {
+	        var _this3 = this;
+
 	        return _react2.default.createElement(
 	            "div",
 	            { className: "enviroment" },
@@ -29542,7 +29616,9 @@
 	                { className: "enviroment__actions" },
 	                _react2.default.createElement(
 	                    _Button2.default,
-	                    null,
+	                    { onClick: function onClick() {
+	                            return _this3.setState({ shownewAgent: true });
+	                        } },
 	                    "Add agent"
 	                )
 	            ),
@@ -29552,7 +29628,10 @@
 	                this.props.Enviroment.Agents.map(function (x) {
 	                    return _react2.default.createElement(Agent, { agent: x });
 	                })
-	            )
+	            ),
+	            _react2.default.createElement(AgentCreationDialog, { enviromentId: this.props.Enviroment.Id, show: this.state.shownewAgent, onClose: function onClose() {
+	                    return _this3.setState({ shownewAgent: false });
+	                }, onUpdate: this.props.onUpdate })
 	        );
 	    }
 	});
@@ -29567,19 +29646,23 @@
 	        this.props.onClose();
 	    },
 	    create: function create() {
-	        var _this = this;
+	        var _this4 = this;
 
 	        if (this.state.name == "") {
 	            return;
 	        }
 
-	        _Actions2.default.createEnviroment(this.state.name).then(function () {
-	            _this.props.onClose();
-	            _this.props.onCreate();
+	        _Actions2.default.createEnviroment(this.state.name).then(function (x) {
+	            _Notifications2.default.Notify(x);
+
+	            if (x.Success) {
+	                _this4.props.onClose();
+	                _this4.props.onCreate();
+	            }
 	        });
 	    },
 	    render: function render() {
-	        var _this2 = this;
+	        var _this5 = this;
 
 	        return _react2.default.createElement(
 	            _Modal2.default,
@@ -29593,7 +29676,7 @@
 	                _Modal2.default.Body,
 	                null,
 	                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.name, onChange: function onChange(e) {
-	                        return _this2.setState({ name: e.target.value });
+	                        return _this5.setState({ name: e.target.value });
 	                    } })
 	            ),
 	            _react2.default.createElement(
@@ -29627,10 +29710,10 @@
 
 
 	    render: function render() {
-	        var _this3 = this;
+	        var _this6 = this;
 
 	        var envs = this.props.enviroments.map(function (a) {
-	            return _react2.default.createElement(Enviroment, { Enviroment: a, onUpdate: _this3.update });
+	            return _react2.default.createElement(Enviroment, { Enviroment: a, onUpdate: _this6.update });
 	        });
 
 	        return _react2.default.createElement(
@@ -29641,14 +29724,14 @@
 	                { actions: _react2.default.createElement(
 	                        _Button2.default,
 	                        { onClick: function onClick() {
-	                                return _this3.setState({ showNewEnviroment: true });
+	                                return _this6.setState({ showNewEnviroment: true });
 	                            } },
 	                        "New Enviroment"
 	                    ) },
 	                "Enviroments"
 	            ),
 	            _react2.default.createElement(EnviromentCreationDialog, { onClose: function onClose() {
-	                    return _this3.setState({ showNewEnviroment: false });
+	                    return _this6.setState({ showNewEnviroment: false });
 	                }, onCreate: this.update, show: this.state.showNewEnviroment }),
 	            _react2.default.createElement(
 	                _Grid2.default,
@@ -29938,6 +30021,121 @@
 	    value: true
 	});
 
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(30);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var portalElement = document.createElement('div');
+	document.body.appendChild(portalElement);
+
+	var notificationType = {
+	    success: 1,
+	    error: 2
+	};
+
+	var Notification = _react2.default.createClass({
+	    displayName: "Notification",
+	    getInitialState: function getInitialState() {
+	        return {
+	            notifications: [],
+	            currentIndex: 0
+	        };
+	    },
+	    add: function add(note, timeout) {
+	        var _this = this;
+
+	        if (Array.isArray(note.text)) {
+	            note.text = note.text.join("<br/>");
+	        }
+
+	        var index = this.state.currentIndex;
+	        var notification = this.state.notifications;
+	        notification[index] = note;
+
+	        this.setState({ notifications: notification, currentIndex: index + 1 }, function () {
+	            return _this.remove(index, timeout);
+	        });
+	    },
+	    remove: function remove(index, timeout) {
+	        var _this2 = this;
+
+	        setTimeout(function () {
+	            var n = _this2.state.notifications;
+	            n[index] = null;
+	            _this2.setState({ notifications: n });
+	        }, timeout);
+	    },
+
+
+	    render: function render() {
+	        var _this3 = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "notification" },
+	            this.state.notifications.map(function (x, i) {
+	                if (x != null) {
+	                    return _react2.default.createElement(
+	                        "div",
+	                        { key: i, className: x.tipo == notificationType.success ? "notification__wrapper notification--success" : "notification__wrapper notification--fail" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "notification__title" },
+	                            x.title
+	                        ),
+	                        _react2.default.createElement("div", { className: "notification__text", dangerouslySetInnerHTML: { __html: x.text } }),
+	                        _react2.default.createElement(
+	                            "p",
+	                            { className: "notification__closeBtn", onClick: function onClick() {
+	                                    return _this3.remove(i, 0);
+	                                } },
+	                            "x"
+	                        )
+	                    );
+	                }
+	            })
+	        );
+	    }
+	});
+
+	var notificator = _reactDom2.default.render(_react2.default.createElement(Notification), portalElement);
+
+	var Notificator = {
+	    Success: function Success(params) {
+	        notificator.add({ type: notificationType.success, text: params.text, title: params.title }, params.Timeout || 3000);
+	    },
+
+	    Error: function Error(params) {
+	        notificator.add({ type: notificationType.error, text: params.text, title: params.title }, 3000);
+	    },
+
+	    Notify: function Notify(params) {
+	        if (params.Success) {
+	            notificator.add({ type: notificationType.success, text: "", title: "Success" }, params.Timeout || 3000);
+	        } else {
+	            notificator.add({ type: notificationType.error, text: params.Errors, title: "Error" }, 3000);
+	        }
+	    }
+	};
+
+	exports.default = Notificator;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _react = __webpack_require__(1);
@@ -29969,7 +30167,7 @@
 	exports.default = Input;
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29993,7 +30191,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30075,7 +30273,7 @@
 	exports.default = AgentPage;
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30100,7 +30298,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(281);
+	var _Tabs = __webpack_require__(282);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -30108,7 +30306,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(282);
+	var _Actions = __webpack_require__(283);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30460,7 +30658,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30531,7 +30729,7 @@
 	exports.default = Tabs;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30573,7 +30771,7 @@
 	};
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

@@ -1560,6 +1560,64 @@ body {
   border: 1px solid #ccc;
   width: 100%; }
 
+.notification {
+  position: fixed;
+  top: 0;
+  right: 10px;
+  width: 50%;
+  z-index: 1000; }
+
+.notification__wrapper {
+  box-shadow: rgba(0, 0, 0, 0.156863) 0 3px 10px, rgba(0, 0, 0, 0.227451) 0 3px 10px;
+  background-color: white;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn .3s linear forwards;
+  float: right;
+  clear: both;
+  z-index: 1000;
+  max-width: 250px; }
+
+.notification--success {
+  background-color: #00c853; }
+
+.notification--fail {
+  background-color: #f44336; }
+
+.notification__title {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 5px;
+  height: 24px;
+  line-height: 24px;
+  font-weight: 500;
+  color: white; }
+
+.notification__text {
+  font-size: 18px;
+  padding: 14px;
+  text-align: center;
+  font-weight: 400;
+  color: white; }
+
+.notification__closeBtn {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  fill: white;
+  cursor: pointer; }
+
+.notification__closeBtn:hover {
+  fill: #DDDDDD; }
+
+.notification__separator {
+  margin: 20px; }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    margin-top: 5px; } }
+
 .log__logTime {
   width: 80px;
   border-top: 1px solid #ccc;

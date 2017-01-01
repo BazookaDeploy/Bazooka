@@ -4,6 +4,7 @@ import Grid from "../Shared/Grid";
 import Actions from "./Actions";
 import Modal from "../Shared/Modal";
 import Button from "../Shared/Button";
+import Notification from "../Shared/Notifications";
 import Input from "../Shared/Input";
 import ServerIcon from "../Shared/Icon/ServerIcon";
 import {withRouter} from "react-router";
@@ -26,14 +27,60 @@ var Agent = React.createClass({
 
 Agent=withRouter(Agent);
 
+var AgentCreationDialog = React.createClass({
+    getInitialState(){
+        return { name: "", address : ""}
+    },
+
+    close(){
+        this.setState({name:"", address: ""});
+        this.props.onClose();
+    },
+
+    create(){
+        if(this.state.name=="" || this.state.address == ""){
+            return;
+        }
+
+        Actions.createAgent(this.props.enviromentId, this.state.name,this.state.address).then((x) => {
+            Notification.Notify(x);
+            if(x.Success){
+                this.props.onClose();
+                this.props.onCreate();
+            }
+        });
+    },
+
+    render(){
+        return (<Modal onClose={this.onClose} {...this.props}>
+                    <Modal.Header>Create new Agent</Modal.Header>
+                    <Modal.Body>
+                        <Input title="Name" value={this.state.name} onChange={(e) => this.setState({name: e.target.value})} />
+                        <Input title="Address" value={this.state.address} onChange={(e) => this.setState({address: e.target.value})} />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.close}>Cancel</Button>
+                        <Button primary onClick={this.create}>Create</Button>
+                    </Modal.Footer>
+                </Modal>)
+    }
+});
+
 var Enviroment = React.createClass({
+    getInitialState(){
+        return {
+            shownewAgent: false
+        };
+    },
+
     render(){
         return (<div className="enviroment">
             <div className="enviroment__title">{this.props.Enviroment.Name}</div>
-            <div className="enviroment__actions"><Button>Add agent</Button></div>
+            <div className="enviroment__actions"><Button onClick={() => this.setState({shownewAgent:true})}>Add agent</Button></div>
             <div className="enviroment__agents">
                 {this.props.Enviroment.Agents.map(x => <Agent agent={x} />)}
             </div>
+            <AgentCreationDialog enviromentId={this.props.Enviroment.Id} show={this.state.shownewAgent} onClose={() => this.setState({shownewAgent:false})} onUpdate={this.props.onUpdate} />
         </div>);
     }
 });
@@ -54,9 +101,13 @@ var EnviromentCreationDialog = React.createClass({
             return;
         }
 
-        Actions.createEnviroment(this.state.name).then(() => {
-            this.props.onClose();
-            this.props.onCreate()
+        Actions.createEnviroment(this.state.name).then((x) => {
+            Notification.Notify(x);
+
+            if(x.Success){
+                this.props.onClose();
+                this.props.onCreate();
+            }
         });
     },
 
