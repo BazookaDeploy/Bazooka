@@ -1553,12 +1553,22 @@ body {
   font-size: 14px;
   margin-bottom: 2px; }
 
+.input__wrapper {
+  display: table;
+  width: 100%; }
+
 .input__input {
   padding: 5px;
   height: 25px;
   font-size: 16px;
   border: 1px solid #ccc;
-  width: 100%; }
+  width: 100%;
+  display: table-cell; }
+
+.input__buttons {
+  display: table-cell;
+  white-space: nowrap;
+  width: 1%; }
 
 .notification {
   position: fixed;
@@ -1617,6 +1627,25 @@ body {
   to {
     opacity: 1;
     margin-top: 5px; } }
+
+.card {
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2); }
+
+.card__title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 1.5rem; }
+
+.upload {
+  display: inline-block; }
+
+.upload__input {
+  display: none; }
 
 .log__logTime {
   width: 80px;

@@ -86,13 +86,13 @@
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(281);
+	var _StatisticsPage = __webpack_require__(282);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Store = __webpack_require__(284);
+	var _Store = __webpack_require__(285);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -30159,7 +30159,16 @@
 	                { className: "input__title" },
 	                this.props.title
 	            ),
-	            _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props))
+	            _react2.default.createElement(
+	                "div",
+	                { className: "input__wrapper" },
+	                _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props)),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "input__buttons" },
+	                    this.props.buttons
+	                )
+	            )
 	        );
 	    }
 	});
@@ -30208,9 +30217,17 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
+	var _Input = __webpack_require__(278);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
 	var _Grid = __webpack_require__(259);
 
 	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Card = __webpack_require__(281);
+
+	var _Card2 = _interopRequireDefault(_Card);
 
 	var _Actions = __webpack_require__(275);
 
@@ -30219,6 +30236,10 @@
 	var _Button = __webpack_require__(272);
 
 	var _Button2 = _interopRequireDefault(_Button);
+
+	var _FileUpload = __webpack_require__(286);
+
+	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30244,7 +30265,9 @@
 	        });
 	    },
 
-	    onDrop: function onDrop(files) {
+	    onDrop: function onDrop(e) {
+	        debugger;
+	        var files = e.target.files;
 	        _Actions2.default.uploadFiles(files, this.state.OriginalName);
 	    },
 
@@ -30261,11 +30284,95 @@
 	        _Actions2.default.rename(this.state.Id, this.state.EnviromentId, this.state.Name);
 	    },
 
+	    changeAddress: function changeAddress() {
+	        _Actions2.default.changeAddress(this.state.Id, this.state.EnviromentId, this.state.Address);
+	    },
+
 	    render: function render() {
+	        var _this2 = this;
+
 	        return _react2.default.createElement(
 	            "div",
 	            null,
-	            " "
+	            _react2.default.createElement(
+	                _Header2.default,
+	                null,
+	                _react2.default.createElement(
+	                    "a",
+	                    { href: "#/Enviroments" },
+	                    "Enviroments"
+	                ),
+	                " \xBB Agent ",
+	                this.state.OriginalName
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                    _Grid2.default,
+	                    { fluid: true },
+	                    _react2.default.createElement(
+	                        _Grid2.default.Row,
+	                        null,
+	                        _react2.default.createElement(
+	                            _Grid2.default.Col,
+	                            { md: 6 },
+	                            _react2.default.createElement(
+	                                _Card2.default,
+	                                { title: "Agent Description" },
+	                                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.Name, onChange: function onChange(e) {
+	                                        return _this2.setState({ Name: e.target.value });
+	                                    }, buttons: _react2.default.createElement(
+	                                        _Button2.default,
+	                                        { onClick: this.rename },
+	                                        "Rename"
+	                                    ) })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            _Grid2.default.Col,
+	                            { md: 6 },
+	                            _react2.default.createElement(
+	                                _Card2.default,
+	                                { title: "Agent Address" },
+	                                _react2.default.createElement(_Input2.default, { title: "Address", value: this.state.Address, onChange: function onChange(e) {
+	                                        return _this2.setState({ Address: e.target.value });
+	                                    }, buttons: _react2.default.createElement(
+	                                        "div",
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            _Button2.default,
+	                                            { onClick: this.changeAddress },
+	                                            "Change"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            _Button2.default,
+	                                            { onClick: this.testConnection },
+	                                            "Test connection"
+	                                        )
+	                                    ) })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            _Grid2.default.Col,
+	                            { md: 12 },
+	                            _react2.default.createElement(
+	                                _Card2.default,
+	                                { title: "Agent Update" },
+	                                _react2.default.createElement(
+	                                    _FileUpload2.default,
+	                                    { onChange: this.onDrop },
+	                                    _react2.default.createElement(
+	                                        _Button2.default,
+	                                        { primary: true },
+	                                        "Upload new version"
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
 	        );
 	    }
 	});
@@ -30274,6 +30381,44 @@
 
 /***/ },
 /* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Card = _react2.default.createClass({
+	    displayName: "Card",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "card" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "card__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "card__content" },
+	                this.props.children
+	            )
+	        );
+	    }
+	});
+
+	exports.default = Card;
+
+/***/ },
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30298,7 +30443,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(282);
+	var _Tabs = __webpack_require__(283);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -30306,7 +30451,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(283);
+	var _Actions = __webpack_require__(284);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30658,7 +30803,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30729,7 +30874,7 @@
 	exports.default = Tabs;
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30771,7 +30916,7 @@
 	};
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30810,6 +30955,52 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(30);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var FileUpload = _react2.default.createClass({
+	    displayName: "FileUpload",
+	    render: function render() {
+	        var _this = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "upload" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "upload__button", onClick: function onClick() {
+	                        return _this.refs.input.click();
+	                    } },
+	                this.props.children
+	            ),
+	            _react2.default.createElement("input", {
+	                type: "file",
+	                className: "upload__input",
+	                onChange: this.props.onChange,
+	                ref: "input" })
+	        );
+	    }
+	});
+
+	exports.default = FileUpload;
 
 /***/ }
 /******/ ]);

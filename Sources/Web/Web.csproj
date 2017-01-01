@@ -225,6 +225,8 @@
     <Content Include="App\Enviroments\AgentPage.js" />
     <Content Include="App\Enviroments\EnviromentsPage.js" />
     <Content Include="App\Shared\Button\index.js" />
+    <Content Include="App\Shared\Card\index.js" />
+    <Content Include="App\Shared\FileUpload\index.js" />
     <Content Include="App\Shared\Icon\CircleRemoveIcon.js" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -528,6 +530,8 @@
     <Content Include="App\Shared\Modal\Modal.scss" />
     <Content Include="App\Shared\Input\Input.scss" />
     <Content Include="App\Shared\Notifications\Notifications.scss" />
+    <Content Include="App\Shared\Card\Card.scss" />
+    <Content Include="App\Shared\FileUpload\FileUpload.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />

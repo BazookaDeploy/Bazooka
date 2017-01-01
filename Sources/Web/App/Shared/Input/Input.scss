@@ -1,17 +1,29 @@
 ﻿.input {
-    margin-bottom:6px;
-    width:100%;
+    margin-bottom: 6px;
+    width: 100%;
 }
 
 .input__title {
-    font-size:14px;
+    font-size: 14px;
     margin-bottom: 2px;
 }
 
+.input__wrapper {
+    display: table;
+    width:100%;
+}
+
 .input__input {
-    padding:5px;
+    padding: 5px;
     height: 25px;
     font-size: 16px;
     border: 1px solid #ccc;
-    width:100%;
+    width: 100%;
+    display: table-cell;
+}
+
+.input__buttons {
+    display: table-cell;
+    white-space: nowrap;
+    width:1%;
 }

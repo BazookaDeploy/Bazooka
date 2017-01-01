@@ -1,8 +1,12 @@
 ﻿import React from "react";
 import Header from "../Shared/Header";
+import Input from "../Shared/Input";
 import Grid from "../Shared/Grid";
+import Card from "../Shared/Card";
 import Actions from "./Actions";
 import Button from "../Shared/Button";
+import FileUpload from "../Shared/FileUpload";
+
 
 var AgentPage = React.createClass({
     getInitialState: function () {
@@ -20,7 +24,9 @@ var AgentPage = React.createClass({
         }));
     },
 
-    onDrop: function (files) {
+    onDrop: function (e) {
+        debugger;
+        var files=e.target.files;
         Actions.uploadFiles(files, this.state.OriginalName);
     },
 
@@ -31,13 +37,45 @@ var AgentPage = React.createClass({
             .fail(x => alert("Agent not responding"))
     },
 
-    rename: function () {
-        Actions.rename(this.state.Id, this.state.EnviromentId, this.state.Name);
-    },
+  rename: function(){
+    Actions.rename(this.state.Id,this.state.EnviromentId,this.state.Name);
+  },
+
+  changeAddress: function(){
+    Actions.changeAddress(this.state.Id,this.state.EnviromentId,this.state.Address);
+  },
 
 
     render() {
-        return <div> </div>
+        return (<div> 
+            <Header><a href="#/Enviroments">Enviroments</a> &raquo; Agent {this.state.OriginalName}</Header>
+            <div>
+                <Grid fluid>
+                    <Grid.Row>
+                    <Grid.Col md={6}>
+                        <Card title="Agent Description">
+                            <Input title="Name" value={this.state.Name} onChange={(e)=>this.setState({Name: e.target.value})} buttons={<Button onClick={this.rename}>Rename</Button>} />
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col md={6}>
+                        <Card title="Agent Address">
+                            <Input title="Address" value={this.state.Address} onChange={(e)=>this.setState({Address: e.target.value})} buttons={<div><Button onClick={this.changeAddress}>Change</Button><Button onClick={this.testConnection}>Test connection</Button></div>} />
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col md={12}>
+                        <Card title="Agent Update">
+                            <FileUpload onChange={this.onDrop}>
+                                <Button primary>Upload new version</Button>
+                            </FileUpload>
+                        </Card>
+                    </Grid.Col>
+
+                    </Grid.Row>
+                </Grid>
+            </div>
+        </div>);
     }
 });
 
