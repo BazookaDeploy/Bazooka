@@ -1,0 +1,133 @@
+.datetimepicker__calendar {
+    width:50%;
+    float:left;
+}
+
+.datetimepicker__clock {
+    float:left;
+    width:50%;
+}
+
+.datetimepicker__calendar__days li{
+    width: 14%;
+    min-width: 14%;
+    max-width: 14%;
+    display: inline-block;
+    height: 40px;
+    text-align: center;
+    cursor:pointer;
+    line-height: 36px;
+}
+
+
+.datetimepicker__calendar__days li.datetimepicker__days{
+    width: 13%;
+    min-width: 13%;
+    max-width: 13%;
+    font-weight: 600;   
+}
+
+.datetimepicker__calendar__days li:hover{
+    background-color:rgba(#ccc,0.1);
+}
+
+.datetimepicker__calendar__days li.selected{
+    border:1px solid red;
+}
+
+.datetimepicker__calendar__header {
+    text-align: center;
+    font-weight:600;
+}
+
+.previousMonth {
+    float: left;
+    width:50px;
+    cursor:pointer;
+}
+
+.nextMonth {
+    float:right;
+    width:50px;
+    cursor:pointer;
+}
+
+.datetimepicker__selector span {
+    text-align: center;
+    width: 50%;
+    display: inline-block;
+}
+
+.datetimepicker__selector span.selected {
+    font-weight: 600;
+}
+
+.datetimepicker__hours {
+    position: relative;
+}
+
+.datetimepicker__hours li {
+    list-style-type: none;
+    display: inline-block;
+    transform-origin: bottom;
+    height: 100px;
+    position: absolute;
+    top:50%;
+    left:140px;
+    cursor: pointer;
+}
+
+.datetimepicker__hours li.selected {
+    background-color: #ccc;
+    border-radius:100px;
+}
+
+.datetimepicker__minutes {
+    position: relative;
+    margin-top:20px;
+}
+
+.datetimepicker__minutes li {
+    list-style-type: none;
+    display: inline-block;
+    transform-origin: bottom;
+    height: 80px;
+    position: absolute;
+    top:50%;
+    left:140px;
+    cursor: pointer;
+}
+
+.datetimepicker__hours__bakcground {
+        width: 200px;
+    height: 200px;
+    background-color: $primaryLightColor;
+    display: inline-block;
+    border-radius: 100%;
+    position: absolute;
+    left: 45px;
+}
+
+.datetimepicker__minutes__bakcground {
+        width: 160px;
+    height: 160px;
+    background-color: white;
+    display: inline-block;
+    border-radius: 100%;
+    position: absolute;
+    left: 67px;
+}
+
+.datetimepicker__minutes li.selected {
+    background-color:  #ccc;
+    border-radius:100px;
+}
+
+.datetimepicker__buttons {
+    clear:both;
+    text-align: right;
+}
+
+.datetimepicker__selector span {
+    cursor:pointer;
+}

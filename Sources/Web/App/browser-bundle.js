@@ -62,37 +62,37 @@
 
 	var _Homepage2 = _interopRequireDefault(_Homepage);
 
-	var _ApplicationsPage = __webpack_require__(253);
+	var _ApplicationsPage = __webpack_require__(267);
 
 	var _ApplicationsPage2 = _interopRequireDefault(_ApplicationsPage);
 
-	var _ConfigurationPage = __webpack_require__(254);
+	var _ConfigurationPage = __webpack_require__(268);
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
 
-	var _DeploymentsPage = __webpack_require__(255);
+	var _DeploymentsPage = __webpack_require__(269);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(271);
+	var _DeploymentPage = __webpack_require__(279);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(274);
+	var _EnviromentsPage = __webpack_require__(281);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(280);
+	var _AgentPage = __webpack_require__(286);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(282);
+	var _StatisticsPage = __webpack_require__(289);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Store = __webpack_require__(285);
+	var _Store = __webpack_require__(292);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -28064,6 +28064,502 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Table = __webpack_require__(253);
+
+	var _Table2 = _interopRequireDefault(_Table);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _ArrowUpIcon = __webpack_require__(258);
+
+	var _ArrowUpIcon2 = _interopRequireDefault(_ArrowUpIcon);
+
+	var _ArrowDownIcon = __webpack_require__(260);
+
+	var _ArrowDownIcon2 = _interopRequireDefault(_ArrowDownIcon);
+
+	var _DeployDialog = __webpack_require__(261);
+
+	var _DeployDialog2 = _interopRequireDefault(_DeployDialog);
+
+	var _Actions = __webpack_require__(262);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Enviroment = _react2.default.createClass({
+	  displayName: "Enviroment",
+	  getInitialState: function getInitialState() {
+	    return {
+	      showDialog: false
+	    };
+	  },
+
+
+	  render: function render() {
+	    var _this = this;
+
+	    if (this.props.Enviroment == undefined) {
+	      return _react2.default.createElement("td", null);
+	    }
+
+	    var oneVersion = this.props.Enviroment.Versions.map(function (x) {
+	      return x.CurrentlyDeployedVersion;
+	    }).reduce(function (a, b) {
+	      return a === b ? a : false;
+	    }) === this.props.Enviroment.Versions[0].CurrentlyDeployedVersion;
+
+	    if (oneVersion) {
+	      var version = this.props.Enviroment.Versions[0].CurrentlyDeployedVersion || "None";
+	      return _react2.default.createElement(
+	        "td",
+	        null,
+	        _react2.default.createElement(
+	          "b",
+	          null,
+	          version
+	        ),
+	        " ",
+	        _react2.default.createElement("br", null),
+	        _react2.default.createElement("br", null),
+	        " ",
+	        _react2.default.createElement(_DeployDialog2.default, { onClose: function onClose() {
+	            return _this.setState({ show: false });
+	          }, show: this.state.show, Enviroment: this.props.Enviroment, ApplicationId: this.props.ApplicationId }),
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { primary: true, onClick: function onClick() {
+	              return _this.setState({ show: true });
+	            } },
+	          "Deploy"
+	        )
+	      );
+	    }
+
+	    var units = this.props.Enviroment.Versions.map(function (x) {
+	      return _react2.default.createElement(
+	        "li",
+	        null,
+	        x.Name,
+	        ": ",
+	        _react2.default.createElement(
+	          "b",
+	          null,
+	          x.CurrentlyDeployedVersion || "None"
+	        )
+	      );
+	    });
+
+	    return _react2.default.createElement(
+	      "td",
+	      null,
+	      _react2.default.createElement(
+	        "ul",
+	        { className: "application__versionList" },
+	        units
+	      ),
+	      _react2.default.createElement("br", null),
+	      _react2.default.createElement(_DeployDialog2.default, { show: this.state.show, onClose: function onClose() {
+	          return _this.setState({ show: false });
+	        }, Enviroment: this.props.Enviroment, ApplicationId: this.props.ApplicationId }),
+	      _react2.default.createElement(
+	        _Button2.default,
+	        { primary: true, onClick: function onClick() {
+	            return _this.setState({ show: true });
+	          } },
+	        "Deploy"
+	      )
+	    );
+	  }
+	});
+
+	var Application = _react2.default.createClass({
+	  displayName: "Application",
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      "tr",
+	      null,
+	      _react2.default.createElement(
+	        "td",
+	        null,
+	        this.props.Application.Name
+	      ),
+	      this.props.Enviroments.map(function (x) {
+	        return _react2.default.createElement(Enviroment, { EnviromentId: x.Id, ApplicationId: _this2.props.Application.Id, Enviroment: _this2.props.Application.Enviroments.filter(function (z) {
+	            return z.Id == x.Id;
+	          })[0] });
+	      })
+	    );
+	  }
+	});
+
+	var ApplicationGroup = _react2.default.createClass({
+	  displayName: "ApplicationGroup",
+
+	  render: function render() {
+	    var _this3 = this;
+
+	    return _react2.default.createElement(
+	      "div",
+	      { className: "applicationGroup" },
+	      _react2.default.createElement(
+	        "h3",
+	        { className: "applicationGroup__title" },
+	        this.props.Group.GroupName,
+	        _react2.default.createElement(
+	          "div",
+	          { className: "applicationGroup__actions" },
+	          this.props.editMode ? _react2.default.createElement(
+	            _Button2.default,
+	            { onClick: function onClick() {
+	                return _this3.props.onMoveUp(_this3.props.Group);
+	              } },
+	            _react2.default.createElement(_ArrowUpIcon2.default, null)
+	          ) : null,
+	          this.props.editMode ? _react2.default.createElement(
+	            _Button2.default,
+	            { onClick: function onClick() {
+	                return _this3.props.onMoveDown(_this3.props.Group);
+	              } },
+	            _react2.default.createElement(_ArrowDownIcon2.default, null)
+	          ) : null
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _Table2.default,
+	        { bordered: true, className: "applicationGroup__table" },
+	        _react2.default.createElement(
+	          _Table2.default.Head,
+	          null,
+	          _react2.default.createElement(
+	            "tr",
+	            null,
+	            _react2.default.createElement("th", null),
+	            this.props.Enviroments.map(function (x) {
+	              return _react2.default.createElement(
+	                "th",
+	                null,
+	                x.Name
+	              );
+	            })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _Table2.default.Body,
+	          null,
+	          this.props.Group.Applications.map(function (x) {
+	            return _react2.default.createElement(Application, { Application: x, Enviroments: _this3.props.Enviroments });
+	          })
+	        )
+	      )
+	    );
+	  }
+	});
+
+	var swapArray = function swapArray(A, x, y) {
+	  A[x] = A.splice(y, 1, A[x])[0];
+	};
+
+	var HomePage = _react2.default.createClass({
+	  displayName: "HomePage",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      editMode: false,
+	      envs: { Applications: [], Enviroments: [] }
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var _this4 = this;
+
+	    _Actions2.default.updateEnviroments().then(function (x) {
+	      _this4.setState({ envs: x }, _this4.ordina);
+	    });
+	  },
+
+	  ordina: function ordina() {
+	    var _this5 = this;
+
+	    if (window.localStorage) {
+	      var groups = window.localStorage.getItem("homeGroups");
+
+	      if (groups == null || groups == "") {
+	        groups = "[]";
+	        window.localStorage.setItem("homeGroups", groups);
+	      }
+
+	      var gruppi = JSON.parse(groups);
+
+	      var i = 0;
+	      for (i = 0; i < this.state.envs.Applications.length; i++) {
+	        var pos = gruppi.findIndex(function (x) {
+	          return x.GroupName == _this5.state.envs.Applications[i].GroupName;
+	        });
+
+	        if (pos != -1) {
+	          swapArray(this.state.envs.Applications, i, pos);
+	        }
+	      }
+
+	      window.localStorage.setItem("homeGroups", JSON.stringify(this.state.envs.Applications));
+
+	      this.setState({ envs: this.state.envs });
+	    }
+	  },
+	  moveUp: function moveUp(group) {
+	    if (window.localStorage) {
+	      var groups = window.localStorage.getItem("homeGroups");
+	      var gruppi = JSON.parse(groups);
+	      var pos = gruppi.findIndex(function (x) {
+	        return x.GroupName == group.GroupName;
+	      });
+	      if (pos > 0) {
+	        swapArray(gruppi, pos, pos - 1);
+	      }
+
+	      window.localStorage.setItem("homeGroups", JSON.stringify(gruppi));
+	      this.ordina();
+	    }
+	  },
+	  moveDown: function moveDown(group) {
+	    if (window.localStorage) {
+	      var groups = window.localStorage.getItem("homeGroups");
+	      var gruppi = JSON.parse(groups);
+	      var pos = gruppi.findIndex(function (x) {
+	        return x.GroupName == group.GroupName;
+	      });
+	      if (pos < gruppi.length - 1) {
+	        swapArray(gruppi, pos, pos + 1);
+	      }
+
+	      window.localStorage.setItem("homeGroups", JSON.stringify(gruppi));
+	      this.ordina();
+	    }
+	  },
+	  modify: function modify() {
+	    this.setState({ editMode: !this.state.editMode });
+	  },
+
+
+	  render: function render() {
+	    var _this6 = this;
+
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(
+	        _Header2.default,
+	        { actions: _react2.default.createElement(
+	            _Button2.default,
+	            { onClick: this.modify },
+	            this.state.editMode ? "Save" : "Modify"
+	          ) },
+	        "Current system status"
+	      ),
+	      _react2.default.createElement(
+	        _Grid2.default,
+	        { fluid: true },
+	        _react2.default.createElement(
+	          _Grid2.default.Row,
+	          null,
+	          _react2.default.createElement(
+	            _Grid2.default.Col,
+	            { md: 12 },
+	            this.state.envs.Applications.map(function (x) {
+	              return _react2.default.createElement(ApplicationGroup, { Group: x, Enviroments: _this6.state.envs.Enviroments, editMode: _this6.state.editMode, onMoveUp: function onMoveUp() {
+	                  return _this6.moveUp(x);
+	                }, onMoveDown: function onMoveDown() {
+	                  return _this6.moveDown(x);
+	                } });
+	            })
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	exports.default = HomePage;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Head = _react2.default.createClass({
+	    displayName: "Head",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "thead",
+	            { className: "table__head" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Body = _react2.default.createClass({
+	    displayName: "Body",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "tbody",
+	            { className: "table__body" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Table = _react2.default.createClass({
+	    displayName: "Table",
+	    render: function render() {
+	        var classes = (0, _classnames2.default)("table", { "table--hover": this.props.hover });
+
+	        return _react2.default.createElement(
+	            "table",
+	            { className: classes },
+	            this.props.children
+	        );
+	    }
+	});
+
+	Table.Head = Head;
+	Table.Body = Body;
+
+	exports.default = Table;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Button = _react2.default.createClass({
+	    displayName: "Button",
+	    render: function render() {
+	        var classes = (0, _classnames2.default)("button", { "button--primary": this.props.primary }, this.props.className);
+	        return _react2.default.createElement(
+	            "button",
+	            _extends({}, this.props, { className: classes }),
+	            this.props.children
+	        );
+	    }
+	});
+
+	exports.default = Button;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
@@ -28073,26 +28569,900 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Homepage = _react2.default.createClass({
-	    displayName: "Homepage",
-
+	var Header = _react2.default.createClass({
+	    displayName: "Header",
 	    render: function render() {
 	        return _react2.default.createElement(
 	            "div",
-	            null,
+	            { className: "header" },
+	            this.props.children,
 	            _react2.default.createElement(
-	                "h1",
-	                null,
-	                "Homepage"
+	                "div",
+	                { className: "header__actions" },
+	                this.props.actions
 	            )
 	        );
 	    }
 	});
 
-	exports.default = Homepage;
+	exports.default = Header;
 
 /***/ },
-/* 253 */
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Col = _react2.default.createClass({
+	    displayName: "Col",
+	    render: function render() {
+	        var obj = {};
+	        if (this.props.xs) {
+	            obj["col-xs-" + this.props.xs] = true;
+	        }
+	        if (this.props.xsOffset) {
+	            obj["offset-xs-" + this.props.xsOffset] = true;
+	        }
+	        if (this.props.xsPush) {
+	            obj["push-xs-" + this.props.xsPush] = true;
+	        }
+	        if (this.props.xsPull) {
+	            obj["pull-xs-" + this.props.xsPull] = true;
+	        }
+	        if (this.props.md) {
+	            obj["col-md-" + this.props.md] = true;
+	        }
+	        if (this.props.mdOffset) {
+	            obj["offset-md-" + this.props.mdOffset] = true;
+	        }
+	        if (this.props.mdPush) {
+	            obj["push-md-" + this.props.mdPush] = true;
+	        }
+	        if (this.props.mdPull) {
+	            obj["pull-md-" + this.props.mdPull] = true;
+	        }
+	        if (this.props.lg) {
+	            obj["col-lg-" + this.props.lg] = true;
+	        }
+	        if (this.props.lgOffset) {
+	            obj["offset-lg-" + this.props.lgOffset] = true;
+	        }
+	        if (this.props.lgPush) {
+	            obj["push-lg-" + this.props.lgPush] = true;
+	        }
+	        if (this.props.lgPull) {
+	            obj["pull-lg-" + this.props.lgPull] = true;
+	        }
+	        if (this.props.xl) {
+	            obj["col-xl-" + this.props.xl] = true;
+	        }
+	        if (this.props.xlOffset) {
+	            obj["offset-xl-" + this.props.xlOffset] = true;
+	        }
+	        if (this.props.xlPush) {
+	            obj["push-xl-" + this.props.xlPush] = true;
+	        }
+	        if (this.props.xlPull) {
+	            obj["pull-xl-" + this.props.xlPull] = true;
+	        }
+
+	        var classes = (0, _classnames2.default)(obj, this.props.className);
+	        return _react2.default.createElement(
+	            "div",
+	            { className: classes },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Row = _react2.default.createClass({
+	    displayName: "Row",
+
+	    propTypes: {
+	        className: _react2.default.PropTypes.string
+	    },
+
+	    render: function render() {
+	        var classes = (0, _classnames2.default)("row", this.props.className);
+	        return _react2.default.createElement(
+	            "div",
+	            { className: classes },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Grid = _react2.default.createClass({
+	    displayName: "Grid",
+
+	    propTypes: {
+	        className: _react2.default.PropTypes.string,
+	        fluid: _react2.default.PropTypes.any
+	    },
+
+	    render: function render() {
+	        var classes = (0, _classnames2.default)("container" + (this.props.fluid ? "-fluid" : ""), this.props.className);
+	        return _react2.default.createElement(
+	            "div",
+	            { className: classes },
+	            this.props.children
+	        );
+	    }
+	});
+
+	Grid.Col = Col;
+	Grid.Row = Row;
+
+	exports.default = Grid;
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Icon = __webpack_require__(259);
+
+	var _Icon2 = _interopRequireDefault(_Icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CircleOkIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 25 7.21875 L 23.59375 8.65625 L 13.6875 18.53125 A 2.0108349 2.0108349 0 0 0 16.53125 21.375 L 23 14.875 L 23 40 A 2.0002 2.0002 0 1 0 27 40 L 27 14.875 L 33.46875 21.375 A 2.0108349 2.0108349 0 0 0 36.3125 18.53125 L 26.40625 8.65625 L 25 7.21875 z" }));
+
+	exports.default = CircleOkIcon;
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Icon = function Icon(path) {
+	    return _react2.default.createClass({
+	        render: function render() {
+	            var classes = (0, _classnames2.default)("icon", { "icon--small": this.props.small }, this.props.className);
+	            return _react2.default.createElement(
+	                "svg",
+	                _extends({ viewBox: "0 0 50 50", className: classes }, this.props),
+	                path
+	            );
+	        }
+	    });
+	};
+
+	exports.default = Icon;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Icon = __webpack_require__(259);
+
+	var _Icon2 = _interopRequireDefault(_Icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CircleOkIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 24.78125 7.96875 A 2.0002 2.0002 0 0 0 23 10 L 23 35.09375 L 16.40625 28.5625 A 2.0002 2.0002 0 0 0 14.96875 27.96875 A 2.0002 2.0002 0 0 0 13.59375 31.4375 L 23.59375 41.3125 L 25 42.71875 L 26.40625 41.3125 L 36.40625 31.4375 A 2.0109563 2.0109563 0 1 0 33.59375 28.5625 L 27 35.09375 L 27 10 A 2.0002 2.0002 0 0 0 24.96875 7.96875 A 2.0002 2.0002 0 0 0 24.78125 7.96875 z" }));
+
+	exports.default = CircleOkIcon;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Actions = __webpack_require__(262);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _DateTimePicker = __webpack_require__(264);
+
+	var _DateTimePicker2 = _interopRequireDefault(_DateTimePicker);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var DeployDialog = _react2.default.createClass({
+	  displayName: "DeployDialog",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      loading: true,
+	      scheduled: false,
+	      versions: [],
+	      version: null,
+	      tasks: [],
+	      date: new Date()
+	    };
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var _this = this;
+
+	    if ((this.props.show == false || this.props.show == undefined) && nextProps.show == true) {
+
+	      _Actions2.default.getVersions(this.props.Enviroment.Id, this.props.ApplicationId).then(function (x) {
+	        _this.setState({
+	          loading: false,
+	          versions: x
+	        });
+	      });
+
+	      _Actions2.default.getTasks(this.props.Enviroment.Id, this.props.ApplicationId).then(function (x) {
+	        _this.setState({
+	          tasks: x
+	        });
+	      });
+	    }
+	  },
+
+	  create: function create() {
+	    var version = this.state.version;
+	    if (version != null) {
+	      if (!this.state.scheduled) {
+	        _Actions2.default.startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version);
+	        this.props.onClose();
+	      } else {
+	        _Actions2.default.scheduleDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version, this.state.date);
+	        this.props.onClose();
+	      }
+	    }
+	  },
+
+	  setScheduled: function setScheduled() {
+	    this.setState({
+	      scheduled: !this.state.scheduled
+	    });
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    var title = "Start deploy " + this.props.Enviroment.Name + " - " + this.props.Enviroment.Configuration;
+
+	    var versions = this.state.versions.map(function (x) {
+	      return _react2.default.createElement(
+	        "option",
+	        null,
+	        x
+	      );
+	    });
+
+	    return _react2.default.createElement(
+	      _Modal2.default,
+	      this.props,
+	      _react2.default.createElement(
+	        _Modal2.default.Header,
+	        null,
+	        title
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Body,
+	        null,
+	        this.state.loading ? _react2.default.createElement(
+	          "span",
+	          null,
+	          _react2.default.createElement("br", null),
+	          "Loading available versions ... ",
+	          _react2.default.createElement("br", null),
+	          " ",
+	          _react2.default.createElement("br", null)
+	        ) : _react2.default.createElement(
+	          _Select2.default,
+	          { title: "Choose the version to deploy:", onChange: function onChange(e) {
+	              return _this2.setState({ version: e.target.value });
+	            } },
+	          _react2.default.createElement("option", null),
+	          versions
+	        ),
+	        _react2.default.createElement(
+	          "label",
+	          { htmlFor: "Schedule", className: "input__title" },
+	          "Do you want to schedule the deploy: ",
+	          _react2.default.createElement("input", { type: "checkbox", checked: this.state.scheduled, onChange: this.setScheduled })
+	        ),
+	        _react2.default.createElement("br", null),
+	        _react2.default.createElement("br", null),
+	        this.state.scheduled && _react2.default.createElement(_DateTimePicker2.default, { value: this.state.date, onChange: function onChange(e) {
+	            return _this2.setState({ date: e });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Footer,
+	        null,
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { onClick: this.props.onClose },
+	          "Close"
+	        ),
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { primary: true, onClick: this.create },
+	          "Deploy"
+	        )
+	      )
+	    );
+	  }
+	});
+
+	exports.default = DeployDialog;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+		getVersions: function getVersions(enviromentId, applicationId) {
+			return _Net2.default.get("/api/deploy/search?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
+		},
+
+		getTasks: function getTasks(enviromentId, applicationId) {
+			return _Net2.default.get("/api/deploy/tasks?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
+		},
+
+		startDeploy: function startDeploy(enviromentId, applicationId, version, tasks) {
+			return _Net2.default.post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, { tasks: tasks });
+		},
+
+		scheduleDeploy: function scheduleDeploy(enviromentId, applicationId, version, date, tasks) {
+			return _Net2.default.post("/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version + "&start=" + date.toISOString(), { tasks: tasks });
+		},
+
+		updateEnviroments: function updateEnviroments() {
+			return _Net2.default.get("/api/status/");
+		}
+	};
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	    get: function get(url) {
+	        var promise = (0, _reqwest2.default)({
+	            url: url,
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "get"
+	        });
+
+	        return promise;
+	    },
+
+	    post: function post(url, data) {
+	        var promise = (0, _reqwest2.default)({
+	            url: url,
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "post",
+	            data: JSON.stringify(data)
+	        });
+
+	        return promise;
+	    }
+	};
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var monthsDescriptions = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+	function isLeapYear(year) {
+	    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
+	}
+
+	function getDaysInMonth(year, month) {
+	    return [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+	}
+
+	var DateTimePicker = _react2.default.createClass({
+	    displayName: "DateTimePicker",
+	    getInitialState: function getInitialState() {
+	        return {
+	            open: false,
+	            currentDay: this.props.value.getDate(),
+	            currentMonth: this.props.value.getMonth(),
+	            currentYear: this.props.value.getFullYear(),
+	            currentHour: this.props.value.getHours() % 13,
+	            currentMinute: 0,
+	            currentSelector: this.props.value.getHours() < 12 ? 0 : 1
+	        };
+	    },
+	    toggle: function toggle() {
+	        this.setState({ open: !this.state.open });
+	    },
+	    notify: function notify() {
+	        var d = new Date(this.state.currentYear, this.state.currentMonth, this.state.currentDay, this.state.currentHour + this.state.currentSelector * 12, this.state.currentMinute);
+
+	        var date = d;
+	        this.props.onChange && this.props.onChange(date);
+	    },
+	    setHour: function setHour(x) {
+	        this.setState({ currentHour: x }, this.notify);
+	    },
+	    setMinutes: function setMinutes(x) {
+	        this.setState({ currentMinute: x }, this.notify);
+	    },
+	    setSelector: function setSelector(x) {
+	        this.setState({ currentSelector: x }, this.notify);
+	    },
+	    previousMonth: function previousMonth() {
+	        if (this.state.currentMonth == 0) {
+	            this.setState({ currentMonth: 11, currentYear: this.state.currentYear - 1 }, this.notify);
+	        } else {
+	            this.setState({ currentMonth: this.state.currentMonth - 1 }, this.notify);
+	        }
+	    },
+	    nextMonth: function nextMonth() {
+	        if (this.state.currentMonth == 11) {
+	            this.setState({ currentMonth: 0, currentYear: this.state.currentYear + 1 }, this.notify);
+	        } else {
+	            this.setState({ currentMonth: this.state.currentMonth + 1 }, this.notify);
+	        }
+	    },
+	    setDay: function setDay(x) {
+	        if (x != null) {
+	            this.setState({ currentDay: x }, this.notify);
+	        }
+	    },
+	    renderDays: function renderDays() {
+	        var _this = this;
+
+	        var d = new Date(this.state.currentYear, this.state.currentMonth, 0);
+	        var first = d.getDay();
+	        var a = [];
+	        var i = 0;
+	        if (d.getDay() != 6) {
+	            for (i = 0; i < d.getDay(); i++) {
+	                a.push(null);
+	            }
+	        }
+	        var m = getDaysInMonth(this.state.currentYear, this.state.currentMonth);
+
+	        for (i = 1; i <= m; i++) {
+	            a.push(i);
+	        }
+
+	        return a.map(function (x) {
+	            return _react2.default.createElement(
+	                "li",
+	                { className: x == _this.state.currentDay ? "selected" : "", onClick: function onClick() {
+	                        return _this.setDay(x);
+	                    } },
+	                x,
+	                "\xA0"
+	            );
+	        });
+	    },
+	    render: function render() {
+	        var _this2 = this;
+
+	        var date = ('00' + this.props.value.getDate()).slice(-2) + "/" + ('00' + (this.props.value.getMonth() + 1)).slice(-2) + "/" + this.props.value.getFullYear();
+	        var time = ('00' + this.props.value.getHours()).slice(-2) + ":" + ('00' + this.props.value.getMinutes()).slice(-2);
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "datetimepicker" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "datetimepicker__menu" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "datetimepicker__calendar" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "datetimepicker__calendar__header" },
+	                        _react2.default.createElement(
+	                            "span",
+	                            { onClick: this.previousMonth, className: "previousMonth" },
+	                            "<"
+	                        ),
+	                        monthsDescriptions[this.state.currentMonth],
+	                        " ",
+	                        this.state.currentYear,
+	                        _react2.default.createElement(
+	                            "span",
+	                            { onClick: this.nextMonth, className: "nextMonth" },
+	                            ">"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "datetimepicker__calendar__days" },
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "datetimepicker__days" },
+	                            "Su"
+	                        ),
+	                        " ",
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "datetimepicker__days" },
+	                            "Mo"
+	                        ),
+	                        " ",
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "datetimepicker__days" },
+	                            "Tu"
+	                        ),
+	                        " ",
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "datetimepicker__days" },
+	                            "We"
+	                        ),
+	                        " ",
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "datetimepicker__days" },
+	                            "Th"
+	                        ),
+	                        " ",
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "datetimepicker__days" },
+	                            "Fr"
+	                        ),
+	                        " ",
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "datetimepicker__days" },
+	                            "Sa"
+	                        ),
+	                        this.renderDays()
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "datetimepicker__clock" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "datetimepicker__selector" },
+	                        _react2.default.createElement(
+	                            "span",
+	                            { className: this.state.currentSelector == 0 ? "selected" : "", onClick: function onClick() {
+	                                    return _this2.setSelector(0);
+	                                } },
+	                            "AM"
+	                        ),
+	                        _react2.default.createElement(
+	                            "span",
+	                            { className: this.state.currentSelector == 1 ? "selected" : "", onClick: function onClick() {
+	                                    return _this2.setSelector(1);
+	                                } },
+	                            "PM"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "datetimepicker__hours" },
+	                        _react2.default.createElement("div", { className: "datetimepicker__hours__bakcground" }),
+	                        [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (x) {
+	                            return _react2.default.createElement(
+	                                "li",
+	                                { style: { transform: "rotate(" + x % 12 * 30 + "deg)" }, className: _this2.state.currentHour == x ? "selected" : "", onClick: function onClick() {
+	                                        return _this2.setHour(x);
+	                                    } },
+	                                x
+	                            );
+	                        })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "datetimepicker__minutes" },
+	                        _react2.default.createElement("div", { className: "datetimepicker__minutes__bakcground" }),
+	                        [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(function (x, i) {
+	                            return _react2.default.createElement(
+	                                "li",
+	                                { style: { transform: "rotate(" + i % 12 * 30 + "deg)" }, className: _this2.state.currentMinute == x ? "selected" : "", onClick: function onClick() {
+	                                        return _this2.setMinutes(x);
+	                                    } },
+	                                x
+	                            );
+	                        })
+	                    )
+	                ),
+	                _react2.default.createElement("div", { className: "datetimepicker__buttons" })
+	            )
+	        );
+	    }
+	});
+
+	exports.default = DateTimePicker;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(30);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Header = _react2.default.createClass({
+	    displayName: "Header",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--header", onMouseDown: this.props.onMouseDown },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Body = _react2.default.createClass({
+	    displayName: "Body",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--body" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Footer = _react2.default.createClass({
+	    displayName: "Footer",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "modal--footer" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Portal = _react2.default.createClass({
+	    displayName: "Portal",
+
+	    propTypes: {
+	        onClose: _react2.default.PropTypes.func.isRequired
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.portalElement = document.createElement('div');
+	        document.body.appendChild(this.portalElement);
+	        this.componentDidUpdate();
+	        if (window.innerHeight < document.documentElement.scrollHeight) {
+	            document.body.classList.add("modal-open");
+	        }
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+
+	        var classes = (0, _classnames2.default)("modal", this.props.className);
+
+	        var portal = _react2.default.createElement(
+	            "div",
+	            { className: classes },
+	            _react2.default.createElement("div", { className: "modal--overlay" }),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "modal--dialog" },
+	                _react2.default.createElement(
+	                    "div",
+	                    _extends({}, this.props, { className: "modal--content" }),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "modal__close", onClick: this.props.onClose },
+	                        "x"
+	                    ),
+	                    this.props.children
+	                )
+	            )
+	        );
+	        _reactDom2.default.render(portal, this.portalElement);
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        document.body.removeChild(this.portalElement);
+	        document.body.classList.remove("modal-open");
+	    },
+	    render: function render() {
+	        return null;
+	    }
+	});
+
+	var Modal = _react2.default.createClass({
+	    displayName: "Modal",
+
+	    propTypes: {
+	        show: _react2.default.PropTypes.bool.isRequired
+	    },
+
+	    render: function render() {
+	        return this.props.show === true ? _react2.default.createElement(
+	            Portal,
+	            this.props,
+	            " ",
+	            this.props.children,
+	            " "
+	        ) : null;
+	    }
+	});
+
+	Modal.Header = Header;
+	Modal.Body = Body;
+	Modal.Footer = Footer;
+
+	exports.default = Modal;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Option = _react2.default.createClass({
+	    displayName: "Option",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "option",
+	            this.props,
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Select = _react2.default.createClass({
+	    displayName: "Select",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "select" },
+	            this.props.title && _react2.default.createElement(
+	                "div",
+	                { className: "select__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement(
+	                "select",
+	                _extends({ className: "select__input" }, this.props),
+	                this.props.children
+	            )
+	        );
+	    }
+	});
+
+	Select.Option = Option;
+
+	exports.default = Select;
+
+/***/ },
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28126,7 +29496,7 @@
 	exports.default = ApplicationsPage;
 
 /***/ },
-/* 254 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28160,7 +29530,7 @@
 	exports.default = ConfigurationPage;
 
 /***/ },
-/* 255 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28177,53 +29547,53 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Select = __webpack_require__(257);
+	var _Select = __webpack_require__(266);
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Grid = __webpack_require__(259);
+	var _Grid = __webpack_require__(257);
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Table = __webpack_require__(260);
+	var _Table = __webpack_require__(253);
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(261);
+	var _Actions = __webpack_require__(270);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(262);
+	var _ListIcon = __webpack_require__(271);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(264);
+	var _PlayIcon = __webpack_require__(272);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(265);
+	var _CircleOkIcon = __webpack_require__(273);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(266);
+	var _CircleRemoveIcon = __webpack_require__(274);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(267);
+	var _WatchIcon = __webpack_require__(275);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(268);
+	var _EraseIcon = __webpack_require__(276);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(163);
 
-	var _FormattedDate = __webpack_require__(269);
+	var _FormattedDate = __webpack_require__(277);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(270);
+	var _FormattedTime = __webpack_require__(278);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -28431,329 +29801,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Header = _react2.default.createClass({
-	    displayName: "Header",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "header" },
-	            this.props.children,
-	            _react2.default.createElement(
-	                "div",
-	                { className: "header__actions" },
-	                this.props.actions
-	            )
-	        );
-	    }
-	});
-
-	exports.default = Header;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(258);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Option = _react2.default.createClass({
-	    displayName: "Option",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "option",
-	            this.props,
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Select = _react2.default.createClass({
-	    displayName: "Select",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "select" },
-	            _react2.default.createElement(
-	                "select",
-	                _extends({ className: "select__input" }, this.props),
-	                this.props.children
-	            )
-	        );
-	    }
-	});
-
-	Select.Option = Option;
-
-	exports.default = Select;
-
-/***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-		'use strict';
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
-
-/***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(258);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Col = _react2.default.createClass({
-	    displayName: "Col",
-	    render: function render() {
-	        var obj = {};
-	        if (this.props.xs) {
-	            obj["col-xs-" + this.props.xs] = true;
-	        }
-	        if (this.props.xsOffset) {
-	            obj["offset-xs-" + this.props.xsOffset] = true;
-	        }
-	        if (this.props.xsPush) {
-	            obj["push-xs-" + this.props.xsPush] = true;
-	        }
-	        if (this.props.xsPull) {
-	            obj["pull-xs-" + this.props.xsPull] = true;
-	        }
-	        if (this.props.md) {
-	            obj["col-md-" + this.props.md] = true;
-	        }
-	        if (this.props.mdOffset) {
-	            obj["offset-md-" + this.props.mdOffset] = true;
-	        }
-	        if (this.props.mdPush) {
-	            obj["push-md-" + this.props.mdPush] = true;
-	        }
-	        if (this.props.mdPull) {
-	            obj["pull-md-" + this.props.mdPull] = true;
-	        }
-	        if (this.props.lg) {
-	            obj["col-lg-" + this.props.lg] = true;
-	        }
-	        if (this.props.lgOffset) {
-	            obj["offset-lg-" + this.props.lgOffset] = true;
-	        }
-	        if (this.props.lgPush) {
-	            obj["push-lg-" + this.props.lgPush] = true;
-	        }
-	        if (this.props.lgPull) {
-	            obj["pull-lg-" + this.props.lgPull] = true;
-	        }
-	        if (this.props.xl) {
-	            obj["col-xl-" + this.props.xl] = true;
-	        }
-	        if (this.props.xlOffset) {
-	            obj["offset-xl-" + this.props.xlOffset] = true;
-	        }
-	        if (this.props.xlPush) {
-	            obj["push-xl-" + this.props.xlPush] = true;
-	        }
-	        if (this.props.xlPull) {
-	            obj["pull-xl-" + this.props.xlPull] = true;
-	        }
-
-	        var classes = (0, _classnames2.default)(obj, this.props.className);
-	        return _react2.default.createElement(
-	            "div",
-	            { className: classes },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Row = _react2.default.createClass({
-	    displayName: "Row",
-
-	    propTypes: {
-	        className: _react2.default.PropTypes.string
-	    },
-
-	    render: function render() {
-	        var classes = (0, _classnames2.default)("row", this.props.className);
-	        return _react2.default.createElement(
-	            "div",
-	            { className: classes },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Grid = _react2.default.createClass({
-	    displayName: "Grid",
-
-	    propTypes: {
-	        className: _react2.default.PropTypes.string,
-	        fluid: _react2.default.PropTypes.any
-	    },
-
-	    render: function render() {
-	        var classes = (0, _classnames2.default)("container" + (this.props.fluid ? "-fluid" : ""), this.props.className);
-	        return _react2.default.createElement(
-	            "div",
-	            { className: classes },
-	            this.props.children
-	        );
-	    }
-	});
-
-	Grid.Col = Col;
-	Grid.Row = Row;
-
-	exports.default = Grid;
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(258);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Head = _react2.default.createClass({
-	    displayName: "Head",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "thead",
-	            { className: "table__head" },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Body = _react2.default.createClass({
-	    displayName: "Body",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "tbody",
-	            { className: "table__body" },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Table = _react2.default.createClass({
-	    displayName: "Table",
-	    render: function render() {
-	        var classes = (0, _classnames2.default)("table", { "table--hover": this.props.hover });
-
-	        return _react2.default.createElement(
-	            "table",
-	            { className: classes },
-	            this.props.children
-	        );
-	    }
-	});
-
-	Table.Head = Head;
-	Table.Body = Body;
-
-	exports.default = Table;
-
-/***/ },
-/* 261 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28817,7 +29865,7 @@
 	};
 
 /***/ },
-/* 262 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28830,7 +29878,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(263);
+	var _Icon = __webpack_require__(259);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -28841,44 +29889,7 @@
 	exports.default = ListIcon;
 
 /***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(258);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Icon = function Icon(path) {
-	    return _react2.default.createClass({
-	        render: function render() {
-	            var classes = (0, _classnames2.default)("icon", { "icon--small": this.props.small }, this.props.className);
-	            return _react2.default.createElement(
-	                "svg",
-	                _extends({ viewBox: "0 0 50 50", className: classes }, this.props),
-	                path
-	            );
-	        }
-	    });
-	};
-
-	exports.default = Icon;
-
-/***/ },
-/* 264 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28891,7 +29902,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(263);
+	var _Icon = __webpack_require__(259);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -28902,7 +29913,7 @@
 	exports.default = PlayIcon;
 
 /***/ },
-/* 265 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28915,7 +29926,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(263);
+	var _Icon = __webpack_require__(259);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -28926,7 +29937,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 266 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28939,7 +29950,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(263);
+	var _Icon = __webpack_require__(259);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -28950,7 +29961,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ },
-/* 267 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28963,7 +29974,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(263);
+	var _Icon = __webpack_require__(259);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -28974,7 +29985,7 @@
 	exports.default = WatchIcon;
 
 /***/ },
-/* 268 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28987,7 +29998,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(263);
+	var _Icon = __webpack_require__(259);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -28998,7 +30009,7 @@
 	exports.default = EraseIcon;
 
 /***/ },
-/* 269 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29029,7 +30040,7 @@
 	exports.default = FormattedDate;
 
 /***/ },
-/* 270 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29064,7 +30075,7 @@
 	exports.default = FormattedTime;
 
 /***/ },
-/* 271 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29081,27 +30092,27 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Grid = __webpack_require__(259);
+	var _Grid = __webpack_require__(257);
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(261);
+	var _Actions = __webpack_require__(270);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Button = __webpack_require__(272);
+	var _Button = __webpack_require__(255);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(273);
+	var _Panel = __webpack_require__(280);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(269);
+	var _FormattedDate = __webpack_require__(277);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(270);
+	var _FormattedTime = __webpack_require__(278);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -29370,43 +30381,7 @@
 	exports.default = DeploymentPage;
 
 /***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(258);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Button = _react2.default.createClass({
-	    displayName: "Button",
-	    render: function render() {
-	        var classes = (0, _classnames2.default)("button", { "button--primary": this.props.primary }, this.props.className);
-	        return _react2.default.createElement(
-	            "button",
-	            _extends({}, this.props, { className: classes }),
-	            this.props.children
-	        );
-	    }
-	});
-
-	exports.default = Button;
-
-/***/ },
-/* 273 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29419,7 +30394,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(258);
+	var _classnames = __webpack_require__(254);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -29450,7 +30425,7 @@
 	exports.default = Panel;
 
 /***/ },
-/* 274 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29469,31 +30444,31 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Grid = __webpack_require__(259);
+	var _Grid = __webpack_require__(257);
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(275);
+	var _Actions = __webpack_require__(282);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Modal = __webpack_require__(276);
+	var _Modal = __webpack_require__(265);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Button = __webpack_require__(272);
+	var _Button = __webpack_require__(255);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Notifications = __webpack_require__(277);
+	var _Notifications = __webpack_require__(283);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
-	var _Input = __webpack_require__(278);
+	var _Input = __webpack_require__(284);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(279);
+	var _ServerIcon = __webpack_require__(285);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -29771,7 +30746,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ },
-/* 275 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29880,139 +30855,7 @@
 	};
 
 /***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(30);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _classnames = __webpack_require__(258);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Header = _react2.default.createClass({
-	    displayName: "Header",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "modal--header", onMouseDown: this.props.onMouseDown },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Body = _react2.default.createClass({
-	    displayName: "Body",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "modal--body" },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Footer = _react2.default.createClass({
-	    displayName: "Footer",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "modal--footer" },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Portal = _react2.default.createClass({
-	    displayName: "Portal",
-
-	    propTypes: {
-	        onClose: _react2.default.PropTypes.func.isRequired
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        this.portalElement = document.createElement('div');
-	        document.body.appendChild(this.portalElement);
-	        this.componentDidUpdate();
-	        if (window.innerHeight < document.documentElement.scrollHeight) {
-	            document.body.classList.add("modal-open");
-	        }
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-
-	        var classes = (0, _classnames2.default)("modal", this.props.className);
-
-	        var portal = _react2.default.createElement(
-	            "div",
-	            { className: classes },
-	            _react2.default.createElement("div", { className: "modal--overlay" }),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "modal--dialog" },
-	                _react2.default.createElement(
-	                    "div",
-	                    _extends({}, this.props, { className: "modal--content" }),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "modal__close", onClick: this.props.onClose },
-	                        "x"
-	                    ),
-	                    this.props.children
-	                )
-	            )
-	        );
-	        _reactDom2.default.render(portal, this.portalElement);
-	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        document.body.removeChild(this.portalElement);
-	        document.body.classList.remove("modal-open");
-	    },
-	    render: function render() {
-	        return null;
-	    }
-	});
-
-	var Modal = _react2.default.createClass({
-	    displayName: "Modal",
-
-	    propTypes: {
-	        show: _react2.default.PropTypes.bool.isRequired
-	    },
-
-	    render: function render() {
-	        return this.props.show === true ? _react2.default.createElement(
-	            Portal,
-	            this.props,
-	            " ",
-	            this.props.children,
-	            " "
-	        ) : null;
-	    }
-	});
-
-	Modal.Header = Header;
-	Modal.Body = Body;
-	Modal.Footer = Footer;
-
-	exports.default = Modal;
-
-/***/ },
-/* 277 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30127,7 +30970,7 @@
 	exports.default = Notificator;
 
 /***/ },
-/* 278 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30142,7 +30985,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(258);
+	var _classnames = __webpack_require__(254);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -30176,7 +31019,7 @@
 	exports.default = Input;
 
 /***/ },
-/* 279 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30189,7 +31032,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(263);
+	var _Icon = __webpack_require__(259);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -30200,7 +31043,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 280 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30217,27 +31060,27 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Input = __webpack_require__(278);
+	var _Input = __webpack_require__(284);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _Grid = __webpack_require__(259);
+	var _Grid = __webpack_require__(257);
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Card = __webpack_require__(281);
+	var _Card = __webpack_require__(287);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(275);
+	var _Actions = __webpack_require__(282);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Button = __webpack_require__(272);
+	var _Button = __webpack_require__(255);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(286);
+	var _FileUpload = __webpack_require__(288);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
@@ -30380,7 +31223,7 @@
 	exports.default = AgentPage;
 
 /***/ },
-/* 281 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30418,7 +31261,53 @@
 	exports.default = Card;
 
 /***/ },
-/* 282 */
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(30);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var FileUpload = _react2.default.createClass({
+	    displayName: "FileUpload",
+	    render: function render() {
+	        var _this = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "upload" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "upload__button", onClick: function onClick() {
+	                        return _this.refs.input.click();
+	                    } },
+	                this.props.children
+	            ),
+	            _react2.default.createElement("input", {
+	                type: "file",
+	                className: "upload__input",
+	                onChange: this.props.onChange,
+	                ref: "input" })
+	        );
+	    }
+	});
+
+	exports.default = FileUpload;
+
+/***/ },
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30435,23 +31324,23 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Select = __webpack_require__(257);
+	var _Select = __webpack_require__(266);
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Grid = __webpack_require__(259);
+	var _Grid = __webpack_require__(257);
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(283);
+	var _Tabs = __webpack_require__(290);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _Table = __webpack_require__(260);
+	var _Table = __webpack_require__(253);
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(284);
+	var _Actions = __webpack_require__(291);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30803,7 +31692,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 283 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30874,7 +31763,7 @@
 	exports.default = Tabs;
 
 /***/ },
-/* 284 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30916,7 +31805,7 @@
 	};
 
 /***/ },
-/* 285 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30955,52 +31844,6 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(30);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var FileUpload = _react2.default.createClass({
-	    displayName: "FileUpload",
-	    render: function render() {
-	        var _this = this;
-
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "upload" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "upload__button", onClick: function onClick() {
-	                        return _this.refs.input.click();
-	                    } },
-	                this.props.children
-	            ),
-	            _react2.default.createElement("input", {
-	                type: "file",
-	                className: "upload__input",
-	                onChange: this.props.onChange,
-	                ref: "input" })
-	        );
-	    }
-	});
-
-	exports.default = FileUpload;
 
 /***/ }
 /******/ ]);

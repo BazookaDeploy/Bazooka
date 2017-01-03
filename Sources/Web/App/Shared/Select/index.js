@@ -9,7 +9,10 @@ var Option = React.createClass({
 
 var Select = React.createClass({
     render(){
-        return <div className="select"><select className="select__input" {...this.props}>{this.props.children}</select></div>
+        return (<div className="select">
+            {this.props.title && <div className="select__title">{this.props.title}</div>}
+            <select className="select__input" {...this.props}>{this.props.children}</select>
+        </div>);
     }
 });
 

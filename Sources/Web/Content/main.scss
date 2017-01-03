@@ -185,6 +185,8 @@ $primaryLightColor:#BBDEFB;
 @import "../App/Shared/Notifications/Notifications.scss";
 @import "../App/Shared/Card/Card.scss";
 @import "../App/Shared/FileUpload/FileUpload.scss";
+@import "../App/Shared/DateTimePicker/DateTimePicker.scss";
+
 
 .logs {
 
@@ -271,4 +273,49 @@ $primaryLightColor:#BBDEFB;
 	width:50px;
 	height:50px;
 	fill:#aaa;
+}
+
+
+
+.applicationGroup {
+	margin-top: 20px;
+}
+
+.applicationGroup__title {
+	font-size:20px;
+}
+
+.applicationGroup .table td{
+	border-right: 1px solid #eceeef;
+	text-align: center;
+}
+
+.applicationGroup .table .table__head th{
+	border: 1px solid #eceeef;
+	padding: 0.5rem;
+}
+
+.applicationGroup .table .table__head th:first-child{
+	border-top:none;
+	border-left:none;
+}
+
+.application__versionList {
+	list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    margin-top: 5px;
+}
+
+.applicationGroup__actions {
+	float: right;
+}
+
+.applicationGroup__actions .button {
+	padding:0;
+}
+
+.applicationGroup__actions .button svg {
+	width:16px;
+	height:16px;
 }

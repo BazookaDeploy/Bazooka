@@ -1411,6 +1411,13 @@ body {
   padding: 4px 10px;
   height: 30px; }
 
+.select__title {
+  font-size: 14px;
+  margin-bottom: 2px; }
+
+.select__title + .select__input {
+  width: 100%; }
+
 .header {
   height: 60px;
   width: 100%;
@@ -1513,9 +1520,10 @@ body {
 
 .modal--header {
   min-height: 10px;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 26px;
-  color: #3c3c3b; }
+  color: #3c3c3b;
+  font-weight: 600; }
 
 .modal--body {
   position: relative;
@@ -1647,6 +1655,118 @@ body {
 .upload__input {
   display: none; }
 
+.datetimepicker__calendar {
+  width: 50%;
+  float: left; }
+
+.datetimepicker__clock {
+  float: left;
+  width: 50%; }
+
+.datetimepicker__calendar__days li {
+  width: 14%;
+  min-width: 14%;
+  max-width: 14%;
+  display: inline-block;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+  line-height: 36px; }
+
+.datetimepicker__calendar__days li.datetimepicker__days {
+  width: 13%;
+  min-width: 13%;
+  max-width: 13%;
+  font-weight: 600; }
+
+.datetimepicker__calendar__days li:hover {
+  background-color: rgba(204, 204, 204, 0.1); }
+
+.datetimepicker__calendar__days li.selected {
+  border: 1px solid red; }
+
+.datetimepicker__calendar__header {
+  text-align: center;
+  font-weight: 600; }
+
+.previousMonth {
+  float: left;
+  width: 50px;
+  cursor: pointer; }
+
+.nextMonth {
+  float: right;
+  width: 50px;
+  cursor: pointer; }
+
+.datetimepicker__selector span {
+  text-align: center;
+  width: 50%;
+  display: inline-block; }
+
+.datetimepicker__selector span.selected {
+  font-weight: 600; }
+
+.datetimepicker__hours {
+  position: relative; }
+
+.datetimepicker__hours li {
+  list-style-type: none;
+  display: inline-block;
+  transform-origin: bottom;
+  height: 100px;
+  position: absolute;
+  top: 50%;
+  left: 140px;
+  cursor: pointer; }
+
+.datetimepicker__hours li.selected {
+  background-color: #ccc;
+  border-radius: 100px; }
+
+.datetimepicker__minutes {
+  position: relative;
+  margin-top: 20px; }
+
+.datetimepicker__minutes li {
+  list-style-type: none;
+  display: inline-block;
+  transform-origin: bottom;
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 140px;
+  cursor: pointer; }
+
+.datetimepicker__hours__bakcground {
+  width: 200px;
+  height: 200px;
+  background-color: #BBDEFB;
+  display: inline-block;
+  border-radius: 100%;
+  position: absolute;
+  left: 45px; }
+
+.datetimepicker__minutes__bakcground {
+  width: 160px;
+  height: 160px;
+  background-color: white;
+  display: inline-block;
+  border-radius: 100%;
+  position: absolute;
+  left: 67px; }
+
+.datetimepicker__minutes li.selected {
+  background-color: #ccc;
+  border-radius: 100px; }
+
+.datetimepicker__buttons {
+  clear: both;
+  text-align: right; }
+
+.datetimepicker__selector span {
+  cursor: pointer; }
+
 .log__logTime {
   width: 80px;
   border-top: 1px solid #ccc;
@@ -1711,3 +1831,37 @@ body {
   width: 50px;
   height: 50px;
   fill: #aaa; }
+
+.applicationGroup {
+  margin-top: 20px; }
+
+.applicationGroup__title {
+  font-size: 20px; }
+
+.applicationGroup .table td {
+  border-right: 1px solid #eceeef;
+  text-align: center; }
+
+.applicationGroup .table .table__head th {
+  border: 1px solid #eceeef;
+  padding: 0.5rem; }
+
+.applicationGroup .table .table__head th:first-child {
+  border-top: none;
+  border-left: none; }
+
+.application__versionList {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  margin-top: 5px; }
+
+.applicationGroup__actions {
+  float: right; }
+
+.applicationGroup__actions .button {
+  padding: 0; }
+
+.applicationGroup__actions .button svg {
+  width: 16px;
+  height: 16px; }

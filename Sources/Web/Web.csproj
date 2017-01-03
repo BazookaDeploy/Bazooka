@@ -224,9 +224,14 @@
     <Content Include="App\Enviroments\Actions.js" />
     <Content Include="App\Enviroments\AgentPage.js" />
     <Content Include="App\Enviroments\EnviromentsPage.js" />
+    <Content Include="App\Homepage\Actions.js" />
+    <Content Include="App\Homepage\DeployDialog.js" />
     <Content Include="App\Shared\Button\index.js" />
     <Content Include="App\Shared\Card\index.js" />
+    <Content Include="App\Shared\DateTimePicker\index.js" />
     <Content Include="App\Shared\FileUpload\index.js" />
+    <Content Include="App\Shared\Icon\ArrowDownIcon.js" />
+    <Content Include="App\Shared\Icon\ArrowUpIcon.js" />
     <Content Include="App\Shared\Icon\CircleRemoveIcon.js" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -415,6 +420,7 @@
     <Content Include="App\Shared\Icon\WatchIcon.js" />
     <Content Include="App\Shared\Input\index.js" />
     <Content Include="App\Shared\Modal\index.js" />
+    <Content Include="App\Shared\Net.js" />
     <Content Include="App\Shared\Notifications\index.js" />
     <Content Include="App\Shared\Panel\Panel.js" />
     <Content Include="App\Shared\Select\index.js" />
@@ -532,6 +538,7 @@
     <Content Include="App\Shared\Notifications\Notifications.scss" />
     <Content Include="App\Shared\Card\Card.scss" />
     <Content Include="App\Shared\FileUpload\FileUpload.scss" />
+    <Content Include="App\Shared\DateTimePicker\DateTimePicker.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />

@@ -2,3 +2,12 @@
     padding: 4px 10px;
     height: 30px;
 }
+
+.select__title {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.select__title + .select__input {
+    width:100%;
+}
