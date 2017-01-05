@@ -5,6 +5,8 @@ import App from "./App"
 import Homepage from "./Homepage/Homepage";
 import ApplicationsPage from "./Applications/ApplicationsPage";
 import ConfigurationPage from "./Configuration/ConfigurationPage";
+import ConfigPage from "./Configuration/ConfigPage";
+import GroupsPage from "./Configuration/GroupsPage";
 import DeploymentsPage from "./Deployments/DeploymentsPage";
 import DeploymentPage from "./Deployments/DeploymentPage";
 import EnviromentsPage from "./Enviroments/EnviromentsPage";
@@ -19,7 +21,10 @@ var route = <Provider store={store} >
     <Route path="/" component={App}>
       <IndexRoute component={Homepage}/>
       <Route path="Applications" component={ApplicationsPage} />
-      <Route path="Configurations" component={ConfigurationPage} />
+      <Route path="Configuration" component={ConfigurationPage}>
+        <IndexRoute component={ConfigPage} />
+        <Route path="Groups" component={GroupsPage} />
+      </Route>
       <Route path="Enviroments">
         <IndexRoute  component={EnviromentsPage} />
         <Route path="Agent/:id" component={AgentPage} />

@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.Mvc;
 using Web.Models;
 using System.Linq;
+using System.Configuration;
 
 namespace Web.Controllers
 {
@@ -30,6 +31,7 @@ namespace Web.Controllers
             ViewBag.Admin = admin;
             ViewBag.AppsAdmin = appsAdmin;
             ViewBag.Title = "Home Page";
+            ViewBag.ActiveDirectory = ConfigurationManager.AppSettings["activeDirectory"];
 
             return View();
         }

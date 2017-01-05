@@ -17,12 +17,13 @@ var App = React.createClass({
         return (<div className="application">
             <div className="application__header">
                 <div className="application__header__logo">Bazooka</div>
-                <div className="application__header__links">
-                     <IndexLink className="application__header__link" activeClassName="active" to="/">Dashboard</IndexLink>
-                     <Link className="application__header__link" activeClassName="active" to="/Applications">Applications</Link>                    
+                <div className="application__header__links"> 
+                     <IndexLink className="application__header__link" activeClassName="active" to="/">Dashboard</IndexLink>                   
                      <Link className="application__header__link" activeClassName="active" to="/Deployments">Deployments</Link>
                      <Link className="application__header__link" activeClassName="active" to="/Enviroments">Enviroments</Link>
+                     <Link className="application__header__link" activeClassName="active" to="/Applications">Applications</Link> 
                      <Link className="application__header__link" activeClassName="active" to="/Statistics">Statistics</Link>
+                     <Link className="application__header__link" activeClassName="active" to="/Configuration">Configuration</Link>
                 </div> 
             </div> 
 

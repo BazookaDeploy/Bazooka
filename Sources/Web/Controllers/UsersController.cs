@@ -13,7 +13,7 @@
         [HttpGet]
         public ICollection<UserDto> All()
         {
-            return db.Query<UserDto>().ToList();
+            return db.Query<UserDto>().OrderBy(x => x.UserName).ToList();
         }
 
 

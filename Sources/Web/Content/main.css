@@ -1455,6 +1455,10 @@ body {
   color: white;
   background-color: #303F9F; }
 
+.button--block {
+  width: 100%;
+  margin: 5px 0; }
+
 .panel {
   margin: 5px auto;
   border-radius: 2px; }
@@ -1865,3 +1869,34 @@ body {
 .applicationGroup__actions .button svg {
   width: 16px;
   height: 16px; }
+
+.configurationLinks {
+  margin-top: 30px;
+  border-right: 1px solid #ccc;
+  padding-bottom: 50px; }
+
+.configurationLinks .configurationLinks__link {
+  width: 100%;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #4d4d4d; }
+
+.configurationLinks .configurationLinks__link.active {
+  color: black;
+  border-right: 5px solid #1976D2; }
+
+.configurationContent {
+  margin-top: 30px; }
+
+.group {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  margin-bottom: 10px; }
+
+.group li {
+  height: 30px; }
+
+.group button {
+  float: right; }

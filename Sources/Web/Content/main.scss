@@ -319,3 +319,41 @@ $primaryLightColor:#BBDEFB;
 	width:16px;
 	height:16px;
 }
+
+.configurationLinks {
+	margin-top:30px;
+	border-right:1px solid #ccc;
+	padding-bottom: 50px;
+}
+
+.configurationLinks .configurationLinks__link {
+	width:100%;
+	display:block;
+    padding: 10px;
+	text-decoration: none;
+	color:lighten(black,30%);
+}
+
+.configurationLinks .configurationLinks__link.active {
+	color:black;
+	border-right:5px solid $primaryDarkColor;
+}
+
+.configurationContent {
+	margin-top: 30px;
+}
+
+.group {
+	    padding: 0;
+    margin: 0;
+    list-style-type: none;
+	margin-bottom: 10px;
+}
+
+.group li {
+	height:30px;
+}
+
+.group button {
+	float:right;
+}

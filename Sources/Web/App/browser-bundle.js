@@ -70,29 +70,37 @@
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
 
-	var _DeploymentsPage = __webpack_require__(269);
+	var _ConfigPage = __webpack_require__(269);
+
+	var _ConfigPage2 = _interopRequireDefault(_ConfigPage);
+
+	var _GroupsPage = __webpack_require__(270);
+
+	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
+
+	var _DeploymentsPage = __webpack_require__(273);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(279);
+	var _DeploymentPage = __webpack_require__(283);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(281);
+	var _EnviromentsPage = __webpack_require__(285);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(286);
+	var _AgentPage = __webpack_require__(290);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(289);
+	var _StatisticsPage = __webpack_require__(292);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Store = __webpack_require__(292);
+	var _Store = __webpack_require__(295);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -109,7 +117,12 @@
 	      { path: '/', component: _App2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _Homepage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'Applications', component: _ApplicationsPage2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'Configurations', component: _ConfigurationPage2.default }),
+	      _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: 'Configuration', component: _ConfigurationPage2.default },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _ConfigPage2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'Groups', component: _GroupsPage2.default })
+	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: 'Enviroments' },
@@ -25545,11 +25558,6 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { className: "application__header__link", activeClassName: "active", to: "/Applications" },
-	                        "Applications"
-	                    ),
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
 	                        { className: "application__header__link", activeClassName: "active", to: "/Deployments" },
 	                        "Deployments"
 	                    ),
@@ -25560,8 +25568,18 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
+	                        { className: "application__header__link", activeClassName: "active", to: "/Applications" },
+	                        "Applications"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
 	                        { className: "application__header__link", activeClassName: "active", to: "/Statistics" },
 	                        "Statistics"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { className: "application__header__link", activeClassName: "active", to: "/Configuration" },
+	                        "Configuration"
 	                    )
 	                )
 	            ),
@@ -28542,7 +28560,7 @@
 	var Button = _react2.default.createClass({
 	    displayName: "Button",
 	    render: function render() {
-	        var classes = (0, _classnames2.default)("button", { "button--primary": this.props.primary }, this.props.className);
+	        var classes = (0, _classnames2.default)("button", { "button--primary": this.props.primary, "button--block": this.props.block }, this.props.className);
 	        return _react2.default.createElement(
 	            "button",
 	            _extends({}, this.props, { className: classes }),
@@ -29509,6 +29527,16 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _reactRouter = __webpack_require__(163);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var ConfigurationPage = _react2.default.createClass({
@@ -29519,9 +29547,44 @@
 	            "div",
 	            null,
 	            _react2.default.createElement(
-	                "h1",
+	                _Header2.default,
 	                null,
 	                "Configuration"
+	            ),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 2 },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "configurationLinks" },
+	                            _react2.default.createElement(
+	                                _reactRouter.IndexLink,
+	                                { className: "configurationLinks__link", activeClassName: "active", to: "/Configuration" },
+	                                "Config"
+	                            ),
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { className: "configurationLinks__link", activeClassName: "active", to: "/Configuration/Groups" },
+	                                "Groups"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 10 },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "configurationContent" },
+	                            this.props.children
+	                        )
+	                    )
+	                )
 	            )
 	        );
 	    }
@@ -29531,6 +29594,441 @@
 
 /***/ },
 /* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _reactRouter = __webpack_require__(163);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ConfigPage = _react2.default.createClass({
+	    displayName: "ConfigPage",
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            window.ActiveDirectory == "true" ? _react2.default.createElement(
+	                "span",
+	                null,
+	                "The system is currently using Acctive Directory authentication"
+	            ) : _react2.default.createElement(
+	                "span",
+	                null,
+	                "The system is currently using Form Authentication"
+	            )
+	        );
+	    }
+	});
+
+	exports.default = ConfigPage;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Actions = __webpack_require__(271);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Input = __webpack_require__(288);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Card = __webpack_require__(272);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _reactRedux = __webpack_require__(220);
+
+	var _Notifications = __webpack_require__(287);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var GroupCreationDialog = _react2.default.createClass({
+	    displayName: "GroupCreationDialog",
+	    getInitialState: function getInitialState() {
+	        return { name: "" };
+	    },
+	    close: function close() {
+	        this.setState({ name: "" });
+	        this.props.onClose();
+	    },
+	    create: function create() {
+	        var _this = this;
+
+	        if (this.state.name == "") {
+	            return;
+	        }
+
+	        _Actions2.default.createGroup(this.state.name).then(function (x) {
+	            if (x.Success) {
+	                _this.props.onClose();
+	                _this.props.onCreate();
+	            }
+	        });
+	    },
+	    render: function render() {
+	        var _this2 = this;
+
+	        return _react2.default.createElement(
+	            _Modal2.default,
+	            _extends({ onClose: this.onClose }, this.props),
+	            _react2.default.createElement(
+	                _Modal2.default.Header,
+	                null,
+	                "Create new Group"
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Body,
+	                null,
+	                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.name, onChange: function onChange(e) {
+	                        return _this2.setState({ name: e.target.value });
+	                    } })
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Footer,
+	                null,
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: this.close },
+	                    "Cancel"
+	                ),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { primary: true, onClick: this.create },
+	                    "Create"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var GroupPage = _react2.default.createClass({
+	    displayName: "GroupPage",
+	    getInitialState: function getInitialState() {
+	        return { users: [], user: null };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.update();
+	    },
+	    update: function update() {
+	        var _this3 = this;
+
+	        _Actions2.default.getUsersInGroup(this.props.group.Name).then(function (x) {
+	            _this3.setState({ users: x });
+	        });
+	    },
+	    addUser: function addUser() {
+	        var _this4 = this;
+
+	        if (this.state.user != null) {
+	            _Actions2.default.addUser(this.props.group.Name, this.state.user).then(function () {
+	                return _this4.update();
+	            });
+	        }
+	    },
+	    removeUser: function removeUser(id) {
+	        var _this5 = this;
+
+	        _Actions2.default.removeUser(this.props.group.Name, id).then(function () {
+	            return _this5.update();
+	        });
+	    },
+	    selectUser: function selectUser(e) {
+	        this.setState({ user: e.target.value });
+	    },
+	    render: function render() {
+	        var _this6 = this;
+
+	        return _react2.default.createElement(
+	            _Grid2.default.Col,
+	            { md: 4 },
+	            _react2.default.createElement(
+	                _Card2.default,
+	                { title: this.props.group.Name },
+	                _react2.default.createElement(
+	                    "ul",
+	                    { className: "group" },
+	                    this.state.users.map(function (x) {
+	                        return _react2.default.createElement(
+	                            "li",
+	                            null,
+	                            x.UserName,
+	                            " ",
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { onClick: function onClick() {
+	                                        return _this6.removeUser(x.UserId);
+	                                    } },
+	                                "Remove"
+	                            )
+	                        );
+	                    })
+	                ),
+	                _react2.default.createElement(
+	                    _Select2.default,
+	                    { onChange: this.selectUser, title: "Add another user" },
+	                    _react2.default.createElement("option", { value: null }),
+	                    this.props.users.map(function (x) {
+	                        return _react2.default.createElement(
+	                            "option",
+	                            { value: x.Id },
+	                            x.UserName
+	                        );
+	                    })
+	                ),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { block: true, onClick: this.addUser },
+	                    "Add User"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var GroupsPage = _react2.default.createClass({
+	    displayName: "GroupsPage",
+	    getInitialState: function getInitialState() {
+	        return { show: false };
+	    },
+	    update: function update() {
+	        this.props.loadGroups();
+	    },
+	    render: function render() {
+	        var _this7 = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Groups ",
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: function onClick() {
+	                            return _this7.setState({ show: true });
+	                        } },
+	                    "Create new group"
+	                )
+	            ),
+	            _react2.default.createElement(GroupCreationDialog, { show: this.state.show, onClose: function onClose() {
+	                    return _this7.setState({ show: false });
+	                }, onCreate: this.update }),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    this.props.groups.map(function (x) {
+	                        return _react2.default.createElement(GroupPage, { group: x, users: _this7.props.users, onUpdate: _this7.update });
+	                    })
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var mapStoreToProps = function mapStoreToProps(store) {
+	    return {
+	        users: store.users || [],
+	        groups: store.groups || []
+	    };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        loadGroups: function loadGroups() {
+	            _Actions2.default.updateGroups().then(function (x) {
+	                dispatch({ type: "ADD_GROUPS", groups: x });
+	            });
+	        }
+	    };
+	};
+
+	GroupsPage = (0, _reactRedux.connect)(mapStoreToProps, mapDispatchToProps)(GroupsPage);
+
+	exports.default = GroupsPage;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+		updateUsers: function updateUsers() {
+			return (0, _reqwest2.default)({
+				url: "/api/users/all",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		updateGroups: function updateGroups() {
+			return (0, _reqwest2.default)({
+				url: "/api/users/groups",
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		getUsersInGroup: function getUsersInGroup(id) {
+			return (0, _reqwest2.default)({
+				url: "api/users/group?groupName=" + id,
+				type: 'json',
+				contentType: 'application/json',
+				method: "get"
+			});
+		},
+
+		createGroup: function createGroup(name) {
+			var promise = (0, _reqwest2.default)({
+				url: "api/users/CreateGroup",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					Name: name
+				})
+			});
+
+			return promise;
+		},
+
+		addUser: function addUser(group, userId) {
+			var promise = (0, _reqwest2.default)({
+				url: "api/users/addUserToGroup",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					Group: group,
+					UserId: userId
+				})
+			});
+
+			return promise;
+		},
+
+		removeUser: function removeUser(group, userId) {
+			var promise = (0, _reqwest2.default)({
+				url: "api/users/removeUserFromGroup",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					Group: group,
+					UserId: userId
+				})
+			});
+
+			return promise;
+		}
+	};
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Card = _react2.default.createClass({
+	    displayName: "Card",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "card" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "card__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "card__content" },
+	                this.props.children
+	            )
+	        );
+	    }
+	});
+
+	exports.default = Card;
+
+/***/ },
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29559,41 +30057,41 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(270);
+	var _Actions = __webpack_require__(274);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(271);
+	var _ListIcon = __webpack_require__(275);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(272);
+	var _PlayIcon = __webpack_require__(276);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(273);
+	var _CircleOkIcon = __webpack_require__(277);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(274);
+	var _CircleRemoveIcon = __webpack_require__(278);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(275);
+	var _WatchIcon = __webpack_require__(279);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(276);
+	var _EraseIcon = __webpack_require__(280);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(163);
 
-	var _FormattedDate = __webpack_require__(277);
+	var _FormattedDate = __webpack_require__(281);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(278);
+	var _FormattedTime = __webpack_require__(282);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -29801,7 +30299,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ },
-/* 270 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29865,7 +30363,7 @@
 	};
 
 /***/ },
-/* 271 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29889,7 +30387,7 @@
 	exports.default = ListIcon;
 
 /***/ },
-/* 272 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29913,7 +30411,7 @@
 	exports.default = PlayIcon;
 
 /***/ },
-/* 273 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29937,7 +30435,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 274 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29961,7 +30459,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ },
-/* 275 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29985,7 +30483,7 @@
 	exports.default = WatchIcon;
 
 /***/ },
-/* 276 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30009,7 +30507,7 @@
 	exports.default = EraseIcon;
 
 /***/ },
-/* 277 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30040,7 +30538,7 @@
 	exports.default = FormattedDate;
 
 /***/ },
-/* 278 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30075,7 +30573,7 @@
 	exports.default = FormattedTime;
 
 /***/ },
-/* 279 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30096,7 +30594,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(270);
+	var _Actions = __webpack_require__(274);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30104,15 +30602,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(280);
+	var _Panel = __webpack_require__(284);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(277);
+	var _FormattedDate = __webpack_require__(281);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(278);
+	var _FormattedTime = __webpack_require__(282);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -30381,7 +30879,7 @@
 	exports.default = DeploymentPage;
 
 /***/ },
-/* 280 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30425,7 +30923,7 @@
 	exports.default = Panel;
 
 /***/ },
-/* 281 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30448,7 +30946,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(282);
+	var _Actions = __webpack_require__(286);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30460,15 +30958,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Notifications = __webpack_require__(283);
+	var _Notifications = __webpack_require__(287);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
-	var _Input = __webpack_require__(284);
+	var _Input = __webpack_require__(288);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(285);
+	var _ServerIcon = __webpack_require__(289);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -30746,7 +31244,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ },
-/* 282 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30855,7 +31353,7 @@
 	};
 
 /***/ },
-/* 283 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30970,7 +31468,7 @@
 	exports.default = Notificator;
 
 /***/ },
-/* 284 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31019,7 +31517,7 @@
 	exports.default = Input;
 
 /***/ },
-/* 285 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31043,7 +31541,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 286 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31060,7 +31558,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Input = __webpack_require__(284);
+	var _Input = __webpack_require__(288);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -31068,11 +31566,11 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Card = __webpack_require__(287);
+	var _Card = __webpack_require__(272);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(282);
+	var _Actions = __webpack_require__(286);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -31080,7 +31578,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(288);
+	var _FileUpload = __webpack_require__(291);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
@@ -31223,45 +31721,7 @@
 	exports.default = AgentPage;
 
 /***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Card = _react2.default.createClass({
-	    displayName: "Card",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "card" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "card__title" },
-	                this.props.title
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "card__content" },
-	                this.props.children
-	            )
-	        );
-	    }
-	});
-
-	exports.default = Card;
-
-/***/ },
-/* 288 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31307,7 +31767,7 @@
 	exports.default = FileUpload;
 
 /***/ },
-/* 289 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31332,7 +31792,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(290);
+	var _Tabs = __webpack_require__(293);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -31340,7 +31800,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(291);
+	var _Actions = __webpack_require__(294);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -31692,7 +32152,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 290 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31763,7 +32223,7 @@
 	exports.default = Tabs;
 
 /***/ },
-/* 291 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31805,7 +32265,7 @@
 	};
 
 /***/ },
-/* 292 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

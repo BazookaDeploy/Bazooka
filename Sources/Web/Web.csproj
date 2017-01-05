@@ -220,6 +220,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Configuration\Actions.js" />
+    <Content Include="App\Configuration\ConfigPage.js" />
+    <Content Include="App\Configuration\GroupsPage.js" />
     <Content Include="App\Deployments\DeploymentPage.js" />
     <Content Include="App\Enviroments\Actions.js" />
     <Content Include="App\Enviroments\AgentPage.js" />
