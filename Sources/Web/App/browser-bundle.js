@@ -29566,7 +29566,7 @@
 	                            _react2.default.createElement(
 	                                _reactRouter.IndexLink,
 	                                { className: "configurationLinks__link", activeClassName: "active", to: "/Configuration" },
-	                                "Config"
+	                                "Overview"
 	                            ),
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,

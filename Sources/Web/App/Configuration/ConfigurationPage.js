@@ -14,7 +14,7 @@ var ConfigurationPage = React.createClass({
                 <Grid.Row>
                     <Grid.Col md={2}>
                         <div className="configurationLinks">
-                            <IndexLink className="configurationLinks__link" activeClassName="active" to="/Configuration">Config</IndexLink>                   
+                            <IndexLink className="configurationLinks__link" activeClassName="active" to="/Configuration">Overview</IndexLink>                   
                             <Link className="configurationLinks__link" activeClassName="active" to="/Configuration/Groups">Groups</Link>                       
                         </div>
                     </Grid.Col>
