@@ -357,3 +357,35 @@ $primaryLightColor:#BBDEFB;
 .group button {
 	float:right;
 }
+.appsGroup {
+margin-bottom:20px;
+
+}
+
+.appsGroup__title {
+	font-size: 20px;
+	font-weight: 600;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 5px;
+}
+
+.appsGroup__app {
+	width:150px;
+	padding:10px;
+	text-align: center;
+	display: inline-block;
+	cursor:pointer;
+	border-radius: 4px;
+	vertical-align: top;
+    word-wrap: break-word;
+}
+
+.appsGroup__app:hover {
+	background-color: lighten(#ccc, 17%)
+}
+
+.appsGroup__app svg{
+	fill: #ccc;
+	height:40px;
+	width:40px;
+}

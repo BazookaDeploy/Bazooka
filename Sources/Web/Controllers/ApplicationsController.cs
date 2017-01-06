@@ -20,13 +20,19 @@ namespace Web.Controllers
 
             if (user.Administrator)
             {
-                return db.Query<ApplicationDto>().ToList();
+                return db.Query<ApplicationDto>().OrderBy(x => x.Name).ToList();
             }
             else
             {
                 var apps = db.Query<ApplicationAdministratorDto>().Where(x => x.UserId == id).Select(x => x.ApplicationId).ToList();
-                return db.Query<ApplicationDto>().Where(x => apps.Contains(x.Id)).ToList();
+                return db.Query<ApplicationDto>().Where(x => apps.Contains(x.Id)).OrderBy(x => x.Name).ToList();
             }
+        }
+
+        [HttpGet]
+        public ICollection<ApplicationDto> All()
+        {
+            return db.Query<ApplicationDto>().OrderBy(x => x.Name).ToList();
         }
 
         public ApplicationDto Get(int id)
@@ -80,7 +86,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public ICollection<ApplicationAdministratorDto> Administrators( int applicationId)
+        public ICollection<ApplicationAdministratorDto> Administrators(int applicationId)
         {
             return db.Query<ApplicationAdministratorDto>()
                      .Where(x => x.ApplicationId == applicationId)

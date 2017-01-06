@@ -66,6 +66,10 @@
 
 	var _ApplicationsPage2 = _interopRequireDefault(_ApplicationsPage);
 
+	var _ApplicationPage = __webpack_require__(298);
+
+	var _ApplicationPage2 = _interopRequireDefault(_ApplicationPage);
+
 	var _ConfigurationPage = __webpack_require__(268);
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
@@ -78,15 +82,15 @@
 
 	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
 
-	var _DeploymentsPage = __webpack_require__(273);
+	var _DeploymentsPage = __webpack_require__(275);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(283);
+	var _DeploymentPage = __webpack_require__(285);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(285);
+	var _EnviromentsPage = __webpack_require__(287);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
@@ -116,7 +120,12 @@
 	      _reactRouter.Route,
 	      { path: '/', component: _App2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _Homepage2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'Applications', component: _ApplicationsPage2.default }),
+	      _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: 'Applications' },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _ApplicationsPage2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _ApplicationPage2.default })
+	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: 'Configuration', component: _ConfigurationPage2.default },
@@ -29493,19 +29502,266 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(272);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _ApplicationIcon = __webpack_require__(297);
+
+	var _ApplicationIcon2 = _interopRequireDefault(_ApplicationIcon);
+
+	var _Actions = __webpack_require__(296);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _reactRouter = __webpack_require__(163);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var groupByGroup = function groupByGroup(array) {
+	    var a = {};
+
+	    var i = 0;
+	    for (i = 0; i < array.length; i++) {
+	        var prop = array[i].GroupName || "";
+
+	        if (a[prop] == undefined) {
+	            a[prop] = [];
+	        }
+
+	        a[prop].push(array[i]);
+	    }
+
+	    return a;
+	};
+
+	var CreateDialog = _react2.default.createClass({
+	    displayName: "CreateDialog",
+
+	    getInitialState: function getInitialState() {
+	        return { clone: false, name: "", applicationId: null };
+	    },
+
+	    create: function create() {
+	        var _this = this;
+
+	        var name = this.state.name;
+
+	        if (name.length !== 0) {
+	            if (!this.state.clone) {
+	                _Actions2.default.createApplication(name).then(function (x) {
+	                    _this.props.onCreate();
+	                    _this.props.onClose();
+	                });
+	            } else {
+	                _Actions2.default.cloneApplication(name, this.state.applicationId).then(function (x) {
+	                    _this.props.onCreate();
+	                    _this.props.onClose();
+	                });
+	            }
+	        }
+	        return false;
+	    },
+
+	    selectClone: function selectClone() {
+	        this.setState({ clone: !this.state.clone });
+	    },
+
+	    render: function render() {
+	        var _this2 = this;
+
+	        return _react2.default.createElement(
+	            _Modal2.default,
+	            this.props,
+	            _react2.default.createElement(
+	                _Modal2.default.Header,
+	                null,
+	                "Create new Application"
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Body,
+	                null,
+	                _react2.default.createElement(_Input2.default, { title: "Name", autoFocus: true, onChange: function onChange(e) {
+	                        return _this2.setState({ name: e.target.value });
+	                    } }),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "form-group" },
+	                    _react2.default.createElement(
+	                        "label",
+	                        { htmlFor: "clone" },
+	                        "Clone Application"
+	                    ),
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement("input", { type: "checkbox", ref: "clone", onClick: this.selectClone, value: this.state.clone })
+	                ),
+	                this.state.clone && _react2.default.createElement(
+	                    _Select2.default,
+	                    { title: "Select application", onChange: function onChange(e) {
+	                            return _this2.setState({ applicationId: e.target.value });
+	                        } },
+	                    _react2.default.createElement("option", null),
+	                    this.props.apps.map(function (x) {
+	                        return _react2.default.createElement(
+	                            "option",
+	                            { value: x.Id },
+	                            x.Name
+	                        );
+	                    })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Footer,
+	                null,
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: this.props.onClose },
+	                    "Close"
+	                ),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { primary: true, onClick: this.create },
+	                    "Create"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var ApplicationGroup = _react2.default.createClass({
+	    displayName: "ApplicationGroup",
+
+	    navigate: function navigate(id) {
+	        this.props.router.push("/Applications/" + id);
+	    },
+
+	    render: function render() {
+	        var _this3 = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "appsGroup" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "appsGroup__title" },
+	                this.props.groupName || "No Group"
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "appsGroup__applications" },
+	                this.props.apps.map(function (x) {
+	                    return _react2.default.createElement(
+	                        "div",
+	                        { className: "appsGroup__app", onClick: function onClick() {
+	                                return _this3.navigate(x.Id);
+	                            } },
+	                        _react2.default.createElement(_ApplicationIcon2.default, null),
+	                        " ",
+	                        _react2.default.createElement("br", null),
+	                        x.Name
+	                    );
+	                })
+	            )
+	        );
+	    }
+	});
+
+	ApplicationGroup = (0, _reactRouter.withRouter)(ApplicationGroup);
 
 	var ApplicationsPage = _react2.default.createClass({
 	    displayName: "ApplicationsPage",
+	    getInitialState: function getInitialState() {
+	        return { showDialog: false, showOnlyMine: true, apps: [] };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.load();
+	    },
+	    load: function load() {
+	        var _this4 = this;
+
+	        debugger;
+	        if (this.state.showOnlyMine === true || this.state.showOnlyMine === "true") {
+	            _Actions2.default.getApplications().then(function (x) {
+	                return _this4.setState({ apps: x });
+	            });
+	        } else {
+	            _Actions2.default.getAllApplications().then(function (x) {
+	                return _this4.setState({ apps: x });
+	            });
+	        }
+	    },
+
 
 	    render: function render() {
+	        var _this5 = this;
+
+	        var gr = groupByGroup(this.state.apps);
+
 	        return _react2.default.createElement(
 	            "div",
 	            null,
 	            _react2.default.createElement(
-	                "h1",
-	                null,
+	                _Header2.default,
+	                { actions: _react2.default.createElement(
+	                        "div",
+	                        null,
+	                        _react2.default.createElement(
+	                            _Select2.default,
+	                            { onChange: function onChange(e) {
+	                                    return _this5.setState({ showOnlyMine: e.target.value }, _this5.load);
+	                                } },
+	                            _react2.default.createElement(
+	                                "option",
+	                                { value: true },
+	                                "Show only my application"
+	                            ),
+	                            _react2.default.createElement(
+	                                "option",
+	                                { value: false },
+	                                "Show all"
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            { onClick: function onClick() {
+	                                    return _this5.setState({ showDialog: true });
+	                                } },
+	                            "Create new Application"
+	                        )
+	                    ) },
 	                "Applications"
+	            ),
+	            _react2.default.createElement(CreateDialog, { show: this.state.showDialog, onClose: function onClose() {
+	                    return _this5.setState({ showDialog: false });
+	                }, apps: this.state.apps, onCreate: this.load }),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                Object.keys(gr).sort(function (a, b) {
+	                    return a.localeCompare(b);
+	                }).map(function (prop) {
+	                    return _react2.default.createElement(ApplicationGroup, { groupName: prop, apps: gr[prop] });
+	                })
 	            )
 	        );
 	    }
@@ -29680,17 +29936,17 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Input = __webpack_require__(288);
+	var _Input = __webpack_require__(272);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _Card = __webpack_require__(272);
+	var _Card = __webpack_require__(273);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Notifications = __webpack_require__(287);
+	var _Notifications = __webpack_require__(274);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -29999,6 +30255,55 @@
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Input = _react2.default.createClass({
+	    displayName: "Input",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "input" },
+	            this.props.title && _react2.default.createElement(
+	                "div",
+	                { className: "input__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "input__wrapper" },
+	                _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props)),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "input__buttons" },
+	                    this.props.buttons
+	                )
+	            )
+	        );
+	    }
+	});
+
+	exports.default = Input;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -30028,7 +30333,122 @@
 	exports.default = Card;
 
 /***/ },
-/* 273 */
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(30);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var portalElement = document.createElement('div');
+	document.body.appendChild(portalElement);
+
+	var notificationType = {
+	    success: 1,
+	    error: 2
+	};
+
+	var Notification = _react2.default.createClass({
+	    displayName: "Notification",
+	    getInitialState: function getInitialState() {
+	        return {
+	            notifications: [],
+	            currentIndex: 0
+	        };
+	    },
+	    add: function add(note, timeout) {
+	        var _this = this;
+
+	        if (Array.isArray(note.text)) {
+	            note.text = note.text.join("<br/>");
+	        }
+
+	        var index = this.state.currentIndex;
+	        var notification = this.state.notifications;
+	        notification[index] = note;
+
+	        this.setState({ notifications: notification, currentIndex: index + 1 }, function () {
+	            return _this.remove(index, timeout);
+	        });
+	    },
+	    remove: function remove(index, timeout) {
+	        var _this2 = this;
+
+	        setTimeout(function () {
+	            var n = _this2.state.notifications;
+	            n[index] = null;
+	            _this2.setState({ notifications: n });
+	        }, timeout);
+	    },
+
+
+	    render: function render() {
+	        var _this3 = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "notification" },
+	            this.state.notifications.map(function (x, i) {
+	                if (x != null) {
+	                    return _react2.default.createElement(
+	                        "div",
+	                        { key: i, className: x.tipo == notificationType.success ? "notification__wrapper notification--success" : "notification__wrapper notification--fail" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "notification__title" },
+	                            x.title
+	                        ),
+	                        _react2.default.createElement("div", { className: "notification__text", dangerouslySetInnerHTML: { __html: x.text } }),
+	                        _react2.default.createElement(
+	                            "p",
+	                            { className: "notification__closeBtn", onClick: function onClick() {
+	                                    return _this3.remove(i, 0);
+	                                } },
+	                            "x"
+	                        )
+	                    );
+	                }
+	            })
+	        );
+	    }
+	});
+
+	var notificator = _reactDom2.default.render(_react2.default.createElement(Notification), portalElement);
+
+	var Notificator = {
+	    Success: function Success(params) {
+	        notificator.add({ type: notificationType.success, text: params.text, title: params.title }, params.Timeout || 3000);
+	    },
+
+	    Error: function Error(params) {
+	        notificator.add({ type: notificationType.error, text: params.text, title: params.title }, 3000);
+	    },
+
+	    Notify: function Notify(params) {
+	        if (params.Success) {
+	            notificator.add({ type: notificationType.success, text: "", title: "Success" }, params.Timeout || 3000);
+	        } else {
+	            notificator.add({ type: notificationType.error, text: params.Errors, title: "Error" }, 3000);
+	        }
+	    }
+	};
+
+	exports.default = Notificator;
+
+/***/ },
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30057,41 +30477,41 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(274);
+	var _Actions = __webpack_require__(276);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(275);
+	var _ListIcon = __webpack_require__(277);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(276);
+	var _PlayIcon = __webpack_require__(278);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(277);
+	var _CircleOkIcon = __webpack_require__(279);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(278);
+	var _CircleRemoveIcon = __webpack_require__(280);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(279);
+	var _WatchIcon = __webpack_require__(281);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(280);
+	var _EraseIcon = __webpack_require__(282);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(163);
 
-	var _FormattedDate = __webpack_require__(281);
+	var _FormattedDate = __webpack_require__(283);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(282);
+	var _FormattedTime = __webpack_require__(284);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -30299,7 +30719,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ },
-/* 274 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30363,7 +30783,7 @@
 	};
 
 /***/ },
-/* 275 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30387,7 +30807,7 @@
 	exports.default = ListIcon;
 
 /***/ },
-/* 276 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30411,7 +30831,7 @@
 	exports.default = PlayIcon;
 
 /***/ },
-/* 277 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30435,7 +30855,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 278 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30459,7 +30879,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ },
-/* 279 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30483,7 +30903,7 @@
 	exports.default = WatchIcon;
 
 /***/ },
-/* 280 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30507,7 +30927,7 @@
 	exports.default = EraseIcon;
 
 /***/ },
-/* 281 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30538,7 +30958,7 @@
 	exports.default = FormattedDate;
 
 /***/ },
-/* 282 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30573,7 +30993,7 @@
 	exports.default = FormattedTime;
 
 /***/ },
-/* 283 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30594,7 +31014,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(274);
+	var _Actions = __webpack_require__(276);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30602,15 +31022,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(284);
+	var _Panel = __webpack_require__(286);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(281);
+	var _FormattedDate = __webpack_require__(283);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(282);
+	var _FormattedTime = __webpack_require__(284);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -30879,7 +31299,7 @@
 	exports.default = DeploymentPage;
 
 /***/ },
-/* 284 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30923,7 +31343,7 @@
 	exports.default = Panel;
 
 /***/ },
-/* 285 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30946,7 +31366,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(286);
+	var _Actions = __webpack_require__(288);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -30958,11 +31378,11 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Notifications = __webpack_require__(287);
+	var _Notifications = __webpack_require__(274);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
-	var _Input = __webpack_require__(288);
+	var _Input = __webpack_require__(272);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -31244,7 +31664,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ },
-/* 286 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31353,170 +31773,6 @@
 	};
 
 /***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(30);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var portalElement = document.createElement('div');
-	document.body.appendChild(portalElement);
-
-	var notificationType = {
-	    success: 1,
-	    error: 2
-	};
-
-	var Notification = _react2.default.createClass({
-	    displayName: "Notification",
-	    getInitialState: function getInitialState() {
-	        return {
-	            notifications: [],
-	            currentIndex: 0
-	        };
-	    },
-	    add: function add(note, timeout) {
-	        var _this = this;
-
-	        if (Array.isArray(note.text)) {
-	            note.text = note.text.join("<br/>");
-	        }
-
-	        var index = this.state.currentIndex;
-	        var notification = this.state.notifications;
-	        notification[index] = note;
-
-	        this.setState({ notifications: notification, currentIndex: index + 1 }, function () {
-	            return _this.remove(index, timeout);
-	        });
-	    },
-	    remove: function remove(index, timeout) {
-	        var _this2 = this;
-
-	        setTimeout(function () {
-	            var n = _this2.state.notifications;
-	            n[index] = null;
-	            _this2.setState({ notifications: n });
-	        }, timeout);
-	    },
-
-
-	    render: function render() {
-	        var _this3 = this;
-
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "notification" },
-	            this.state.notifications.map(function (x, i) {
-	                if (x != null) {
-	                    return _react2.default.createElement(
-	                        "div",
-	                        { key: i, className: x.tipo == notificationType.success ? "notification__wrapper notification--success" : "notification__wrapper notification--fail" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "notification__title" },
-	                            x.title
-	                        ),
-	                        _react2.default.createElement("div", { className: "notification__text", dangerouslySetInnerHTML: { __html: x.text } }),
-	                        _react2.default.createElement(
-	                            "p",
-	                            { className: "notification__closeBtn", onClick: function onClick() {
-	                                    return _this3.remove(i, 0);
-	                                } },
-	                            "x"
-	                        )
-	                    );
-	                }
-	            })
-	        );
-	    }
-	});
-
-	var notificator = _reactDom2.default.render(_react2.default.createElement(Notification), portalElement);
-
-	var Notificator = {
-	    Success: function Success(params) {
-	        notificator.add({ type: notificationType.success, text: params.text, title: params.title }, params.Timeout || 3000);
-	    },
-
-	    Error: function Error(params) {
-	        notificator.add({ type: notificationType.error, text: params.text, title: params.title }, 3000);
-	    },
-
-	    Notify: function Notify(params) {
-	        if (params.Success) {
-	            notificator.add({ type: notificationType.success, text: "", title: "Success" }, params.Timeout || 3000);
-	        } else {
-	            notificator.add({ type: notificationType.error, text: params.Errors, title: "Error" }, 3000);
-	        }
-	    }
-	};
-
-	exports.default = Notificator;
-
-/***/ },
-/* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(254);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Input = _react2.default.createClass({
-	    displayName: "Input",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "input" },
-	            this.props.title && _react2.default.createElement(
-	                "div",
-	                { className: "input__title" },
-	                this.props.title
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "input__wrapper" },
-	                _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props)),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "input__buttons" },
-	                    this.props.buttons
-	                )
-	            )
-	        );
-	    }
-	});
-
-	exports.default = Input;
-
-/***/ },
 /* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31558,7 +31814,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Input = __webpack_require__(288);
+	var _Input = __webpack_require__(272);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -31566,11 +31822,11 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Card = __webpack_require__(272);
+	var _Card = __webpack_require__(273);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(286);
+	var _Actions = __webpack_require__(288);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -32304,6 +32560,120 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	    getApplications: function getApplications() {
+	        return (0, _reqwest2.default)({
+	            url: "/api/Applications/",
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "get"
+	        });
+	    },
+
+	    getAllApplications: function getAllApplications() {
+	        return (0, _reqwest2.default)({
+	            url: "/api/Applications/All",
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "get"
+	        });
+	    },
+
+	    createApplication: function createApplication(name) {
+	        var promise = (0, _reqwest2.default)({
+	            url: "/api/applications/Create",
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "post",
+	            data: JSON.stringify({
+	                Name: name
+	            })
+	        });
+
+	        return promise;
+	    },
+
+	    cloneApplication: function cloneApplication(name, app) {
+	        var promise = (0, _reqwest2.default)({
+	            url: "/api/applications/CreateApplicationFromExisting",
+	            type: 'json',
+	            contentType: 'application/json',
+	            method: "post",
+	            data: JSON.stringify({
+	                Name: name,
+	                OriginalApplicationId: app
+	            })
+	        });
+
+	        return promise;
+	    }
+	};
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Icon = __webpack_require__(259);
+
+	var _Icon2 = _interopRequireDefault(_Icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ApplicationIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 3 4.125 C 2.447 4.125 2 4.573 2 5.125 L 2 15.125 C 2 15.677 2.447 16.125 3 16.125 L 47 16.125 C 47.553 16.125 48 15.677 48 15.125 L 48 5.125 C 48 4.572 47.553 4.125 47 4.125 L 3 4.125 z M 8 9 C 8.552 9 9 9.448 9 10 C 9 10.552 8.552 11 8 11 C 7.448 11 7 10.552 7 10 C 7 9.448 7.448 9 8 9 z M 12 9 C 12.552 9 13 9.448 13 10 C 13 10.552 12.552 11 12 11 C 11.448 11 11 10.552 11 10 C 11 9.448 11.448 9 12 9 z M 16 9 C 16.552 9 17 9.448 17 10 C 17 10.552 16.552 11 16 11 C 15.448 11 15 10.552 15 10 C 15 9.448 15.448 9 16 9 z M 2 19 L 2 45 A 1.0001 1.0001 0 0 0 3 46 L 47 46 A 1.0001 1.0001 0 0 0 48 45 L 48 19 L 46 19 L 46 44 L 4 44 L 4 19 L 2 19 z M 8 19 C 7.447 19 7 19.448 7 20 L 7 40 C 7 40.552 7.447 41 8 41 L 23 41 C 23.553 41 24 40.552 24 40 L 24 20 C 24 19.448 23.553 19 23 19 L 8 19 z M 27 19 L 27 21 L 43 21 L 43 19 L 27 19 z M 27 24 L 27 26 L 43 26 L 43 24 L 27 24 z M 27 29 L 27 31 L 43 31 L 43 29 L 27 29 z M 27 34 L 27 36 L 43 36 L 43 34 L 27 34 z M 27 39 L 27 41 L 43 41 L 43 39 L 27 39 z" }));
+
+	exports.default = ApplicationIcon;
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ApplicationPage = _react2.default.createClass({
+	    displayName: "ApplicationPage",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            "Application"
+	        );
+	    }
+	});
+
+	exports.default = ApplicationPage;
 
 /***/ }
 /******/ ]);

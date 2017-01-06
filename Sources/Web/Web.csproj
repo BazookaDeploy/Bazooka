@@ -220,6 +220,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Applications\Actions.js" />
+    <Content Include="App\Applications\ApplicationPage.js" />
     <Content Include="App\Configuration\Actions.js" />
     <Content Include="App\Configuration\ConfigPage.js" />
     <Content Include="App\Configuration\GroupsPage.js" />
@@ -233,6 +235,7 @@
     <Content Include="App\Shared\Card\index.js" />
     <Content Include="App\Shared\DateTimePicker\index.js" />
     <Content Include="App\Shared\FileUpload\index.js" />
+    <Content Include="App\Shared\Icon\ApplicationIcon.js" />
     <Content Include="App\Shared\Icon\ArrowDownIcon.js" />
     <Content Include="App\Shared\Icon\ArrowUpIcon.js" />
     <Content Include="App\Shared\Icon\CircleRemoveIcon.js" />

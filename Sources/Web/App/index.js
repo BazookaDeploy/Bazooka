@@ -4,6 +4,7 @@ import { Router, Route,IndexRoute, Link, hashHistory } from 'react-router'
 import App from "./App"
 import Homepage from "./Homepage/Homepage";
 import ApplicationsPage from "./Applications/ApplicationsPage";
+import ApplicationPage from "./Applications/ApplicationPage";
 import ConfigurationPage from "./Configuration/ConfigurationPage";
 import ConfigPage from "./Configuration/ConfigPage";
 import GroupsPage from "./Configuration/GroupsPage";
@@ -20,7 +21,10 @@ var route = <Provider store={store} >
     <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Homepage}/>
-      <Route path="Applications" component={ApplicationsPage} />
+      <Route path="Applications">
+        <IndexRoute component={ApplicationsPage} />
+        <Route path=":id" component={ApplicationPage} />
+      </Route>
       <Route path="Configuration" component={ConfigurationPage}>
         <IndexRoute component={ConfigPage} />
         <Route path="Groups" component={GroupsPage} />
