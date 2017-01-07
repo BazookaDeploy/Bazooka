@@ -7,6 +7,9 @@ import ApplicationsPage from "./Applications/ApplicationsPage";
 import ApplicationPage from "./Applications/ApplicationPage";
 import PermissionsPage from "./Applications/PermissionsPage";
 import OverviewPage from "./Applications/OverviewPage";
+import TasksPage from "./Applications/TasksPage";
+import AllowedUsersPage from "./Applications/AllowedUserPage";
+
 
 import ConfigurationPage from "./Configuration/ConfigurationPage";
 import ConfigPage from "./Configuration/ConfigPage";
@@ -29,6 +32,8 @@ var route = <Provider store={store} >
         <Route path=":id" component={ApplicationPage}>
             <IndexRoute component={OverviewPage} />
             <Route path="Permissions" component={PermissionsPage} />
+            <Route path="Enviroment/:enviromentId/Tasks" component={TasksPage} />
+            <Route path="Enviroment/:enviromentId/Users" component={AllowedUsersPage} />
         </Route> 
       </Route>
       <Route path="Configuration" component={ConfigurationPage}>

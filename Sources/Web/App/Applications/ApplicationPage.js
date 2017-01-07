@@ -14,6 +14,13 @@ var ApplicationPage = React.createClass({
         }
         
 
+        var arr=[];
+        this.props.enviroments.map(x => {
+            arr.push(<div  className="configurationLinks__link--section">Enviroment: {x.Name}</div>);
+            arr.push(<Link className="configurationLinks__link configurationLinks__link--subsection" activeClassName="active" to={"/Applications/"+this.props.params.id+"/Enviroment/"+x.Id+"/Tasks"}>Tasks</Link>);
+            arr.push(<Link className="configurationLinks__link configurationLinks__link--subsection" activeClassName="active" to={"/Applications/"+this.props.params.id+"/Enviroment/"+x.Id+ "/Users"}>Users</Link>);          
+        });
+
         return (<div>
             <Header>
                 Application: {application}
@@ -24,7 +31,7 @@ var ApplicationPage = React.createClass({
                         <div className="configurationLinks">
                             <IndexLink className="configurationLinks__link" activeClassName="active" to={"/Applications/"+this.props.params.id}>Overview</IndexLink>                   
                             <Link className="configurationLinks__link" activeClassName="active" to={"/Applications/"+this.props.params.id+"/Permissions"}>Permissions</Link>                       
-                            {this.props.enviroments.map(x => <Link className="configurationLinks__link" activeClassName="active" to={"/Applications/"+this.props.params.id+"/Enviroment/"+ x.Name + "/"+x.Id}>Enviroment: {x.Name}</Link>)}
+                            {arr}
                         </div>
                     </Grid.Col>
                     <Grid.Col md={10}>

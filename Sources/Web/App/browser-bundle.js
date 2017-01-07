@@ -78,6 +78,14 @@
 
 	var _OverviewPage2 = _interopRequireDefault(_OverviewPage);
 
+	var _TasksPage = __webpack_require__(301);
+
+	var _TasksPage2 = _interopRequireDefault(_TasksPage);
+
+	var _AllowedUserPage = __webpack_require__(302);
+
+	var _AllowedUserPage2 = _interopRequireDefault(_AllowedUserPage);
+
 	var _ConfigurationPage = __webpack_require__(275);
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
@@ -136,7 +144,9 @@
 	          _reactRouter.Route,
 	          { path: ':id', component: _ApplicationPage2.default },
 	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _OverviewPage2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: 'Permissions', component: _PermissionsPage2.default })
+	          _react2.default.createElement(_reactRouter.Route, { path: 'Permissions', component: _PermissionsPage2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: 'Enviroment/:enviromentId/Tasks', component: _TasksPage2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: 'Enviroment/:enviromentId/Users', component: _AllowedUserPage2.default })
 	        )
 	      ),
 	      _react2.default.createElement(
@@ -30123,6 +30133,26 @@
 	            application = [];
 	        }
 
+	        var arr = [];
+	        this.props.enviroments.map(function (x) {
+	            arr.push(_react2.default.createElement(
+	                "div",
+	                { className: "configurationLinks__link--section" },
+	                "Enviroment: ",
+	                x.Name
+	            ));
+	            arr.push(_react2.default.createElement(
+	                _reactRouter.Link,
+	                { className: "configurationLinks__link configurationLinks__link--subsection", activeClassName: "active", to: "/Applications/" + _this.props.params.id + "/Enviroment/" + x.Id + "/Tasks" },
+	                "Tasks"
+	            ));
+	            arr.push(_react2.default.createElement(
+	                _reactRouter.Link,
+	                { className: "configurationLinks__link configurationLinks__link--subsection", activeClassName: "active", to: "/Applications/" + _this.props.params.id + "/Enviroment/" + x.Id + "/Users" },
+	                "Users"
+	            ));
+	        });
+
 	        return _react2.default.createElement(
 	            "div",
 	            null,
@@ -30154,14 +30184,7 @@
 	                                { className: "configurationLinks__link", activeClassName: "active", to: "/Applications/" + this.props.params.id + "/Permissions" },
 	                                "Permissions"
 	                            ),
-	                            this.props.enviroments.map(function (x) {
-	                                return _react2.default.createElement(
-	                                    _reactRouter.Link,
-	                                    { className: "configurationLinks__link", activeClassName: "active", to: "/Applications/" + _this.props.params.id + "/Enviroment/" + x.Name + "/" + x.Id },
-	                                    "Enviroment: ",
-	                                    x.Name
-	                                );
-	                            })
+	                            arr
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -33129,6 +33152,281 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TasksPage = _react2.default.createClass({
+	    displayName: "TasksPage",
+	    getInitialState: function getInitialState() {
+	        return { url: null };
+	    },
+
+
+	    render: function render() {
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Overview"
+	            ),
+	            "From this page you can configure the application by setting permissions for users and groups in the ",
+	            _react2.default.createElement(
+	                "b",
+	                null,
+	                "Permissions"
+	            ),
+	            " tab or configure the deploy process for every enviroment"
+	        );
+	    }
+	});
+
+	exports.default = TasksPage;
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Card = __webpack_require__(273);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Actions = __webpack_require__(270);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _reactRedux = __webpack_require__(220);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AllowedUsersPage = _react2.default.createClass({
+	    displayName: "AllowedUsersPage",
+	    getInitialState: function getInitialState() {
+	        return { users: [], groups: [], currentUser: null, currentGroup: null };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.updateUsers();
+	        this.updateGroups();
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if (this.props.params.id != nextProps.params.id || this.props.params.enviromentId != nextProps.params.enviromentId) {
+	            this.updateUsers();
+	            this.updateGroups();
+	        }
+	    },
+	    updateUsers: function updateUsers() {
+	        var _this = this;
+
+	        _Actions2.default.getUsers(this.props.params.enviromentId, this.props.params.id).then(function (x) {
+	            return _this.setState({ users: x });
+	        });
+	    },
+	    updateGroups: function updateGroups() {
+	        var _this2 = this;
+
+	        _Actions2.default.getGroups(this.props.params.enviromentId, this.props.params.id).then(function (x) {
+	            return _this2.setState({ groups: x });
+	        });
+	    },
+	    addUser: function addUser() {
+	        var _this3 = this;
+
+	        if (this.state.currentUser != null) {
+	            _Actions2.default.addUser(this.props.params.enviromentId, this.props.params.id, this.state.currentUser).then(function () {
+	                return _this3.updateUsers();
+	            });
+	        }
+	    },
+	    removeUser: function removeUser(id) {
+	        var _this4 = this;
+
+	        debugger;
+	        _Actions2.default.removeUser(this.props.params.enviromentId, this.props.params.id, id).then(function () {
+	            return _this4.updateUsers();
+	        });
+	    },
+	    selectUser: function selectUser(e) {
+	        this.setState({ currentUser: e.target.value });
+	    },
+	    addGroup: function addGroup() {
+	        var _this5 = this;
+
+	        if (this.state.currentGroup != null) {
+	            _Actions2.default.addGroup(this.props.params.enviromentId, this.props.params.id, this.state.currentGroup).then(function () {
+	                return _this5.updateGroups();
+	            });
+	        }
+	    },
+	    removeGroup: function removeGroup(id) {
+	        var _this6 = this;
+
+	        _Actions2.default.removeGroups(this.props.params.enviromentId, this.props.params.id, id).then(function () {
+	            return _this6.updateGroups();
+	        });
+	    },
+	    selectGroup: function selectGroup(e) {
+	        this.setState({ currentGroup: e.target.value });
+	    },
+
+
+	    render: function render() {
+	        var _this7 = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 6 },
+	                        _react2.default.createElement(
+	                            _Card2.default,
+	                            { title: "Allowed Users" },
+	                            _react2.default.createElement(
+	                                "ul",
+	                                { className: "group" },
+	                                this.state.users.map(function (x) {
+	                                    return _react2.default.createElement(
+	                                        "li",
+	                                        null,
+	                                        x.UserName,
+	                                        " ",
+	                                        _react2.default.createElement(
+	                                            _Button2.default,
+	                                            { onClick: function onClick() {
+	                                                    return _this7.removeUser(x.USerId);
+	                                                } },
+	                                            "Remove"
+	                                        )
+	                                    );
+	                                })
+	                            ),
+	                            _react2.default.createElement(
+	                                _Select2.default,
+	                                { onChange: this.selectUser, title: "Add another user" },
+	                                _react2.default.createElement("option", { value: null }),
+	                                this.props.users.map(function (x) {
+	                                    return _react2.default.createElement(
+	                                        "option",
+	                                        { value: x.Id },
+	                                        x.UserName
+	                                    );
+	                                })
+	                            ),
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { block: true, primary: true, onClick: this.addUser },
+	                                "Add User"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 6 },
+	                        _react2.default.createElement(
+	                            _Card2.default,
+	                            { title: "Allowed groups" },
+	                            _react2.default.createElement(
+	                                "ul",
+	                                { className: "group" },
+	                                this.state.groups.map(function (x) {
+	                                    return _react2.default.createElement(
+	                                        "li",
+	                                        null,
+	                                        x.Name,
+	                                        " ",
+	                                        _react2.default.createElement(
+	                                            _Button2.default,
+	                                            { onClick: function onClick() {
+	                                                    return _this7.removeGroup(x.GroupId);
+	                                                } },
+	                                            "Remove"
+	                                        )
+	                                    );
+	                                })
+	                            ),
+	                            _react2.default.createElement(
+	                                _Select2.default,
+	                                { onChange: this.selectGroup, title: "Add another group" },
+	                                _react2.default.createElement("option", { value: null }),
+	                                this.props.groups.map(function (x) {
+	                                    return _react2.default.createElement(
+	                                        "option",
+	                                        { value: x.Id },
+	                                        x.Name
+	                                    );
+	                                })
+	                            ),
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { block: true, primary: true, onClick: this.addGroup },
+	                                "Add group"
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var mapStoreToProps = function mapStoreToProps(store) {
+	    return {
+	        users: store.users || [],
+	        groups: store.groups || []
+	    };
+	};
+
+	AllowedUsersPage = (0, _reactRedux.connect)(mapStoreToProps, null)(AllowedUsersPage);
+
+	exports.default = AllowedUsersPage;
 
 /***/ }
 /******/ ]);
