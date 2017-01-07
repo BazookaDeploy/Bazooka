@@ -8,10 +8,14 @@ var Option = React.createClass({
 });
 
 var Select = React.createClass({
+    value(){
+        return this.refs.input.value;
+    },
+
     render(){
         return (<div className="select">
             {this.props.title && <div className="select__title">{this.props.title}</div>}
-            <select className="select__input" {...this.props}>{this.props.children}</select>
+            <select ref="input" className="select__input" {...this.props}>{this.props.children}</select>
         </div>);
     }
 });

@@ -32,7 +32,13 @@ var route = <Provider store={store} >
         <Route path=":id" component={ApplicationPage}>
             <IndexRoute component={OverviewPage} />
             <Route path="Permissions" component={PermissionsPage} />
-            <Route path="Enviroment/:enviromentId/Tasks" component={TasksPage} />
+            <Route path="Enviroment/:enviromentId/Tasks" component={TasksPage}>
+              <Route path="DeployTask/:taskId" />
+              <Route path="DatabaseTask/:taskId" />
+              <Route path="MailTask/:taskId" />
+              <Route path="LocalScriptTask/:taskId" />
+              <Route path="RemoteScriptTask/:taskId" />
+            </Route>
             <Route path="Enviroment/:enviromentId/Users" component={AllowedUsersPage} />
         </Route> 
       </Route>

@@ -49,7 +49,7 @@ var PermissionsPage = React.createClass({
                             <option value={null}></option>
                             {this.props.users.map(x => <option value={x.Id}>{x.UserName}</option>)}
                         </Select>
-                        <Button block onClick={this.addUser}>Add User</Button>
+                        <Button block primary onClick={this.addUser}>Add User</Button>
                     </Grid.Col>
                 </Grid.Row>
             </Grid>

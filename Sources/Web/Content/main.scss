@@ -186,6 +186,8 @@ $primaryLightColor:#BBDEFB;
 @import "../App/Shared/Card/Card.scss";
 @import "../App/Shared/FileUpload/FileUpload.scss";
 @import "../App/Shared/DateTimePicker/DateTimePicker.scss";
+@import "../App/Shared/Textarea/Textarea.scss";
+
 
 
 .logs {
@@ -398,4 +400,30 @@ margin-bottom:20px;
 
  .configurationLinks .configurationLinks__link--subsection {
 	padding: 2px 20px;
+}
+
+.applicationTasks {
+	padding:10px;
+}
+
+.applicationTasks a {
+	display: block;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.applicationTasks a:hover {
+	background-color: lighten(#ccc,16%);
+}
+
+.addSection, .cloneSection {
+	margin-top:20px;
+}
+
+.defaultTask {
+	text-align: center;
+	padding: 50px;
 }
