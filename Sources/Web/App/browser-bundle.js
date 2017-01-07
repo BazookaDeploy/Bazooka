@@ -66,45 +66,53 @@
 
 	var _ApplicationsPage2 = _interopRequireDefault(_ApplicationsPage);
 
-	var _ApplicationPage = __webpack_require__(298);
+	var _ApplicationPage = __webpack_require__(271);
 
 	var _ApplicationPage2 = _interopRequireDefault(_ApplicationPage);
 
-	var _ConfigurationPage = __webpack_require__(268);
+	var _PermissionsPage = __webpack_require__(272);
+
+	var _PermissionsPage2 = _interopRequireDefault(_PermissionsPage);
+
+	var _OverviewPage = __webpack_require__(274);
+
+	var _OverviewPage2 = _interopRequireDefault(_OverviewPage);
+
+	var _ConfigurationPage = __webpack_require__(275);
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
 
-	var _ConfigPage = __webpack_require__(269);
+	var _ConfigPage = __webpack_require__(276);
 
 	var _ConfigPage2 = _interopRequireDefault(_ConfigPage);
 
-	var _GroupsPage = __webpack_require__(270);
+	var _GroupsPage = __webpack_require__(277);
 
 	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
 
-	var _DeploymentsPage = __webpack_require__(275);
+	var _DeploymentsPage = __webpack_require__(280);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(285);
+	var _DeploymentPage = __webpack_require__(290);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(287);
+	var _EnviromentsPage = __webpack_require__(292);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(290);
+	var _AgentPage = __webpack_require__(295);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(292);
+	var _StatisticsPage = __webpack_require__(297);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Store = __webpack_require__(295);
+	var _Store = __webpack_require__(300);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -124,7 +132,12 @@
 	        _reactRouter.Route,
 	        { path: 'Applications' },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _ApplicationsPage2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _ApplicationPage2.default })
+	        _react2.default.createElement(
+	          _reactRouter.Route,
+	          { path: ':id', component: _ApplicationPage2.default },
+	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _OverviewPage2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: 'Permissions', component: _PermissionsPage2.default })
+	        )
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
@@ -29518,7 +29531,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(272);
+	var _Input = __webpack_require__(268);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -29526,11 +29539,11 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _ApplicationIcon = __webpack_require__(297);
+	var _ApplicationIcon = __webpack_require__(269);
 
 	var _ApplicationIcon2 = _interopRequireDefault(_ApplicationIcon);
 
-	var _Actions = __webpack_require__(296);
+	var _Actions = __webpack_require__(270);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -29699,7 +29712,6 @@
 	    load: function load() {
 	        var _this4 = this;
 
-	        debugger;
 	        if (this.state.showOnlyMine === true || this.state.showOnlyMine === "true") {
 	            _Actions2.default.getApplications().then(function (x) {
 	                return _this4.setState({ apps: x });
@@ -29779,6 +29791,650 @@
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Input = _react2.default.createClass({
+	    displayName: "Input",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "input" },
+	            this.props.title && _react2.default.createElement(
+	                "div",
+	                { className: "input__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "input__wrapper" },
+	                _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props)),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "input__buttons" },
+	                    this.props.buttons
+	                )
+	            )
+	        );
+	    }
+	});
+
+	exports.default = Input;
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Icon = __webpack_require__(259);
+
+	var _Icon2 = _interopRequireDefault(_Icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ApplicationIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 3 4.125 C 2.447 4.125 2 4.573 2 5.125 L 2 15.125 C 2 15.677 2.447 16.125 3 16.125 L 47 16.125 C 47.553 16.125 48 15.677 48 15.125 L 48 5.125 C 48 4.572 47.553 4.125 47 4.125 L 3 4.125 z M 8 9 C 8.552 9 9 9.448 9 10 C 9 10.552 8.552 11 8 11 C 7.448 11 7 10.552 7 10 C 7 9.448 7.448 9 8 9 z M 12 9 C 12.552 9 13 9.448 13 10 C 13 10.552 12.552 11 12 11 C 11.448 11 11 10.552 11 10 C 11 9.448 11.448 9 12 9 z M 16 9 C 16.552 9 17 9.448 17 10 C 17 10.552 16.552 11 16 11 C 15.448 11 15 10.552 15 10 C 15 9.448 15.448 9 16 9 z M 2 19 L 2 45 A 1.0001 1.0001 0 0 0 3 46 L 47 46 A 1.0001 1.0001 0 0 0 48 45 L 48 19 L 46 19 L 46 44 L 4 44 L 4 19 L 2 19 z M 8 19 C 7.447 19 7 19.448 7 20 L 7 40 C 7 40.552 7.447 41 8 41 L 23 41 C 23.553 41 24 40.552 24 40 L 24 20 C 24 19.448 23.553 19 23 19 L 8 19 z M 27 19 L 27 21 L 43 21 L 43 19 L 27 19 z M 27 24 L 27 26 L 43 26 L 43 24 L 27 24 z M 27 29 L 27 31 L 43 31 L 43 29 L 27 29 z M 27 34 L 27 36 L 43 36 L 43 34 L 27 34 z M 27 39 L 27 41 L 43 41 L 43 39 L 27 39 z" }));
+
+	exports.default = ApplicationIcon;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  getApplications: function getApplications() {
+	    return (0, _reqwest2.default)({
+	      url: "/api/Applications/",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  getAllApplications: function getAllApplications() {
+	    return (0, _reqwest2.default)({
+	      url: "/api/Applications/All",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  createApplication: function createApplication(name) {
+	    var promise = (0, _reqwest2.default)({
+	      url: "/api/applications/Create",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        Name: name
+	      })
+	    });
+
+	    return promise;
+	  },
+
+	  cloneApplication: function cloneApplication(name, app) {
+	    var promise = (0, _reqwest2.default)({
+	      url: "/api/applications/CreateApplicationFromExisting",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        Name: name,
+	        OriginalApplicationId: app
+	      })
+	    });
+
+	    return promise;
+	  },
+
+	  getDeployUrl: function getDeployUrl(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/deployTasks/deployUrl?id=" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  getUsers: function getUsers(enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/AllowedUsers?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  addUser: function addUser(enviromentId, applicationid, userId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/AddAllowedUser",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationid,
+	        EnviromentId: enviromentId,
+	        UserId: userId
+	      })
+	    });
+	  },
+
+	  removeUser: function removeUser(enviromentId, applicationid, userId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/RemoveAllowedUser",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationid,
+	        EnviromentId: enviromentId,
+	        UserId: userId
+	      })
+	    });
+	  },
+
+	  getGroups: function getGroups(enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "api/applications/AllowedGroups?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  addGroup: function addGroup(enviromentId, applicationid, groupId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/AddAllowedGroup",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationid,
+	        EnviromentId: enviromentId,
+	        GroupId: groupId
+	      })
+	    });
+	  },
+
+	  removeGroups: function removeGroups(enviromentId, applicationid, groupId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/RemoveAllowedGroup",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationid,
+	        EnviromentId: enviromentId,
+	        GroupId: groupId
+	      })
+	    });
+	  },
+
+	  getTasks: function getTasks(enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/Tasks/?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  deleteTask: function deleteTask(applicationId, id, type) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/tasks/deleteTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationId,
+	        TaskId: id,
+	        Type: type
+	      })
+	    });
+	  },
+
+	  cloneEnviroment: function cloneEnviroment(enviromentIdToClone, agentId, enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/CopyConfigurationFromEnviroment",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationId,
+	        MachineId: agentId,
+	        EnviromentId: enviromentId,
+	        OriginalEnviromentId: enviromentIdToClone
+	      })
+	    });
+	  },
+
+	  getAgents: function getAgents(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/Agents/AgentsByEnviroment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  getAdmins: function getAdmins(applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "api/Applications/Administrators?applicationId=" + applicationId,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  addAdmin: function addAdmin(userId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/AddApplicationAdministrator",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationId,
+	        UserId: userId
+	      })
+	    });
+	  },
+
+	  removeAdmin: function removeAdmin(userId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/RemoveApplicationAdministrator",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationId,
+	        UserId: userId
+	      })
+	    });
+	  }
+	};
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(256);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _reactRouter = __webpack_require__(163);
+
+	var _reactRedux = __webpack_require__(220);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ApplicationPage = _react2.default.createClass({
+	    displayName: "ApplicationPage",
+
+	    render: function render() {
+	        var _this = this;
+
+	        var application = this.props.applications.filter(function (x) {
+	            return x.Id == _this.props.params.id;
+	        });
+	        if (application.length > 0) {
+	            application = application[0].Name;
+	        } else {
+	            application = [];
+	        }
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                _Header2.default,
+	                null,
+	                "Application: ",
+	                application
+	            ),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 2 },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "configurationLinks" },
+	                            _react2.default.createElement(
+	                                _reactRouter.IndexLink,
+	                                { className: "configurationLinks__link", activeClassName: "active", to: "/Applications/" + this.props.params.id },
+	                                "Overview"
+	                            ),
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { className: "configurationLinks__link", activeClassName: "active", to: "/Applications/" + this.props.params.id + "/Permissions" },
+	                                "Permissions"
+	                            ),
+	                            this.props.enviroments.map(function (x) {
+	                                return _react2.default.createElement(
+	                                    _reactRouter.Link,
+	                                    { className: "configurationLinks__link", activeClassName: "active", to: "/Applications/" + _this.props.params.id + "/Enviroment/" + x.Name + "/" + x.Id },
+	                                    "Enviroment: ",
+	                                    x.Name
+	                                );
+	                            })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 10 },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "configurationContent" },
+	                            this.props.children
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var mapStoreToProps = function mapStoreToProps(store) {
+	    return {
+	        applications: store.applications || [],
+	        enviroments: store.enviroments || []
+	    };
+	};
+
+	ApplicationPage = (0, _reactRedux.connect)(mapStoreToProps, null)(ApplicationPage);
+
+	exports.default = ApplicationPage;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Card = __webpack_require__(273);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _Actions = __webpack_require__(270);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _reactRedux = __webpack_require__(220);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PermissionsPage = _react2.default.createClass({
+	    displayName: "PermissionsPage",
+	    getInitialState: function getInitialState() {
+	        return { users: [], currentUser: null };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.updateUsers();
+	    },
+	    selectUser: function selectUser(e) {
+	        this.setState({ currentUser: e.target.value });
+	    },
+	    addUser: function addUser() {
+	        var _this = this;
+
+	        if (this.state.currentUser != null) {
+	            _Actions2.default.addAdmin(this.state.currentUser, this.props.params.id).then(function () {
+	                return _this.updateUsers();
+	            });
+	        }
+	    },
+	    removeUser: function removeUser(id) {
+	        var _this2 = this;
+
+	        _Actions2.default.removeAdmin(id, this.props.params.id).then(function () {
+	            return _this2.updateUsers();
+	        });
+	    },
+	    updateUsers: function updateUsers() {
+	        var _this3 = this;
+
+	        _Actions2.default.getAdmins(this.props.params.id).then(function (x) {
+	            return _this3.setState({ users: x });
+	        });
+	    },
+
+
+	    render: function render() {
+	        var _this4 = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Application administrators"
+	            ),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                null,
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 4 },
+	                        _react2.default.createElement(
+	                            "ul",
+	                            { className: "group" },
+	                            this.state.users.map(function (x) {
+	                                return _react2.default.createElement(
+	                                    "li",
+	                                    null,
+	                                    x.UserName,
+	                                    " ",
+	                                    _react2.default.createElement(
+	                                        _Button2.default,
+	                                        { onClick: function onClick() {
+	                                                return _this4.removeUser(x.UserId);
+	                                            } },
+	                                        "Remove"
+	                                    )
+	                                );
+	                            })
+	                        ),
+	                        _react2.default.createElement(
+	                            _Select2.default,
+	                            { onChange: this.selectUser, title: "Add another user" },
+	                            _react2.default.createElement("option", { value: null }),
+	                            this.props.users.map(function (x) {
+	                                return _react2.default.createElement(
+	                                    "option",
+	                                    { value: x.Id },
+	                                    x.UserName
+	                                );
+	                            })
+	                        ),
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            { block: true, onClick: this.addUser },
+	                            "Add User"
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var mapStoreToProps = function mapStoreToProps(store) {
+	    return {
+	        users: store.users || []
+	    };
+	};
+
+	PermissionsPage = (0, _reactRedux.connect)(mapStoreToProps, null)(PermissionsPage);
+
+	exports.default = PermissionsPage;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Card = _react2.default.createClass({
+	    displayName: "Card",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "card" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "card__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "card__content" },
+	                this.props.children
+	            )
+	        );
+	    }
+	});
+
+	exports.default = Card;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var OverviewPage = _react2.default.createClass({
+	    displayName: "OverviewPage",
+	    getInitialState: function getInitialState() {
+	        return { url: null };
+	    },
+
+
+	    render: function render() {
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Overview"
+	            ),
+	            "From this page you can configure the application by setting permissions for users and groups in the ",
+	            _react2.default.createElement(
+	                "b",
+	                null,
+	                "Permissions"
+	            ),
+	            " tab or configure the deploy process for every enviroment"
+	        );
+	    }
+	});
+
+	exports.default = OverviewPage;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -29849,7 +30505,7 @@
 	exports.default = ConfigurationPage;
 
 /***/ },
-/* 269 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29897,7 +30553,7 @@
 	exports.default = ConfigPage;
 
 /***/ },
-/* 270 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29916,7 +30572,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(271);
+	var _Actions = __webpack_require__(278);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -29936,7 +30592,7 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Input = __webpack_require__(272);
+	var _Input = __webpack_require__(268);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -29946,7 +30602,7 @@
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Notifications = __webpack_require__(274);
+	var _Notifications = __webpack_require__(279);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -30161,7 +30817,7 @@
 	exports.default = GroupsPage;
 
 /***/ },
-/* 271 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30246,94 +30902,7 @@
 	};
 
 /***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(254);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Input = _react2.default.createClass({
-	    displayName: "Input",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "input" },
-	            this.props.title && _react2.default.createElement(
-	                "div",
-	                { className: "input__title" },
-	                this.props.title
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "input__wrapper" },
-	                _react2.default.createElement("input", _extends({ type: "text", className: "input__input" }, this.props)),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "input__buttons" },
-	                    this.props.buttons
-	                )
-	            )
-	        );
-	    }
-	});
-
-	exports.default = Input;
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Card = _react2.default.createClass({
-	    displayName: "Card",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "card" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "card__title" },
-	                this.props.title
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "card__content" },
-	                this.props.children
-	            )
-	        );
-	    }
-	});
-
-	exports.default = Card;
-
-/***/ },
-/* 274 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30448,7 +31017,7 @@
 	exports.default = Notificator;
 
 /***/ },
-/* 275 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30477,41 +31046,41 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(276);
+	var _Actions = __webpack_require__(281);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(277);
+	var _ListIcon = __webpack_require__(282);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(278);
+	var _PlayIcon = __webpack_require__(283);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(279);
+	var _CircleOkIcon = __webpack_require__(284);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(280);
+	var _CircleRemoveIcon = __webpack_require__(285);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(281);
+	var _WatchIcon = __webpack_require__(286);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(282);
+	var _EraseIcon = __webpack_require__(287);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(163);
 
-	var _FormattedDate = __webpack_require__(283);
+	var _FormattedDate = __webpack_require__(288);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(284);
+	var _FormattedTime = __webpack_require__(289);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -30719,7 +31288,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ },
-/* 276 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30783,7 +31352,7 @@
 	};
 
 /***/ },
-/* 277 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30807,7 +31376,7 @@
 	exports.default = ListIcon;
 
 /***/ },
-/* 278 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30831,7 +31400,7 @@
 	exports.default = PlayIcon;
 
 /***/ },
-/* 279 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30855,7 +31424,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 280 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30879,7 +31448,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ },
-/* 281 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30903,7 +31472,7 @@
 	exports.default = WatchIcon;
 
 /***/ },
-/* 282 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30927,7 +31496,7 @@
 	exports.default = EraseIcon;
 
 /***/ },
-/* 283 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30958,7 +31527,7 @@
 	exports.default = FormattedDate;
 
 /***/ },
-/* 284 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30993,7 +31562,7 @@
 	exports.default = FormattedTime;
 
 /***/ },
-/* 285 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31014,7 +31583,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(276);
+	var _Actions = __webpack_require__(281);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -31022,15 +31591,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(286);
+	var _Panel = __webpack_require__(291);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(283);
+	var _FormattedDate = __webpack_require__(288);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(284);
+	var _FormattedTime = __webpack_require__(289);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -31299,7 +31868,7 @@
 	exports.default = DeploymentPage;
 
 /***/ },
-/* 286 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31343,7 +31912,7 @@
 	exports.default = Panel;
 
 /***/ },
-/* 287 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31366,7 +31935,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(288);
+	var _Actions = __webpack_require__(293);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -31378,15 +31947,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Notifications = __webpack_require__(274);
+	var _Notifications = __webpack_require__(279);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
-	var _Input = __webpack_require__(272);
+	var _Input = __webpack_require__(268);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(289);
+	var _ServerIcon = __webpack_require__(294);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -31664,7 +32233,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ },
-/* 288 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31773,7 +32342,7 @@
 	};
 
 /***/ },
-/* 289 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31797,7 +32366,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 290 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31814,7 +32383,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Input = __webpack_require__(272);
+	var _Input = __webpack_require__(268);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -31826,7 +32395,7 @@
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(288);
+	var _Actions = __webpack_require__(293);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -31834,7 +32403,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(291);
+	var _FileUpload = __webpack_require__(296);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
@@ -31977,7 +32546,7 @@
 	exports.default = AgentPage;
 
 /***/ },
-/* 291 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32023,7 +32592,7 @@
 	exports.default = FileUpload;
 
 /***/ },
-/* 292 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32048,7 +32617,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(293);
+	var _Tabs = __webpack_require__(298);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -32056,7 +32625,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(294);
+	var _Actions = __webpack_require__(299);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -32408,7 +32977,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 293 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32479,7 +33048,7 @@
 	exports.default = Tabs;
 
 /***/ },
-/* 294 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32521,7 +33090,7 @@
 	};
 
 /***/ },
-/* 295 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32560,120 +33129,6 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
-
-/***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(249);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	    getApplications: function getApplications() {
-	        return (0, _reqwest2.default)({
-	            url: "/api/Applications/",
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "get"
-	        });
-	    },
-
-	    getAllApplications: function getAllApplications() {
-	        return (0, _reqwest2.default)({
-	            url: "/api/Applications/All",
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "get"
-	        });
-	    },
-
-	    createApplication: function createApplication(name) {
-	        var promise = (0, _reqwest2.default)({
-	            url: "/api/applications/Create",
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "post",
-	            data: JSON.stringify({
-	                Name: name
-	            })
-	        });
-
-	        return promise;
-	    },
-
-	    cloneApplication: function cloneApplication(name, app) {
-	        var promise = (0, _reqwest2.default)({
-	            url: "/api/applications/CreateApplicationFromExisting",
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "post",
-	            data: JSON.stringify({
-	                Name: name,
-	                OriginalApplicationId: app
-	            })
-	        });
-
-	        return promise;
-	    }
-	};
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Icon = __webpack_require__(259);
-
-	var _Icon2 = _interopRequireDefault(_Icon);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var ApplicationIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 3 4.125 C 2.447 4.125 2 4.573 2 5.125 L 2 15.125 C 2 15.677 2.447 16.125 3 16.125 L 47 16.125 C 47.553 16.125 48 15.677 48 15.125 L 48 5.125 C 48 4.572 47.553 4.125 47 4.125 L 3 4.125 z M 8 9 C 8.552 9 9 9.448 9 10 C 9 10.552 8.552 11 8 11 C 7.448 11 7 10.552 7 10 C 7 9.448 7.448 9 8 9 z M 12 9 C 12.552 9 13 9.448 13 10 C 13 10.552 12.552 11 12 11 C 11.448 11 11 10.552 11 10 C 11 9.448 11.448 9 12 9 z M 16 9 C 16.552 9 17 9.448 17 10 C 17 10.552 16.552 11 16 11 C 15.448 11 15 10.552 15 10 C 15 9.448 15.448 9 16 9 z M 2 19 L 2 45 A 1.0001 1.0001 0 0 0 3 46 L 47 46 A 1.0001 1.0001 0 0 0 48 45 L 48 19 L 46 19 L 46 44 L 4 44 L 4 19 L 2 19 z M 8 19 C 7.447 19 7 19.448 7 20 L 7 40 C 7 40.552 7.447 41 8 41 L 23 41 C 23.553 41 24 40.552 24 40 L 24 20 C 24 19.448 23.553 19 23 19 L 8 19 z M 27 19 L 27 21 L 43 21 L 43 19 L 27 19 z M 27 24 L 27 26 L 43 26 L 43 24 L 27 24 z M 27 29 L 27 31 L 43 31 L 43 29 L 27 29 z M 27 34 L 27 36 L 43 36 L 43 34 L 27 34 z M 27 39 L 27 41 L 43 41 L 43 39 L 27 39 z" }));
-
-	exports.default = ApplicationIcon;
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var ApplicationPage = _react2.default.createClass({
-	    displayName: "ApplicationPage",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            null,
-	            "Application"
-	        );
-	    }
-	});
-
-	exports.default = ApplicationPage;
 
 /***/ }
 /******/ ]);

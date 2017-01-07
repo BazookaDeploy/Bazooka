@@ -222,6 +222,8 @@
   <ItemGroup>
     <Content Include="App\Applications\Actions.js" />
     <Content Include="App\Applications\ApplicationPage.js" />
+    <Content Include="App\Applications\OverviewPage.js" />
+    <Content Include="App\Applications\PermissionsPage.js" />
     <Content Include="App\Configuration\Actions.js" />
     <Content Include="App\Configuration\ConfigPage.js" />
     <Content Include="App\Configuration\GroupsPage.js" />

@@ -5,6 +5,9 @@ import App from "./App"
 import Homepage from "./Homepage/Homepage";
 import ApplicationsPage from "./Applications/ApplicationsPage";
 import ApplicationPage from "./Applications/ApplicationPage";
+import PermissionsPage from "./Applications/PermissionsPage";
+import OverviewPage from "./Applications/OverviewPage";
+
 import ConfigurationPage from "./Configuration/ConfigurationPage";
 import ConfigPage from "./Configuration/ConfigPage";
 import GroupsPage from "./Configuration/GroupsPage";
@@ -23,7 +26,10 @@ var route = <Provider store={store} >
       <IndexRoute component={Homepage}/>
       <Route path="Applications">
         <IndexRoute component={ApplicationsPage} />
-        <Route path=":id" component={ApplicationPage} />
+        <Route path=":id" component={ApplicationPage}>
+            <IndexRoute component={OverviewPage} />
+            <Route path="Permissions" component={PermissionsPage} />
+        </Route> 
       </Route>
       <Route path="Configuration" component={ConfigurationPage}>
         <IndexRoute component={ConfigPage} />

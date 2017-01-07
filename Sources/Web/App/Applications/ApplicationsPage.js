@@ -111,7 +111,6 @@ var ApplicationsPage = React.createClass({
     },
 
     load(){
-        debugger;
         if(this.state.showOnlyMine === true || this.state.showOnlyMine === "true"){
             Action.getApplications().then(x => this.setState({apps:x}));
         }else{
