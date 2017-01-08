@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Web.Commands
 {
-    public class AddUserToGroup : ICommand
+    public class AddUserToGroup : ICommand, ICanBeRunOnlyByAdministrator
     {
         public string Group { get; set; }
 

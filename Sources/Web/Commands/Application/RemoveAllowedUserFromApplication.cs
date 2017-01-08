@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Web.Commands
 {
-    public class RemoveAllowedUserFromApplication : ICommand
+    public class RemoveAllowedUserFromApplication : ICommand, ICanBeRunByApplicationAdministrator
     {
         public int ApplicationId { get; set; }
 

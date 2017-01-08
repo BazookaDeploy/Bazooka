@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class ModifyDatabaseTask : ICommand
+    public class ModifyDatabaseTask : ICommand, ICanBeRunByApplicationAdministrator
     {
         public virtual int DatabaseTaskId { get; set; }
         public virtual string Name { get; set; }

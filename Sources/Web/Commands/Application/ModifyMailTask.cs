@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class ModifyMailTask : ICommand
+    public class ModifyMailTask : ICommand, ICanBeRunByApplicationAdministrator
     {
         public virtual int MailTaskId { get; set; }
 

@@ -1,13 +1,8 @@
 ﻿namespace Web.Commands.Application
 {
     using DataAccess.Read;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    public class DeleteTask : ICommand
+    public class DeleteTask : ICommand, ICanBeRunByApplicationAdministrator
     {
         public int ApplicationId { get; set; }
 

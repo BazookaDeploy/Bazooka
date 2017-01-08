@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class AddAllowedGroupToApplication : ICommand
+    public class AddAllowedGroupToApplication : ICommand, ICanBeRunByApplicationAdministrator
     {
         public int ApplicationId { get; set; }
 

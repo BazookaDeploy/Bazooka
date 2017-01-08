@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Web.Infrastructure;
 
 namespace Web.Commands
 {
@@ -6,12 +8,25 @@ namespace Web.Commands
     {
         public IBusinessRuleValidator BusinessRuleValidator { get; set; }
 
+        public IPermissionChecker PermissionChecker { get; set; }
+
         public IRepository Repository { get; set; }
 
         public abstract void Apply(T command);
 
         public ExecutionResult Execute(T command)
         {
+            var canExecute = PermissionChecker.CanExecute(command);
+
+            if (!canExecute)
+            {
+                return new ExecutionResult()
+                {
+                    Success = false,
+                    Errors = new List<String>() { "You do not have the necessary authorizations to execute this operation" }
+                };
+            }
+
             var results = BusinessRuleValidator.Validate(command);
 
             if (results.Count > 0)

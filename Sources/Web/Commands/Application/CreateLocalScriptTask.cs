@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class CreateLocalScriptTask : ICommand
+    public class CreateLocalScriptTask : ICommand, ICanBeRunByApplicationAdministrator
     {
         public virtual string Script { get; set; }
 

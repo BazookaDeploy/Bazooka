@@ -11,20 +11,6 @@ namespace Web.CommandHandlers
 
         public override IEnumerable<string> Validate(RenameEnviromentAgent command)
         {
-            var user = ReadContext.Query<UserDto>().SingleOrDefault(x => x.Id == command.CurrentUserId.ToString());
-
-            if (user == null)
-            {
-                yield return "Only authorized users can change an agent name";
-                yield break;
-            }
-
-            if (!user.Administrator)
-            {
-                yield return "Only an administrator can change an agent name";
-                yield break;
-            }
-
             if (ReadContext.Query<AgentDto>().Count(x => x.Name == command.Name) > 0)
             {
                 yield return "The agent name must be unique";

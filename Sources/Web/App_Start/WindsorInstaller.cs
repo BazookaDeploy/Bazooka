@@ -9,6 +9,7 @@ using NHibernate.Dialect;
 using Web.Commands;
 using NHibernate;
 using DataAccess.Read;
+using Web.Infrastructure;
 
 namespace Web.App_Start
 {
@@ -27,6 +28,11 @@ namespace Web.App_Start
 
             container.Register(Classes.FromThisAssembly()
                       .BasedOn<ICommandHandler>()
+                      .WithServiceAllInterfaces()
+                      .LifestylePerWebRequest());
+
+            container.Register(Classes.FromThisAssembly()
+                      .BasedOn<IPermissionChecker>()
                       .WithServiceAllInterfaces()
                       .LifestylePerWebRequest());
 

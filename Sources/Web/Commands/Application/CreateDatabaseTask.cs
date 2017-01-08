@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class CreateDatabaseTask : ICommand
+    public class CreateDatabaseTask : ICommand, ICanBeRunByApplicationAdministrator
     {
         public virtual string Name { get; set; }
         public virtual string ConnectionString { get; set; }

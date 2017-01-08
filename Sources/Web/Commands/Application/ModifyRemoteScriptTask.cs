@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class ModifyRemoteScriptTask : ICommand
+    public class ModifyRemoteScriptTask : ICommand, ICanBeRunByApplicationAdministrator
     {
         public virtual int RemoteScriptTaskId { get; set; }
 

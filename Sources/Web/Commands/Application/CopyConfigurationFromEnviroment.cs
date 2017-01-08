@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Web;
 
-    public class CopyConfigurationFromEnviroment : ICommand
+    public class CopyConfigurationFromEnviroment : ICommand, ICanBeRunByApplicationAdministrator
     {
         public int ApplicationId { get; set; }
 

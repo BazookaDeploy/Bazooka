@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class SetApplicationGroup : ICommand
+    public class SetApplicationGroup : ICommand, ICanBeRunByApplicationAdministrator
     {
         public int ApplicationId { get; set; }
 

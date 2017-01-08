@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Web.Commands
 {
-    public class ModifyDeployTask : ICommand
+    public class ModifyDeployTask : ICommand, ICanBeRunByApplicationAdministrator
     {
         public virtual int DeployTaskId { get; set; }
 

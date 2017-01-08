@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Web.Commands
 {
-    public class RemoveUserFromGroup : ICommand
+    public class RemoveUserFromGroup : ICommand, ICanBeRunOnlyByAdministrator
     {
         public string Group { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class RemoveAllowedGroupFromApplication : ICommand
+    public class RemoveAllowedGroupFromApplication : ICommand, ICanBeRunByApplicationAdministrator
     {
         public int ApplicationId { get; set; }
 

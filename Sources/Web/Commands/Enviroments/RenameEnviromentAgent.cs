@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class RenameEnviromentAgent : ICommand
+    public class RenameEnviromentAgent : ICommand, ICanBeRunOnlyByAdministrator
     {
         public int EnviromentId { get; set; }
 
