@@ -12,23 +12,23 @@ var AllowedUsersPage = React.createClass({
     },
 
     componentDidMount(){
-        this.updateUsers();
-        this.updateGroups();
+        this.updateUsers(this.props.params.id,this.props.params.enviromentId);
+        this.updateGroups(this.props.params.id,this.props.params.enviromentId);
     },
 
     componentWillReceiveProps(nextProps){
         if(this.props.params.id != nextProps.params.id || this.props.params.enviromentId!=nextProps.params.enviromentId){
-            this.updateUsers();
-            this.updateGroups();          
+            this.updateUsers( nextProps.params.id, nextProps.params.enviromentId);
+            this.updateGroups(nextProps.params.id, nextProps.params.enviromentId);          
         }
     },
 
-    updateUsers(){
-        Actions.getUsers(this.props.params.enviromentId,this.props.params.id).then((x)=>this.setState({users:x}))
+    updateUsers(id,envId){
+        Actions.getUsers(envId,id).then((x)=>this.setState({users:x}))
     },
 
-    updateGroups(){
-        Actions.getGroups(this.props.params.enviromentId,this.props.params.id).then((x)=>this.setState({groups:x}))
+    updateGroups(id,envId){
+        Actions.getGroups(envId,id).then((x)=>this.setState({groups:x}))
     },  
 
     addUser(){

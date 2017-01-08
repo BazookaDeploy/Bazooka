@@ -97,7 +97,7 @@ namespace Web.Controllers
         [HttpGet]
         public ICollection<ApplicationGroupDto> ApplicationGroups()
         {
-            return db.Query<ApplicationGroupDto>().ToList();
+            return db.Query<ApplicationGroupDto>().OrderBy(x => x.Name).ToList();
         }
 
         [HttpPost]

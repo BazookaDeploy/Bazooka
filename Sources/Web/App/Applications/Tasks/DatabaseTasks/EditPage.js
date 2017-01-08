@@ -1,15 +1,12 @@
 import React from "react";
-import LinkedState from "react/lib/LinkedStateMixin";
-import Router from 'react-router';
+import Button from "../../../Shared/Button";
+import Input from "../../../Shared/Input";
+import Select from "../../../Shared/Select";
+import Textarea from "../../../Shared/Textarea";
 import Actions from "./Actions";
-
-var {
-	Route, DefaultRoute, RouteHandler, Link, State
-} = Router;
 
 
 var EditPage = React.createClass({
-	mixins: [LinkedState,State],
   getInitialState:function(){
     return {
       Id:0,
@@ -24,13 +21,22 @@ var EditPage = React.createClass({
     };
   },
 
+	componentDidMount() {
+		this.update(this.props.params.taskId, this.props.params.enviromentId);
+	},
 
-  componentDidMount:function(){
-    Actions.getDatabaseTask(this.getParams().taskId).then(x => {
+  componentWillReceiveProps(nextProps){
+    if(this.props.params.taskId!=nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId){
+        this.update(nextProps.params.taskId,nextProps.params.enviromentId);
+    }
+  },	
+
+  update:function(taskId, enviromentId){
+    Actions.getDatabaseTask(taskId).then(x => {
 			x.Pack=x.Package;
       this.setState(x);
     })
-		Actions.getAgents(this.getParams().enviromentId).then(x => {
+		Actions.getAgents(enviromentId).then(x => {
 			this.setState({Agents:x})
 		})
   },
@@ -44,39 +50,17 @@ var EditPage = React.createClass({
   render:function(){
     return(
       <div>
-							      <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().taskName}</h3>
 
-										<form role="form" onSubmit={this.create}>
-										<div className="form-group">
-											<label htmlFor="Name">Name</label>
-											<input type="text" className="form-control" id="Name" placeholder="Name" autoFocus valueLink={this.linkState('Name')} />
-										</div>
-										<div className="form-group">
-											<label htmlFor="ConnectionString">Connection String</label>
-											<input type="text" className="form-control" id="ConnectionString" placeholder="ConnectionString" valueLink={this.linkState('ConnectionString')} />
-										</div>
-										<div className="form-group">
-											<label htmlFor="Pack">Package</label>
-											<input type="text" className="form-control" id="Pack" placeholder="Package" valueLink={this.linkState('Pack')} />
-										</div>
-										<div className="form-group">
-											<label htmlFor="AgentId">Machine</label>
-											<select  className="form-control" id="AgentId" valueLink={this.linkState('AgentId')}>
+											<Input title="Name" placeholder="Name" autoFocus  value={this.state.Name}  onChange={(e)=>this.setState({Name:e.target.value})} />
+		<Input title="Connection string" placeholder="ConnectionString"  value={this.state.ConnectionString}   onChange={(e)=>this.setState({ConnectionString:e.target.value}) }/>
+											<Input title="Package" placeholder="Package"   value={this.state.Pack}  onChange={(e)=>this.setState({Pack:e.target.value})} />
+											<Select title="Agent"  value={this.state.AgentId} onChange={(e)=>this.setState({AgentId:e.target.value})}>
 													{this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
-											</select>
-										</div>
-										<div className="form-group">
-											<label htmlFor="Repository">Repository</label>
-											<input type="text" className="form-control" id="Repository" placeholder="Repository" valueLink={this.linkState('Repository')} />
-										</div>
+											</Select>
+											<Input title="Repository" placeholder="Repository" value={this.state.Repository}  onChange={(e)=>this.setState({Repository:e.target.value})}  />
+										<Input title="DatabaseName" placeholder="Database Name"value={this.state.DatabaseName}  onChange={(e)=>this.setState({DatabaseName:e.target.value})}  />
 
-										<div className="form-group">
-											<label htmlFor="DatabaseName">Database Name</label>
-										<input type="text" className="form-control" id="DatabaseName" placeholder="Database Name" valueLink={this.linkState('DatabaseName')} />
-										</div>
-									</form>
-
-       <button className="btn btn-primary pull-right" onClick={this.save}>Save</button>
+       <Button primary block onClick={this.save}>Save</Button>
        </div>
 );
    }

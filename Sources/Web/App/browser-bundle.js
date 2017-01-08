@@ -82,45 +82,69 @@
 
 	var _TasksPage2 = _interopRequireDefault(_TasksPage);
 
-	var _AllowedUserPage = __webpack_require__(276);
+	var _AllowedUserPage = __webpack_require__(287);
 
 	var _AllowedUserPage2 = _interopRequireDefault(_AllowedUserPage);
 
-	var _ConfigurationPage = __webpack_require__(277);
+	var _EditPage = __webpack_require__(288);
+
+	var _EditPage2 = _interopRequireDefault(_EditPage);
+
+	var _DeployUnitEditPage = __webpack_require__(289);
+
+	var _DeployUnitEditPage2 = _interopRequireDefault(_DeployUnitEditPage);
+
+	var _EditPage3 = __webpack_require__(291);
+
+	var _EditPage4 = _interopRequireDefault(_EditPage3);
+
+	var _EditPage5 = __webpack_require__(292);
+
+	var _EditPage6 = _interopRequireDefault(_EditPage5);
+
+	var _EditPage7 = __webpack_require__(293);
+
+	var _EditPage8 = _interopRequireDefault(_EditPage7);
+
+	var _ConfigurationPage = __webpack_require__(294);
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
 
-	var _ConfigPage = __webpack_require__(278);
+	var _ConfigPage = __webpack_require__(295);
 
 	var _ConfigPage2 = _interopRequireDefault(_ConfigPage);
 
-	var _GroupsPage = __webpack_require__(279);
+	var _GroupsPage = __webpack_require__(296);
 
 	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
 
-	var _DeploymentsPage = __webpack_require__(282);
+	var _ApplicationGroupsPage = __webpack_require__(319);
+
+	var _ApplicationGroupsPage2 = _interopRequireDefault(_ApplicationGroupsPage);
+
+	var _DeploymentsPage = __webpack_require__(299);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(292);
+	var _DeploymentPage = __webpack_require__(309);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(294);
+	var _EnviromentsPage = __webpack_require__(311);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(297);
+	var _AgentPage = __webpack_require__(314);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(299);
+	var _StatisticsPage = __webpack_require__(316);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Store = __webpack_require__(302);
+	var _Store = __webpack_require__(318);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -148,11 +172,11 @@
 	          _react2.default.createElement(
 	            _reactRouter.Route,
 	            { path: 'Enviroment/:enviromentId/Tasks', component: _TasksPage2.default },
-	            _react2.default.createElement(_reactRouter.Route, { path: 'DeployTask/:taskId' }),
-	            _react2.default.createElement(_reactRouter.Route, { path: 'DatabaseTask/:taskId' }),
-	            _react2.default.createElement(_reactRouter.Route, { path: 'MailTask/:taskId' }),
-	            _react2.default.createElement(_reactRouter.Route, { path: 'LocalScriptTask/:taskId' }),
-	            _react2.default.createElement(_reactRouter.Route, { path: 'RemoteScriptTask/:taskId' })
+	            _react2.default.createElement(_reactRouter.Route, { path: 'DeployTask/:taskId', component: _DeployUnitEditPage2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'DatabaseTask/:taskId', component: _EditPage2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'MailTask/:taskId', component: _EditPage6.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'LocalScriptTask/:taskId', component: _EditPage4.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'RemoteScriptTask/:taskId', component: _EditPage8.default })
 	          ),
 	          _react2.default.createElement(_reactRouter.Route, { path: 'Enviroment/:enviromentId/Users', component: _AllowedUserPage2.default })
 	        )
@@ -161,7 +185,8 @@
 	        _reactRouter.Route,
 	        { path: 'Configuration', component: _ConfigurationPage2.default },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _ConfigPage2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'Groups', component: _GroupsPage2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: 'Groups', component: _GroupsPage2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'ApplicationGroups', component: _ApplicationGroupsPage2.default })
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
@@ -30098,6 +30123,47 @@
 	        UserId: userId
 	      })
 	    });
+	  },
+
+	  getApplicationInfo: function getApplicationInfo(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/" + id,
+	      method: "get",
+	      type: 'json'
+	    });
+	  },
+
+	  getApplicationGroups: function getApplicationGroups() {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/applicationGroups/",
+	      method: "get",
+	      type: 'json'
+	    });
+	  },
+
+	  createApplicationGroup: function createApplicationGroup(name) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/CreateApplicationGroup",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        Name: name
+	      })
+	    });
+	  },
+
+	  setApplicationGroup: function setApplicationGroup(applicationId, groupId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/applications/SetApplicationGroup",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        ApplicationId: applicationId,
+	        ApplicationGroupId: groupId
+	      })
+	    });
 	  }
 	};
 
@@ -30427,16 +30493,57 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Actions = __webpack_require__(270);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var OverviewPage = _react2.default.createClass({
 	    displayName: "OverviewPage",
 	    getInitialState: function getInitialState() {
-	        return { url: null };
+	        return {
+	            url: null,
+	            groups: [],
+	            applicationGroup: null
+	        };
 	    },
 
 
+	    componentDidMount: function componentDidMount() {
+	        this.update();
+	    },
+
+	    update: function update() {
+	        var _this = this;
+
+	        _Actions2.default.getApplicationGroups().then(function (x) {
+	            return _this.setState({ groups: x });
+	        });
+	        _Actions2.default.getApplicationInfo(this.props.params.id).then(function (x) {
+	            return _this.setState({ originalApplicationGroup: x.GroupName });
+	        });
+	    },
+
+
+	    setGroup: function setGroup() {
+	        var _this2 = this;
+
+	        _Actions2.default.setApplicationGroup(this.props.params.id, this.state.applicationGroup).then(function (x) {
+	            return _this2.update();
+	        });
+	    },
+
 	    render: function render() {
+	        var _this3 = this;
 
 	        return _react2.default.createElement(
 	            "div",
@@ -30452,7 +30559,59 @@
 	                null,
 	                "Permissions"
 	            ),
-	            " tab or configure the deploy process for every enviroment"
+	            " tab or configure the deploy process for every enviroment",
+	            _react2.default.createElement("br", null),
+	            " ",
+	            _react2.default.createElement("br", null),
+	            _react2.default.createElement(
+	                "h4",
+	                null,
+	                "Application Group"
+	            ),
+	            "Current Group: ",
+	            _react2.default.createElement(
+	                "b",
+	                null,
+	                this.state.originalApplicationGroup
+	            ),
+	            _react2.default.createElement("br", null),
+	            _react2.default.createElement("br", null),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 3 },
+	                        _react2.default.createElement(
+	                            _Select2.default,
+	                            { title: "Change the group", onChange: function onChange(e) {
+	                                    return _this3.setState({ applicationGroup: e.target.value });
+	                                } },
+	                            _react2.default.createElement("option", { value: null }),
+	                            this.state.groups.map(function (x) {
+	                                return _react2.default.createElement(
+	                                    "option",
+	                                    { value: x.Id },
+	                                    x.Name
+	                                );
+	                            })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 3 },
+	                        _react2.default.createElement("br", null),
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            { primary: true, onClick: this.setGroup },
+	                            "Set group"
+	                        )
+	                    )
+	                )
+	            )
 	        );
 	    }
 	});
@@ -30497,23 +30656,23 @@
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _CreateDialog = __webpack_require__(303);
+	var _CreateDialog = __webpack_require__(276);
 
 	var _CreateDialog2 = _interopRequireDefault(_CreateDialog);
 
-	var _CreateDialog3 = __webpack_require__(305);
+	var _CreateDialog3 = __webpack_require__(279);
 
 	var _CreateDialog4 = _interopRequireDefault(_CreateDialog3);
 
-	var _CreateDialog5 = __webpack_require__(307);
+	var _CreateDialog5 = __webpack_require__(281);
 
 	var _CreateDialog6 = _interopRequireDefault(_CreateDialog5);
 
-	var _CreateDialog7 = __webpack_require__(309);
+	var _CreateDialog7 = __webpack_require__(283);
 
 	var _CreateDialog8 = _interopRequireDefault(_CreateDialog7);
 
-	var _DeployUnitsDialog = __webpack_require__(311);
+	var _DeployUnitsDialog = __webpack_require__(285);
 
 	var _DeployUnitsDialog2 = _interopRequireDefault(_DeployUnitsDialog);
 
@@ -30830,6 +30989,1010 @@
 
 	"use strict";
 
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Actions = __webpack_require__(277);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var RemoteScriptTaskCreateDialog = _react2.default.createClass({
+	  displayName: "RemoteScriptTaskCreateDialog",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Name: "",
+	      Script: "",
+	      Machine: "",
+	      Folder: "",
+	      Agents: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+
+	    _Actions2.default.getAgents(this.props.EnviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  create: function create() {
+	    var _this2 = this;
+
+	    if (this.state.Name != "" && this.state.Script != "" && this.state.Machine != "" && this.state.Folder != "") {
+	      _Actions2.default.createRemoteScriptTask(this.state.Name, this.state.Script, this.state.Machine, this.state.Folder, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
+	        _this2.props.onCreate();
+	        _this2.props.onClose();
+	      });
+	    }
+	  },
+
+	  render: function render() {
+	    var _this3 = this;
+
+	    return _react2.default.createElement(
+	      _Modal2.default,
+	      this.props,
+	      _react2.default.createElement(
+	        _Modal2.default.Header,
+	        null,
+	        "Add new task"
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Body,
+	        null,
+	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
+	            return _this3.setState({ Name: e.target.value });
+	          } }),
+	        _react2.default.createElement(
+	          _Select2.default,
+	          { title: "Machine", onChange: function onChange(e) {
+	              return _this3.setState({ Machine: e.target.value });
+	            } },
+	          _react2.default.createElement("option", null),
+	          this.state.Agents.map(function (x) {
+	            return _react2.default.createElement(
+	              "option",
+	              { value: x.Id },
+	              x.Name,
+	              "- ",
+	              x.Address
+	            );
+	          })
+	        ),
+	        _react2.default.createElement(_Input2.default, { title: "Folder", placeholder: "Folder", onChange: function onChange(e) {
+	            return _this3.setState({ Folder: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", onChange: function onChange(e) {
+	            return _this3.setState({ Script: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Footer,
+	        null,
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { onClick: this.props.onClose },
+	          "Close"
+	        ),
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { primary: true, onClick: this.create },
+	          "Create"
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = RemoteScriptTaskCreateDialog;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  getRemoteScriptTask: function getRemoteScriptTask(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/RemoteScriptTasks/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  getAgents: function getAgents(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/Agents/AgentsByEnviroment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  createRemoteScriptTask: function createRemoteScriptTask(name, script, machine, folder, enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/RemoteScriptTasks/CreateRemoteScriptTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        Script: script,
+	        AgentId: machine,
+	        Folder: folder,
+	        ApplicationId: applicationId
+	      })
+	    });
+	  },
+
+	  updateRemoteScriptTask: function updateRemoteScriptTask(id, name, script, machine, folder, enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/RemoteScriptTasks/ModifyRemoteScriptTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        RemoteScriptTaskId: id,
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        Script: script,
+	        AgentId: machine,
+	        Folder: folder,
+	        ApplicationId: applicationId
+	      })
+	    });
+	  }
+	};
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Textarea = _react2.default.createClass({
+	    displayName: "Textarea",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "textarea" },
+	            this.props.title && _react2.default.createElement(
+	                "div",
+	                { className: "textarea__title" },
+	                this.props.title
+	            ),
+	            _react2.default.createElement("textarea", _extends({ type: "text", className: "textarea__input" }, this.props))
+	        );
+	    }
+	});
+
+	exports.default = Textarea;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Actions = __webpack_require__(280);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var MailTaskCreateDialog = _react2.default.createClass({
+	  displayName: "MailTaskCreateDialog",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Name: "",
+	      Text: "",
+	      Recipients: "",
+	      Sender: ""
+	    };
+	  },
+
+	  create: function create() {
+	    var _this = this;
+
+	    if (this.state.Name != "" && this.state.Recipients != "" && this.state.Sender != "") {
+	      _Actions2.default.createMailTask(this.state.Name, this.state.Text, this.state.Recipients, this.state.Sender, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
+	        _this.props.onClose();
+	        _this.props.onCreate();
+	      });
+	    }
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      _Modal2.default,
+	      this.props,
+	      _react2.default.createElement(
+	        _Modal2.default.Header,
+	        null,
+	        "Add new task"
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Body,
+	        null,
+	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
+	            return _this2.setState({ Name: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Recipients", placeholder: "Recipients", onChange: function onChange(e) {
+	            return _this2.setState({ Recipients: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Sender", placeholder: "Sender", onChange: function onChange(e) {
+	            return _this2.setState({ Sender: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Textarea2.default, { title: "Text", placeholder: "Text", onChange: function onChange(e) {
+	            return _this2.setState({ Text: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Footer,
+	        null,
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { onClick: this.props.onClose },
+	          "Close"
+	        ),
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { primary: true, onClick: this.create },
+	          "Create"
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = MailTaskCreateDialog;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  getMailTask: function getMailTask(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/mailTasks/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  createMailTask: function createMailTask(name, text, recipients, sender, enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/mailTasks/CreateMailtask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        Text: text,
+	        Recipients: recipients,
+	        Sender: sender,
+	        ApplicationId: applicationId
+	      })
+	    });
+	  },
+
+	  updateMailTask: function updateMailTask(id, name, text, recipients, sender, enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/mailTasks/ModifyMailTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        MailTaskId: id,
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        Text: text,
+	        Recipients: recipients,
+	        Sender: sender,
+	        ApplicationId: applicationId
+	      })
+	    });
+	  }
+	};
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Actions = __webpack_require__(282);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var LocalScriptTaskCreateDialog = _react2.default.createClass({
+	  displayName: "LocalScriptTaskCreateDialog",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Name: "",
+	      Script: ""
+	    };
+	  },
+
+	  create: function create() {
+	    var _this = this;
+
+	    if (this.state.Name != "" && this.state.Script != "") {
+	      _Actions2.default.createLocalScriptTask(this.state.Name, this.state.Script, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
+	        _this.props.onCreate();
+	        _this.props.onClose();
+	      });
+	    }
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      _Modal2.default,
+	      this.props,
+	      _react2.default.createElement(
+	        _Modal2.default.Header,
+	        null,
+	        "Add new task"
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Body,
+	        null,
+	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
+	            return _this2.setState({ Name: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", onChange: function onChange(e) {
+	            return _this2.setState({ Script: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Footer,
+	        null,
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { onClick: this.props.onClose },
+	          "Close"
+	        ),
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { primary: true, onClick: this.create },
+	          "Create"
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = LocalScriptTaskCreateDialog;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  getLocalScriptTask: function getLocalScriptTask(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/LocalScriptTasks/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  createLocalScriptTask: function createLocalScriptTask(name, script, enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/LocalScriptTasks/CreateLocalScriptTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        Script: script,
+	        ApplicationId: applicationId
+	      })
+	    });
+	  },
+
+	  updateLocalScriptTask: function updateLocalScriptTask(id, name, script, enviromentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/LocalScriptTasks/ModifyLocalScriptTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        LocalScriptTaskId: id,
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        Script: script,
+	        ApplicationId: applicationId
+	      })
+	    });
+	  }
+	};
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Actions = __webpack_require__(284);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var DatabaseTaskCreateDialog = _react2.default.createClass({
+	  displayName: "DatabaseTaskCreateDialog",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Name: "",
+	      ConnectionString: "",
+	      Pack: "",
+	      DatabaseName: "",
+	      "Repository": "",
+	      Machine: "",
+	      Agents: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+
+	    _Actions2.default.getAgents(this.props.EnviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  create: function create() {
+	    var _this2 = this;
+
+	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
+	      _Actions2.default.createDatabaseTask(this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.props.EnviromentId, this.state.Repository, this.state.Machine, this.props.ApplicationId).then(function (x) {
+	        _this2.props.onCreate();
+	        _this2.props.onClose();
+	      });
+	    }
+	  },
+
+	  render: function render() {
+	    var _this3 = this;
+
+	    return _react2.default.createElement(
+	      _Modal2.default,
+	      this.props,
+	      _react2.default.createElement(
+	        _Modal2.default.Header,
+	        null,
+	        "Add new Database task"
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Body,
+	        null,
+	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
+	            return _this3.setState({ Name: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", onChange: function onChange(e) {
+	            return _this3.setState({ ConnectionString: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", onChange: function onChange(e) {
+	            return _this3.setState({ Pack: e.target.value });
+	          } }),
+	        _react2.default.createElement(
+	          _Select2.default,
+	          { title: "Machine", onChange: function onChange(e) {
+	              return _this3.setState({ Machine: e.target.value });
+	            } },
+	          _react2.default.createElement("option", null),
+	          this.state.Agents.map(function (x) {
+	            return _react2.default.createElement(
+	              "option",
+	              { value: x.Id },
+	              x.Name,
+	              "- ",
+	              x.Address
+	            );
+	          })
+	        ),
+	        _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", onChange: function onChange(e) {
+	            return _this3.setState({ Repository: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Database name", placeholder: "Database Name", onChange: function onChange(e) {
+	            return _this3.setState({ DatabaseName: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Footer,
+	        null,
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { onClick: this.props.onClose },
+	          "Close"
+	        ),
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { primary: true, onClick: this.create },
+	          "Create"
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = DatabaseTaskCreateDialog;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  getAgents: function getAgents(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/Agents/AgentsByEnviroment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  getDatabaseTask: function getDatabaseTask(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/DatabaseTasks/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  createDatabaseTask: function createDatabaseTask(name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/DatabaseTasks/CreateDatabaseTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        ConnectionString: connectionString,
+	        Package: pack,
+	        DatabaseName: databaseName,
+	        Repository: repository,
+	        AgentId: agentId,
+	        ApplicationId: applicationId
+	      })
+	    });
+	  },
+
+	  updateDatabaseTask: function updateDatabaseTask(id, name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/DatabaseTasks/ModifyDatabaseTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        DatabaseTaskId: id,
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        ConnectionString: connectionString,
+	        Package: pack,
+	        DatabaseName: databaseName,
+	        Repository: repository,
+	        AgentId: agentId,
+	        ApplicationId: applicationId
+	      })
+	    });
+	  }
+	};
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(163);
+
+	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+
+	var _ActionsCreator = __webpack_require__(286);
+
+	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CreateDialog = _react2.default.createClass({
+	  displayName: "CreateDialog",
+
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      name: "",
+	      machine: "",
+	      packageName: "",
+	      directory: "",
+	      repository: "",
+	      key: "",
+	      value: "",
+	      Encrypted: false,
+	      params: [],
+	      Agents: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+
+	    _ActionsCreator2.default.getAgents(this.props.Enviroment).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  create: function create() {
+	    var _this2 = this;
+
+	    if (this.state.name.length != 0 && this.state.packageName.length != 0 && this.state.repository.length != 0 && this.state.directory.length != 0) {
+
+	      _ActionsCreator2.default.createDeployUnit(this.props.Enviroment, this.state.name, this.state.machine, this.state.packageName, this.state.directory, this.state.repository, this.state.params, this.props.ApplicationId).then(function (x) {
+	        _this2.props.onCreate();_this2.props.onClose();
+	      });
+	    }
+	    return false;
+	  },
+
+	  render: function render() {
+	    var _this3 = this;
+
+	    return _react2.default.createElement(
+	      _Modal2.default,
+	      this.props,
+	      _react2.default.createElement(
+	        _Modal2.default.Header,
+	        null,
+	        "Create new deploy unit"
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Body,
+	        null,
+	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
+	            return _this3.setState({ name: e.target.value });
+	          } }),
+	        _react2.default.createElement(
+	          _Select2.default,
+	          { title: "Machine", onChange: function onChange(e) {
+	              return _this3.setState({ machine: e.target.value });
+	            } },
+	          _react2.default.createElement("option", null),
+	          this.state.Agents.map(function (x) {
+	            return _react2.default.createElement(
+	              "option",
+	              { value: x.Id },
+	              x.Name,
+	              "- ",
+	              x.Address
+	            );
+	          })
+	        ),
+	        _react2.default.createElement(_Input2.default, { title: "Package name", placeholder: "PackageName", onChange: function onChange(e) {
+	            return _this3.setState({ packageName: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Directory", placeholder: "Directory", onChange: function onChange(e) {
+	            return _this3.setState({ directory: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", onChange: function onChange(e) {
+	            return _this3.setState({ repository: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Footer,
+	        null,
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { primary: true, onClick: this.create },
+	          "Create"
+	        ),
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { onClick: this.props.onClose },
+	          "Close"
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = CreateDialog;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(249);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  testAgent: function testAgent(url) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/deployTasks/test?url=" + url,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  getAgents: function getAgents(id) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/Agents/AgentsByEnviroment/" + id,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  updateDeployUnits: function updateDeployUnits(enviromentId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/DeployTasks/?id=" + enviromentId,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  updateDeployUnit: function updateDeployUnit(deployUnitId) {
+	    return (0, _reqwest2.default)({
+	      url: "/api/DeployTasks/?id=" + deployUnitId,
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "get"
+	    });
+	  },
+
+	  modifyDeployUnit: function modifyDeployUnit(deployUnitId, enviromentId, name, machine, packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration, applicationId) {
+	    var promise = (0, _reqwest2.default)({
+	      url: "/api/deployTasks/ModifyDeployTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        DeployTaskId: deployUnitId,
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        AgentId: machine,
+	        PackageName: packageName,
+	        Directory: directory,
+	        Repository: repository,
+	        UninstallScript: uninstallationScript,
+	        InstallScript: installationScript,
+	        ConfigurationFile: configFile,
+	        ConfigurationTransform: configTransform,
+	        Configuration: configuration,
+	        ApplicationId: applicationId,
+	        AdditionalParameters: params.map(function (x) {
+	          x.Key = x.Name;
+	          return x;
+	        })
+	      })
+	    });
+
+	    return promise;
+	  },
+
+	  createDeployUnit: function createDeployUnit(enviromentId, name, machine, packageName, directory, repository, params, applicationId) {
+	    var promise = (0, _reqwest2.default)({
+	      url: "/api/deployTasks/CreateDeployTask",
+	      type: 'json',
+	      contentType: 'application/json',
+	      method: "post",
+	      data: JSON.stringify({
+	        EnviromentId: enviromentId,
+	        Name: name,
+	        AgentId: machine,
+	        PackageName: packageName,
+	        Directory: directory,
+	        Repository: repository,
+	        ApplicationId: applicationId,
+	        AdditionalParameters: params.map(function (x) {
+	          x.Key = x.Name;
+	          return x;
+	        })
+	      })
+	    });
+
+	    return promise;
+	  }
+	};
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -30868,26 +32031,26 @@
 	        return { users: [], groups: [], currentUser: null, currentGroup: null };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        this.updateUsers();
-	        this.updateGroups();
+	        this.updateUsers(this.props.params.id, this.props.params.enviromentId);
+	        this.updateGroups(this.props.params.id, this.props.params.enviromentId);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        if (this.props.params.id != nextProps.params.id || this.props.params.enviromentId != nextProps.params.enviromentId) {
-	            this.updateUsers();
-	            this.updateGroups();
+	            this.updateUsers(nextProps.params.id, nextProps.params.enviromentId);
+	            this.updateGroups(nextProps.params.id, nextProps.params.enviromentId);
 	        }
 	    },
-	    updateUsers: function updateUsers() {
+	    updateUsers: function updateUsers(id, envId) {
 	        var _this = this;
 
-	        _Actions2.default.getUsers(this.props.params.enviromentId, this.props.params.id).then(function (x) {
+	        _Actions2.default.getUsers(envId, id).then(function (x) {
 	            return _this.setState({ users: x });
 	        });
 	    },
-	    updateGroups: function updateGroups() {
+	    updateGroups: function updateGroups(id, envId) {
 	        var _this2 = this;
 
-	        _Actions2.default.getGroups(this.props.params.enviromentId, this.props.params.id).then(function (x) {
+	        _Actions2.default.getGroups(envId, id).then(function (x) {
 	            return _this2.setState({ groups: x });
 	        });
 	    },
@@ -31050,7 +32213,804 @@
 	exports.default = AllowedUsersPage;
 
 /***/ },
-/* 277 */
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Actions = __webpack_require__(284);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EditPage = _react2.default.createClass({
+	  displayName: "EditPage",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Id: 0,
+	      EnviromentId: 0,
+	      Name: "",
+	      ConnectionString: "",
+	      Pack: "",
+	      DatabaseName: "",
+	      Repository: "",
+	      AgentId: "",
+	      Agents: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.update(this.props.params.taskId, this.props.params.enviromentId);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (this.props.params.taskId != nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId) {
+	      this.update(nextProps.params.taskId, nextProps.params.enviromentId);
+	    }
+	  },
+
+
+	  update: function update(taskId, enviromentId) {
+	    var _this = this;
+
+	    _Actions2.default.getDatabaseTask(taskId).then(function (x) {
+	      x.Pack = x.Package;
+	      _this.setState(x);
+	    });
+	    _Actions2.default.getAgents(enviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  save: function save() {
+	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
+	      _Actions2.default.updateDatabaseTask(this.state.Id, this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.state.EnviromentId, this.state.Repository, this.state.AgentId, this.state.ApplicationId);
+	    }
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
+	          return _this2.setState({ Name: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", value: this.state.ConnectionString, onChange: function onChange(e) {
+	          return _this2.setState({ ConnectionString: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", value: this.state.Pack, onChange: function onChange(e) {
+	          return _this2.setState({ Pack: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Select2.default,
+	        { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
+	            return _this2.setState({ AgentId: e.target.value });
+	          } },
+	        this.state.Agents.map(function (x) {
+	          return _react2.default.createElement(
+	            "option",
+	            { value: x.Id },
+	            x.Name,
+	            "- ",
+	            x.Address
+	          );
+	        })
+	      ),
+	      _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
+	          return _this2.setState({ Repository: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "DatabaseName", placeholder: "Database Name", value: this.state.DatabaseName, onChange: function onChange(e) {
+	          return _this2.setState({ DatabaseName: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Button2.default,
+	        { primary: true, block: true, onClick: this.save },
+	        "Save"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = EditPage;
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ActionsCreator = __webpack_require__(286);
+
+	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Tabs = __webpack_require__(290);
+
+	var _Tabs2 = _interopRequireDefault(_Tabs);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EditPage = _react2.default.createClass({
+		displayName: "EditPage",
+
+		addParameter: function addParameter() {
+			var _this = this;
+
+			if (this.state.key.length != 0 && this.state.value.length != 0 && !this.state.Parameters.some(function (x) {
+				return x.Key == _this.state.key;
+			})) {
+
+				this.setState({
+					Parameters: this.state.Parameters.concat({
+						Name: this.state.key,
+						Value: this.state.value,
+						Encrypted: this.state.Encrypted
+					}),
+					key: "",
+					value: "",
+					Encrypted: false
+				});
+			}
+		},
+
+		remove: function remove(key) {
+			var index = -1;
+			var i;
+			for (i = 0; i < this.state.Parameters.length; i++) {
+				if (this.state.Parameters[i].Name == key) {
+					index = i;
+					break;
+				}
+			}
+			this.state.Parameters.splice(index, 1);
+			this.setState({
+				Parameters: this.state.Parameters
+			});
+		},
+
+		componentDidMount: function componentDidMount() {
+			this.update(this.props.params.taskId, this.props.params.enviromentId);
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			if (this.props.params.taskId != nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId) {
+				this.update(nextProps.params.taskId, nextProps.params.enviromentId);
+			}
+		},
+		update: function update(taskId, enviromentId) {
+			var _this2 = this;
+
+			_ActionsCreator2.default.updateDeployUnit(taskId).then(function (env) {
+				_this2.setState({
+					Id: env.Id,
+					Enviroment: env.EnviromentId,
+					Name: env.Name,
+					AgentId: env.AgentId,
+					PackageName: env.PackageName,
+					Directory: env.Directory,
+					Repository: env.Repository,
+					key: "",
+					value: "",
+					Encrypted: false,
+					Parameters: env.Parameters,
+					UninstallationScript: env.UninstallScript,
+					InstallationScript: env.InstallScript,
+					ConfigurationFile: env.ConfigurationFile,
+					ConfigTransform: env.ConfigurationTransform,
+					Configuration: env.Configuration
+				});
+			});
+
+			_ActionsCreator2.default.getAgents(enviromentId).then(function (x) {
+				_this2.setState({ Agents: x });
+			});
+		},
+
+
+		getInitialState: function getInitialState() {
+
+			return {
+				Name: null,
+				AgentId: null,
+				Agents: [],
+				PackageName: null,
+				Directory: null,
+				Repository: null,
+				key: "",
+				value: "",
+				Encrypted: false,
+				Parameters: [],
+				UninstallationScript: null,
+				InstallationScript: null,
+				ConfigurationFile: null,
+				ConfigTransform: null,
+				Configuration: null
+			};
+		},
+
+		save: function save() {
+			_ActionsCreator2.default.modifyDeployUnit(this.state.Id, this.state.Enviroment, this.state.Name, this.state.AgentId, this.state.PackageName, this.state.Directory, this.state.Repository, this.state.Parameters, this.state.UninstallationScript, this.state.InstallationScript, this.state.ConfigurationFile, this.state.ConfigTransform, this.state.Configuration, this.props.params.applicationId);
+
+			return false;
+		},
+
+		render: function render() {
+			var _this3 = this;
+
+			return _react2.default.createElement(
+				"div",
+				null,
+				_react2.default.createElement(
+					_Tabs2.default,
+					null,
+					_react2.default.createElement(
+						_Tabs2.default.Tab,
+						{ title: "Settings" },
+						_react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", value: this.state.Name, onChange: function onChange(e) {
+								return _this3.setState({ Name: e.target.value });
+							} }),
+						_react2.default.createElement(
+							_Select2.default,
+							{ title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
+									return _this3.setState({ AgentId: e.target.value });
+								} },
+							this.state.Agents.map(function (x) {
+								return _react2.default.createElement(
+									"option",
+									{ value: x.Id },
+									x.Name,
+									"- ",
+									x.Address
+								);
+							})
+						),
+						_react2.default.createElement(
+							"h5",
+							null,
+							"Additional Params"
+						),
+						_react2.default.createElement(
+							"ul",
+							null,
+							this.state.Parameters.map(function (a) {
+								return _react2.default.createElement(
+									"li",
+									null,
+									a.Name,
+									" = ",
+									a.Encrypted ? "********" : a.Value,
+									" ",
+									_react2.default.createElement(
+										_Button2.default,
+										{ onClick: function onClick() {
+												return _this3.remove(a.Key);
+											} },
+										"Remove"
+									)
+								);
+							})
+						),
+						_react2.default.createElement(
+							_Grid2.default,
+							{ fluid: true },
+							_react2.default.createElement(
+								_Grid2.default.Row,
+								null,
+								_react2.default.createElement(
+									_Grid2.default.Col,
+									{ md: 3 },
+									_react2.default.createElement(_Input2.default, { title: "Key", placeholder: "Key", value: this.state.key, onChange: function onChange(e) {
+											return _this3.setState({ key: e.target.value });
+										} })
+								),
+								_react2.default.createElement(
+									_Grid2.default.Col,
+									{ md: 3 },
+									_react2.default.createElement(_Input2.default, { title: "Value", placeholder: "Value", value: this.state.value, onChange: function onChange(e) {
+											return _this3.setState({ value: e.target.value });
+										} })
+								),
+								_react2.default.createElement(
+									_Grid2.default.Col,
+									{ md: 2 },
+									_react2.default.createElement(
+										"label",
+										{ htmlFor: "Encrypted" },
+										"Encrypted"
+									),
+									_react2.default.createElement("br", null),
+									_react2.default.createElement("input", { type: "checkbox", id: "Encrypted", value: this.state.Encrypted, onChange: function onChange(e) {
+											return _this3.setState({ Encrypted: e.target.checked });
+										} })
+								),
+								_react2.default.createElement(
+									_Grid2.default.Col,
+									{ md: 4 },
+									_react2.default.createElement("br", null),
+									_react2.default.createElement(
+										_Button2.default,
+										{ primary: true, onClick: this.addParameter },
+										"Add Parameter"
+									)
+								)
+							)
+						),
+						_react2.default.createElement(_Input2.default, { title: "PackageName", placeholder: "PackageName", value: this.state.PackageName, onChange: function onChange(e) {
+								return _this3.setState({ PackageName: e.target.value });
+							} }),
+						_react2.default.createElement(_Input2.default, { title: "Directory", placeholder: "Directory", value: this.state.Directory, onChange: function onChange(e) {
+								return _this3.setState({ Directory: e.target.value });
+							} }),
+						_react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
+								return _this3.setState({ Repository: e.target.value });
+							} })
+					),
+					_react2.default.createElement(
+						_Tabs2.default.Tab,
+						{ title: "Scripts" },
+						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Installation script", placeholder: "Installation Script", value: this.state.InstallationScript, onChange: function onChange(e) {
+								return _this3.setState({ InstallationScript: e.target.value });
+							} }),
+						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Uninstallation script", placeholder: "Uninstallation Script", value: this.state.UninstallationScript, onChange: function onChange(e) {
+								return _this3.setState({ UninstallationScript: e.target.value });
+							} })
+					),
+					_react2.default.createElement(
+						_Tabs2.default.Tab,
+						{ title: "Configurations" },
+						_react2.default.createElement(_Input2.default, { title: "Configuration", placeholder: "Specific configuration (optional)", value: this.state.Configuration, onChange: function onChange(e) {
+								return _this3.setState({ Configuration: e.target.value });
+							} }),
+						_react2.default.createElement(_Input2.default, { title: "Configuration File", placeholder: "Configuration File", value: this.state.ConfigurationFile, onChange: function onChange(e) {
+								return _this3.setState({ ConfigurationFile: e.target.value });
+							} }),
+						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Config transform", placeholder: "Config Transform", value: this.state.ConfigTransform, onChange: function onChange(e) {
+								return _this3.setState({ ConfigTransform: e.target.value });
+							} })
+					)
+				),
+				_react2.default.createElement(
+					_Button2.default,
+					{ primary: true, onClick: this.save },
+					"Save"
+				)
+			);
+		}
+	});
+
+	module.exports = EditPage;
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Tab = _react2.default.createClass({
+	    displayName: "Tab",
+
+	    propTypes: {
+	        title: _react2.default.PropTypes.string.isRequired
+	    },
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "tabs__tab" },
+	            this.props.children
+	        );
+	    }
+	});
+
+	var Tabs = _react2.default.createClass({
+	    displayName: "Tabs",
+	    getInitialState: function getInitialState() {
+	        return { index: 0 };
+	    },
+	    seleziona: function seleziona(indice) {
+	        this.setState({ index: indice });
+	    },
+	    render: function render() {
+	        var _this = this;
+
+	        var tabTexts = this.props.children.map(function (x) {
+	            return x.props.title;
+	        });
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "tabs" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "tabs__indexes" },
+	                tabTexts.map(function (x, i) {
+	                    return _react2.default.createElement(
+	                        "div",
+	                        { className: i == _this.state.index ? "tabs__index tabs__index--selected" : "tabs__index", onClick: function onClick() {
+	                                return _this.seleziona(i);
+	                            }, key: i },
+	                        x
+	                    );
+	                })
+	            ),
+	            _react2.default.Children.toArray(this.props.children)[this.state.index]
+	        );
+	    }
+	});
+
+	Tabs.Tab = Tab;
+	exports.default = Tabs;
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Tabs = __webpack_require__(290);
+
+	var _Tabs2 = _interopRequireDefault(_Tabs);
+
+	var _Actions = __webpack_require__(282);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EditPage = _react2.default.createClass({
+	  displayName: "EditPage",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Id: 0,
+	      EnviromentId: 0,
+	      Name: "",
+	      Script: ""
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.update(this.props.params.taskId);
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (this.props.params.taskId != nextProps.params.taskId) {
+	      this.update(nextProps.params.taskId);
+	    }
+	  },
+	  update: function update(taskId) {
+	    var _this = this;
+
+	    _Actions2.default.getLocalScriptTask(taskId).then(function (x) {
+	      _this.setState(x);
+	    });
+	  },
+
+
+	  save: function save() {
+	    if (this.state.Name != "" && this.state.Script != "") {
+	      _Actions2.default.updateLocalScriptTask(this.state.Id, this.state.Name, this.state.Script, this.state.EnviromentId, this.state.ApplicationId);
+	    }
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement("input", { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
+	          return _this2.setState({ Name: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", value: this.state.Script, onChange: function onChange(e) {
+	          return _this2.setState({ Script: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Button2.default,
+	        { primary: true, onClick: this.save },
+	        "Save"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = EditPage;
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Actions = __webpack_require__(280);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EditPage = _react2.default.createClass({
+	  displayName: "EditPage",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Id: 0,
+	      EnviromentId: 0,
+	      Name: "",
+	      Text: "",
+	      Recipients: "",
+	      Sender: ""
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.update(this.props.params.taskId);
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (this.props.params.taskId != nextProps.params.taskId) {
+	      this.update(nextProps.params.taskId);
+	    }
+	  },
+	  update: function update(taskId) {
+	    var _this = this;
+
+	    _Actions2.default.getMailTask(taskId).then(function (x) {
+	      _this.setState(x);
+	    });
+	  },
+
+
+	  save: function save() {
+	    if (this.state.Name != "" && this.state.Recipients != "" && this.state.Sender != "") {
+	      _Actions2.default.updateMailTask(this.state.Id, this.state.Name, this.state.Text, this.state.Recipients, this.state.Sender, this.state.EnviromentId, this.state.ApplicationId).then(function (x) {});
+	    }
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
+	          return _this2.setState({ Name: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Recipients", placeholder: "Recipients", value: this.state.Recipients, onChange: function onChange(e) {
+	          return _this2.setState({ Recipients: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Sender", placeholder: "Sender", value: this.state.Sender, onChange: function onChange(e) {
+	          return _this2.setState({ Sender: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Textarea2.default, { title: "Text", placeholder: "Text", value: this.state.Text, onChange: function onChange(e) {
+	          return _this2.setState({ Text: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Button2.default,
+	        { primary: true, onClick: this.save },
+	        "Save"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = EditPage;
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(278);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Actions = __webpack_require__(277);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EditPage = _react2.default.createClass({
+	  displayName: "EditPage",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Id: 0,
+	      EnviromentId: 0,
+	      Name: "",
+	      Script: "",
+	      AgentId: "",
+	      Folder: "",
+	      Agents: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.update(this.props.params.taskId, this.props.params.enviromentId);
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (this.props.params.taskId != nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId) {
+	      this.update(nextProps.params.taskId, nextProps.params.enviromentId);
+	    }
+	  },
+	  update: function update(taskId, enviromentId) {
+	    var _this = this;
+
+	    _Actions2.default.getRemoteScriptTask(taskId).then(function (x) {
+	      _this.setState(x);
+	    });
+	    _Actions2.default.getAgents(enviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+
+	  save: function save() {
+	    if (this.state.Name != "" && this.state.Script != "" && this.state.Machine != "" && this.state.Folder != "") {
+	      _Actions2.default.updateRemoteScriptTask(this.state.Id, this.state.Name, this.state.Script, this.state.AgentId, this.state.Folder, this.state.EnviromentId, this.state.ApplicationId);
+	    }
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
+	          return _this2.setState({ Name: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Select2.default,
+	        { title: "Agent", className: "form-control", value: this.state.AgentId, onChange: function onChange(e) {
+	            return _this2.setState({ AgentId: e.target.value });
+	          } },
+	        this.state.Agents.map(function (x) {
+	          return _react2.default.createElement(
+	            "option",
+	            { value: x.Id },
+	            x.Name,
+	            "- ",
+	            x.Address
+	          );
+	        })
+	      ),
+	      _react2.default.createElement(_Input2.default, { title: "Folder", placeholder: "Folder", value: this.state.Folder, onChange: function onChange(e) {
+	          return _this2.setState({ Folder: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", value: this.state.Script, onChange: function onChange(e) {
+	          return _this2.setState({ Script: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Button2.default,
+	        { primary: true, onClick: this.save },
+	        "Save"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = EditPage;
+
+/***/ },
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31108,6 +33068,11 @@
 	                                _reactRouter.Link,
 	                                { className: "configurationLinks__link", activeClassName: "active", to: "/Configuration/Groups" },
 	                                "Groups"
+	                            ),
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { className: "configurationLinks__link", activeClassName: "active", to: "/Configuration/ApplicationGroups" },
+	                                "Application Groups"
 	                            )
 	                        )
 	                    ),
@@ -31129,7 +33094,7 @@
 	exports.default = ConfigurationPage;
 
 /***/ },
-/* 278 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31177,7 +33142,7 @@
 	exports.default = ConfigPage;
 
 /***/ },
-/* 279 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31196,7 +33161,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(280);
+	var _Actions = __webpack_require__(297);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -31226,7 +33191,7 @@
 
 	var _reactRedux = __webpack_require__(220);
 
-	var _Notifications = __webpack_require__(281);
+	var _Notifications = __webpack_require__(298);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -31441,7 +33406,7 @@
 	exports.default = GroupsPage;
 
 /***/ },
-/* 280 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31522,11 +33487,31 @@
 			});
 
 			return promise;
+		},
+
+		getApplicationGroups: function getApplicationGroups() {
+			return (0, _reqwest2.default)({
+				url: "/api/applications/applicationGroups/",
+				method: "get",
+				type: 'json'
+			});
+		},
+
+		createApplicationGroup: function createApplicationGroup(name) {
+			return (0, _reqwest2.default)({
+				url: "/api/applications/CreateApplicationGroup",
+				type: 'json',
+				contentType: 'application/json',
+				method: "post",
+				data: JSON.stringify({
+					Name: name
+				})
+			});
 		}
 	};
 
 /***/ },
-/* 281 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31641,7 +33626,7 @@
 	exports.default = Notificator;
 
 /***/ },
-/* 282 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31670,41 +33655,41 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(283);
+	var _Actions = __webpack_require__(300);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(284);
+	var _ListIcon = __webpack_require__(301);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(285);
+	var _PlayIcon = __webpack_require__(302);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(286);
+	var _CircleOkIcon = __webpack_require__(303);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(287);
+	var _CircleRemoveIcon = __webpack_require__(304);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(288);
+	var _WatchIcon = __webpack_require__(305);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(289);
+	var _EraseIcon = __webpack_require__(306);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(163);
 
-	var _FormattedDate = __webpack_require__(290);
+	var _FormattedDate = __webpack_require__(307);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(291);
+	var _FormattedTime = __webpack_require__(308);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -31912,7 +33897,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ },
-/* 283 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31976,7 +33961,7 @@
 	};
 
 /***/ },
-/* 284 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32000,7 +33985,7 @@
 	exports.default = ListIcon;
 
 /***/ },
-/* 285 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32024,7 +34009,7 @@
 	exports.default = PlayIcon;
 
 /***/ },
-/* 286 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32048,7 +34033,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 287 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32072,7 +34057,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ },
-/* 288 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32096,7 +34081,7 @@
 	exports.default = WatchIcon;
 
 /***/ },
-/* 289 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32120,7 +34105,7 @@
 	exports.default = EraseIcon;
 
 /***/ },
-/* 290 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32151,7 +34136,7 @@
 	exports.default = FormattedDate;
 
 /***/ },
-/* 291 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32186,7 +34171,7 @@
 	exports.default = FormattedTime;
 
 /***/ },
-/* 292 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32207,7 +34192,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(283);
+	var _Actions = __webpack_require__(300);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -32215,15 +34200,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(293);
+	var _Panel = __webpack_require__(310);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(290);
+	var _FormattedDate = __webpack_require__(307);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(291);
+	var _FormattedTime = __webpack_require__(308);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -32492,7 +34477,7 @@
 	exports.default = DeploymentPage;
 
 /***/ },
-/* 293 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32536,7 +34521,7 @@
 	exports.default = Panel;
 
 /***/ },
-/* 294 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32559,7 +34544,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(295);
+	var _Actions = __webpack_require__(312);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -32571,7 +34556,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Notifications = __webpack_require__(281);
+	var _Notifications = __webpack_require__(298);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -32579,7 +34564,7 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(296);
+	var _ServerIcon = __webpack_require__(313);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -32857,7 +34842,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ },
-/* 295 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32966,7 +34951,7 @@
 	};
 
 /***/ },
-/* 296 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32990,7 +34975,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ },
-/* 297 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33019,7 +35004,7 @@
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(295);
+	var _Actions = __webpack_require__(312);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -33027,7 +35012,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(298);
+	var _FileUpload = __webpack_require__(315);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
@@ -33170,7 +35155,7 @@
 	exports.default = AgentPage;
 
 /***/ },
-/* 298 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33216,7 +35201,7 @@
 	exports.default = FileUpload;
 
 /***/ },
-/* 299 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33241,7 +35226,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(300);
+	var _Tabs = __webpack_require__(290);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -33249,7 +35234,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(301);
+	var _Actions = __webpack_require__(317);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -33601,78 +35586,7 @@
 	exports.default = StatisticsPage;
 
 /***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Tab = _react2.default.createClass({
-	    displayName: "Tab",
-
-	    propTypes: {
-	        title: _react2.default.PropTypes.string.isRequired
-	    },
-
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "tabs__tab" },
-	            this.props.children
-	        );
-	    }
-	});
-
-	var Tabs = _react2.default.createClass({
-	    displayName: "Tabs",
-	    getInitialState: function getInitialState() {
-	        return { index: 0 };
-	    },
-	    seleziona: function seleziona(indice) {
-	        this.setState({ index: indice });
-	    },
-	    render: function render() {
-	        var _this = this;
-
-	        var tabTexts = this.props.children.map(function (x) {
-	            return x.props.title;
-	        });
-
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "tabs" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "tabs__indexes" },
-	                tabTexts.map(function (x, i) {
-	                    return _react2.default.createElement(
-	                        "div",
-	                        { className: i == _this.state.index ? "tabs__index tabs__index--selected" : "tabs__index", onClick: function onClick() {
-	                                return _this.seleziona(i);
-	                            }, key: i },
-	                        x
-	                    );
-	                })
-	            ),
-	            _react2.default.Children.toArray(this.props.children)[this.state.index]
-	        );
-	    }
-	});
-
-	Tabs.Tab = Tab;
-	exports.default = Tabs;
-
-/***/ },
-/* 301 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33714,7 +35628,7 @@
 	};
 
 /***/ },
-/* 302 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33755,972 +35669,7 @@
 	exports.default = store;
 
 /***/ },
-/* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Actions = __webpack_require__(304);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	var _Modal = __webpack_require__(265);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _Button = __webpack_require__(255);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(268);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Select = __webpack_require__(266);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Textarea = __webpack_require__(314);
-
-	var _Textarea2 = _interopRequireDefault(_Textarea);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var RemoteScriptTaskCreateDialog = _react2.default.createClass({
-	  displayName: "RemoteScriptTaskCreateDialog",
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      Name: "",
-	      Script: "",
-	      Machine: "",
-	      Folder: "",
-	      Agents: []
-	    };
-	  },
-
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-
-	    _Actions2.default.getAgents(this.props.EnviromentId).then(function (x) {
-	      _this.setState({ Agents: x });
-	    });
-	  },
-
-	  create: function create() {
-	    var _this2 = this;
-
-	    if (this.state.Name != "" && this.state.Script != "" && this.state.Machine != "" && this.state.Folder != "") {
-	      _Actions2.default.createRemoteScriptTask(this.state.Name, this.state.Script, this.state.Machine, this.state.Folder, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
-	        _this2.props.onCreate();
-	        _this2.props.onClose();
-	      });
-	    }
-	  },
-
-	  render: function render() {
-	    var _this3 = this;
-
-	    return _react2.default.createElement(
-	      _Modal2.default,
-	      this.props,
-	      _react2.default.createElement(
-	        _Modal2.default.Header,
-	        null,
-	        "Add new task"
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Body,
-	        null,
-	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
-	            return _this3.setState({ Name: e.target.value });
-	          } }),
-	        _react2.default.createElement(
-	          _Select2.default,
-	          { title: "Machine", onChange: function onChange(e) {
-	              return _this3.setState({ Machine: e.target.value });
-	            } },
-	          _react2.default.createElement("option", null),
-	          this.state.Agents.map(function (x) {
-	            return _react2.default.createElement(
-	              "option",
-	              { value: x.Id },
-	              x.Name,
-	              "- ",
-	              x.Address
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(_Input2.default, { title: "Folder", placeholder: "Folder", onChange: function onChange(e) {
-	            return _this3.setState({ Folder: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", onChange: function onChange(e) {
-	            return _this3.setState({ Script: e.target.value });
-	          } })
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Footer,
-	        null,
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { onClick: this.props.onClose },
-	          "Close"
-	        ),
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { primary: true, onClick: this.create },
-	          "Create"
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = RemoteScriptTaskCreateDialog;
-
-/***/ },
-/* 304 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(249);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	  getRemoteScriptTask: function getRemoteScriptTask(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/RemoteScriptTasks/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  getAgents: function getAgents(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Agents/AgentsByEnviroment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  createRemoteScriptTask: function createRemoteScriptTask(name, script, machine, folder, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/RemoteScriptTasks/CreateRemoteScriptTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Script: script,
-	        AgentId: machine,
-	        Folder: folder,
-	        ApplicationId: applicationId
-	      })
-	    });
-	  },
-
-	  updateRemoteScriptTask: function updateRemoteScriptTask(id, name, script, machine, folder, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/RemoteScriptTasks/ModifyRemoteScriptTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        RemoteScriptTaskId: id,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Script: script,
-	        AgentId: machine,
-	        Folder: folder,
-	        ApplicationId: applicationId
-	      })
-	    });
-	  }
-	};
-
-/***/ },
-/* 305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Actions = __webpack_require__(306);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	var _Modal = __webpack_require__(265);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _Button = __webpack_require__(255);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(268);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Select = __webpack_require__(266);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Textarea = __webpack_require__(314);
-
-	var _Textarea2 = _interopRequireDefault(_Textarea);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var MailTaskCreateDialog = _react2.default.createClass({
-	  displayName: "MailTaskCreateDialog",
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      Name: "",
-	      Text: "",
-	      Recipients: "",
-	      Sender: ""
-	    };
-	  },
-
-	  create: function create() {
-	    var _this = this;
-
-	    if (this.state.Name != "" && this.state.Recipients != "" && this.state.Sender != "") {
-	      _Actions2.default.createMailTask(this.state.Name, this.state.Text, this.state.Recipients, this.state.Sender, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
-	        _this.props.onClose();
-	        _this.props.onCreate();
-	      });
-	    }
-	  },
-
-	  render: function render() {
-	    var _this2 = this;
-
-	    return _react2.default.createElement(
-	      _Modal2.default,
-	      this.props,
-	      _react2.default.createElement(
-	        _Modal2.default.Header,
-	        null,
-	        "Add new task"
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Body,
-	        null,
-	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
-	            return _this2.setState({ Name: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Recipients", placeholder: "Recipients", onChange: function onChange(e) {
-	            return _this2.setState({ Recipients: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Sender", placeholder: "Sender", onChange: function onChange(e) {
-	            return _this2.setState({ Sender: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Textarea2.default, { title: "Text", placeholder: "Text", onChange: function onChange(e) {
-	            return _this2.setState({ Text: e.target.value });
-	          } })
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Footer,
-	        null,
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { onClick: this.props.onClose },
-	          "Close"
-	        ),
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { primary: true, onClick: this.create },
-	          "Create"
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = MailTaskCreateDialog;
-
-/***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(249);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	  getMailTask: function getMailTask(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/mailTasks/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  createMailTask: function createMailTask(name, text, recipients, sender, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/mailTasks/CreateMailtask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Text: text,
-	        Recipients: recipients,
-	        Sender: sender,
-	        ApplicationId: applicationId
-	      })
-	    });
-	  },
-
-	  updateMailTask: function updateMailTask(id, name, text, recipients, sender, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/mailTasks/ModifyMailTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        MailTaskId: id,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Text: text,
-	        Recipients: recipients,
-	        Sender: sender,
-	        ApplicationId: applicationId
-	      })
-	    });
-	  }
-	};
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Actions = __webpack_require__(308);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	var _Modal = __webpack_require__(265);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _Button = __webpack_require__(255);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(268);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Select = __webpack_require__(266);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Textarea = __webpack_require__(314);
-
-	var _Textarea2 = _interopRequireDefault(_Textarea);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var LocalScriptTaskCreateDialog = _react2.default.createClass({
-	  displayName: "LocalScriptTaskCreateDialog",
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      Name: "",
-	      Script: ""
-	    };
-	  },
-
-	  create: function create() {
-	    var _this = this;
-
-	    if (this.state.Name != "" && this.state.Script != "") {
-	      _Actions2.default.createLocalScriptTask(this.state.Name, this.state.Script, this.props.EnviromentId, this.props.ApplicationId).then(function (x) {
-	        _this.props.onCreate();
-	        _this.props.onClose();
-	      });
-	    }
-	  },
-
-	  render: function render() {
-	    var _this2 = this;
-
-	    return _react2.default.createElement(
-	      _Modal2.default,
-	      this.props,
-	      _react2.default.createElement(
-	        _Modal2.default.Header,
-	        null,
-	        "Add new task"
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Body,
-	        null,
-	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
-	            return _this2.setState({ Name: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", onChange: function onChange(e) {
-	            return _this2.setState({ Script: e.target.value });
-	          } })
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Footer,
-	        null,
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { onClick: this.props.onClose },
-	          "Close"
-	        ),
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { primary: true, onClick: this.create },
-	          "Create"
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = LocalScriptTaskCreateDialog;
-
-/***/ },
-/* 308 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(249);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	  getLocalScriptTask: function getLocalScriptTask(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/LocalScriptTasks/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  createLocalScriptTask: function createLocalScriptTask(name, script, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/LocalScriptTasks/CreateLocalScriptTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Script: script,
-	        ApplicationId: applicationId
-	      })
-	    });
-	  },
-
-	  updateLocalScriptTask: function updateLocalScriptTask(id, name, script, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/LocalScriptTasks/ModifyLocalScriptTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        LocalScriptTaskId: id,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Script: script,
-	        ApplicationId: applicationId
-	      })
-	    });
-	  }
-	};
-
-/***/ },
-/* 309 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Actions = __webpack_require__(310);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	var _Modal = __webpack_require__(265);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _Button = __webpack_require__(255);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(268);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Select = __webpack_require__(266);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Textarea = __webpack_require__(314);
-
-	var _Textarea2 = _interopRequireDefault(_Textarea);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var DatabaseTaskCreateDialog = _react2.default.createClass({
-	  displayName: "DatabaseTaskCreateDialog",
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      Name: "",
-	      ConnectionString: "",
-	      Pack: "",
-	      DatabaseName: "",
-	      "Repository": "",
-	      Machine: "",
-	      Agents: []
-	    };
-	  },
-
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-
-	    _Actions2.default.getAgents(this.props.EnviromentId).then(function (x) {
-	      _this.setState({ Agents: x });
-	    });
-	  },
-
-	  create: function create() {
-	    var _this2 = this;
-
-	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
-	      _Actions2.default.createDatabaseTask(this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.props.EnviromentId, this.state.Repository, this.state.Machine, this.props.ApplicationId).then(function (x) {
-	        _this2.props.onCreate();
-	        _this2.props.onClose();
-	      });
-	    }
-	  },
-
-	  render: function render() {
-	    var _this3 = this;
-
-	    return _react2.default.createElement(
-	      _Modal2.default,
-	      this.props,
-	      _react2.default.createElement(
-	        _Modal2.default.Header,
-	        null,
-	        "Add new Database task"
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Body,
-	        null,
-	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
-	            return _this3.setState({ Name: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", onChange: function onChange(e) {
-	            return _this3.setState({ ConnectionString: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", onChange: function onChange(e) {
-	            return _this3.setState({ Pack: e.target.value });
-	          } }),
-	        _react2.default.createElement(
-	          _Select2.default,
-	          { title: "Machine", onChange: function onChange(e) {
-	              return _this3.setState({ Machine: e.target.value });
-	            } },
-	          _react2.default.createElement("option", null),
-	          this.state.Agents.map(function (x) {
-	            return _react2.default.createElement(
-	              "option",
-	              { value: x.Id },
-	              x.Name,
-	              "- ",
-	              x.Address
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", onChange: function onChange(e) {
-	            return _this3.setState({ Repository: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Database name", placeholder: "Database Name", onChange: function onChange(e) {
-	            return _this3.setState({ DatabaseName: e.target.value });
-	          } })
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Footer,
-	        null,
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { onClick: this.props.onClose },
-	          "Close"
-	        ),
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { primary: true, onClick: this.create },
-	          "Create"
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = DatabaseTaskCreateDialog;
-
-/***/ },
-/* 310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(249);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	  getAgents: function getAgents(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Agents/AgentsByEnviroment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  getDatabaseTask: function getDatabaseTask(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DatabaseTasks/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  createDatabaseTask: function createDatabaseTask(name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DatabaseTasks/CreateDatabaseTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        ConnectionString: connectionString,
-	        Package: pack,
-	        DatabaseName: databaseName,
-	        Repository: repository,
-	        AgentId: agentId,
-	        ApplicationId: applicationId
-	      })
-	    });
-	  },
-
-	  updateDatabaseTask: function updateDatabaseTask(id, name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DatabaseTasks/ModifyDatabaseTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        DatabaseTaskId: id,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        ConnectionString: connectionString,
-	        Package: pack,
-	        DatabaseName: databaseName,
-	        Repository: repository,
-	        AgentId: agentId,
-	        ApplicationId: applicationId
-	      })
-	    });
-	  }
-	};
-
-/***/ },
-/* 311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(163);
-
-	var _reactRouter2 = _interopRequireDefault(_reactRouter);
-
-	var _ActionsCreator = __webpack_require__(312);
-
-	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
-
-	var _Modal = __webpack_require__(265);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _Button = __webpack_require__(255);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(268);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Select = __webpack_require__(266);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Textarea = __webpack_require__(314);
-
-	var _Textarea2 = _interopRequireDefault(_Textarea);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var CreateDialog = _react2.default.createClass({
-	  displayName: "CreateDialog",
-
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      name: "",
-	      machine: "",
-	      packageName: "",
-	      directory: "",
-	      repository: "",
-	      key: "",
-	      value: "",
-	      Encrypted: false,
-	      params: [],
-	      Agents: []
-	    };
-	  },
-
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-
-	    _ActionsCreator2.default.getAgents(this.props.Enviroment).then(function (x) {
-	      _this.setState({ Agents: x });
-	    });
-	  },
-
-	  create: function create() {
-	    var _this2 = this;
-
-	    if (this.state.name.length != 0 && this.state.packageName.length != 0 && this.state.repository.length != 0 && this.state.directory.length != 0) {
-
-	      _ActionsCreator2.default.createDeployUnit(this.props.Enviroment, this.state.name, this.state.machine, this.state.packageName, this.state.directory, this.state.repository, this.state.params, this.props.ApplicationId).then(function (x) {
-	        _this2.props.onCreate();_this2.props.onClose();
-	      });
-	    }
-	    return false;
-	  },
-
-	  render: function render() {
-	    var _this3 = this;
-
-	    return _react2.default.createElement(
-	      _Modal2.default,
-	      this.props,
-	      _react2.default.createElement(
-	        _Modal2.default.Header,
-	        null,
-	        "Create new deploy unit"
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Body,
-	        null,
-	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
-	            return _this3.setState({ name: e.target.value });
-	          } }),
-	        _react2.default.createElement(
-	          _Select2.default,
-	          { title: "Machine", onChange: function onChange(e) {
-	              return _this3.setState({ machine: e.target.value });
-	            } },
-	          _react2.default.createElement("option", null),
-	          this.state.Agents.map(function (x) {
-	            return _react2.default.createElement(
-	              "option",
-	              { value: x.Id },
-	              x.Name,
-	              "- ",
-	              x.Address
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(_Input2.default, { title: "Package name", placeholder: "PackageName", onChange: function onChange(e) {
-	            return _this3.setState({ packageName: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Directory", placeholder: "Directory", onChange: function onChange(e) {
-	            return _this3.setState({ directory: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", onChange: function onChange(e) {
-	            return _this3.setState({ repository: e.target.value });
-	          } })
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Footer,
-	        null,
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { primary: true, onClick: this.create },
-	          "Create"
-	        ),
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { onClick: this.props.onClose },
-	          "Close"
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = CreateDialog;
-
-/***/ },
-/* 312 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(249);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	  testAgent: function testAgent(url) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/deployTasks/test?url=" + url,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  getAgents: function getAgents(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Agents/AgentsByEnviroment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  updateDeployUnits: function updateDeployUnits(enviromentId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DeployTasks/?id=" + enviromentId,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  updateDeployUnit: function updateDeployUnit(deployUnitId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DeployTasks/?id=" + deployUnitId,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
-	  },
-
-	  modifyDeployUnit: function modifyDeployUnit(deployUnitId, enviromentId, name, machine, packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration, applicationId) {
-	    var promise = (0, _reqwest2.default)({
-	      url: "/api/deployTasks/ModifyDeployTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        DeployTaskId: deployUnitId,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        AgentId: machine,
-	        PackageName: packageName,
-	        Directory: directory,
-	        Repository: repository,
-	        UninstallScript: uninstallationScript,
-	        InstallScript: installationScript,
-	        ConfigurationFile: configFile,
-	        ConfigurationTransform: configTransform,
-	        Configuration: configuration,
-	        ApplicationId: applicationId,
-	        AdditionalParameters: params.map(function (x) {
-	          x.Key = x.Name;
-	          return x;
-	        })
-	      })
-	    });
-
-	    return promise;
-	  },
-
-	  createDeployUnit: function createDeployUnit(enviromentId, name, machine, packageName, directory, repository, params, applicationId) {
-	    var promise = (0, _reqwest2.default)({
-	      url: "/api/deployTasks/CreateDeployTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        AgentId: machine,
-	        PackageName: packageName,
-	        Directory: directory,
-	        Repository: repository,
-	        ApplicationId: applicationId,
-	        AdditionalParameters: params.map(function (x) {
-	          x.Key = x.Name;
-	          return x;
-	        })
-	      })
-	    });
-
-	    return promise;
-	  }
-	};
-
-/***/ },
-/* 313 */,
-/* 314 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34735,29 +35684,168 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(254);
+	var _Header = __webpack_require__(256);
 
-	var _classnames2 = _interopRequireDefault(_classnames);
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Actions = __webpack_require__(297);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Button = __webpack_require__(255);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Grid = __webpack_require__(257);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Select = __webpack_require__(266);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Modal = __webpack_require__(265);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Card = __webpack_require__(273);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _reactRedux = __webpack_require__(220);
+
+	var _Notifications = __webpack_require__(298);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Textarea = _react2.default.createClass({
-	    displayName: "Textarea",
+	var GroupCreationDialog = _react2.default.createClass({
+	    displayName: "GroupCreationDialog",
+	    getInitialState: function getInitialState() {
+	        return { name: "" };
+	    },
+	    close: function close() {
+	        this.setState({ name: "" });
+	        this.props.onClose();
+	    },
+	    create: function create() {
+	        var _this = this;
+
+	        if (this.state.name == "") {
+	            return;
+	        }
+
+	        _Actions2.default.createApplicationGroup(this.state.name).then(function (x) {
+	            if (x.Success) {
+	                _this.props.onClose();
+	                _this.props.onCreate();
+	            }
+	        });
+	    },
 	    render: function render() {
+	        var _this2 = this;
+
 	        return _react2.default.createElement(
-	            "div",
-	            { className: "textarea" },
-	            this.props.title && _react2.default.createElement(
-	                "div",
-	                { className: "textarea__title" },
-	                this.props.title
+	            _Modal2.default,
+	            _extends({ onClose: this.onClose }, this.props),
+	            _react2.default.createElement(
+	                _Modal2.default.Header,
+	                null,
+	                "Create new Application Group"
 	            ),
-	            _react2.default.createElement("textarea", _extends({ type: "text", className: "textarea__input" }, this.props))
+	            _react2.default.createElement(
+	                _Modal2.default.Body,
+	                null,
+	                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.name, onChange: function onChange(e) {
+	                        return _this2.setState({ name: e.target.value });
+	                    } })
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Footer,
+	                null,
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: this.close },
+	                    "Cancel"
+	                ),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { primary: true, onClick: this.create },
+	                    "Create"
+	                )
+	            )
 	        );
 	    }
 	});
 
-	exports.default = Textarea;
+	var GroupPage = _react2.default.createClass({
+	    displayName: "GroupPage",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            _Grid2.default.Col,
+	            { md: 4 },
+	            _react2.default.createElement(_Card2.default, { title: this.props.group.Name })
+	        );
+	    }
+	});
+
+	var ApplicationsGroupsPage = _react2.default.createClass({
+	    displayName: "ApplicationsGroupsPage",
+	    getInitialState: function getInitialState() {
+	        return { show: false, groups: [] };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.update();
+	    },
+	    update: function update() {
+	        var _this3 = this;
+
+	        _Actions2.default.getApplicationGroups().then(function (x) {
+	            return _this3.setState({ groups: x });
+	        });
+	    },
+	    render: function render() {
+	        var _this4 = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Applications Groups ",
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: function onClick() {
+	                            return _this4.setState({ show: true });
+	                        } },
+	                    "Create new group"
+	                )
+	            ),
+	            _react2.default.createElement(GroupCreationDialog, { show: this.state.show, onClose: function onClose() {
+	                    return _this4.setState({ show: false });
+	                }, onCreate: this.update }),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    this.state.groups.map(function (x) {
+	                        return _react2.default.createElement(GroupPage, { group: x, users: _this4.props.users, onUpdate: _this4.update });
+	                    })
+	                )
+	            )
+	        );
+	    }
+	});
+
+	exports.default = ApplicationsGroupsPage;
 
 /***/ }
 /******/ ]);

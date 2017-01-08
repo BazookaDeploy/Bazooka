@@ -1,15 +1,12 @@
 import React from "react";
-import LinkedState from "react/lib/LinkedStateMixin";
-import Router from 'react-router';
+import Button from "../../../Shared/Button";
+import Input from "../../../Shared/Input";
+import Select from "../../../Shared/Select";
+import Textarea from "../../../Shared/Textarea";
 import Actions from "./Actions";
-
-var {
-	Route, DefaultRoute, RouteHandler, Link, State
-} = Router;
 
 
 var EditPage = React.createClass({
-	mixins: [LinkedState,State],
   getInitialState:function(){
     return {
       Id:0,
@@ -23,10 +20,20 @@ var EditPage = React.createClass({
   },
 
   componentDidMount:function(){
-    Actions.getRemoteScriptTask(this.getParams().taskId).then(x => {
+    this.update(this.props.params.taskId,this.props.params.enviromentId);
+  },
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.params.taskId!=nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId){
+        this.update(nextProps.params.taskId,nextProps.params.enviromentId);
+    }
+  },
+
+  update(taskId,enviromentId){
+    Actions.getRemoteScriptTask(taskId).then(x => {
       this.setState(x);
     })
-		Actions.getAgents(this.getParams().enviromentId).then(x => {
+		Actions.getAgents(enviromentId).then(x => {
 			this.setState({Agents:x})
 		})
   },
@@ -40,29 +47,13 @@ var EditPage = React.createClass({
   render:function(){
     return(
       <div>
-							      <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().taskName}</h3>
-
-        <form role="form" onSubmit={this.create}>
-         <div className="form-group">
-           <label htmlFor="Name">Name</label>
-           <input type="text" className="form-control" id="Name" placeholder="Name" autoFocus valueLink={this.linkState('Name')} />
-         </div>
-				<div className="form-group">
-           <label htmlFor="AgentId">Machine</label>
-						<select  className="form-control" id="AgentId" valueLink={this.linkState('AgentId')}>
+           <Input title="Name"placeholder="Name" autoFocus value={this.state.Name} onChange={(e)=> this.setState({Name: e.target.value})}  />
+						<Select title="Agent" className="form-control" value={this.state.AgentId} onChange={(e)=> this.setState({AgentId: e.target.value})} >
 								{this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
-						</select>
-				</div>
-				<div className="form-group">
-						<label htmlFor="Folder">Folder</label>
-						<input type="text" className="form-control" id="Folder" placeholder="Folder" valueLink={this.linkState('Folder')} />
-					</div>
-         <div className="form-group">
-           <label htmlFor="Script">Script</label>
-           <textarea type="text" className="form-control" id="Script" placeholder="Script" valueLink={this.linkState('Script')} />
-         </div>
-       </form>
-       <button className="btn btn-primary pull-right" onClick={this.save}>Save</button>
+						</Select>
+						<Input title="Folder" placeholder="Folder" value={this.state.Folder} onChange={(e)=> this.setState({Folder: e.target.value})}  />
+           <Textarea title="Script" placeholder="Script" value={this.state.Script} onChange={(e)=> this.setState({Script: e.target.value})}  />
+       <Button primary onClick={this.save}>Save</Button>
        </div>
 );
    }

@@ -1,15 +1,12 @@
 import React from "react";
-import LinkedState from "react/lib/LinkedStateMixin";
-import Router from 'react-router';
+import Button from "../../../Shared/Button";
+import Input from "../../../Shared/Input";
+import Select from "../../../Shared/Select";
+import Textarea from "../../../Shared/Textarea";
 import Actions from "./Actions";
-
-var {
-	Route, DefaultRoute, RouteHandler, Link, State
-} = Router;
 
 
 var EditPage = React.createClass({
-	mixins: [LinkedState,State],
   getInitialState:function(){
     return {
       Id:0,
@@ -22,7 +19,17 @@ var EditPage = React.createClass({
   },
 
   componentDidMount:function(){
-    Actions.getMailTask(this.getParams().taskId).then(x => {
+    this.update(this.props.params.taskId);
+  },
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.params.taskId!=nextProps.params.taskId){
+      this.update(nextProps.params.taskId);
+    }
+  },
+
+  update(taskId){
+    Actions.getMailTask(taskId).then(x => {
       this.setState(x);
     })
   },
@@ -30,8 +37,6 @@ var EditPage = React.createClass({
   save:function(){
     if(this.state.Name!="" && this.state.Recipients!="" && this.state.Sender!=""){
       Actions.updateMailTask(this.state.Id,this.state.Name, this.state.Text,this.state.Recipients,this.state.Sender, this.state.EnviromentId, this.state.ApplicationId).then(x => {
-        this.props.onRequestHide()
-        this.props.onTaskCreate();
       })
     }
   },
@@ -39,25 +44,11 @@ var EditPage = React.createClass({
   render:function(){
     return(
       <div>
-        <form role="form" onSubmit={this.create}>
-         <div className="form-group">
-           <label htmlFor="Name">Name</label>
-           <input type="text" className="form-control" id="Name" placeholder="Name" autoFocus valueLink={this.linkState('Name')} />
-         </div>
-         <div className="form-group">
-           <label htmlFor="Recipients">Recipients</label>
-           <input type="text" className="form-control" id="Recipients" placeholder="Recipients" valueLink={this.linkState('Recipients')} />
-         </div>
-         <div className="form-group">
-           <label htmlFor="Sender">Sender</label>
-           <input type="text" className="form-control" id="Sender" placeholder="Sender" valueLink={this.linkState('Sender')} />
-         </div>
-         <div className="form-group">
-           <label htmlFor="Text">Text</label>
-           <textarea type="text" className="form-control" id="Text" placeholder="Text" valueLink={this.linkState('Text')} />
-         </div>
-       </form>
-       <button className="btn btn-primary pull-right" onClick={this.save}>Save</button>
+           <Input title="Name" placeholder="Name" autoFocus value={this.state.Name} onChange={(e)=> this.setState({Name: e.target.value})} />
+           <Input title="Recipients" placeholder="Recipients" value={this.state.Recipients} onChange={(e)=> this.setState({Recipients: e.target.value})} />
+           <Input title="Sender" placeholder="Sender" value={this.state.Sender} onChange={(e)=> this.setState({Sender: e.target.value})}  />
+           <Textarea title="Text" placeholder="Text" value={this.state.Text} onChange={(e)=> this.setState({Text: e.target.value})}  />
+       <Button primary onClick={this.save}>Save</Button>
        </div>
 );
    }

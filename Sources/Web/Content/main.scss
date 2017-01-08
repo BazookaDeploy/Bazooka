@@ -419,6 +419,12 @@ margin-bottom:20px;
 	background-color: lighten(#ccc,16%);
 }
 
+.applicationTasks a.active {
+	background-color: lighten(#ccc,16%);
+		border-right:5px solid $primaryDarkColor;
+}
+
+
 .addSection, .cloneSection {
 	margin-top:20px;
 }

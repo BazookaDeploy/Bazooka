@@ -1,23 +1,14 @@
 import React from "react";
-import LinkedState from "react/lib/LinkedStateMixin";
-import Router from 'react-router';
 import Actions from "./ActionsCreator";
-import Store from "./Store";
-import TabbedArea from "react-bootstrap/lib/TabbedArea";
-import TabPane from "react-bootstrap/lib/TabPane";
-
-var {
-	Route, DefaultRoute, RouteHandler, Link, State
-} = Router;
+import Button from "../../../Shared/Button";
+import Input from "../../../Shared/Input";
+import Select from "../../../Shared/Select";
+import Textarea from "../../../Shared/Textarea";
+import Grid from "../../../Shared/Grid";
+import Tabs from "../../../Shared/Tabs";
 
 
 var EditPage = React.createClass({
-	mixins: [LinkedState,State],
-
-	/**
-   * Adds a new parameter to the list if key and value are set
-   * an there isn't already another parameter with the same key
-   */
   addParameter : function(){
     if(this.state.key.length!=0 &&
       this.state.value.length != 0 &&
@@ -51,34 +42,19 @@ var EditPage = React.createClass({
     });
   },
 
-
-  testAgent : function(){
-    Actions.testAgent(this.state.Machine).then(x => {
-      alert("Agent responding");
-    }).fail(x =>{
-        alert("Agent not responding");
-    })
-	return false;
-  },
-
-	componentDidMount: function() {
-		Store.addChangeListener(this._onChange);
-		var id = this.getParams().deployUnitId;
-		Actions.updateDeployUnit(id);
-
-		Actions.getAgents(this.getParams().enviromentId).then(x => {
-			this.setState({Agents:x})
-		})
+	componentDidMount() {
+		this.update(this.props.params.taskId, this.props.params.enviromentId);
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._onChange);
-	},
+  componentWillReceiveProps(nextProps){
+    if(this.props.params.taskId!=nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId){
+        this.update(nextProps.params.taskId,nextProps.params.enviromentId);
+    }
+  },	
 
-	_onChange:function(){
-		var env = Store.getSingle(this.getParams().deployUnitId);
-
-		this.setState({
+	update(taskId, enviromentId){
+		Actions.updateDeployUnit(taskId).then(env => {
+			this.setState({
 			Id: env.Id,
 			Enviroment: env.EnviromentId,
 			Name:env.Name,
@@ -96,7 +72,13 @@ var EditPage = React.createClass({
 			ConfigTransform:env.ConfigurationTransform,
 			Configuration : env.Configuration
 		})
+		});
+
+		Actions.getAgents(enviromentId).then(x => {
+			this.setState({Agents:x})
+		})
 	},
+
 
 	getInitialState: function() {
 
@@ -145,87 +127,52 @@ var EditPage = React.createClass({
 
 		return (
 			<div>
-			      <h3>Application {this.getParams().applicationName} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().enviroment} <i className='glyphicon glyphicon-menu-right' /> {this.getParams().deployUnitName}</h3>
-
-				<TabbedArea defaultActiveKey={1}>
-		    	<TabPane eventKey={1} tab='Settings'>
-						<form role="form" onSubmit={this.save}>
-							<div className="form-group">
-								<label htmlFor="Name">Name</label>
-								<input type="text" className="form-control" id="Name" placeholder="Name" valueLink={this.linkState('Name')} />
-							</div>
-							<div className="form-group">
-								<label htmlFor="AgentId">Machine</label>
-									<select  className="form-control" id="AgentId" valueLink={this.linkState('AgentId')}>
+				<Tabs>
+		    	<Tabs.Tab title='Settings'>
+								<Input title="Name" placeholder="Name" value={this.state.Name} onChange={(e)=> this.setState({Name: e.target.value})}/>
+									<Select title="Agent" value={this.state.AgentId} onChange={(e)=> this.setState({AgentId: e.target.value})}>
 											{this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
-									</select>
+									</Select>
 									<h5>Additional Params</h5>
 										<ul>
-											{this.state.Parameters.map(a => (<li>{a.Name} = {a.Encrypted? "********" : a.Value} <button className="btn btn-xs btn-danger" onClick={this.remove.bind(this,a.Key)}><i className="glyphicon glyphicon-trash"></i></button></li>))}
+											{this.state.Parameters.map(a => (<li>{a.Name} = {a.Encrypted? "********" : a.Value} <Button onClick={() => this.remove(a.Key)}>Remove</Button></li>))}
 										</ul>
-									<div className="form-group row">
-					          <div className="col-md-3">
-					            <label htmlFor="Key">Key</label>
-					            <input type="text" className="form-control" id="Key" placeholder="Key" valueLink={this.linkState('key')} />
-					          </div>
-					          <div className="col-md-3">
-					            <label htmlFor="Value">Value</label>
-					            <input type="text" className="form-control" id="Value" placeholder="Value" valueLink={this.linkState('value')} />
-					          </div>
-										<div className="col-md-2">
+									<Grid fluid>
+										<Grid.Row>
+
+										<Grid.Col md={3}>
+					            <Input title="Key" placeholder="Key"  value={this.state.key} onChange={(e)=> this.setState({key: e.target.value})} />
+					          </Grid.Col>
+										<Grid.Col md={3}>
+					            <Input title="Value" placeholder="Value"  value={this.state.value} onChange={(e)=> this.setState({value: e.target.value})} />
+					          </Grid.Col>
+										<Grid.Col md={2}>
 					            <label htmlFor="Encrypted">Encrypted</label><br/>
-					            <input type="checkbox" className="" id="Encrypted" checkedLink={this.linkState('Encrypted')} />
-					          </div>
-					          <div className="col-md-4">
+					            <input type="checkbox" id="Encrypted" value={this.state.Encrypted} onChange={(e)=> this.setState({Encrypted: e.target.checked})} />
+					          </Grid.Col>
+										<Grid.Col md={4}>
 					            <br />
-					            <button className="btn btn-primary" onClick={this.addParameter} >Add Parameter</button>
-					          </div>
-					        </div>
+					            <Button primary onClick={this.addParameter} >Add Parameter</Button>
+					          </Grid.Col>
+					        </Grid.Row>
+									</Grid>
 
-							</div>
-							<div className="form-group">
-								<label htmlFor="PackageName">PackageName</label>
-								<input type="text" className="form-control" id="PackageName" placeholder="PackageName" valueLink={this.linkState('PackageName')} />
-							</div>
-							<div className="form-group">
-								<label htmlFor="Directory">Directory</label>
-								<input type="text" className="form-control" id="Directory" placeholder="Directory" valueLink={this.linkState('Directory')} />
-							</div>
-							<div className="form-group">
-								<label htmlFor="Repository">Repository</label>
-								<input type="text" className="form-control" id="Repository" placeholder="Repository" valueLink={this.linkState('Repository')} />
-							</div>
-						</form>
-					</TabPane>
-		    	<TabPane eventKey={2} tab='Scripts'>
-						<form>
-							<div className="form-group">
-								<label htmlFor="InstallationScript">Installation Script</label>
-								<textarea rows="10" className="form-control" id="InstallationScript" placeholder="Installation Script" valueLink={this.linkState('InstallationScript')} />
-							</div>
-							<div className="form-group">
-								<label htmlFor="UninstallationScript">Uninstallation Script</label>
-								<textarea rows="10" className="form-control" id="UninstallationScript" placeholder="Uninstallation Script" valueLink={this.linkState('UninstallationScript')} />
-							</div>
-						</form>
-					</TabPane>
-					<TabPane eventKey={3} tab='Configurations'>
-						<div className="form-group">
-							<label htmlFor="Configuration">Deploy unit specific configuration</label>
-							<input type="text" className="form-control" id="Configuration" placeholder="Specific configuration (optional)" valueLink={this.linkState('Configuration')} />
-						</div>
-						<div className="form-group">
-							<label htmlFor="ConfigurationFile">Configuration File</label>
-							<input type="text" className="form-control" id="ConfigurationFile" placeholder="Configuration File" valueLink={this.linkState('ConfigurationFile')} />
-						</div>
-						<div className="form-group">
-							<label htmlFor="ConfigTransform">Configuration Trasformation</label>
-							<textarea rows="10" className="form-control" id="ConfigTransform" placeholder="Config Transform" valueLink={this.linkState('ConfigTransform')} />
-						</div>
-					</TabPane>
-		  	</TabbedArea>
+								<Input title="PackageName" placeholder="PackageName" value={this.state.PackageName} onChange={(e)=> this.setState({PackageName: e.target.value})} />
+								<Input title="Directory" placeholder="Directory" value={this.state.Directory} onChange={(e)=> this.setState({Directory: e.target.value})} />
+								<Input title="Repository" placeholder="Repository" value={this.state.Repository} onChange={(e)=> this.setState({Repository: e.target.value})} />
+					</Tabs.Tab>
+		    	<Tabs.Tab title='Scripts'>
+								<Textarea rows="10" title="Installation script" placeholder="Installation Script" value={this.state.InstallationScript} onChange={(e)=> this.setState({InstallationScript: e.target.value})} />
+								<Textarea rows="10" title="Uninstallation script" placeholder="Uninstallation Script" value={this.state.UninstallationScript} onChange={(e)=> this.setState({UninstallationScript: e.target.value})} />
+					</Tabs.Tab>
+					<Tabs.Tab title='Configurations'>
+							<Input title="Configuration" placeholder="Specific configuration (optional)" value={this.state.Configuration} onChange={(e)=> this.setState({Configuration: e.target.value})}  />
+							<Input title="Configuration File"  placeholder="Configuration File" value={this.state.ConfigurationFile} onChange={(e)=> this.setState({ConfigurationFile: e.target.value})}  />
+							<Textarea rows="10" title="Config transform" placeholder="Config Transform" value={this.state.ConfigTransform} onChange={(e)=> this.setState({ConfigTransform: e.target.value})} />
+					</Tabs.Tab>
+		  	</Tabs>
 
-				<button className="btn btn-primary pull-right" onClick={this.save}>Save</button>
+				<Button primary onClick={this.save}>Save</Button>
 			</div>
 		);
 	}

@@ -10,10 +10,17 @@ import OverviewPage from "./Applications/OverviewPage";
 import TasksPage from "./Applications/TasksPage";
 import AllowedUsersPage from "./Applications/AllowedUserPage";
 
+import DatabaseTaskEditPage from "./Applications/Tasks/DatabaseTasks/EditPage";
+import DeployTaskEditPage from "./Applications/Tasks/DeployTasks/DeployUnitEditPage";
+import LocalScriptTaskEditPage from "./Applications/Tasks/LocalScriptTask/EditPage";
+import MailTaskEditPage from "./Applications/Tasks/MailTask/EditPage";
+import RemoteScriptTaskEditPage from "./Applications/Tasks/RemoteScriptTask/EditPage";
+
 
 import ConfigurationPage from "./Configuration/ConfigurationPage";
 import ConfigPage from "./Configuration/ConfigPage";
 import GroupsPage from "./Configuration/GroupsPage";
+import ApplicationGroupsPage from "./Configuration/ApplicationGroupsPage";
 import DeploymentsPage from "./Deployments/DeploymentsPage";
 import DeploymentPage from "./Deployments/DeploymentPage";
 import EnviromentsPage from "./Enviroments/EnviromentsPage";
@@ -33,11 +40,11 @@ var route = <Provider store={store} >
             <IndexRoute component={OverviewPage} />
             <Route path="Permissions" component={PermissionsPage} />
             <Route path="Enviroment/:enviromentId/Tasks" component={TasksPage}>
-              <Route path="DeployTask/:taskId" />
-              <Route path="DatabaseTask/:taskId" />
-              <Route path="MailTask/:taskId" />
-              <Route path="LocalScriptTask/:taskId" />
-              <Route path="RemoteScriptTask/:taskId" />
+              <Route path="DeployTask/:taskId" component={DeployTaskEditPage} />
+              <Route path="DatabaseTask/:taskId" component={DatabaseTaskEditPage} />
+              <Route path="MailTask/:taskId" component={MailTaskEditPage}/>
+              <Route path="LocalScriptTask/:taskId" component={LocalScriptTaskEditPage}/>
+              <Route path="RemoteScriptTask/:taskId" component={RemoteScriptTaskEditPage}/>
             </Route>
             <Route path="Enviroment/:enviromentId/Users" component={AllowedUsersPage} />
         </Route> 
@@ -45,6 +52,7 @@ var route = <Provider store={store} >
       <Route path="Configuration" component={ConfigurationPage}>
         <IndexRoute component={ConfigPage} />
         <Route path="Groups" component={GroupsPage} />
+        <Route path="ApplicationGroups" component={ApplicationGroupsPage} />
       </Route>
       <Route path="Enviroments">
         <IndexRoute  component={EnviromentsPage} />

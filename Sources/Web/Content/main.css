@@ -1575,7 +1575,7 @@ body {
 .input__input {
   padding: 5px;
   height: 25px;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #ccc;
   width: 100%;
   display: table-cell; }
@@ -1966,6 +1966,10 @@ body {
 
 .applicationTasks a:hover {
   background-color: whitesmoke; }
+
+.applicationTasks a.active {
+  background-color: whitesmoke;
+  border-right: 5px solid #1976D2; }
 
 .addSection, .cloneSection {
   margin-top: 20px; }
