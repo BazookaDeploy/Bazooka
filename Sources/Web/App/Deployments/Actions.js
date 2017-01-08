@@ -1,4 +1,5 @@
 ﻿import reqwest from "reqwest";
+import Net from "../Shared/Net";
 
 module.exports = {
     updateDeployments: function (filter) {
@@ -25,29 +26,14 @@ module.exports = {
             query = "?$filter=(StartDate gt DateTime'" + date.toISOString() + "' or StartDate eq null)  ";
         }
 
-        return reqwest({
-            url: "/api/deployment/" + query,
-            type: 'json',
-            contentType: 'application/json',
-            method: "get"
-        });
+        return Net.get("/api/deployment/" + query);
     },
 
     cancelDeployment: function (id) {
-        return reqwest({
-            url: "/api/deploy/cancel?deploymentId=" + id,
-            type: 'json',
-            contentType: 'application/json',
-            method: "get"
-        });
+        return Net.get("/api/deploy/cancel?deploymentId=" + id);
     },
 
     updateDeployment: function (id) {
-        return reqwest({
-            url: "/api/deployment/" + id,
-            type: 'json',
-            contentType: 'application/json',
-            method: "get"
-        });
+        return Net.get("/api/deployment/" + id);
     }
 };

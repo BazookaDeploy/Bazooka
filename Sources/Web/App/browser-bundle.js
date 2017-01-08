@@ -29910,259 +29910,139 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  getApplications: function getApplications() {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Applications/",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/Applications/");
 	  },
 
 	  getAllApplications: function getAllApplications() {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Applications/All",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/Applications/All");
 	  },
 
 	  createApplication: function createApplication(name) {
-	    var promise = (0, _reqwest2.default)({
-	      url: "/api/applications/Create",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        Name: name
-	      })
+	    return _Net2.default.post("/api/applications/Create", {
+	      Name: name
 	    });
-
-	    return promise;
 	  },
 
 	  cloneApplication: function cloneApplication(name, app) {
-	    var promise = (0, _reqwest2.default)({
-	      url: "/api/applications/CreateApplicationFromExisting",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        Name: name,
-	        OriginalApplicationId: app
-	      })
+	    return _Net2.default.post("/api/applications/CreateApplicationFromExisting", {
+	      Name: name,
+	      OriginalApplicationId: app
 	    });
-
-	    return promise;
 	  },
 
 	  getDeployUrl: function getDeployUrl(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/deployTasks/deployUrl?id=" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/deployTasks/deployUrl?id=" + id);
 	  },
 
 	  getUsers: function getUsers(enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/AllowedUsers?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/applications/AllowedUsers?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
 	  },
 
 	  addUser: function addUser(enviromentId, applicationid, userId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/AddAllowedUser",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationid,
-	        EnviromentId: enviromentId,
-	        UserId: userId
-	      })
+	    return _Net2.default.post("/api/applications/AddAllowedUser", {
+	      ApplicationId: applicationid,
+	      EnviromentId: enviromentId,
+	      UserId: userId
 	    });
 	  },
 
 	  removeUser: function removeUser(enviromentId, applicationid, userId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/RemoveAllowedUser",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationid,
-	        EnviromentId: enviromentId,
-	        UserId: userId
-	      })
+	    return _Net2.default.post("/api/applications/RemoveAllowedUser", {
+	      ApplicationId: applicationid,
+	      EnviromentId: enviromentId,
+	      UserId: userId
 	    });
 	  },
 
 	  getGroups: function getGroups(enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "api/applications/AllowedGroups?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("api/applications/AllowedGroups?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
 	  },
 
 	  addGroup: function addGroup(enviromentId, applicationid, groupId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/AddAllowedGroup",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationid,
-	        EnviromentId: enviromentId,
-	        GroupId: groupId
-	      })
+	    return _Net2.default.post("/api/applications/AddAllowedGroup", {
+	      ApplicationId: applicationid,
+	      EnviromentId: enviromentId,
+	      GroupId: groupId
 	    });
 	  },
 
 	  removeGroups: function removeGroups(enviromentId, applicationid, groupId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/RemoveAllowedGroup",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationid,
-	        EnviromentId: enviromentId,
-	        GroupId: groupId
-	      })
+	    return _Net2.default.post("/api/applications/RemoveAllowedGroup", {
+	      ApplicationId: applicationid,
+	      EnviromentId: enviromentId,
+	      GroupId: groupId
 	    });
 	  },
 
 	  getTasks: function getTasks(enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Tasks/?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/Tasks/?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
 	  },
 
 	  deleteTask: function deleteTask(applicationId, id, type) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/tasks/deleteTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationId,
-	        TaskId: id,
-	        Type: type
-	      })
+	    return _Net2.default.post("/api/tasks/deleteTask", {
+	      ApplicationId: applicationId,
+	      TaskId: id,
+	      Type: type
 	    });
 	  },
 
 	  cloneEnviroment: function cloneEnviroment(enviromentIdToClone, agentId, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/CopyConfigurationFromEnviroment",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationId,
-	        MachineId: agentId,
-	        EnviromentId: enviromentId,
-	        OriginalEnviromentId: enviromentIdToClone
-	      })
+	    return _Net2.default.post("/api/applications/CopyConfigurationFromEnviroment", {
+	      ApplicationId: applicationId,
+	      MachineId: agentId,
+	      EnviromentId: enviromentId,
+	      OriginalEnviromentId: enviromentIdToClone
 	    });
 	  },
 
 	  getAgents: function getAgents(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Agents/AgentsByEnviroment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
 	  },
 
 	  getAdmins: function getAdmins(applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "api/Applications/Administrators?applicationId=" + applicationId,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("api/Applications/Administrators?applicationId=" + applicationId);
 	  },
 
 	  addAdmin: function addAdmin(userId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/AddApplicationAdministrator",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationId,
-	        UserId: userId
-	      })
+	    return _Net2.default.post("/api/applications/AddApplicationAdministrator", {
+	      ApplicationId: applicationId,
+	      UserId: userId
 	    });
 	  },
 
 	  removeAdmin: function removeAdmin(userId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/RemoveApplicationAdministrator",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationId,
-	        UserId: userId
-	      })
+	    return _Net2.default.post("/api/applications/RemoveApplicationAdministrator", {
+	      ApplicationId: applicationId,
+	      UserId: userId
 	    });
 	  },
 
 	  getApplicationInfo: function getApplicationInfo(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/" + id,
-	      method: "get",
-	      type: 'json'
-	    });
+	    return _Net2.default.get("/api/applications/" + id);
 	  },
 
 	  getApplicationGroups: function getApplicationGroups() {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/applicationGroups/",
-	      method: "get",
-	      type: 'json'
-	    });
+	    return _Net2.default.get("/api/applications/applicationGroups/");
 	  },
 
 	  createApplicationGroup: function createApplicationGroup(name) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/CreateApplicationGroup",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        Name: name
-	      })
+	    return _Net2.default.post("/api/applications/CreateApplicationGroup", {
+	      Name: name
 	    });
 	  },
 
 	  setApplicationGroup: function setApplicationGroup(applicationId, groupId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/applications/SetApplicationGroup",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        ApplicationId: applicationId,
-	        ApplicationGroupId: groupId
-	      })
+	    return _Net2.default.post("/api/applications/SetApplicationGroup", {
+	      ApplicationId: applicationId,
+	      ApplicationGroupId: groupId
 	    });
 	  }
 	};
@@ -31121,59 +31001,41 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  getRemoteScriptTask: function getRemoteScriptTask(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/RemoteScriptTasks/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/RemoteScriptTasks/" + id);
 	  },
 
 	  getAgents: function getAgents(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Agents/AgentsByEnviroment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
 	  },
 
 	  createRemoteScriptTask: function createRemoteScriptTask(name, script, machine, folder, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/RemoteScriptTasks/CreateRemoteScriptTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Script: script,
-	        AgentId: machine,
-	        Folder: folder,
-	        ApplicationId: applicationId
-	      })
+	    return _Net2.default.post("/api/RemoteScriptTasks/CreateRemoteScriptTask", {
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      Script: script,
+	      AgentId: machine,
+	      Folder: folder,
+	      ApplicationId: applicationId
 	    });
 	  },
 
 	  updateRemoteScriptTask: function updateRemoteScriptTask(id, name, script, machine, folder, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/RemoteScriptTasks/ModifyRemoteScriptTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        RemoteScriptTaskId: id,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Script: script,
-	        AgentId: machine,
-	        Folder: folder,
-	        ApplicationId: applicationId
-	      })
+	    return _Net2.default.post("/api/RemoteScriptTasks/ModifyRemoteScriptTask", {
+	      RemoteScriptTaskId: id,
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      Script: script,
+	      AgentId: machine,
+	      Folder: folder,
+	      ApplicationId: applicationId
 	    });
 	  }
 	};
@@ -31334,50 +31196,37 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  getMailTask: function getMailTask(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/mailTasks/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/mailTasks/" + id);
 	  },
 
 	  createMailTask: function createMailTask(name, text, recipients, sender, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/mailTasks/CreateMailtask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Text: text,
-	        Recipients: recipients,
-	        Sender: sender,
-	        ApplicationId: applicationId
-	      })
+	    return _Net2.default.post("/api/mailTasks/CreateMailtask", {
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      Text: text,
+	      Recipients: recipients,
+	      Sender: sender,
+	      ApplicationId: applicationId
 	    });
 	  },
 
 	  updateMailTask: function updateMailTask(id, name, text, recipients, sender, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/mailTasks/ModifyMailTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        MailTaskId: id,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Text: text,
-	        Recipients: recipients,
-	        Sender: sender,
-	        ApplicationId: applicationId
-	      })
+	    return _Net2.default.post("/api/mailTasks/ModifyMailTask", {
+	      MailTaskId: id,
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      Text: text,
+	      Recipients: recipients,
+	      Sender: sender,
+	      ApplicationId: applicationId
 	    });
 	  }
 	};
@@ -31490,46 +31339,33 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  getLocalScriptTask: function getLocalScriptTask(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/LocalScriptTasks/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/LocalScriptTasks/" + id);
 	  },
 
 	  createLocalScriptTask: function createLocalScriptTask(name, script, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/LocalScriptTasks/CreateLocalScriptTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Script: script,
-	        ApplicationId: applicationId
-	      })
+	    return _Net2.default.post("/api/LocalScriptTasks/CreateLocalScriptTask", {
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      Script: script,
+	      ApplicationId: applicationId
 	    });
 	  },
 
 	  updateLocalScriptTask: function updateLocalScriptTask(id, name, script, enviromentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/LocalScriptTasks/ModifyLocalScriptTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        LocalScriptTaskId: id,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        Script: script,
-	        ApplicationId: applicationId
-	      })
+	    return _Net2.default.post("/api/LocalScriptTasks/ModifyLocalScriptTask", {
+	      LocalScriptTaskId: id,
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      Script: script,
+	      ApplicationId: applicationId
 	    });
 	  }
 	};
@@ -31680,63 +31516,45 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  getAgents: function getAgents(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Agents/AgentsByEnviroment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
 	  },
 
 	  getDatabaseTask: function getDatabaseTask(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DatabaseTasks/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.post("/api/DatabaseTasks/" + id);
 	  },
 
 	  createDatabaseTask: function createDatabaseTask(name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DatabaseTasks/CreateDatabaseTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        ConnectionString: connectionString,
-	        Package: pack,
-	        DatabaseName: databaseName,
-	        Repository: repository,
-	        AgentId: agentId,
-	        ApplicationId: applicationId
-	      })
+	    return _Net2.default.post("/api/DatabaseTasks/CreateDatabaseTask", {
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      ConnectionString: connectionString,
+	      Package: pack,
+	      DatabaseName: databaseName,
+	      Repository: repository,
+	      AgentId: agentId,
+	      ApplicationId: applicationId
 	    });
 	  },
 
 	  updateDatabaseTask: function updateDatabaseTask(id, name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DatabaseTasks/ModifyDatabaseTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        DatabaseTaskId: id,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        ConnectionString: connectionString,
-	        Package: pack,
-	        DatabaseName: databaseName,
-	        Repository: repository,
-	        AgentId: agentId,
-	        ApplicationId: applicationId
-	      })
+	    return _Net2.default.post("/api/DatabaseTasks/ModifyDatabaseTask", {
+	      DatabaseTaskId: id,
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      ConnectionString: connectionString,
+	      Package: pack,
+	      DatabaseName: databaseName,
+	      Repository: repository,
+	      AgentId: agentId,
+	      ApplicationId: applicationId
 	    });
 	  }
 	};
@@ -31893,97 +31711,65 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  testAgent: function testAgent(url) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/deployTasks/test?url=" + url,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/deployTasks/test?url=" + url);
 	  },
 
 	  getAgents: function getAgents(id) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/Agents/AgentsByEnviroment/" + id,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
 	  },
 
 	  updateDeployUnits: function updateDeployUnits(enviromentId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DeployTasks/?id=" + enviromentId,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/DeployTasks/?id=" + enviromentId);
 	  },
 
 	  updateDeployUnit: function updateDeployUnit(deployUnitId) {
-	    return (0, _reqwest2.default)({
-	      url: "/api/DeployTasks/?id=" + deployUnitId,
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "get"
-	    });
+	    return _Net2.default.get("/api/DeployTasks/?id=" + deployUnitId);
 	  },
 
 	  modifyDeployUnit: function modifyDeployUnit(deployUnitId, enviromentId, name, machine, packageName, directory, repository, params, uninstallationScript, installationScript, configFile, configTransform, configuration, applicationId) {
-	    var promise = (0, _reqwest2.default)({
-	      url: "/api/deployTasks/ModifyDeployTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        DeployTaskId: deployUnitId,
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        AgentId: machine,
-	        PackageName: packageName,
-	        Directory: directory,
-	        Repository: repository,
-	        UninstallScript: uninstallationScript,
-	        InstallScript: installationScript,
-	        ConfigurationFile: configFile,
-	        ConfigurationTransform: configTransform,
-	        Configuration: configuration,
-	        ApplicationId: applicationId,
-	        AdditionalParameters: params.map(function (x) {
-	          x.Key = x.Name;
-	          return x;
-	        })
+	    return _Net2.default.post("/api/deployTasks/ModifyDeployTask", {
+	      DeployTaskId: deployUnitId,
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      AgentId: machine,
+	      PackageName: packageName,
+	      Directory: directory,
+	      Repository: repository,
+	      UninstallScript: uninstallationScript,
+	      InstallScript: installationScript,
+	      ConfigurationFile: configFile,
+	      ConfigurationTransform: configTransform,
+	      Configuration: configuration,
+	      ApplicationId: applicationId,
+	      AdditionalParameters: params.map(function (x) {
+	        x.Key = x.Name;
+	        return x;
 	      })
 	    });
-
-	    return promise;
 	  },
 
 	  createDeployUnit: function createDeployUnit(enviromentId, name, machine, packageName, directory, repository, params, applicationId) {
-	    var promise = (0, _reqwest2.default)({
-	      url: "/api/deployTasks/CreateDeployTask",
-	      type: 'json',
-	      contentType: 'application/json',
-	      method: "post",
-	      data: JSON.stringify({
-	        EnviromentId: enviromentId,
-	        Name: name,
-	        AgentId: machine,
-	        PackageName: packageName,
-	        Directory: directory,
-	        Repository: repository,
-	        ApplicationId: applicationId,
-	        AdditionalParameters: params.map(function (x) {
-	          x.Key = x.Name;
-	          return x;
-	        })
+	    return _Net2.default.post("/api/deployTasks/CreateDeployTask", {
+	      EnviromentId: enviromentId,
+	      Name: name,
+	      AgentId: machine,
+	      PackageName: packageName,
+	      Directory: directory,
+	      Repository: repository,
+	      ApplicationId: applicationId,
+	      AdditionalParameters: params.map(function (x) {
+	        x.Key = x.Name;
+	        return x;
 	      })
 	    });
-
-	    return promise;
 	  }
 	};
 
@@ -33415,97 +33201,52 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 		updateUsers: function updateUsers() {
-			return (0, _reqwest2.default)({
-				url: "/api/users/all",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
+			return _Net2.default.get("/api/users/all");
 		},
 
 		updateGroups: function updateGroups() {
-			return (0, _reqwest2.default)({
-				url: "/api/users/groups",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
+			return _Net2.default.get("/api/users/groups");
 		},
 
 		getUsersInGroup: function getUsersInGroup(id) {
-			return (0, _reqwest2.default)({
-				url: "api/users/group?groupName=" + id,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
+			return _Net2.default.get("api/users/group?groupName=" + id);
 		},
 
 		createGroup: function createGroup(name) {
-			var promise = (0, _reqwest2.default)({
-				url: "api/users/CreateGroup",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					Name: name
-				})
+			return _Net2.default.post("api/users/CreateGroup", {
+				Name: name
 			});
-
-			return promise;
 		},
 
 		addUser: function addUser(group, userId) {
-			var promise = (0, _reqwest2.default)({
-				url: "api/users/addUserToGroup",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					Group: group,
-					UserId: userId
-				})
+			return _Net2.default.post("api/users/addUserToGroup", {
+				Group: group,
+				UserId: userId
 			});
-
-			return promise;
 		},
 
 		removeUser: function removeUser(group, userId) {
-			var promise = (0, _reqwest2.default)({
-				url: "api/users/removeUserFromGroup",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					Group: group,
-					UserId: userId
-				})
+			return _Net2.default.post("api/users/removeUserFromGroup", {
+				Group: group,
+				UserId: userId
 			});
-
-			return promise;
 		},
 
 		getApplicationGroups: function getApplicationGroups() {
-			return (0, _reqwest2.default)({
-				url: "/api/applications/applicationGroups/",
-				method: "get",
-				type: 'json'
-			});
+			return _Net2.default.get("/api/applications/applicationGroups/");
 		},
 
 		createApplicationGroup: function createApplicationGroup(name) {
-			return (0, _reqwest2.default)({
-				url: "/api/applications/CreateApplicationGroup",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					Name: name
-				})
+			return _Net2.default.post("/api/applications/CreateApplicationGroup", {
+				Name: name
 			});
 		}
 	};
@@ -33906,6 +33647,10 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
@@ -33933,30 +33678,15 @@
 	            query = "?$filter=(StartDate gt DateTime'" + date.toISOString() + "' or StartDate eq null)  ";
 	        }
 
-	        return (0, _reqwest2.default)({
-	            url: "/api/deployment/" + query,
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "get"
-	        });
+	        return _Net2.default.get("/api/deployment/" + query);
 	    },
 
 	    cancelDeployment: function cancelDeployment(id) {
-	        return (0, _reqwest2.default)({
-	            url: "/api/deploy/cancel?deploymentId=" + id,
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "get"
-	        });
+	        return _Net2.default.get("/api/deploy/cancel?deploymentId=" + id);
 	    },
 
 	    updateDeployment: function updateDeployment(id) {
-	        return (0, _reqwest2.default)({
-	            url: "/api/deployment/" + id,
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "get"
-	        });
+	        return _Net2.default.get("/api/deployment/" + id);
 	    }
 	};
 
@@ -34851,90 +34581,53 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 		updateAllEnviroments: function updateAllEnviroments() {
-			return (0, _reqwest2.default)({
-				url: "/api/enviroments/",
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
+			return _Net2.default.get("/api/enviroments/");
 		},
 
 		createEnviroment: function createEnviroment(name) {
-			var promise = (0, _reqwest2.default)({
-				url: "/api/enviroments/create",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					Name: name
-				})
+			return _Net2.default.post("/api/enviroments/create", {
+				Name: name
 			});
-
-			return promise;
 		},
 
 		createAgent: function createAgent(enviromentId, name, address) {
-			return (0, _reqwest2.default)({
-				url: "/api/enviroments/addAgent",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					EnviromentId: enviromentId,
-					Address: address,
-					Name: name
-				})
+			return _Net2.default.post("/api/enviroments/addAgent", {
+				EnviromentId: enviromentId,
+				Address: address,
+				Name: name
 			});
 		},
 
 		getAgent: function getAgent(id) {
-			return (0, _reqwest2.default)({
-				url: "/api/agents/" + id,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
+			return _Net2.default.get("/api/agents/" + id);
 		},
 
 		rename: function rename(id, enviromentId, name) {
-			return (0, _reqwest2.default)({
-				url: "/api/agents/Rename",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					EnviromentId: enviromentId,
-					AgentId: id,
-					Name: name
-				})
+			return _Net2.default.post("/api/agents/Rename", {
+				EnviromentId: enviromentId,
+				AgentId: id,
+				Name: name
 			});
 		},
 
 		changeAddress: function changeAddress(id, enviromentId, address) {
-			return (0, _reqwest2.default)({
-				url: "/api/agents/ChangeAddress",
-				type: 'json',
-				contentType: 'application/json',
-				method: "post",
-				data: JSON.stringify({
-					EnviromentId: enviromentId,
-					AgentId: id,
-					Address: address
-				})
+			return _Net2.default.post("/api/agents/ChangeAddress", {
+				EnviromentId: enviromentId,
+				AgentId: id,
+				Address: address
 			});
 		},
 
 		testAgent: function testAgent(url) {
-			return (0, _reqwest2.default)({
-				url: "/api/agents/test?url=" + url,
-				type: 'json',
-				contentType: 'application/json',
-				method: "get"
-			});
+			return _Net2.default.get("/api/agents/test?url=" + url);
 		},
 
 		uploadFiles: function uploadFiles(files, agent) {
@@ -35595,6 +35288,10 @@
 
 	var _reqwest2 = _interopRequireDefault(_reqwest);
 
+	var _Net = __webpack_require__(263);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
@@ -35618,12 +35315,7 @@
 	            date.setDate(date.getDate() - 30000);
 	        }
 
-	        return (0, _reqwest2.default)({
-	            url: "/api/stats/statistics?startDate=" + date.toISOString(),
-	            type: 'json',
-	            contentType: 'application/json',
-	            method: "get"
-	        });
+	        return _Net2.default.get("/api/stats/statistics?startDate=" + date.toISOString());
 	    }
 	};
 

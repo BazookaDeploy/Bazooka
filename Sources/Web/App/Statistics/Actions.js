@@ -1,4 +1,5 @@
 ﻿import reqwest from "reqwest";
+import Net from "../Shared/Net";
 
 module.exports = {
     getStatistics: function (filter) {
@@ -21,11 +22,6 @@ module.exports = {
             date.setDate(date.getDate() - 30000);
         }
 
-        return reqwest({
-            url: "/api/stats/statistics?startDate=" + date.toISOString(),
-            type: 'json',
-            contentType: 'application/json',
-            method: "get"
-        });
+        return Net.get("/api/stats/statistics?startDate=" + date.toISOString());
     }
 };

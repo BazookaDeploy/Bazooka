@@ -1,258 +1,135 @@
 import reqwest from "reqwest";
+import Net from "../Shared/Net";
 
 module.exports = {
   getApplications: function () {
-    return reqwest({
-      url: "/api/Applications/",
-      type: 'json',
-      contentType: 'application/json',
-      method: "get"
-    })
+    return Net.get("/api/Applications/");
   },
 
   getAllApplications: function () {
-    return reqwest({
-      url: "/api/Applications/All",
-      type: 'json',
-      contentType: 'application/json',
-      method: "get"
-    })
+    return Net.get("/api/Applications/All");
   },
 
   createApplication: function (name) {
-    var promise = reqwest({
-      url: "/api/applications/Create",
-      type: 'json',
-      contentType: 'application/json',
-      method: "post",
-      data: JSON.stringify({
-        Name: name
-      })
+    return Net.post("/api/applications/Create", {
+      Name: name
     });
-
-    return promise;
   },
 
   cloneApplication: function (name, app) {
-    var promise = reqwest({
-      url: "/api/applications/CreateApplicationFromExisting",
-      type: 'json',
-      contentType: 'application/json',
-      method: "post",
-      data: JSON.stringify({
-        Name: name,
-        OriginalApplicationId: app
-      })
+    return Net.post("/api/applications/CreateApplicationFromExisting", {
+      Name: name,
+      OriginalApplicationId: app
     });
-
-    return promise;
   },
 
   getDeployUrl: function (id) {
-    return reqwest({
-      url: "/api/deployTasks/deployUrl?id=" + id,
-      type: 'json',
-      contentType: 'application/json',
-      method: "get"
-    })
+    return Net.get("/api/deployTasks/deployUrl?id=" + id);
   },
 
   getUsers: function (enviromentId, applicationId) {
-    return reqwest({
-      url: "/api/applications/AllowedUsers?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
-      type: 'json',
-      contentType: 'application/json',
-      method: "get"
-    })
+    return Net.get("/api/applications/AllowedUsers?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
   },
 
   addUser: function (enviromentId, applicationid, userId) {
-    return reqwest({
-      url: "/api/applications/AddAllowedUser",
-      type: 'json',
-      contentType: 'application/json',
-      method: "post",
-      data: JSON.stringify({
-        ApplicationId: applicationid,
-        EnviromentId: enviromentId,
-        UserId: userId
-      })
-    })
+    return Net.post("/api/applications/AddAllowedUser", {
+      ApplicationId: applicationid,
+      EnviromentId: enviromentId,
+      UserId: userId
+    });
   },
 
   removeUser: function (enviromentId, applicationid, userId) {
-    return reqwest({
-      url: "/api/applications/RemoveAllowedUser",
-      type: 'json',
-      contentType: 'application/json',
-      method: "post",
-      data: JSON.stringify({
-        ApplicationId: applicationid,
-        EnviromentId: enviromentId,
-        UserId: userId
-      })
-    })
+    return Net.post("/api/applications/RemoveAllowedUser", {
+      ApplicationId: applicationid,
+      EnviromentId: enviromentId,
+      UserId: userId
+    });
   },
 
   getGroups: function (enviromentId, applicationId) {
-    return reqwest({
-      url: "api/applications/AllowedGroups?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
-      type: 'json',
-      contentType: 'application/json',
-      method: "get"
-    })
+    return Net.get("api/applications/AllowedGroups?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
   },
 
   addGroup: function (enviromentId, applicationid, groupId) {
-    return reqwest({
-      url: "/api/applications/AddAllowedGroup",
-      type: 'json',
-      contentType: 'application/json',
-      method: "post",
-      data: JSON.stringify({
-        ApplicationId: applicationid,
-        EnviromentId: enviromentId,
-        GroupId: groupId
-      })
-    })
+    return Net.post("/api/applications/AddAllowedGroup", {
+      ApplicationId: applicationid,
+      EnviromentId: enviromentId,
+      GroupId: groupId
+    });
   },
 
   removeGroups: function (enviromentId, applicationid, groupId) {
-    return reqwest({
-      url: "/api/applications/RemoveAllowedGroup",
-      type: 'json',
-      contentType: 'application/json',
-      method: "post",
-      data: JSON.stringify({
-        ApplicationId: applicationid,
-        EnviromentId: enviromentId,
-        GroupId: groupId
-      })
-    })
+    return Net.post("/api/applications/RemoveAllowedGroup", {
+      ApplicationId: applicationid,
+      EnviromentId: enviromentId,
+      GroupId: groupId
+    });
   },
 
   getTasks: function (enviromentId, applicationId) {
-    return reqwest({
-      url: "/api/Tasks/?enviromentId=" + enviromentId + "&applicationId=" + applicationId,
-      type: 'json',
-      contentType: 'application/json',
-      method: "get"
-    })
+    return Net.get("/api/Tasks/?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
   },
 
   deleteTask: function (applicationId, id, type) {
-    return reqwest({
-      url: "/api/tasks/deleteTask",
-      type: 'json',
-      contentType: 'application/json',
-      method: "post",
-      data: JSON.stringify({
-        ApplicationId: applicationId,
-        TaskId: id,
-        Type: type
-      })
-    })
+    return Net.post("/api/tasks/deleteTask", {
+      ApplicationId: applicationId,
+      TaskId: id,
+      Type: type
+    });
   },
 
   cloneEnviroment: function (enviromentIdToClone, agentId, enviromentId, applicationId) {
-    return reqwest({
-      url: "/api/applications/CopyConfigurationFromEnviroment",
-      type: 'json',
-      contentType: 'application/json',
-      method: "post",
-      data: JSON.stringify({
-        ApplicationId: applicationId,
-        MachineId: agentId,
-        EnviromentId: enviromentId,
-        OriginalEnviromentId: enviromentIdToClone
-      })
+    return Net.post("/api/applications/CopyConfigurationFromEnviroment", {
+      ApplicationId: applicationId,
+      MachineId: agentId,
+      EnviromentId: enviromentId,
+      OriginalEnviromentId: enviromentIdToClone
     });
   },
 
 
   getAgents: function (id) {
-    return reqwest({
-      url: "/api/Agents/AgentsByEnviroment/" + id,
-      type: 'json',
-      contentType: 'application/json',
-      method: "get",
+    return Net.get("/api/Agents/AgentsByEnviroment/" + id);
+  },
+
+  getAdmins: function (applicationId) {
+    return Net.get("api/Applications/Administrators?applicationId=" + applicationId);
+  },
+
+  addAdmin: function (userId, applicationId) {
+    return Net.post("/api/applications/AddApplicationAdministrator", {
+      ApplicationId: applicationId,
+      UserId: userId
     });
   },
 
-  	getAdmins: function(applicationId) {
-		return reqwest({
-			url: "api/Applications/Administrators?applicationId="+applicationId,
-			type: 'json',
-			contentType: 'application/json',
-			method: "get"
-		});
-	},
+  removeAdmin: function (userId, applicationId) {
+    return Net.post("/api/applications/RemoveApplicationAdministrator", {
+      ApplicationId: applicationId,
+      UserId: userId
+    });
+  },
 
-	addAdmin: function(userId, applicationId){
-		return reqwest({
-			url:"/api/applications/AddApplicationAdministrator",
-			type:'json',
-			contentType: 'application/json',
-			method:"post",
-			data:JSON.stringify({
-				ApplicationId:applicationId,
-				UserId:userId
-			})
-		})
-	},
 
-	removeAdmin: function(userId, applicationId){
-		return reqwest({
-			url:"/api/applications/RemoveApplicationAdministrator",
-			type:'json',
-			contentType: 'application/json',
-			method:"post",
-			data:JSON.stringify({
-				ApplicationId:applicationId,
-				UserId:userId
-			})
-		})
-	},
+  getApplicationInfo: function (id) {
+    return Net.get("/api/applications/" + id);
+  },
 
-  
-	getApplicationInfo: function(id){
-		return reqwest({
-			url: "/api/applications/" + id,
-			method: "get",
-			type: 'json'
-		})
-	},
+  getApplicationGroups: function () {
+    return Net.get("/api/applications/applicationGroups/");
+  },
 
-	getApplicationGroups: function(){
-		return reqwest({
-			url: "/api/applications/applicationGroups/",
-			method: "get",
-			type: 'json'
-		})
-	},
+  createApplicationGroup: function (name) {
+    return Net.post("/api/applications/CreateApplicationGroup", {
+      Name: name
+    });
+  },
 
-	createApplicationGroup: function(name){
-		return reqwest({
-			url:"/api/applications/CreateApplicationGroup",
-      type:'json',
-      contentType: 'application/json',
-      method:"post",
-      data:JSON.stringify({
-        Name:name
-      })
-		})
-	},
-
-	setApplicationGroup: function(applicationId,groupId){
-		return reqwest({
-			url:"/api/applications/SetApplicationGroup",
-			type:'json',
-			contentType: 'application/json',
-			method:"post",
-			data:JSON.stringify({
-				ApplicationId:applicationId,
-				ApplicationGroupId:groupId
-			})
-		})
-	}
+  setApplicationGroup: function (applicationId, groupId) {
+    return Net.post("/api/applications/SetApplicationGroup", {
+      ApplicationId: applicationId,
+      ApplicationGroupId: groupId
+    });
+  }
 };

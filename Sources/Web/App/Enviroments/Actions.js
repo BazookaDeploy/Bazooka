@@ -1,87 +1,47 @@
 ﻿import reqwest from "reqwest";
+import Net from "../Shared/Net";
 
 module.exports = {
 	updateAllEnviroments: function () {
-		return reqwest({
-			url: "/api/enviroments/",
-			type: 'json',
-			contentType: 'application/json',
-			method: "get"
-		})
+		return Net.get("/api/enviroments/")
 	},
 
 	createEnviroment: function (name) {
-		var promise = reqwest({
-			url: "/api/enviroments/create",
-			type: 'json',
-			contentType: 'application/json',
-			method: "post",
-			data: JSON.stringify({
-				Name: name
-			})
+		return Net.post("/api/enviroments/create", {
+			Name: name
 		});
-
-		return promise;
 	},
 
 	createAgent: function (enviromentId, name, address) {
-		return reqwest({
-			url: "/api/enviroments/addAgent",
-			type: 'json',
-			contentType: 'application/json',
-			method: "post",
-			data: JSON.stringify({
-				EnviromentId: enviromentId,
-				Address: address,
-				Name: name
-			})
-		})
+		return Net.post("/api/enviroments/addAgent", {
+			EnviromentId: enviromentId,
+			Address: address,
+			Name: name
+		});
 	},
 
 	getAgent: function (id) {
-		return reqwest({
-			url: "/api/agents/" + id,
-			type: 'json',
-			contentType: 'application/json',
-			method: "get"
-		})
+		return Net.get("/api/agents/" + id);
 	},
 
 	rename: function (id, enviromentId, name) {
-		return reqwest({
-			url: "/api/agents/Rename",
-			type: 'json',
-			contentType: 'application/json',
-			method: "post",
-			data: JSON.stringify({
-				EnviromentId: enviromentId,
-				AgentId: id,
-				Name: name
-			})
-		})
+		return Net.post("/api/agents/Rename", {
+			EnviromentId: enviromentId,
+			AgentId: id,
+			Name: name
+		});
 	},
 
 	changeAddress: function (id, enviromentId, address) {
-		return reqwest({
-			url: "/api/agents/ChangeAddress",
-			type: 'json',
-			contentType: 'application/json',
-			method: "post",
-			data: JSON.stringify({
-				EnviromentId: enviromentId,
-				AgentId: id,
-				Address: address
-			})
-		})
+		return Net.post("/api/agents/ChangeAddress", {
+			EnviromentId: enviromentId,
+			AgentId: id,
+			Address: address
+		});
 	},
 
 	testAgent: function (url) {
-		return reqwest({
-			url: "/api/agents/test?url=" + url,
-			type: 'json',
-			contentType: 'application/json',
-			method: "get"
-		})
+		return Net.get("/api/agents/test?url=" + url)
 	},
 
 	uploadFiles: function (files, agent) {
