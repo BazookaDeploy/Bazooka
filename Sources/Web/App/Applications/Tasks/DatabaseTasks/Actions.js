@@ -7,7 +7,7 @@ module.exports = {
   },
 
   getDatabaseTask: function (id) {
-    return Net.post("/api/DatabaseTasks/" + id);
+    return Net.get("/api/DatabaseTasks/" + id);
   },
 
   createDatabaseTask: function (name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {

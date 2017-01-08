@@ -42,7 +42,7 @@ var EditPage = React.createClass({
   render:function(){
     return(
       <div>
-           <input title="Name" placeholder="Name" autoFocus value={this.state.Name} onChange={(e)=> this.setState({Name: e.target.value})} />
+           <Input title="Name" placeholder="Name" autoFocus value={this.state.Name} onChange={(e)=> this.setState({Name: e.target.value})} />
            <Textarea title="Script" placeholder="Script" value={this.state.Script} onChange={(e)=> this.setState({Script: e.target.value})}  />
        <Button primary onClick={this.save}>Save</Button>
        </div>

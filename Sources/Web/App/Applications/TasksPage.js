@@ -43,19 +43,19 @@ var TaskSelectDialog = React.createClass({
         <Modal.Header>Add new task</Modal.Header>
      <Modal.Body>
         <Button block onClick={() => this.setState({show0:true})}>Deploy task</Button>
-        {this.state.show0 && <DeployTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show0} onClose={this.onClose} />}
+        {this.state.show0 && <DeployTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show0} onClose={this.onClose} />}
 
         <Button block onClick={() => this.setState({show1:true})}>Mail task</Button>
-        {this.state.show1 && <MailTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show1} onClose={this.onClose} />}
+        {this.state.show1 && <MailTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show1} onClose={this.onClose} />}
 
         <Button block onClick={() => this.setState({show2:true})}>Local script task</Button>
-        {this.state.show2 && <LocalScriptTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show2} onClose={this.onClose} />}
+        {this.state.show2 && <LocalScriptTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show2} onClose={this.onClose} />}
 
         <Button block onClick={() => this.setState({show3:true})}>Remote script task</Button>
-        {this.state.show3 && <RemoteScriptTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show3} onClose={this.onClose} /> }
+        {this.state.show3 && <RemoteScriptTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show3} onClose={this.onClose} /> }
 
         <Button block onClick={() => this.setState({show4:true})}>Database task</Button>
-        {this.state.show4 && <DatabaseTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show4} onClose={this.onClose} /> }
+        {this.state.show4 && <DatabaseTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show4} onClose={this.onClose} /> }
      </Modal.Body>
      <Modal.Footer>
        <Button onClick={this.props.onClose}>Close</Button>
@@ -160,9 +160,9 @@ var TasksPage = React.createClass({
 
         return (<div>
 
-        {this.state.show && <CloneDialog show={this.state.show}  onClose={() => this.setState({show:false})} onCreate={this.update} EnviromentId={this.props.params.enviromentId} ApplicationId={this.props.params.id}/>}
+        {this.state.show && <CloneDialog show={this.state.show}  onClose={() => this.setState({show:false})} onCreate={() => this.update(this.props.params.enviromentId)} EnviromentId={this.props.params.enviromentId} ApplicationId={this.props.params.id}/>}
  
-        {this.state.showCreateDialog && <TaskSelectDialog onClose={() => this.setState({showCreateDialog:false})} onCreate={this.update} show={this.state.showCreateDialog} EnviromentId={this.props.params.enviromentId} ApplicationId={this.props.params.id}/>}
+        {this.state.showCreateDialog && <TaskSelectDialog onClose={() => this.setState({showCreateDialog:false})} onCreate={() => this.update(this.props.params.enviromentId    )} show={this.state.showCreateDialog} EnviromentId={this.props.params.enviromentId} ApplicationId={this.props.params.id}/>}
  
 
         

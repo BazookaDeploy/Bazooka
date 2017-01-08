@@ -30601,7 +30601,7 @@
 	                        } },
 	                    "Deploy task"
 	                ),
-	                this.state.show0 && _react2.default.createElement(_DeployUnitsDialog2.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show0, onClose: this.onClose }),
+	                this.state.show0 && _react2.default.createElement(_DeployUnitsDialog2.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show0, onClose: this.onClose }),
 	                _react2.default.createElement(
 	                    _Button2.default,
 	                    { block: true, onClick: function onClick() {
@@ -30609,7 +30609,7 @@
 	                        } },
 	                    "Mail task"
 	                ),
-	                this.state.show1 && _react2.default.createElement(_CreateDialog4.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show1, onClose: this.onClose }),
+	                this.state.show1 && _react2.default.createElement(_CreateDialog4.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show1, onClose: this.onClose }),
 	                _react2.default.createElement(
 	                    _Button2.default,
 	                    { block: true, onClick: function onClick() {
@@ -30617,7 +30617,7 @@
 	                        } },
 	                    "Local script task"
 	                ),
-	                this.state.show2 && _react2.default.createElement(_CreateDialog6.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show2, onClose: this.onClose }),
+	                this.state.show2 && _react2.default.createElement(_CreateDialog6.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show2, onClose: this.onClose }),
 	                _react2.default.createElement(
 	                    _Button2.default,
 	                    { block: true, onClick: function onClick() {
@@ -30625,7 +30625,7 @@
 	                        } },
 	                    "Remote script task"
 	                ),
-	                this.state.show3 && _react2.default.createElement(_CreateDialog2.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show3, onClose: this.onClose }),
+	                this.state.show3 && _react2.default.createElement(_CreateDialog2.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show3, onClose: this.onClose }),
 	                _react2.default.createElement(
 	                    _Button2.default,
 	                    { block: true, onClick: function onClick() {
@@ -30633,7 +30633,7 @@
 	                        } },
 	                    "Database task"
 	                ),
-	                this.state.show4 && _react2.default.createElement(_CreateDialog8.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show4, onClose: this.onClose })
+	                this.state.show4 && _react2.default.createElement(_CreateDialog8.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show4, onClose: this.onClose })
 	            ),
 	            _react2.default.createElement(
 	                _Modal2.default.Footer,
@@ -30803,10 +30803,14 @@
 	            null,
 	            this.state.show && _react2.default.createElement(CloneDialog, { show: this.state.show, onClose: function onClose() {
 	                    return _this5.setState({ show: false });
-	                }, onCreate: this.update, EnviromentId: this.props.params.enviromentId, ApplicationId: this.props.params.id }),
+	                }, onCreate: function onCreate() {
+	                    return _this5.update(_this5.props.params.enviromentId);
+	                }, EnviromentId: this.props.params.enviromentId, ApplicationId: this.props.params.id }),
 	            this.state.showCreateDialog && _react2.default.createElement(TaskSelectDialog, { onClose: function onClose() {
 	                    return _this5.setState({ showCreateDialog: false });
-	                }, onCreate: this.update, show: this.state.showCreateDialog, EnviromentId: this.props.params.enviromentId, ApplicationId: this.props.params.id }),
+	                }, onCreate: function onCreate() {
+	                    return _this5.update(_this5.props.params.enviromentId);
+	                }, show: this.state.showCreateDialog, EnviromentId: this.props.params.enviromentId, ApplicationId: this.props.params.id }),
 	            _react2.default.createElement(
 	                _Grid2.default,
 	                { fluid: true },
@@ -31528,7 +31532,7 @@
 	  },
 
 	  getDatabaseTask: function getDatabaseTask(id) {
-	    return _Net2.default.post("/api/DatabaseTasks/" + id);
+	    return _Net2.default.get("/api/DatabaseTasks/" + id);
 	  },
 
 	  createDatabaseTask: function createDatabaseTask(name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
@@ -31845,7 +31849,7 @@
 
 	        if (this.state.currentUser != null) {
 	            _Actions2.default.addUser(this.props.params.enviromentId, this.props.params.id, this.state.currentUser).then(function () {
-	                return _this3.updateUsers();
+	                return _this3.updateUsers(_this3.props.params.id, _this3.props.params.enviromentId);
 	            });
 	        }
 	    },
@@ -31853,7 +31857,7 @@
 	        var _this4 = this;
 
 	        _Actions2.default.removeUser(this.props.params.enviromentId, this.props.params.id, id).then(function () {
-	            return _this4.updateUsers();
+	            return _this4.updateUsers(_this4.props.params.id, _this4.props.params.enviromentId);
 	        });
 	    },
 	    selectUser: function selectUser(e) {
@@ -31864,7 +31868,7 @@
 
 	        if (this.state.currentGroup != null) {
 	            _Actions2.default.addGroup(this.props.params.enviromentId, this.props.params.id, this.state.currentGroup).then(function () {
-	                return _this5.updateGroups();
+	                return _this5.updateGroups(_this5.props.params.id, _this5.props.params.enviromentId);
 	            });
 	        }
 	    },
@@ -31872,7 +31876,7 @@
 	        var _this6 = this;
 
 	        _Actions2.default.removeGroups(this.props.params.enviromentId, this.props.params.id, id).then(function () {
-	            return _this6.updateGroups();
+	            return _this6.updateGroups(_this6.props.params.id, _this6.props.params.enviromentId);
 	        });
 	    },
 	    selectGroup: function selectGroup(e) {
@@ -32259,7 +32263,7 @@
 		},
 
 		save: function save() {
-			_ActionsCreator2.default.modifyDeployUnit(this.state.Id, this.state.Enviroment, this.state.Name, this.state.AgentId, this.state.PackageName, this.state.Directory, this.state.Repository, this.state.Parameters, this.state.UninstallationScript, this.state.InstallationScript, this.state.ConfigurationFile, this.state.ConfigTransform, this.state.Configuration, this.props.params.applicationId);
+			_ActionsCreator2.default.modifyDeployUnit(this.state.Id, this.state.Enviroment, this.state.Name, this.state.AgentId, this.state.PackageName, this.state.Directory, this.state.Repository, this.state.Parameters, this.state.UninstallationScript, this.state.InstallationScript, this.state.ConfigurationFile, this.state.ConfigTransform, this.state.Configuration, this.props.params.id);
 
 			return false;
 		},
@@ -32563,7 +32567,7 @@
 	    return _react2.default.createElement(
 	      "div",
 	      null,
-	      _react2.default.createElement("input", { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
+	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
 	          return _this2.setState({ Name: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", value: this.state.Script, onChange: function onChange(e) {
@@ -33161,7 +33165,7 @@
 	                    _Grid2.default.Row,
 	                    null,
 	                    this.props.groups.map(function (x) {
-	                        return _react2.default.createElement(GroupPage, { group: x, users: _this7.props.users, onUpdate: _this7.update });
+	                        return _react2.default.createElement(GroupPage, { group: x, key: x.Name, users: _this7.props.users, onUpdate: _this7.update });
 	                    })
 	                )
 	            )
@@ -34429,7 +34433,7 @@
 	            ),
 	            _react2.default.createElement(AgentCreationDialog, { enviromentId: this.props.Enviroment.Id, show: this.state.shownewAgent, onClose: function onClose() {
 	                    return _this3.setState({ shownewAgent: false });
-	                }, onUpdate: this.props.onUpdate })
+	                }, onCreate: this.props.onUpdate, onUpdate: this.props.onUpdate })
 	        );
 	    }
 	});

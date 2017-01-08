@@ -80,7 +80,7 @@ var Enviroment = React.createClass({
             <div className="enviroment__agents">
                 {this.props.Enviroment.Agents.map(x => <Agent agent={x} />)}
             </div>
-            <AgentCreationDialog enviromentId={this.props.Enviroment.Id} show={this.state.shownewAgent} onClose={() => this.setState({shownewAgent:false})} onUpdate={this.props.onUpdate} />
+            <AgentCreationDialog enviromentId={this.props.Enviroment.Id} show={this.state.shownewAgent} onClose={() => this.setState({shownewAgent:false})} onCreate={this.props.onUpdate} onUpdate={this.props.onUpdate} />
         </div>);
     }
 });

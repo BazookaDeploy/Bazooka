@@ -110,7 +110,7 @@ var GroupsPage= React.createClass({
 
             <Grid fluid>
                 <Grid.Row>
-                    {this.props.groups.map(x =>(<GroupPage group={x} users={this.props.users} onUpdate={this.update}/>))}
+                    {this.props.groups.map(x =>(<GroupPage group={x} key={x.Name} users={this.props.users} onUpdate={this.update}/>))}
                 </Grid.Row>
             </Grid>
             </div>

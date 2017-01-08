@@ -117,7 +117,7 @@ var EditPage = React.createClass({
 			this.state.ConfigurationFile,
 			this.state.ConfigTransform,
 			this.state.Configuration,
-			this.props.params.applicationId
+			this.props.params.id
 			);
 
     return false;
