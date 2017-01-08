@@ -38,7 +38,6 @@ var AllowedUsersPage = React.createClass({
     },
 
     removeUser(id){
-        debugger;
             Actions.removeUser(this.props.params.enviromentId,this.props.params.id,id).then(() => this.updateUsers());
     },
 

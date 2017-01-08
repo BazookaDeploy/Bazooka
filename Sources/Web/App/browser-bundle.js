@@ -31852,7 +31852,6 @@
 	    removeUser: function removeUser(id) {
 	        var _this4 = this;
 
-	        debugger;
 	        _Actions2.default.removeUser(this.props.params.enviromentId, this.props.params.id, id).then(function () {
 	            return _this4.updateUsers();
 	        });
@@ -33356,9 +33355,7 @@
 	    },
 
 	    Notify: function Notify(params) {
-	        if (params.Success) {
-	            notificator.add({ type: notificationType.success, text: "", title: "Success" }, params.Timeout || 3000);
-	        } else {
+	        if (!params.Success) {
 	            notificator.add({ type: notificationType.error, text: params.Errors, title: "Error" }, 3000);
 	        }
 	    }
@@ -34734,7 +34731,6 @@
 	    },
 
 	    onDrop: function onDrop(e) {
-	        debugger;
 	        var files = e.target.files;
 	        _Actions2.default.uploadFiles(files, this.state.OriginalName);
 	    },

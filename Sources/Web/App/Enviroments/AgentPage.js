@@ -25,7 +25,6 @@ var AgentPage = React.createClass({
     },
 
     onDrop: function (e) {
-        debugger;
         var files=e.target.files;
         Actions.uploadFiles(files, this.state.OriginalName);
     },

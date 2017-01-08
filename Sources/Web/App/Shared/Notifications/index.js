@@ -70,9 +70,7 @@ var Notificator = {
     },
 
     Notify: function(params){
-        if(params.Success){
-            notificator.add({ type: notificationType.success, text: "", title: "Success"}, params.Timeout || 3000);
-        }else{
+        if(!params.Success){
             notificator.add({ type: notificationType.error, text: params.Errors, title: "Error"}, 3000);
         }
     }
