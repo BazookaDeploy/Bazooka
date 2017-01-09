@@ -1,7 +1,5 @@
 # Bazooka
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qkf670rlxsqrvvcw?svg=true)](https://ci.appveyor.com/project/Bjornej/bazooka)
-
 Bazooka was born out of the necessity to deploy a lot of .net applications between different enviroments in a safe, reliable and repeatable way.
 
 
