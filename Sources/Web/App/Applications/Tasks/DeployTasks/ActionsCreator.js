@@ -10,7 +10,6 @@ module.exports = {
     return Net.get("/api/Agents/AgentsByEnviroment/" + id);
   },
 
-
   updateDeployUnits: function (enviromentId) {
     return Net.get("/api/DeployTasks/?id=" + enviromentId);
   },

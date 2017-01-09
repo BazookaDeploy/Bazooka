@@ -3,7 +3,7 @@
 module.exports = {
     updateApplications : function(){
         return reqwest({
-            url:"/api/applications",
+            url:"/api/applications/All",
             type:'json',
             contentType: 'application/json',
             method:"get"

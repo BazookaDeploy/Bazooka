@@ -27445,7 +27445,7 @@
 	module.exports = {
 	    updateApplications: function updateApplications() {
 	        return (0, _reqwest2.default)({
-	            url: "/api/applications",
+	            url: "/api/applications/All",
 	            type: 'json',
 	            contentType: 'application/json',
 	            method: "get"
@@ -29796,7 +29796,7 @@
 	                            _react2.default.createElement(
 	                                "option",
 	                                { value: true },
-	                                "Show only my application"
+	                                "Show only my applications"
 	                            ),
 	                            _react2.default.createElement(
 	                                "option",
@@ -32548,23 +32548,23 @@
 					_react2.default.createElement(
 						_Tabs2.default.Tab,
 						{ title: "Scripts" },
-						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Installation script", placeholder: "Installation Script", value: this.state.InstallationScript, onChange: function onChange(e) {
+						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Installation script", placeholder: "Installation Script", value: this.state.InstallationScript || "", onChange: function onChange(e) {
 								return _this3.setState({ InstallationScript: e.target.value });
 							} }),
-						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Uninstallation script", placeholder: "Uninstallation Script", value: this.state.UninstallationScript, onChange: function onChange(e) {
+						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Uninstallation script", placeholder: "Uninstallation Script", value: this.state.UninstallationScript || "", onChange: function onChange(e) {
 								return _this3.setState({ UninstallationScript: e.target.value });
 							} })
 					),
 					_react2.default.createElement(
 						_Tabs2.default.Tab,
 						{ title: "Configurations" },
-						_react2.default.createElement(_Input2.default, { title: "Configuration", placeholder: "Specific configuration (optional)", value: this.state.Configuration, onChange: function onChange(e) {
+						_react2.default.createElement(_Input2.default, { title: "Configuration", placeholder: "Specific configuration (optional)", value: this.state.Configuration || "", onChange: function onChange(e) {
 								return _this3.setState({ Configuration: e.target.value });
 							} }),
-						_react2.default.createElement(_Input2.default, { title: "Configuration File", placeholder: "Configuration File", value: this.state.ConfigurationFile, onChange: function onChange(e) {
+						_react2.default.createElement(_Input2.default, { title: "Configuration File", placeholder: "Configuration File", value: this.state.ConfigurationFile || "", onChange: function onChange(e) {
 								return _this3.setState({ ConfigurationFile: e.target.value });
 							} }),
-						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Config transform", placeholder: "Config Transform", value: this.state.ConfigTransform, onChange: function onChange(e) {
+						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Config transform", placeholder: "Config Transform", value: this.state.ConfigTransform || "", onChange: function onChange(e) {
 								return _this3.setState({ ConfigTransform: e.target.value });
 							} })
 					)

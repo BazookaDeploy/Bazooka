@@ -162,13 +162,13 @@ var EditPage = React.createClass({
 								<Input title="Repository" placeholder="Repository" value={this.state.Repository} onChange={(e)=> this.setState({Repository: e.target.value})} />
 					</Tabs.Tab>
 		    	<Tabs.Tab title='Scripts'>
-								<Textarea rows="10" title="Installation script" placeholder="Installation Script" value={this.state.InstallationScript} onChange={(e)=> this.setState({InstallationScript: e.target.value})} />
-								<Textarea rows="10" title="Uninstallation script" placeholder="Uninstallation Script" value={this.state.UninstallationScript} onChange={(e)=> this.setState({UninstallationScript: e.target.value})} />
+								<Textarea rows="10" title="Installation script" placeholder="Installation Script" value={this.state.InstallationScript || ""} onChange={(e)=> this.setState({InstallationScript: e.target.value})} />
+								<Textarea rows="10" title="Uninstallation script" placeholder="Uninstallation Script" value={this.state.UninstallationScript || ""} onChange={(e)=> this.setState({UninstallationScript: e.target.value})} />
 					</Tabs.Tab>
 					<Tabs.Tab title='Configurations'>
-							<Input title="Configuration" placeholder="Specific configuration (optional)" value={this.state.Configuration} onChange={(e)=> this.setState({Configuration: e.target.value})}  />
-							<Input title="Configuration File"  placeholder="Configuration File" value={this.state.ConfigurationFile} onChange={(e)=> this.setState({ConfigurationFile: e.target.value})}  />
-							<Textarea rows="10" title="Config transform" placeholder="Config Transform" value={this.state.ConfigTransform} onChange={(e)=> this.setState({ConfigTransform: e.target.value})} />
+							<Input title="Configuration" placeholder="Specific configuration (optional)" value={this.state.Configuration || ""} onChange={(e)=> this.setState({Configuration: e.target.value})}  />
+							<Input title="Configuration File"  placeholder="Configuration File" value={this.state.ConfigurationFile || ""} onChange={(e)=> this.setState({ConfigurationFile: e.target.value})}  />
+							<Textarea rows="10" title="Config transform" placeholder="Config Transform" value={this.state.ConfigTransform || ""} onChange={(e)=> this.setState({ConfigTransform: e.target.value})} />
 					</Tabs.Tab>
 		  	</Tabs>
 
