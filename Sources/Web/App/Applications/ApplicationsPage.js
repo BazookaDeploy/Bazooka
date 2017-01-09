@@ -8,6 +8,7 @@ import Grid from "../Shared/Grid";
 import ApplicationIcon from "../Shared/Icon/ApplicationIcon";
 import Action from "./Actions";
 import {withRouter} from "react-router";
+import Notification from "../Shared/Notifications";
 
 var groupByGroup = function(array){
     var a = {};
@@ -37,11 +38,13 @@ var CreateDialog = React.createClass({
     if (name.length !== 0) {
       if (!this.state.clone) {
         Action.createApplication(name).then(x => {
+          Notification.Notify(x);
           this.props.onCreate();
           this.props.onClose();
         });
       } else {
         Action.cloneApplication(name,this.state.applicationId).then(x => {
+          Notification.Notify(x);
           this.props.onCreate();
           this.props.onClose();
         });

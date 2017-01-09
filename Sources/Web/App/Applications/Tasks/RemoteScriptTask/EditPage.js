@@ -4,7 +4,7 @@ import Input from "../../../Shared/Input";
 import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
 import Actions from "./Actions";
-
+import Notification from "../../../Shared/Notifications";
 
 var EditPage = React.createClass({
   getInitialState:function(){
@@ -40,7 +40,7 @@ var EditPage = React.createClass({
 
   save:function(){
     if(this.state.Name!="" && this.state.Script!=""&& this.state.Machine!=""&& this.state.Folder!=""){
-      Actions.updateRemoteScriptTask(this.state.Id,this.state.Name, this.state.Script,this.state.AgentId,this.state.Folder, this.state.EnviromentId, this.state.ApplicationId)
+      Actions.updateRemoteScriptTask(this.state.Id,this.state.Name, this.state.Script,this.state.AgentId,this.state.Folder, this.state.EnviromentId, this.state.ApplicationId).then(x => Notification.Notify(x))
     }
   },
 
@@ -53,7 +53,7 @@ var EditPage = React.createClass({
 						</Select>
 						<Input title="Folder" placeholder="Folder" value={this.state.Folder} onChange={(e)=> this.setState({Folder: e.target.value})}  />
            <Textarea title="Script" placeholder="Script" value={this.state.Script} onChange={(e)=> this.setState({Script: e.target.value})}  />
-       <Button primary onClick={this.save}>Save</Button>
+       <Button primary block onClick={this.save}>Save</Button>
        </div>
 );
    }

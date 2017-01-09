@@ -6,6 +6,7 @@ import Button from "../../../Shared/Button";
 import Input from "../../../Shared/Input";
 import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
+import Notification from "../../../Shared/Notifications";
 
 var CreateDialog = React.createClass({
 
@@ -44,7 +45,7 @@ var CreateDialog = React.createClass({
         this.state.directory,
         this.state.repository,
         this.state.params,this.props.ApplicationId)
-             .then(x => {this.props.onCreate();this.props.onClose();});
+             .then(x => {Notification.Notify(x); this.props.onCreate();this.props.onClose();});
     }
     return false;
   },

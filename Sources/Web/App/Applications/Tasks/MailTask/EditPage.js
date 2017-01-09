@@ -4,7 +4,7 @@ import Input from "../../../Shared/Input";
 import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
 import Actions from "./Actions";
-
+import Notification from "../../../Shared/Notifications";
 
 var EditPage = React.createClass({
   getInitialState:function(){
@@ -37,6 +37,7 @@ var EditPage = React.createClass({
   save:function(){
     if(this.state.Name!="" && this.state.Recipients!="" && this.state.Sender!=""){
       Actions.updateMailTask(this.state.Id,this.state.Name, this.state.Text,this.state.Recipients,this.state.Sender, this.state.EnviromentId, this.state.ApplicationId).then(x => {
+        Notification.Notify(x);
       })
     }
   },
@@ -48,7 +49,7 @@ var EditPage = React.createClass({
            <Input title="Recipients" placeholder="Recipients" value={this.state.Recipients} onChange={(e)=> this.setState({Recipients: e.target.value})} />
            <Input title="Sender" placeholder="Sender" value={this.state.Sender} onChange={(e)=> this.setState({Sender: e.target.value})}  />
            <Textarea title="Text" placeholder="Text" value={this.state.Text} onChange={(e)=> this.setState({Text: e.target.value})}  />
-       <Button primary onClick={this.save}>Save</Button>
+       <Button primary block onClick={this.save}>Save</Button>
        </div>
 );
    }

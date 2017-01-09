@@ -5,6 +5,7 @@ import Actions from "./Actions";
 import Select from "../Shared/Select";
 import Button from "../Shared/Button";
 import {connect} from "react-redux";
+import Notification from "../Shared/Notifications";
 
 var AllowedUsersPage = React.createClass({
     getInitialState(){
@@ -33,12 +34,12 @@ var AllowedUsersPage = React.createClass({
 
     addUser(){
         if(this.state.currentUser!=null){
-            Actions.addUser(this.props.params.enviromentId,this.props.params.id,this.state.currentUser).then(() => this.updateUsers(this.props.params.id,this.props.params.enviromentId));
+            Actions.addUser(this.props.params.enviromentId,this.props.params.id,this.state.currentUser).then((x) => { Notification.Notify(x); this.updateUsers(this.props.params.id,this.props.params.enviromentId);});
         }
     },
 
     removeUser(id){
-            Actions.removeUser(this.props.params.enviromentId,this.props.params.id,id).then(() => this.updateUsers(this.props.params.id,this.props.params.enviromentId));
+            Actions.removeUser(this.props.params.enviromentId,this.props.params.id,id).then((x) => {Notification.Notify(x); this.updateUsers(this.props.params.id,this.props.params.enviromentId);});
     },
 
 
@@ -49,12 +50,12 @@ var AllowedUsersPage = React.createClass({
 
     addGroup(){
         if(this.state.currentGroup!=null){
-            Actions.addGroup(this.props.params.enviromentId,this.props.params.id,this.state.currentGroup).then(() => this.updateGroups(this.props.params.id,this.props.params.enviromentId));
+            Actions.addGroup(this.props.params.enviromentId,this.props.params.id,this.state.currentGroup).then((x) => {Notification.Notify(x); this.updateGroups(this.props.params.id,this.props.params.enviromentId);});
         }
     },
 
     removeGroup(id){
-            Actions.removeGroups(this.props.params.enviromentId,this.props.params.id,id).then(() => this.updateGroups(this.props.params.id,this.props.params.enviromentId));
+            Actions.removeGroups(this.props.params.enviromentId,this.props.params.id,id).then((x) => { Notification.Notify(x); this.updateGroups(this.props.params.id,this.props.params.enviromentId);});
     },
 
 

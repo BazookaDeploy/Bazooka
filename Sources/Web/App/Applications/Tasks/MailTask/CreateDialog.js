@@ -5,6 +5,7 @@ import Button from "../../../Shared/Button";
 import Input from "../../../Shared/Input";
 import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
+import Notification from "../../../Shared/Notifications";
 
 var MailTaskCreateDialog = React.createClass({
   getInitialState:function(){
@@ -19,6 +20,7 @@ var MailTaskCreateDialog = React.createClass({
   create:function(){
     if(this.state.Name!="" && this.state.Recipients!="" && this.state.Sender!=""){
       Actions.createMailTask(this.state.Name, this.state.Text,this.state.Recipients,this.state.Sender, this.props.EnviromentId, this.props.ApplicationId).then(x => {
+        Notification.Notify(x);
         this.props.onClose()
         this.props.onCreate();
       })

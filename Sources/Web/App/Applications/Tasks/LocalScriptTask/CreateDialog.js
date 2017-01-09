@@ -5,6 +5,7 @@ import Button from "../../../Shared/Button";
 import Input from "../../../Shared/Input";
 import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
+import Notification from "../../../Shared/Notifications";
 
 var LocalScriptTaskCreateDialog = React.createClass({
   getInitialState:function(){
@@ -17,6 +18,7 @@ var LocalScriptTaskCreateDialog = React.createClass({
   create:function(){
     if(this.state.Name!="" && this.state.Script!=""){
       Actions.createLocalScriptTask(this.state.Name, this.state.Script, this.props.EnviromentId, this.props.ApplicationId).then(x => {
+        Notification.Notify(x);
         this.props.onCreate();
         this.props.onClose();
       })

@@ -6,7 +6,7 @@ import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
 import Grid from "../../../Shared/Grid";
 import Tabs from "../../../Shared/Tabs";
-
+import Notification from "../../../Shared/Notifications";
 
 var EditPage = React.createClass({
   addParameter : function(){
@@ -118,7 +118,7 @@ var EditPage = React.createClass({
 			this.state.ConfigTransform,
 			this.state.Configuration,
 			this.props.params.id
-			);
+			).then(x => Notification.Notify(x));
 
     return false;
 	},
@@ -172,7 +172,7 @@ var EditPage = React.createClass({
 					</Tabs.Tab>
 		  	</Tabs>
 
-				<Button primary onClick={this.save}>Save</Button>
+				<Button primary block onClick={this.save}>Save</Button>
 			</div>
 		);
 	}

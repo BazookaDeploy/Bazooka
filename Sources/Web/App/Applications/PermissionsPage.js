@@ -5,6 +5,7 @@ import Grid from "../Shared/Grid";
 import Card from "../Shared/Card";
 import Actions from "./Actions";
 import {connect} from "react-redux";
+import Notification from "../Shared/Notifications";
 
 var PermissionsPage = React.createClass({
     getInitialState(){
@@ -21,12 +22,12 @@ var PermissionsPage = React.createClass({
 
     addUser(){
         if(this.state.currentUser!=null){
-            Actions.addAdmin(this.state.currentUser,this.props.params.id).then(() => this.updateUsers());
+            Actions.addAdmin(this.state.currentUser,this.props.params.id).then((x) => {Notification.Notify(x); this.updateUsers();});
         }
     },
 
     removeUser(id){
-            Actions.removeAdmin(id, this.props.params.id).then(() => this.updateUsers());
+            Actions.removeAdmin(id, this.props.params.id).then((x) => {Notification.Notify(x); this.updateUsers();});
     },
 
     updateUsers(){
@@ -39,7 +40,7 @@ var PermissionsPage = React.createClass({
 
             <h3>Application administrators</h3>
 
-            <Grid>
+            <Grid fluid>
                 <Grid.Row>
                     <Grid.Col md={4}>
                         <ul className="group">

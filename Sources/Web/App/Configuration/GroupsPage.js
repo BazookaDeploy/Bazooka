@@ -26,6 +26,7 @@ var GroupCreationDialog = React.createClass({
         }
 
         Actions.createGroup(this.state.name).then((x) => {
+            Notification.Notify(x);
             if(x.Success){
                 this.props.onClose();
                 this.props.onCreate();
@@ -65,12 +66,12 @@ var GroupPage = React.createClass({
 
     addUser(){
         if(this.state.user!=null){
-            Actions.addUser(this.props.group.Name,this.state.user).then(() => this.update());
+            Actions.addUser(this.props.group.Name,this.state.user).then((x) => { Notification.Notify(x); this.update();});
         }
     },
 
     removeUser(id){
-        Actions.removeUser(this.props.group.Name,id).then(() => this.update());
+        Actions.removeUser(this.props.group.Name,id).then((x) => { Notification.Notify(x); this.update();});
     },
 
     selectUser(e){

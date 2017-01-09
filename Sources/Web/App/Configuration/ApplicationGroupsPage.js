@@ -26,6 +26,7 @@ var GroupCreationDialog = React.createClass({
         }
 
         Actions.createApplicationGroup(this.state.name).then((x) => {
+            Notification.Notify(x);
             if(x.Success){
                 this.props.onClose();
                 this.props.onCreate();

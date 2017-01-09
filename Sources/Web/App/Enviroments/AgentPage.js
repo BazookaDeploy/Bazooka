@@ -6,7 +6,7 @@ import Card from "../Shared/Card";
 import Actions from "./Actions";
 import Button from "../Shared/Button";
 import FileUpload from "../Shared/FileUpload";
-
+import Notification from "../Shared/Notifications";
 
 var AgentPage = React.createClass({
     getInitialState: function () {
@@ -37,11 +37,11 @@ var AgentPage = React.createClass({
     },
 
   rename: function(){
-    Actions.rename(this.state.Id,this.state.EnviromentId,this.state.Name);
+    Actions.rename(this.state.Id,this.state.EnviromentId,this.state.Name).then((x) => Notification.Notify(x));
   },
 
   changeAddress: function(){
-    Actions.changeAddress(this.state.Id,this.state.EnviromentId,this.state.Address);
+    Actions.changeAddress(this.state.Id,this.state.EnviromentId,this.state.Address).then((x) => Notification.Notify(x));
   },
 
 

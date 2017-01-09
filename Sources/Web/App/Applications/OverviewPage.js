@@ -3,6 +3,7 @@ import Button from "../Shared/Button";
 import Select from "../Shared/Select";
 import Grid from "../Shared/Grid";
 import Actions from "./Actions";
+import Notification from "../Shared/Notifications";
 
 
 var OverviewPage = React.createClass({
@@ -19,13 +20,12 @@ var OverviewPage = React.createClass({
   },
 
   update(){
-          Actions.getApplicationGroups().then(x => this.setState({groups:x}));
+    Actions.getApplicationGroups().then(x => this.setState({groups:x}));
     Actions.getApplicationInfo(this.props.params.id).then(x => this.setState({originalApplicationGroup:x.GroupName}));
-
   },
 
   setGroup:function(){
-    Actions.setApplicationGroup(this.props.params.id, this.state.applicationGroup).then(x => this.update());
+    Actions.setApplicationGroup(this.props.params.id, this.state.applicationGroup).then(x => {Notification.Notify(x);this.update();});
   },
 
     render:function(){

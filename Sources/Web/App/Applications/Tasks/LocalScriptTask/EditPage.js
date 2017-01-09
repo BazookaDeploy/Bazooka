@@ -6,6 +6,7 @@ import Textarea from "../../../Shared/Textarea";
 import Grid from "../../../Shared/Grid";
 import Tabs from "../../../Shared/Tabs";
 import Actions from "./Actions";
+import Notification from "../../../Shared/Notifications";
 
 var EditPage = React.createClass({
   getInitialState:function(){
@@ -35,7 +36,9 @@ var EditPage = React.createClass({
 
   save:function(){
     if(this.state.Name!="" && this.state.Script!=""){
-      Actions.updateLocalScriptTask(this.state.Id,this.state.Name, this.state.Script, this.state.EnviromentId, this.state.ApplicationId)
+      Actions.updateLocalScriptTask(this.state.Id,this.state.Name, this.state.Script, this.state.EnviromentId, this.state.ApplicationId).then((x)=> {
+        Notification.Notify(x);
+      })
     }
   },
 
@@ -44,7 +47,7 @@ var EditPage = React.createClass({
       <div>
            <Input title="Name" placeholder="Name" autoFocus value={this.state.Name} onChange={(e)=> this.setState({Name: e.target.value})} />
            <Textarea title="Script" placeholder="Script" value={this.state.Script} onChange={(e)=> this.setState({Script: e.target.value})}  />
-       <Button primary onClick={this.save}>Save</Button>
+       <Button primary block onClick={this.save}>Save</Button>
        </div>
 );
    }

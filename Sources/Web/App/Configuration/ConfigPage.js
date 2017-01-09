@@ -8,7 +8,7 @@ var ConfigPage = React.createClass({
     render:function(){
         return (<div>
             {window.ActiveDirectory == "true" ?
-            <span>The system is currently using Acctive Directory authentication</span>:
+            <span>The system is currently using Active Directory authentication</span>:
             <span>The system is currently using Form Authentication</span>
             }
         </div>)

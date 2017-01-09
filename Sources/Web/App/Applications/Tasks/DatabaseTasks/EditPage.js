@@ -4,7 +4,7 @@ import Input from "../../../Shared/Input";
 import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
 import Actions from "./Actions";
-
+import Notification from "../../../Shared/Notifications";
 
 var EditPage = React.createClass({
   getInitialState:function(){
@@ -43,7 +43,9 @@ var EditPage = React.createClass({
 
   save:function(){
     if(this.state.Name!="" && this.state.ConnectionString!=""&& this.state.Pack!=""&& this.state.DatabaseName!=""&& this.state.Repository!=""&& this.state.Machine!=""){
-      Actions.updateDatabaseTask(this.state.Id,this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.state.EnviromentId, this.state.Repository,this.state.AgentId, this.state.ApplicationId)
+      Actions.updateDatabaseTask(this.state.Id,this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.state.EnviromentId, this.state.Repository,this.state.AgentId, this.state.ApplicationId).then(x => {
+        Notification.Notify(x);
+      })
     }
   },
 
