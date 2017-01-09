@@ -126,7 +126,7 @@ var ApplicationsPage = React.createClass({
 
 
         return (<div><Header actions={<div>
-            <Select onChange={(e) => this.setState({showOnlyMine: e.target.value}, this.load)}><option value={true}>Show only my application</option><option value={false}>Show all</option></Select>
+            <Select onChange={(e) => this.setState({showOnlyMine: e.target.value}, this.load)}><option value={true}>Show only my applications</option><option value={false}>Show all</option></Select>
                 <Button onClick={() => this.setState({showDialog:true})}>Create new Application</Button>
             </div>}>
             Applications

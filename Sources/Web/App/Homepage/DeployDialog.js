@@ -36,7 +36,7 @@ var DeployDialog = React.createClass({
   },
 
   create: function () {
-    var version = this.state.version;
+    var version = this.refs.version.value();
     if (version != null) {
       if (!this.state.scheduled) {
         Actions.startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version);
@@ -68,8 +68,7 @@ var DeployDialog = React.createClass({
               {
                 this.state.loading ?
                   <span><br />Loading available versions ... <br /> <br /></span> :
-                  <Select title="Choose the version to deploy:" onChange={(e) => this.setState({version: e.target.value})}>
-                    <option></option>
+                  <Select title="Choose the version to deploy:" ref="version" onChange={(e) => this.setState({version: e.target.value})}>
                     {versions}
                   </Select>
               }
