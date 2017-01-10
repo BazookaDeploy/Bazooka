@@ -176,9 +176,9 @@ var TasksPage = React.createClass({
                         <Button onClick={() => this.setState({show:true})} primary block> Clone from another enviroment</Button>
                     </div>}
 
-                    {this.state.tasks.length!=0 && <div className="addSection">
+                    <div className="addSection">
                         <Button onClick={() => this.setState({showCreateDialog:true})} primary block> Add new task</Button>
-                    </div>}                    
+                    </div>                  
                     </div>
                 </Grid.Col>
                 <Grid.Col md={8}>
