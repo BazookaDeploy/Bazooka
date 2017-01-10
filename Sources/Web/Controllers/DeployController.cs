@@ -117,7 +117,7 @@ namespace Web.Controllers
                     ApplicationId = applicationId,
                     Version = version,
                     UserId = User.Identity.GetUserId(),
-                    StartDate = start.ToUniversalTime(),
+                    StartDate = start,
                     Scheduled = true
                 };
 
