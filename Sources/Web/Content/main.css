@@ -1473,7 +1473,7 @@ body {
 .panel--success .panel__title {
   background-color: rgba(122, 179, 23, 0.5); }
 
-.panel--error .panel__title {
+.panel--danger .panel__title {
   background-color: rgba(237, 71, 71, 0.5); }
 
 .panel__content {
@@ -1979,3 +1979,6 @@ body {
 .defaultTask {
   text-align: center;
   padding: 50px; }
+
+.text--danger {
+  color: rgba(237, 71, 71, 0.5); }
