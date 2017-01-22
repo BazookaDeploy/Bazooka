@@ -415,6 +415,10 @@ margin-bottom:20px;
     cursor: pointer;
 }
 
+.applicationTasks a button{
+	float:right;
+}
+
 .applicationTasks a:hover {
 	background-color: lighten(#ccc,16%);
 }

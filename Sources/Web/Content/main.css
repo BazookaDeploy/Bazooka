@@ -1966,6 +1966,9 @@ body {
   color: black;
   cursor: pointer; }
 
+.applicationTasks a button {
+  float: right; }
+
 .applicationTasks a:hover {
   background-color: whitesmoke; }
 

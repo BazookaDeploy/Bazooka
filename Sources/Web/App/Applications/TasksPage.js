@@ -120,16 +120,30 @@ CloneDialog = connect(mapStoreToProps,null)(CloneDialog);
 
 
 var TaskLine = React.createClass({
+    confirmDelete(){
+        var confirm = window.confirm("Are you sure you want to delete this task?");
+
+        if(confirm){
+            Actions.deleteTask(this.props.params.id,this.props.task.Id,this.props.task.Type).then(x =>
+                this.props.update()
+            );
+        }
+    },
+
     render(){
+        if(this.props.edit){
+            return <a>{this.props.task.Name} <Button onClick={this.confirmDelete}>Delete</Button></a>;
+        }
+
         switch( this.props.task.Type){
             case 0:
                 return <Link activeClassName="active" to={"/Applications/"+ this.props.params.id+ "/Enviroment/"+this.props.params.enviromentId+ "/Tasks/DeployTask/"+ this.props.task.Id}>{this.props.task.Name}</Link>;
             case 1:
                 return <Link activeClassName="active" to={"/Applications/"+ this.props.params.id+ "/Enviroment/"+this.props.params.enviromentId+ "/Tasks/MailTask/"+ this.props.task.Id}>{this.props.task.Name}</Link>;
             case 2:
-                return <Link activeClassName="active" to={"/Applications/"+ this.props.params.id+ "/Enviroment/"+this.props.params.enviromentId+ "/Tasks/LocalScriptTask/"+ this.props.task.Id}>{this.props.task.Name}</Link>;
-            case 3:
                 return <Link activeClassName="active" to={"/Applications/"+ this.props.params.id+ "/Enviroment/"+this.props.params.enviromentId+ "/Tasks/RemoteScriptTask/"+ this.props.task.Id}>{this.props.task.Name}</Link>;
+            case 3:
+                return <Link activeClassName="active" to={"/Applications/"+ this.props.params.id+ "/Enviroment/"+this.props.params.enviromentId+ "/Tasks/LocalScriptTask/"+ this.props.task.Id}>{this.props.task.Name}</Link>;
             case 4:
                 return <Link activeClassName="active" to={"/Applications/"+ this.props.params.id+ "/Enviroment/"+this.props.params.enviromentId+ "/Tasks/DatabaseTask/"+ this.props.task.Id}>{this.props.task.Name}</Link>;
         }
@@ -139,7 +153,7 @@ var TaskLine = React.createClass({
 
 var TasksPage = React.createClass({
     getInitialState(){
-        return {show:false,showCreateDialog:false, tasks: []}
+        return {show:false,showCreateDialog:false, tasks: [], editMode:false}
     },
 
     componentDidMount(){
@@ -156,6 +170,10 @@ var TasksPage = React.createClass({
         Actions.getTasks(id, this.props.params.id).then((x) => this.setState({tasks:x}));
     },
 
+    toggleEditMode(){
+        this.setState({editMode:!this.state.editMode});
+    },
+
     render:function(){
 
         return (<div>
@@ -170,7 +188,7 @@ var TasksPage = React.createClass({
             <Grid.Row>
                 <Grid.Col md={4}>
                     <div className="applicationTasks">
-                    {this.state.tasks.map(x => <TaskLine task={x} params={this.props.params}/>)}
+                    {this.state.tasks.map(x => <TaskLine task={x} params={this.props.params} edit={this.state.editMode} update={() => this.update(this.props.params.enviromentId)}/>)}
 
                     {this.state.tasks.length==0 && <div className="cloneSection">
                         <Button onClick={() => this.setState({show:true})} primary block> Clone from another enviroment</Button>
@@ -178,7 +196,12 @@ var TasksPage = React.createClass({
 
                     <div className="addSection">
                         <Button onClick={() => this.setState({showCreateDialog:true})} primary block> Add new task</Button>
-                    </div>                  
+                    </div>  
+
+                    <div className="addSection">
+                        <Button onClick={this.toggleEditMode} block>{this.state.editMode ? "Stop editing task list" :"Edit task list"}</Button>
+                    </div>  
+
                     </div>
                 </Grid.Col>
                 <Grid.Col md={8}>
