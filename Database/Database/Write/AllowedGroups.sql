@@ -15,5 +15,6 @@
 
 	CONSTRAINT [FK_AllowedGroups_Applications] 
 		FOREIGN KEY ([ApplicationId]) 
-		REFERENCES [Applications]([Id])
+		REFERENCES [Applications]([Id]), 
+    CONSTRAINT [CK_AllowedGroups_Unique] UNIQUE(EnviromentId,GroupId,ApplicationId) 
 )

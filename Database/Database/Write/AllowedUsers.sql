@@ -13,6 +13,9 @@
 		FOREIGN KEY ([EnviromentId]) 
 		REFERENCES [Enviroments]([Id]) ,
 
+    CONSTRAINT [C_AllowedUsers_Unique]
+	    UNIQUE (UserID,EnviromentId, ApplicationId),
+
 	CONSTRAINT [FK_AllowedUsers_Application] 
 		FOREIGN KEY ([ApplicationId]) 
 		REFERENCES [Applications]([Id]) 

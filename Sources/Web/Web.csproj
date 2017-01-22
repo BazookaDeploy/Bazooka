@@ -216,8 +216,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AppOld\DeployUnits\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Packages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Applications\Actions.js" />
@@ -230,10 +230,8 @@
     <Content Include="App\Applications\Tasks\DatabaseTasks\CreateDialog.js" />
     <Content Include="App\Applications\Tasks\DatabaseTasks\EditPage.js" />
     <Content Include="App\Applications\Tasks\DeployTasks\ActionsCreator.js" />
-    <Content Include="App\Applications\Tasks\DeployTasks\Constants.js" />
     <Content Include="App\Applications\Tasks\DeployTasks\DeployUnitEditPage.js" />
     <Content Include="App\Applications\Tasks\DeployTasks\DeployUnitsDialog.js" />
-    <Content Include="App\Applications\Tasks\DeployTasks\Store.js" />
     <Content Include="App\Applications\Tasks\LocalScriptTask\Actions.js" />
     <Content Include="App\Applications\Tasks\LocalScriptTask\CreateDialog.js" />
     <Content Include="App\Applications\Tasks\LocalScriptTask\EditPage.js" />
@@ -378,50 +376,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppOld\Agents\ActionsCreator.js" />
-    <Content Include="AppOld\Agents\AgentPage.js" />
-    <Content Include="AppOld\App.js" />
-    <Content Include="AppOld\Applications\ActionsCreator.js" />
-    <Content Include="AppOld\Applications\AppPage.js" />
-    <Content Include="AppOld\App\browser-bundle.js" />
-    <Content Include="AppOld\Base\Dispatcher.js" />
-    <Content Include="AppOld\browser-bundle.js" />
-    <Content Include="AppOld\browser-bundle.js.map" />
-    <Content Include="AppOld\Deployments\ActionsCreator.js" />
-    <Content Include="AppOld\Deployment\ActionsCreator.js" />
-    <Content Include="AppOld\Deployment\DeploymentsPage.js" />
-    <Content Include="AppOld\Enviroments\ActionsCreator.js" />
-    <Content Include="AppOld\Enviroments\EnviromentPage.js" />
-    <Content Include="AppOld\Envs\ActionsCreator.js" />
-    <Content Include="AppOld\Envs\EnviromentPage.js" />
-    <Content Include="AppOld\Groups\ActionsCreator.js" />
-    <Content Include="AppOld\Groups\GroupsPage.js" />
-    <Content Include="AppOld\Group\ActionsCreator.js" />
-    <Content Include="AppOld\Group\GroupsPage.js" />
-    <Content Include="AppOld\Home\ActionsCreator.js" />
-    <Content Include="AppOld\Home\Homepage.js" />
-    <Content Include="AppOld\index.js" />
-    <Content Include="AppOld\Stats\ActionsCreator.js" />
-    <Content Include="AppOld\Stats\StatsPage.js" />
-    <Content Include="AppOld\Tasks\ActionsCreator.js" />
-    <Content Include="AppOld\Tasks\DatabaseTasks\Actions.js" />
-    <Content Include="AppOld\Tasks\DatabaseTasks\CreateDialog.js" />
-    <Content Include="AppOld\Tasks\DatabaseTasks\EditPage.js" />
-    <Content Include="AppOld\Tasks\DeployTasks\ActionsCreator.js" />
-    <Content Include="AppOld\Tasks\DeployTasks\Constants.js" />
-    <Content Include="AppOld\Tasks\DeployTasks\DeployUnitEditPage.js" />
-    <Content Include="AppOld\Tasks\DeployTasks\DeployUnitsDialog.js" />
-    <Content Include="AppOld\Tasks\DeployTasks\Store.js" />
-    <Content Include="AppOld\Tasks\LocalScriptTask\Actions.js" />
-    <Content Include="AppOld\Tasks\LocalScriptTask\CreateDialog.js" />
-    <Content Include="AppOld\Tasks\LocalScriptTask\EditPage.js" />
-    <Content Include="AppOld\Tasks\MailTask\Actions.js" />
-    <Content Include="AppOld\Tasks\MailTask\CreateDialog.js" />
-    <Content Include="AppOld\Tasks\MailTask\EditPage.js" />
-    <Content Include="AppOld\Tasks\RemoteScriptTask\Actions.js" />
-    <Content Include="AppOld\Tasks\RemoteScriptTask\CreateDialog.js" />
-    <Content Include="AppOld\Tasks\RemoteScriptTask\EditPage.js" />
-    <Content Include="AppOld\Tasks\TasksPage.js" />
     <Content Include="App\Actions.js" />
     <Content Include="App\App.js" />
     <Content Include="App\Applications\ApplicationsPage.js" />
@@ -459,7 +413,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
-    <Content Include="Packages\Readme.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -496,7 +449,6 @@
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="Content\main.scss" />
-    <Content Include="AppOld\Deployments\DeploymentsPage.js" />
     <Content Include="Content\fonts\SourceSansPro-Black.eot" />
     <Content Include="Content\fonts\SourceSansPro-Black.ttf" />
     <Content Include="Content\fonts\SourceSansPro-Black.woff" />
@@ -569,6 +521,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <None Include="Properties\PublishProfiles\f.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
