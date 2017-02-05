@@ -14,7 +14,7 @@ disqus_short_name: bazooka
 #
 # Jekyll Settings
 #
-kramdown
+markdown: rdiscount
 pygments: true
 permalink: /:title/
 rdiscount:
