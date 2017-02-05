@@ -9,7 +9,7 @@ As it turns out it's easy to do this by creating an automatic build that creates
 
 Once the package is ready you can install your application by using Bazooka to download the package, extract it, apply config transforms based on the current enviroment and execute a optional powershell install script.
 
-For further documentation go to http://bazookadeploy.github.io/Bazooka/
+For further documentation go to http://bazookadeploy.github.io/Bazooka/ or http://bazookadeploy.readthedocs.io/en/latest/
 
 
 
