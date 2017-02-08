@@ -5,11 +5,11 @@ using Ninject;
 using NuGet.Server;
 using NuGet.Server.DataServices;
 using NuGet.Server.Infrastructure;
+using RouteMagic;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Web.NuGetRoutes), "Start")]
 
-namespace Web
-{
+namespace Web {
     public static class NuGetRoutes {
         public static void Start() {
             MapRoutes(RouteTable.Routes);
