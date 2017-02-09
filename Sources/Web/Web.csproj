@@ -412,7 +412,6 @@
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\main.css" />
     <Content Include="DataServices\Packages.svc" />
-    <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
