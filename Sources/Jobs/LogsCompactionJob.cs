@@ -20,9 +20,11 @@
 
             using (var db = new ReadContext())
             {
+                var oldDate = DateTime.UtcNow.AddDays(-30);
+
                 deploys = db.Deployments
                             .Where(x => x.Status == DataAccess.Write.Status.Ended)
-                            .Where(x => x.StartDate < DateTime.UtcNow.AddDays(-30))
+                            .Where(x => x.StartDate < oldDate)
                             .Where(x => x.Logs.Count > 1)
                             .Select(x => x.Id)
                             .ToList();
