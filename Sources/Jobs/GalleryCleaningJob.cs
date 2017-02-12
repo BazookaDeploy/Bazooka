@@ -44,6 +44,7 @@
                 var currentlyInstalledVersions = dc.DeploTasks.Where(x => x.PackageName == package && x.CurrentlyDeployedVersion != null).ToList().Select(x => x.CurrentlyDeployedVersion.Trim()).ToList();
 
                 var toDelete = allVersion.Where(x => !currentlyInstalledVersions.Contains(x)).ToList();
+                toDelete.RemoveRange(0, 10);
 
                 foreach (var pack in toDelete)
                 {
