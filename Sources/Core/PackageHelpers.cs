@@ -2,6 +2,7 @@
 {
     using NuGet;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
@@ -54,6 +55,21 @@
             var files = package.GetFiles();
 
             return files.Single(x => x.Path.EndsWith(".dacpac")).GetStream();
+        }
+
+        /// <summary>
+        ///     Deletes a package from a repository
+        /// </summary>
+        /// <param name="package">Pacakge to delte</param>
+        /// <param name="version">Version to delete</param>
+        /// <param name="gallery">Origin gallery</param>
+        public static void Delete(string package, string version, string gallery)
+        {
+            var factory = new PackageRepositoryFactory();
+            var globalRepo = new AggregateRepository(factory, new List<string>() { gallery }, true);
+
+            var p = globalRepo.FindPackage(package, new SemanticVersion(version));
+            globalRepo.RemovePackage(p);
         }
     }
 }

@@ -23,8 +23,7 @@ namespace Controller
 
             RecurringJob.AddOrUpdate(() => CleanJob.Execute(), System.Configuration.ConfigurationManager.AppSettings["CleanJobSchedule"]);
             RecurringJob.AddOrUpdate(() => LogsCompactionJob.Execute(), System.Configuration.ConfigurationManager.AppSettings["LogCompactionJobSchedule"]);
-            RecurringJob.AddOrUpdate(() => PackageCleanupJob.Execute(), System.Configuration.ConfigurationManager.AppSettings["PackageCleanupJob"]);
-
+            RecurringJob.AddOrUpdate(() => GalleryCleaningJob.Execute(), System.Configuration.ConfigurationManager.AppSettings["GalleryCleanupJob"]);
         }
     }
 }
