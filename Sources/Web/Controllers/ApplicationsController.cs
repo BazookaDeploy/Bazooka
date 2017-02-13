@@ -5,6 +5,7 @@ using System.Web.Http;
 using Web.Commands;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Web.Commands.Application;
 
 namespace Web.Controllers
 {
@@ -42,6 +43,12 @@ namespace Web.Controllers
 
         [HttpPost]
         public ExecutionResult Create(CreateApplication command)
+        {
+            return Execute(command);
+        }
+
+        [HttpPost]
+        public ExecutionResult Rename(RenameApplication command)
         {
             return Execute(command);
         }

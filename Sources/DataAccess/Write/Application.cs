@@ -417,5 +417,13 @@ namespace DataAccess.Write
             }
         }
 
+        /// <summary>
+        ///     Rename the application
+        /// </summary>
+        /// <param name="name">New name of the application</param>
+        public virtual void Rename(string name)
+        {
+            Name = name;
+        }
     }
 }

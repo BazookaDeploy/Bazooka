@@ -29936,6 +29936,13 @@
 	    });
 	  },
 
+	  renmeApplication: function renmeApplication(id, name) {
+	    return _Net2.default.post("/api/applications/Rename", {
+	      Name: name,
+	      ApplicationId: id
+	    });
+	  },
+
 	  cloneApplication: function cloneApplication(name, app) {
 	    return _Net2.default.post("/api/applications/CreateApplicationFromExisting", {
 	      Name: name,
@@ -30499,6 +30506,14 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
+	var _Input = __webpack_require__(268);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Card = __webpack_require__(274);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
 	var _Grid = __webpack_require__(257);
 
 	var _Grid2 = _interopRequireDefault(_Grid);
@@ -30510,6 +30525,8 @@
 	var _Notifications = __webpack_require__(271);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	var _reactRedux = __webpack_require__(220);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30535,7 +30552,7 @@
 	            return _this.setState({ groups: x });
 	        });
 	        _Actions2.default.getApplicationInfo(this.props.params.id).then(function (x) {
-	            return _this.setState({ originalApplicationGroup: x.GroupName });
+	            return _this.setState({ originalApplicationGroup: x.GroupName, originalName: x.Name, Name: x.Name });
 	        });
 	    },
 
@@ -30548,8 +30565,17 @@
 	        });
 	    },
 
-	    render: function render() {
+	    rename: function rename() {
 	        var _this3 = this;
+
+	        _Actions2.default.renmeApplication(this.props.params.id, this.state.Name).then(function (x) {
+	            _this3.update();_this3.props.loadApplications();
+	        });
+	    },
+
+
+	    render: function render() {
+	        var _this4 = this;
 
 	        return _react2.default.createElement(
 	            "div",
@@ -30592,28 +30618,45 @@
 	                        _Grid2.default.Col,
 	                        { md: 3 },
 	                        _react2.default.createElement(
-	                            _Select2.default,
-	                            { title: "Change the group", onChange: function onChange(e) {
-	                                    return _this3.setState({ applicationGroup: e.target.value });
-	                                } },
-	                            _react2.default.createElement("option", { value: null }),
-	                            this.state.groups.map(function (x) {
-	                                return _react2.default.createElement(
-	                                    "option",
-	                                    { value: x.Id },
-	                                    x.Name
-	                                );
-	                            })
+	                            _Card2.default,
+	                            null,
+	                            _react2.default.createElement(
+	                                _Select2.default,
+	                                { title: "Change the group", onChange: function onChange(e) {
+	                                        return _this4.setState({ applicationGroup: e.target.value });
+	                                    } },
+	                                _react2.default.createElement("option", { value: null }),
+	                                this.state.groups.map(function (x) {
+	                                    return _react2.default.createElement(
+	                                        "option",
+	                                        { value: x.Id },
+	                                        x.Name
+	                                    );
+	                                })
+	                            ),
+	                            _react2.default.createElement("br", null),
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { primary: true, block: true, onClick: this.setGroup },
+	                                "Set group"
+	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        _Grid2.default.Col,
 	                        { md: 3 },
-	                        _react2.default.createElement("br", null),
 	                        _react2.default.createElement(
-	                            _Button2.default,
-	                            { primary: true, onClick: this.setGroup },
-	                            "Set group"
+	                            _Card2.default,
+	                            null,
+	                            _react2.default.createElement(_Input2.default, { title: "Change application name", value: this.state.Name, onChange: function onChange(e) {
+	                                    return _this4.setState({ Name: e.target.value });
+	                                } }),
+	                            _react2.default.createElement("br", null),
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { primary: true, block: true, onClick: this.rename },
+	                                "Change name"
+	                            )
 	                        )
 	                    )
 	                )
@@ -30621,6 +30664,18 @@
 	        );
 	    }
 	});
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        loadApplications: function loadApplications() {
+	            _Actions2.default.getAllApplications().then(function (x) {
+	                dispatch({ type: "ADD_APPLICATIONS", applications: x });
+	            });
+	        }
+	    };
+	};
+
+	OverviewPage = (0, _reactRedux.connect)(null, mapDispatchToProps)(OverviewPage);
 
 	exports.default = OverviewPage;
 

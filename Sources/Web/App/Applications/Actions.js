@@ -16,6 +16,13 @@ module.exports = {
     });
   },
 
+  renmeApplication: function (id, name) {
+    return Net.post("/api/applications/Rename", {
+      Name: name,
+      ApplicationId: id
+    });
+  },
+
   cloneApplication: function (name, app) {
     return Net.post("/api/applications/CreateApplicationFromExisting", {
       Name: name,

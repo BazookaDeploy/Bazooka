@@ -278,6 +278,8 @@
     <Compile Include="CommandHandlers\Application\CreateLocalScriptTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateDeployTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\DeleteTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\RenameApplicationHandler.cs" />
+    <Compile Include="Commands\Application\RenameApplication.cs" />
     <Compile Include="Commands\ICanBeRunByApplicationAdministrator.cs" />
     <Compile Include="DataServices\Routes.cs" />
     <Compile Include="Infrastructure\IPermissionChecker.cs" />
