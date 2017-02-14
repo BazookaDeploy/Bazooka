@@ -11,6 +11,8 @@ namespace DataAccess.Write
 
         public virtual string Name { get; set; }
 
+        public virtual bool Deleted { get; set; }
+
         public virtual int? ApplicationGroupId { get; set; }
 
         public virtual IList<AllowedUser> AllowedUsers { get; set; }
@@ -424,6 +426,11 @@ namespace DataAccess.Write
         public virtual void Rename(string name)
         {
             Name = name;
+        }
+
+        public virtual void Delete()
+        {
+            Deleted = true;
         }
     }
 }

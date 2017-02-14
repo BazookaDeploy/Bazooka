@@ -7,7 +7,8 @@ import Grid from "../Shared/Grid";
 import Actions from "./Actions";
 import Notification from "../Shared/Notifications";
 import {connect} from "react-redux";
-
+import {withRouter} from "react-router";
+import Notification from "../Shared/Notifications";
 
 var OverviewPage = React.createClass({
     getInitialState() {
@@ -29,6 +30,17 @@ var OverviewPage = React.createClass({
 
     setGroup: function () {
         Actions.setApplicationGroup(this.props.params.id, this.state.applicationGroup).then(x => { Notification.Notify(x); this.update(); });
+    },
+
+    delete(){
+        var res = window.confirm("Are you sure you want to delete this applicaiton?");
+
+        if(res){
+            Actions.deleteApplication(this.props.params.id).then(x => {
+                Notification.Notify(x);
+	            this.props.router.push("/Applications/");
+            });
+        }
     },
 
     rename(){
@@ -63,6 +75,14 @@ var OverviewPage = React.createClass({
                             <Button primary block onClick={this.rename}>Change name</Button>
                         </Card>
                     </Grid.Col>
+
+                      <Grid.Col md={3}>
+                        <Card>
+                            <h4>Delete this application</h4>
+                            <br />
+                            <Button primary block onClick={this.delete}>Delete</Button>
+                        </Card>
+                    </Grid.Col>                  
                 </Grid.Row>
             </Grid>
         </div>)
@@ -80,7 +100,7 @@ var mapDispatchToProps = function(dispatch){
 };
 
 OverviewPage = connect(null,mapDispatchToProps)(OverviewPage);
-
+OverviewPage = withRouter(OverviewPage);
 
 
 export default OverviewPage;

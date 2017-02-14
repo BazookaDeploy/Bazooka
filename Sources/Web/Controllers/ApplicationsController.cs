@@ -54,6 +54,12 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        public ExecutionResult Delete(DeleteApplication command)
+        {
+            return Execute(command);
+        }
+
+        [HttpPost]
         public ExecutionResult AddAllowedUser(AddAllowedUserToApplication command)
         {
             return Execute(command);

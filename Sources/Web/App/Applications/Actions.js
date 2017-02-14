@@ -23,6 +23,12 @@ module.exports = {
     });
   },
 
+  deleteApplication: function (id) {
+    return Net.post("/api/applications/delete", {
+      ApplicationId: id
+    });
+  },
+
   cloneApplication: function (name, app) {
     return Net.post("/api/applications/CreateApplicationFromExisting", {
       Name: name,
