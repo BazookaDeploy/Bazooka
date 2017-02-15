@@ -8,7 +8,6 @@ import Actions from "./Actions";
 import Notification from "../Shared/Notifications";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import Notification from "../Shared/Notifications";
 
 var OverviewPage = React.createClass({
     getInitialState() {
