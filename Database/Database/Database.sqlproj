@@ -64,6 +64,7 @@
     <Folder Include="Read" />
     <Folder Include="Snapshots" />
     <Folder Include="Users" />
+    <Folder Include="Data" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Write\Applications.sql" />
@@ -118,5 +119,8 @@
   <ItemGroup>
     <None Include="Database.publish.xml" />
     <None Include="Snapshots\Database_20150107_23-41-15.dacpac" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Data\PostDeployment.sql" />
   </ItemGroup>
 </Project>

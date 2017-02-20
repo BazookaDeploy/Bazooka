@@ -78,6 +78,34 @@ namespace Web.Controllers
             };
         }
 
+        [HttpPost]
+        public void DeployHook(int enviromentId, int applicationId, string version, Guid secret)
+        {
+            var app = db.Applications.SingleOrDefault(x => x.Secret == secret);
+
+            if (app == null || app.Secret != secret)
+            {
+                throw new UnauthorizedAccessException("Secret not found or not compatible"); 
+            } 
+
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var deploy = new Deployment()
+                {
+                    EnviromentId = enviromentId,
+                    ApplicationId = applicationId,
+                    Status = Status.Queud,
+                    Version = version,
+                    UserId = new Guid().ToString()
+                };
+
+                session.Save(deploy);
+                session.Flush();
+
+                BackgroundJob.Enqueue(() => DeployJob.Execute(deploy.Id));
+            };
+        }
+
         [HttpGet]
         public void Cancel(int deploymentId)
         {
@@ -119,7 +147,7 @@ namespace Web.Controllers
                     UserId = User.Identity.GetUserId(),
                     StartDate = start.ToUniversalTime(),
                     Scheduled = true
-                };
+                };   
 
                 if (tasks != null && tasks.Count > 0)
                 {
