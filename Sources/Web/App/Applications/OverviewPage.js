@@ -14,7 +14,8 @@ var OverviewPage = React.createClass({
         return {
             url: null,
             groups: [],
-            applicationGroup: null
+            applicationGroup: null,
+            hiddenSecret:true
         };
     },
 
@@ -24,7 +25,7 @@ var OverviewPage = React.createClass({
 
     update() {
         Actions.getApplicationGroups().then(x => this.setState({ groups: x }));
-        Actions.getApplicationInfo(this.props.params.id).then(x => this.setState({ originalApplicationGroup: x.GroupName, originalName: x.Name, Name:x.Name }));
+        Actions.getApplicationInfo(this.props.params.id).then(x => this.setState({ originalApplicationGroup: x.GroupName, originalName: x.Name, Name:x.Name, Secret: x.Secret }));
     },
 
     setGroup: function () {
@@ -57,7 +58,7 @@ var OverviewPage = React.createClass({
             Current Group: <b>{this.state.originalApplicationGroup}</b><br /><br />
             <Grid fluid>
                 <Grid.Row>
-                    <Grid.Col md={3}>
+                    <Grid.Col md={4}>
                         <Card>
                             <Select title="Change the group" onChange={(e) => this.setState({ applicationGroup: e.target.value })}>
                                 <option value={null} />
@@ -67,7 +68,7 @@ var OverviewPage = React.createClass({
                             <Button primary block onClick={this.setGroup}>Set group</Button>
                         </Card>
                     </Grid.Col>
-                    <Grid.Col md={3}>
+                    <Grid.Col md={4}>
                         <Card>
                             <Input title="Change application name" value={this.state.Name}onChange={(e) => this.setState({Name:e.target.value})}/>
                             <br />
@@ -75,13 +76,27 @@ var OverviewPage = React.createClass({
                         </Card>
                     </Grid.Col>
 
-                      <Grid.Col md={3}>
+                      <Grid.Col md={4}>
                         <Card>
                             <h4>Delete this application</h4>
                             <br />
                             <Button primary block onClick={this.delete}>Delete</Button>
                         </Card>
-                    </Grid.Col>                  
+                    </Grid.Col>  
+
+ 
+                      <Grid.Col md={12}>
+                        <Card>
+                            <h4>Hook for automatic deploy</h4>
+                            <br />
+                            {this.state.hiddenSecret ?
+                                    <Button block primary onClick={() => this.setState({hiddenSecret:false})}>Reveal secret</Button>
+                            :
+                                <span>Your url is <b>/api/Deploy/WebHook?applicationId={this.props.params.id}&amp;enviromentId=YOURENV&amp;version=VERSION&amp;secret={this.state.Secret}</b></span>
+                            }
+                        </Card>
+                    </Grid.Col>  
+
                 </Grid.Row>
             </Grid>
         </div>)

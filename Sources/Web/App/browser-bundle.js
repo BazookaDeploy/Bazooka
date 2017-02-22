@@ -30544,7 +30544,8 @@
 	        return {
 	            url: null,
 	            groups: [],
-	            applicationGroup: null
+	            applicationGroup: null,
+	            hiddenSecret: true
 	        };
 	    },
 
@@ -30560,7 +30561,7 @@
 	            return _this.setState({ groups: x });
 	        });
 	        _Actions2.default.getApplicationInfo(this.props.params.id).then(function (x) {
-	            return _this.setState({ originalApplicationGroup: x.GroupName, originalName: x.Name, Name: x.Name });
+	            return _this.setState({ originalApplicationGroup: x.GroupName, originalName: x.Name, Name: x.Name, Secret: x.Secret });
 	        });
 	    },
 
@@ -30636,7 +30637,7 @@
 	                    null,
 	                    _react2.default.createElement(
 	                        _Grid2.default.Col,
-	                        { md: 3 },
+	                        { md: 4 },
 	                        _react2.default.createElement(
 	                            _Card2.default,
 	                            null,
@@ -30664,7 +30665,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _Grid2.default.Col,
-	                        { md: 3 },
+	                        { md: 4 },
 	                        _react2.default.createElement(
 	                            _Card2.default,
 	                            null,
@@ -30681,7 +30682,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _Grid2.default.Col,
-	                        { md: 3 },
+	                        { md: 4 },
 	                        _react2.default.createElement(
 	                            _Card2.default,
 	                            null,
@@ -30695,6 +30696,39 @@
 	                                _Button2.default,
 	                                { primary: true, block: true, onClick: this.delete },
 	                                "Delete"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 12 },
+	                        _react2.default.createElement(
+	                            _Card2.default,
+	                            null,
+	                            _react2.default.createElement(
+	                                "h4",
+	                                null,
+	                                "Hook for automatic deploy"
+	                            ),
+	                            _react2.default.createElement("br", null),
+	                            this.state.hiddenSecret ? _react2.default.createElement(
+	                                _Button2.default,
+	                                { block: true, primary: true, onClick: function onClick() {
+	                                        return _this5.setState({ hiddenSecret: false });
+	                                    } },
+	                                "Reveal secret"
+	                            ) : _react2.default.createElement(
+	                                "span",
+	                                null,
+	                                "Your url is ",
+	                                _react2.default.createElement(
+	                                    "b",
+	                                    null,
+	                                    "/api/Deploy/WebHook?applicationId=",
+	                                    this.props.params.id,
+	                                    "&enviromentId=YOURENV&version=VERSION&secret=",
+	                                    this.state.Secret
+	                                )
 	                            )
 	                        )
 	                    )

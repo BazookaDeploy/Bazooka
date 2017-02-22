@@ -4,5 +4,6 @@
 	[Name] nvarchar(256) NOT NULL, 
     [ApplicationGroupId] INT NULL, 
     [Deleted] BIT NOT NULL DEFAULT 0, 
+    [Secret] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(), 
     CONSTRAINT [FK_Applications_ToApplicationGroups] FOREIGN KEY (ApplicationGroupId) REFERENCES [ApplicationGroups]([Id])
 )

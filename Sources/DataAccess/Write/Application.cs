@@ -13,6 +13,8 @@ namespace DataAccess.Write
 
         public virtual bool Deleted { get; set; }
 
+        public virtual Guid Secret { get; set; }
+
         public virtual int? ApplicationGroupId { get; set; }
 
         public virtual IList<AllowedUser> AllowedUsers { get; set; }

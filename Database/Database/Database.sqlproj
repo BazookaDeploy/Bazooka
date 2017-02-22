@@ -64,6 +64,7 @@
     <Folder Include="Read" />
     <Folder Include="Snapshots" />
     <Folder Include="Users" />
+    <Folder Include="Data" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Write\Applications.sql" />
@@ -108,6 +109,7 @@
     <Build Include="Read\DeploymentTasks.sql" />
     <Build Include="Write\ApplicationAdministrators.sql" />
     <Build Include="Read\ApplicationAdministrators.sql" />
+    <PostDeploy Include="Data\PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
