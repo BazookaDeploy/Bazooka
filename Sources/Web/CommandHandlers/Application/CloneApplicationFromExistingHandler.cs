@@ -25,27 +25,27 @@ namespace Web.CommandHandlers
             app.LocalScriptTasks = new List<LocalScriptTask>();
             app.MailTasks = new List<MailTask>();
             app.RemoteScriptTasks = new List<RemoteScriptTask>();
-            foreach (var task in originalApp.DatabaseTasks)
+            foreach (var task in originalApp.DatabaseTasks.Where(x => !x.Deleted))
             {
                 app.AddDatabaseTask(task.Name, task.ConnectionString, task.Package, task.DatabaseName, task.EnviromentId, task.Repository, task.AgentId);
             }
 
-            foreach (var task in originalApp.DeployTasks)
+            foreach (var task in originalApp.DeployTasks.Where(x => !x.Deleted))
             {
-                app.AddDeployTask(task.EnviromentId, task.Name, task.AgentId, task.PackageName, task.Directory, task.Repository, task.Configuration, task.AdditionalParameters.Select(x => new Parameter() {Encrypted = x.Encrypted, Key = x.Key, Value = x.Value }).ToList());
+                app.AddDeployTask(task.EnviromentId, task.Name, task.AgentId, task.PackageName, task.Directory, task.Repository, task.Configuration, new List<Parameter>());
             }
 
-            foreach (var task in originalApp.LocalScriptTasks)
+            foreach (var task in originalApp.LocalScriptTasks.Where(x => !x.Deleted))
             {
                 app.CreateLocalScriptTask(task.EnviromentId, task.Script, task.Name);
             }
 
-            foreach (var task in originalApp.MailTasks)
+            foreach (var task in originalApp.MailTasks.Where(x => !x.Deleted))
             {
                 app.CreateMailTask(task.EnviromentId, task.Name, task.Text, task.Recipients, task.Sender);
             }
 
-            foreach (var task in originalApp.RemoteScriptTasks)
+            foreach (var task in originalApp.RemoteScriptTasks.Where(x => !x.Deleted))
             {
                 app.CreateRemoteScriptTask(task.EnviromentId, task.Script, task.Name, task.Folder, task.AgentId);
             }
