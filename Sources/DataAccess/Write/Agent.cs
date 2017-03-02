@@ -10,8 +10,8 @@
 
         public virtual int EnviromentId { get; set; }
 
-        public System.DateTime? LastStatusCheck { get; set; }
+        public virtual System.DateTime? LastStatusCheck { get; set; }
 
-        public bool LastCheck { get; set; }
+        public virtual bool LastCheck { get; set; }
     }
 }

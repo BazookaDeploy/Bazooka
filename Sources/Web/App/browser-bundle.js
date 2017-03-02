@@ -34723,6 +34723,10 @@
 
 	var _reactRedux = __webpack_require__(220);
 
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Agent = _react2.default.createClass({
@@ -34733,9 +34737,10 @@
 	    },
 
 	    render: function render() {
+	        var classes = (0, _classnames2.default)("enviroment__agent", { "enviroment__agent--unreachable": this.props.agent.LastStatusCheck != null && !this.props.agent.LastCheck });
 	        return _react2.default.createElement(
 	            "div",
-	            { className: "enviroment__agent", onClick: this.navigate },
+	            { className: classes, onClick: this.navigate },
 	            _react2.default.createElement(
 	                "div",
 	                { className: "enviroment__agent__icon" },

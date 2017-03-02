@@ -9,7 +9,7 @@ import Input from "../Shared/Input";
 import ServerIcon from "../Shared/Icon/ServerIcon";
 import {withRouter} from "react-router";
 import { connect } from 'react-redux';
-
+import classname from "classnames";
 
 
 var Agent = React.createClass({
@@ -18,10 +18,11 @@ var Agent = React.createClass({
     },
 
     render(){
-        return <div className="enviroment__agent" onClick={this.navigate}>
+        var classes = classname("enviroment__agent", {"enviroment__agent--unreachable":  this.props.agent.LastStatusCheck!= null && !this.props.agent.LastCheck});
+        return (<div className={classes} onClick={this.navigate}>
             <div className="enviroment__agent__icon"><ServerIcon /></div>
             <div className="enviroment__agent__description">{this.props.agent.Name}</div>
-         </div>
+         </div>);
     }
 })
 
