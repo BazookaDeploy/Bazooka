@@ -89,6 +89,7 @@
 
             DeployJob.Store = config.BuildSessionFactory();
             LogsCompactionJob.Store = DeployJob.Store;
+            HealthCheckJob.Store = DeployJob.Store;
         }
 
         public void Stop()

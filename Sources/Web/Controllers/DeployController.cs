@@ -107,6 +107,36 @@ namespace Web.Controllers
         }
 
         [HttpGet]
+        public void WebHook(int enviromentId, int applicationId, string version, string secret)
+        {
+            var app = db.Applications.SingleOrDefault(x => x.Id == applicationId);
+
+            if(app==null || app.Secret != Guid.Parse(secret))
+            {
+                throw new UnauthorizedAccessException("Applciation secret invalid");
+            }
+
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var deploy = new Deployment()
+                {
+                    EnviromentId = enviromentId,
+                    ApplicationId = applicationId,
+                    Status = Status.Queud,
+                    Version = version,
+                    UserId = new Guid().ToString()
+                };
+
+                session.Save(deploy);
+                session.Flush();
+
+                BackgroundJob.Enqueue(() => DeployJob.Execute(deploy.Id));
+            };
+        }
+
+
+
+        [HttpGet]
         public void Cancel(int deploymentId)
         {
             using (var session = WebApiApplication.Store.OpenSession())

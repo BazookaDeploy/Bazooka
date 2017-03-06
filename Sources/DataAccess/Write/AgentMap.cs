@@ -19,6 +19,8 @@ namespace DataAccess.Write
             Property(x => x.Name, x => x.Length(50));
             Property(x => x.Address, x => x.Length(50));
             Property(x => x.EnviromentId);
+            Property(x => x.LastStatusCheck);
+            Property(x => x.LastCheck);
         }
     }
 }

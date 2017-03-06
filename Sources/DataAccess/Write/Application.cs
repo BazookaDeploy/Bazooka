@@ -13,6 +13,8 @@ namespace DataAccess.Write
 
         public virtual bool Deleted { get; set; }
 
+        public virtual Guid Secret { get; set; }
+
         public virtual int? ApplicationGroupId { get; set; }
 
         public virtual IList<AllowedUser> AllowedUsers { get; set; }
@@ -101,10 +103,10 @@ namespace DataAccess.Write
                     Name = x.Name,
                     Package = x.Package,
                     Repository = x.Repository,
-                Position = this.NewTaskNumber()
+                    Position = this.NewTaskNumber()
                 }).ToList();
 
-                foreach(var task in tasks) { this.DatabaseTasks.Add(task); }
+                foreach (var task in tasks) { this.DatabaseTasks.Add(task); }
             }
 
             if (DeployTasks != null)
@@ -277,15 +279,15 @@ namespace DataAccess.Write
             var task = this.DeployTasks.Single(x => x.Id == id);
 
             task.AgentId = agentId;
-            task.Configuration = configuration;
-            task.ConfigurationFile = configFile;
-            task.ConfigurationTransform = transform;
+            task.Configuration = string.IsNullOrWhiteSpace(configuration) ? null : configuration;
+            task.ConfigurationFile = string.IsNullOrWhiteSpace(configFile) ? null : configFile;
+            task.ConfigurationTransform = string.IsNullOrWhiteSpace(transform) ? null : transform;
             task.Directory = directory;
-            task.InstallScript = installScript;
+            task.InstallScript = string.IsNullOrWhiteSpace(installScript) ? null : installScript;
             task.Name = name;
             task.PackageName = package;
             task.Repository = repo;
-            task.UninstallScript = uninstallScript;
+            task.UninstallScript = string.IsNullOrWhiteSpace(uninstallScript) ? null : uninstallScript;
 
             foreach (var param in parameters)
             {
@@ -364,11 +366,11 @@ namespace DataAccess.Write
 
         private int NewTaskNumber()
         {
-            var a = (this.DatabaseTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new DatabaseTask()).Position;
-            var b = (this.DeployTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new DeployTask()).Position;
-            var c = (this.LocalScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new LocalScriptTask()).Position;
-            var d = (this.MailTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new MailTask()).Position;
-            var e = (this.RemoteScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault()??new RemoteScriptTask()).Position;
+            var a = (this.DatabaseTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new DatabaseTask()).Position;
+            var b = (this.DeployTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new DeployTask()).Position;
+            var c = (this.LocalScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new LocalScriptTask()).Position;
+            var d = (this.MailTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new MailTask()).Position;
+            var e = (this.RemoteScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new RemoteScriptTask()).Position;
             var position = (new int[] { a, b, c, d, e }).ToList().Max();
 
             return position + 1;

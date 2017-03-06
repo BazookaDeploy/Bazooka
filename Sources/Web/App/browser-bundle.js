@@ -29943,6 +29943,12 @@
 	    });
 	  },
 
+	  deleteApplication: function deleteApplication(id) {
+	    return _Net2.default.post("/api/applications/delete", {
+	      ApplicationId: id
+	    });
+	  },
+
 	  cloneApplication: function cloneApplication(name, app) {
 	    return _Net2.default.post("/api/applications/CreateApplicationFromExisting", {
 	      Name: name,
@@ -30528,6 +30534,8 @@
 
 	var _reactRedux = __webpack_require__(220);
 
+	var _reactRouter = __webpack_require__(163);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var OverviewPage = _react2.default.createClass({
@@ -30536,7 +30544,8 @@
 	        return {
 	            url: null,
 	            groups: [],
-	            applicationGroup: null
+	            applicationGroup: null,
+	            hiddenSecret: true
 	        };
 	    },
 
@@ -30552,7 +30561,7 @@
 	            return _this.setState({ groups: x });
 	        });
 	        _Actions2.default.getApplicationInfo(this.props.params.id).then(function (x) {
-	            return _this.setState({ originalApplicationGroup: x.GroupName, originalName: x.Name, Name: x.Name });
+	            return _this.setState({ originalApplicationGroup: x.GroupName, originalName: x.Name, Name: x.Name, Secret: x.Secret });
 	        });
 	    },
 
@@ -30565,17 +30574,29 @@
 	        });
 	    },
 
-	    rename: function rename() {
+	    delete: function _delete() {
 	        var _this3 = this;
 
+	        var res = window.confirm("Are you sure you want to delete this applicaiton?");
+
+	        if (res) {
+	            _Actions2.default.deleteApplication(this.props.params.id).then(function (x) {
+	                _Notifications2.default.Notify(x);
+	                _this3.props.router.push("/Applications/");
+	            });
+	        }
+	    },
+	    rename: function rename() {
+	        var _this4 = this;
+
 	        _Actions2.default.renmeApplication(this.props.params.id, this.state.Name).then(function (x) {
-	            _this3.update();_this3.props.loadApplications();
+	            _this4.update();_this4.props.loadApplications();
 	        });
 	    },
 
 
 	    render: function render() {
-	        var _this4 = this;
+	        var _this5 = this;
 
 	        return _react2.default.createElement(
 	            "div",
@@ -30616,14 +30637,14 @@
 	                    null,
 	                    _react2.default.createElement(
 	                        _Grid2.default.Col,
-	                        { md: 3 },
+	                        { md: 4 },
 	                        _react2.default.createElement(
 	                            _Card2.default,
 	                            null,
 	                            _react2.default.createElement(
 	                                _Select2.default,
 	                                { title: "Change the group", onChange: function onChange(e) {
-	                                        return _this4.setState({ applicationGroup: e.target.value });
+	                                        return _this5.setState({ applicationGroup: e.target.value });
 	                                    } },
 	                                _react2.default.createElement("option", { value: null }),
 	                                this.state.groups.map(function (x) {
@@ -30644,18 +30665,70 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _Grid2.default.Col,
-	                        { md: 3 },
+	                        { md: 4 },
 	                        _react2.default.createElement(
 	                            _Card2.default,
 	                            null,
 	                            _react2.default.createElement(_Input2.default, { title: "Change application name", value: this.state.Name, onChange: function onChange(e) {
-	                                    return _this4.setState({ Name: e.target.value });
+	                                    return _this5.setState({ Name: e.target.value });
 	                                } }),
 	                            _react2.default.createElement("br", null),
 	                            _react2.default.createElement(
 	                                _Button2.default,
 	                                { primary: true, block: true, onClick: this.rename },
 	                                "Change name"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 4 },
+	                        _react2.default.createElement(
+	                            _Card2.default,
+	                            null,
+	                            _react2.default.createElement(
+	                                "h4",
+	                                null,
+	                                "Delete this application"
+	                            ),
+	                            _react2.default.createElement("br", null),
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { primary: true, block: true, onClick: this.delete },
+	                                "Delete"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Grid2.default.Col,
+	                        { md: 12 },
+	                        _react2.default.createElement(
+	                            _Card2.default,
+	                            null,
+	                            _react2.default.createElement(
+	                                "h4",
+	                                null,
+	                                "Hook for automatic deploy"
+	                            ),
+	                            _react2.default.createElement("br", null),
+	                            this.state.hiddenSecret ? _react2.default.createElement(
+	                                _Button2.default,
+	                                { block: true, primary: true, onClick: function onClick() {
+	                                        return _this5.setState({ hiddenSecret: false });
+	                                    } },
+	                                "Reveal secret"
+	                            ) : _react2.default.createElement(
+	                                "span",
+	                                null,
+	                                "Your url is ",
+	                                _react2.default.createElement(
+	                                    "b",
+	                                    null,
+	                                    "/api/Deploy/WebHook?applicationId=",
+	                                    this.props.params.id,
+	                                    "&enviromentId=YOURENV&version=VERSION&secret=",
+	                                    this.state.Secret
+	                                )
 	                            )
 	                        )
 	                    )
@@ -30676,6 +30749,7 @@
 	};
 
 	OverviewPage = (0, _reactRedux.connect)(null, mapDispatchToProps)(OverviewPage);
+	OverviewPage = (0, _reactRouter.withRouter)(OverviewPage);
 
 	exports.default = OverviewPage;
 
@@ -34649,6 +34723,10 @@
 
 	var _reactRedux = __webpack_require__(220);
 
+	var _classnames = __webpack_require__(254);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Agent = _react2.default.createClass({
@@ -34659,9 +34737,10 @@
 	    },
 
 	    render: function render() {
+	        var classes = (0, _classnames2.default)("enviroment__agent", { "enviroment__agent--unreachable": this.props.agent.LastStatusCheck != null && !this.props.agent.LastCheck });
 	        return _react2.default.createElement(
 	            "div",
-	            { className: "enviroment__agent", onClick: this.navigate },
+	            { className: classes, onClick: this.navigate },
 	            _react2.default.createElement(
 	                "div",
 	                { className: "enviroment__agent__icon" },
