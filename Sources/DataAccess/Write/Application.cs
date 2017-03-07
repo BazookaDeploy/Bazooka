@@ -33,8 +33,6 @@ namespace DataAccess.Write
 
         public virtual IList<ApplicationAdministrator> Administrators { get; set; }
 
-        public virtual System.Guid Secret { get; set; }
-
         public virtual IList<IMovable> AllTasks()
         {
             var list = new List<IMovable>();

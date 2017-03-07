@@ -134,7 +134,44 @@ namespace Web.Controllers
             };
         }
 
+        public void WebHookLatest(int enviromentId, int applicationId, string secret)
+        {
+            var app = db.Applications.SingleOrDefault(x => x.Id == applicationId);
 
+            if (app == null || app.Secret != Guid.Parse(secret))
+            {
+                throw new UnauthorizedAccessException("Application secret invalid");
+            }
+
+            var repos = db.DeploTasks
+              .Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId)
+              .Select(x => x.Repository)
+              .ToList();
+
+            var package = db.DeploTasks
+                          .Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId)
+                          .Select(x => x.PackageName)
+                          .First();
+
+            var version = PackageSearcher.Search(repos, package).First();
+
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var deploy = new Deployment()
+                {
+                    EnviromentId = enviromentId,
+                    ApplicationId = applicationId,
+                    Status = Status.Queud,
+                    Version = version,
+                    UserId = new Guid().ToString()
+                };
+
+                session.Save(deploy);
+                session.Flush();
+
+                BackgroundJob.Enqueue(() => DeployJob.Execute(deploy.Id));
+            };
+        }
 
         [HttpGet]
         public void Cancel(int deploymentId)

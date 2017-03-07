@@ -92,7 +92,9 @@ var OverviewPage = React.createClass({
                             {this.state.hiddenSecret ?
                                     <Button block primary onClick={() => this.setState({hiddenSecret:false})}>Reveal secret</Button>
                             :
-                                <span>Your url is <b>/api/Deploy/WebHook?applicationId={this.props.params.id}&amp;enviromentId=YOURENV&amp;version=VERSION&amp;secret={this.state.Secret}</b></span>
+                                <span>Your url is <b>/api/Deploy/WebHook?applicationId={this.props.params.id}&amp;enviromentId=YOURENV&amp;version=VERSION&amp;secret={this.state.Secret}</b> or <br />
+                                <b>/api/Deploy/WebHookLatest?applicationId={this.props.params.id}&amp;enviromentId=YOURENV&amp;secret={this.state.Secret}</b>
+                                </span>
                             }
                         </Card>
                     </Grid.Col>  

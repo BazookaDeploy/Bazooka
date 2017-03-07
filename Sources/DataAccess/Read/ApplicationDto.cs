@@ -11,7 +11,5 @@ namespace DataAccess.Read
         public Guid Secret { get; set; }
 
         public string GroupName { get; set; }
-
-        public System.Guid Secret { get; set; }
     }
 }
