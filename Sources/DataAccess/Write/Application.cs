@@ -91,7 +91,7 @@ namespace DataAccess.Write
         {
             if (DatabaseTasks != null)
             {
-                var tasks = this.DatabaseTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new DatabaseTask()
+                var tasks = this.DatabaseTasks.Where(x => x.EnviromentId == originalEnviromentId && !x.Deleted).Select(x => new DatabaseTask()
                 {
                     AgentId = machineId,
                     ApplicationId = x.ApplicationId,
@@ -109,7 +109,7 @@ namespace DataAccess.Write
 
             if (DeployTasks != null)
             {
-                var tasks = this.DeployTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new DeployTask()
+                var tasks = this.DeployTasks.Where(x => x.EnviromentId == originalEnviromentId && !x.Deleted).Select(x => new DeployTask()
                 {
                     AgentId = machineId,
                     ApplicationId = x.ApplicationId,
@@ -131,7 +131,7 @@ namespace DataAccess.Write
 
             if (MailTasks != null)
             {
-                var tasks = this.MailTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new MailTask()
+                var tasks = this.MailTasks.Where(x => x.EnviromentId == originalEnviromentId && !x.Deleted).Select(x => new MailTask()
                 {
                     ApplicationId = x.ApplicationId,
                     EnviromentId = enviromentId,
@@ -147,7 +147,7 @@ namespace DataAccess.Write
 
             if (LocalScriptTasks != null)
             {
-                var tasks = this.LocalScriptTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new LocalScriptTask()
+                var tasks = this.LocalScriptTasks.Where(x => x.EnviromentId == originalEnviromentId && !x.Deleted).Select(x => new LocalScriptTask()
                 {
                     ApplicationId = x.ApplicationId,
                     EnviromentId = enviromentId,
@@ -161,7 +161,7 @@ namespace DataAccess.Write
 
             if (RemoteScriptTasks != null)
             {
-                var tasks = this.RemoteScriptTasks.Where(x => x.EnviromentId == originalEnviromentId).Select(x => new RemoteScriptTask()
+                var tasks = this.RemoteScriptTasks.Where(x => x.EnviromentId == originalEnviromentId && !x.Deleted).Select(x => new RemoteScriptTask()
                 {
                     AgentId = machineId,
                     EnviromentId = enviromentId,
