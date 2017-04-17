@@ -135,7 +135,7 @@ var EditPage = React.createClass({
 									</Select>
 									<h5>Additional Params</h5>
 										<ul>
-											{this.state.Parameters.map(a => (<li>{a.Name} = {a.Encrypted? "********" : a.Value} <Button onClick={() => this.remove(a.Key)}>Remove</Button></li>))}
+											{this.state.Parameters.map(a => (<li>{a.Name} = {a.Encrypted? "********" : a.Value} <Button onClick={() => this.remove(a.Name)}>Remove</Button></li>))}
 										</ul>
 									<Grid fluid>
 										<Grid.Row>
