@@ -102,13 +102,13 @@ var ApplicationGroup = React.createClass({
     }
 });
 
-ApplicationGroup = withRouter(ApplicationGroup);
+ApplicationGroup = withRouter(ApplicationGroup); 
 
 var ApplicationsPage = React.createClass({
     getInitialState(){
         return {showDialog:false, showOnlyMine: true, apps:[]};
     },
-
+    
     componentDidMount(){
         this.load();
     },
@@ -131,7 +131,7 @@ var ApplicationsPage = React.createClass({
             </div>}>
             Applications
         </Header>
-        <CreateDialog show={this.state.showDialog} onClose={() => this.setState({showDialog:false})} apps={this.state.apps} onCreate={this.load}/>
+            <CreateDialog show={this.state.showDialog} onCreate={this.load} onClose={() => this.setState({showDialog:false})} apps={this.state.apps} onCreate={this.load}/>
             <Grid fluid>
                 {Object.keys(gr).sort((a,b)=>a.localeCompare(b)).map(prop=> <ApplicationGroup groupName={prop} apps={gr[prop]} />)}
             </Grid>

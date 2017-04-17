@@ -29600,6 +29600,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	var groupByGroup = function groupByGroup(array) {
 	    var a = {};
 
@@ -29814,9 +29816,9 @@
 	                    ) },
 	                "Applications"
 	            ),
-	            _react2.default.createElement(CreateDialog, { show: this.state.showDialog, onClose: function onClose() {
+	            _react2.default.createElement(CreateDialog, _defineProperty({ show: this.state.showDialog, onCreate: this.load, onClose: function onClose() {
 	                    return _this5.setState({ showDialog: false });
-	                }, apps: this.state.apps, onCreate: this.load }),
+	                }, apps: this.state.apps }, "onCreate", this.load)),
 	            _react2.default.createElement(
 	                _Grid2.default,
 	                { fluid: true },
@@ -30727,6 +30729,16 @@
 	                                    "/api/Deploy/WebHook?applicationId=",
 	                                    this.props.params.id,
 	                                    "&enviromentId=YOURENV&version=VERSION&secret=",
+	                                    this.state.Secret
+	                                ),
+	                                " or ",
+	                                _react2.default.createElement("br", null),
+	                                _react2.default.createElement(
+	                                    "b",
+	                                    null,
+	                                    "/api/Deploy/WebHookLatest?applicationId=",
+	                                    this.props.params.id,
+	                                    "&enviromentId=YOURENV&secret=",
 	                                    this.state.Secret
 	                                )
 	                            )
@@ -32651,7 +32663,7 @@
 									_react2.default.createElement(
 										_Button2.default,
 										{ onClick: function onClick() {
-												return _this3.remove(a.Key);
+												return _this3.remove(a.Name);
 											} },
 										"Remove"
 									)
