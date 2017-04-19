@@ -110,6 +110,8 @@
     <Compile Include="Write\ParameterMap.cs" />
     <Compile Include="Write\RemoteScriptTask.cs" />
     <Compile Include="Write\RemoteScriptTaskMap.cs" />
+    <Compile Include="Write\TaskTemplate.cs" />
+    <Compile Include="Write\TaskTemplateParameter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
