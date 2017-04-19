@@ -111,6 +111,9 @@
     <Build Include="Read\ApplicationAdministrators.sql" />
     <None Include="Data\PostDeployment.sql" />
     <Build Include="Write\TaskTemplate.sql" />
+    <Build Include="Write\TaskTemplateParameters.sql" />
+    <Build Include="Read\TaskTemplate.sql" />
+    <Build Include="Read\TaskTemplateParameters.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
