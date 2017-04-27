@@ -65,6 +65,7 @@ namespace Web.App_Start
             mapper.AddMapping<ApplicationGroupMap>();
             mapper.AddMapping<DeploymentTaskMap>();
             mapper.AddMapping<TaskTemplateMap>();
+            mapper.AddMapping<TaskTemplateVersionMap>();
             mapper.AddMapping<TaskTemplateParameterMap>();
 
 

@@ -19,9 +19,8 @@
             Property(x => x.Name);
             Property(x => x.Description);
             Property(x => x.Name);
-            Property(x => x.Script, x => { x.NotNullable(true); x.Type(NHibernateUtil.StringClob); });
 
-            Bag(x => x.Parameters, map =>
+            Bag(x => x.Versions, map =>
             {
                 map.Key(km => km.Column("TaskTemplateId"));
                 map.Cascade(Cascade.All | Cascade.DeleteOrphans);

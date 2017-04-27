@@ -26,6 +26,11 @@ namespace DataAccess.Read
         public virtual string Script { get; set; }
 
         /// <summary>
+        ///     The version of the task
+        /// </summary>
+        public virtual int Version { get; set; }
+
+        /// <summary>
         ///     List of parameters
         /// </summary>
         public virtual IList<TaskTemplateParameterDto> Parameters { get; set; }

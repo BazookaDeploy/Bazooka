@@ -112,10 +112,12 @@
     <Compile Include="Write\ParameterMap.cs" />
     <Compile Include="Write\RemoteScriptTask.cs" />
     <Compile Include="Write\RemoteScriptTaskMap.cs" />
+    <Compile Include="Write\TaskTemplateVersionMap.cs" />
     <Compile Include="Write\TaskTemplate.cs" />
     <Compile Include="Write\TaskTemplateMap.cs" />
     <Compile Include="Write\TaskTemplateParameter.cs" />
     <Compile Include="Write\TaskTemplateParameterMap.cs" />
+    <Compile Include="Write\TaskTemplateVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
