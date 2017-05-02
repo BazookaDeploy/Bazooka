@@ -282,7 +282,11 @@
     <Compile Include="CommandHandlers\Application\RenameApplicationHandler.cs" />
     <Compile Include="Commands\Application\DeleteApplication.cs" />
     <Compile Include="Commands\Application\RenameApplication.cs" />
+    <Compile Include="Commands\TemplatedTasks\ChangeTemplatedTaskDescription.cs" />
+    <Compile Include="Commands\TemplatedTasks\CreateNewTemplatedTaskVersion.cs" />
+    <Compile Include="Commands\TemplatedTasks\CreateTemplatedTask.cs" />
     <Compile Include="Commands\ICanBeRunByApplicationAdministrator.cs" />
+    <Compile Include="Commands\TemplatedTasks\RenameTemplatedTask.cs" />
     <Compile Include="DataServices\Routes.cs" />
     <Compile Include="Infrastructure\IPermissionChecker.cs" />
     <Compile Include="CommandHandlers\Application\ModifyRemoteScriptTaskHandler.cs" />
