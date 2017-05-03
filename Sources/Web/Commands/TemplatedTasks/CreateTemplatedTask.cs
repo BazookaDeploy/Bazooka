@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class CreateTemplatedTask : ICanBeRunOnlyByAdministrator
+    public class CreateTemplatedTask : ICommand, ICanBeRunOnlyByAdministrator
     {
         public string Name { get; set; }
 
