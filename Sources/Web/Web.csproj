@@ -291,6 +291,7 @@
     <Compile Include="Commands\TemplatedTasks\CreateTemplatedTask.cs" />
     <Compile Include="Commands\ICanBeRunByApplicationAdministrator.cs" />
     <Compile Include="Commands\TemplatedTasks\RenameTemplatedTask.cs" />
+    <Compile Include="Controllers\TemplatedTaskController.cs" />
     <Compile Include="DataServices\Routes.cs" />
     <Compile Include="Infrastructure\IPermissionChecker.cs" />
     <Compile Include="CommandHandlers\Application\ModifyRemoteScriptTaskHandler.cs" />
