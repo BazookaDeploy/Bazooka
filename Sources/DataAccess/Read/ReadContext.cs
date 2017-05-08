@@ -231,7 +231,7 @@ namespace DataAccess.Read
     {
         public TaskTemplateDtoConfiguration()
         {
-            ToTable("TaskTemplates");
+            ToTable("TaskTemplate");
             HasMany<TaskTemplateParameterDto>(x => x.Parameters)
                 .WithRequired()
                 .HasForeignKey(x => x.TaskTemplateId);

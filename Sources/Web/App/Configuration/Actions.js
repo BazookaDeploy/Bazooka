@@ -43,5 +43,16 @@ module.exports = {
 		return Net.post("/api/applications/CreateApplicationGroup", {
 			Name: name
 		});
-	}
+    },
+
+    createTemplatedtask: function (name, description) {
+        return Net.post("/api/Templatedtask/CreateTemplatedTask", {
+            Name: name,
+            Description: description
+        });
+    }, 
+
+    loadTemplatedTasks: function () {
+        return Net.get("/api/Templatedtask/");
+    }
 };

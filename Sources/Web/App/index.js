@@ -19,6 +19,7 @@ import RemoteScriptTaskEditPage from "./Applications/Tasks/RemoteScriptTask/Edit
 
 import ConfigurationPage from "./Configuration/ConfigurationPage";
 import ConfigPage from "./Configuration/ConfigPage";
+import TemplatedTasksPage from "./Configuration/TemplatedTasksPage";
 import GroupsPage from "./Configuration/GroupsPage";
 import ApplicationGroupsPage from "./Configuration/ApplicationGroupsPage";
 import DeploymentsPage from "./Deployments/DeploymentsPage";
@@ -53,6 +54,7 @@ var route = <Provider store={store} >
         <IndexRoute component={ConfigPage} />
         <Route path="Groups" component={GroupsPage} />
         <Route path="ApplicationGroups" component={ApplicationGroupsPage} />
+        <Route path="TemplatedTasks" component={TemplatedTasksPage} />
       </Route>
       <Route path="Enviroments">
         <IndexRoute  component={EnviromentsPage} />
