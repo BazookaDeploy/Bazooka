@@ -57,6 +57,7 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new DeployersDtoConfiguration());
             modelBuilder.Configurations.Add(new ApplicationAdministratorsDtoConfiguration());
             modelBuilder.Configurations.Add(new TaskTemplateDtoConfiguration());
+            modelBuilder.Configurations.Add(new TaskTemplateVersionsDtoConfiguration());
             modelBuilder.Configurations.Add(new TaskTemplateParameterDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
@@ -232,9 +233,14 @@ namespace DataAccess.Read
         public TaskTemplateDtoConfiguration()
         {
             ToTable("TaskTemplate");
-            HasMany<TaskTemplateParameterDto>(x => x.Parameters)
-                .WithRequired()
-                .HasForeignKey(x => x.TaskTemplateId);
+        }
+    }
+
+    public class TaskTemplateVersionsDtoConfiguration : EntityTypeConfiguration<TaskTemplateVersionDto>
+    {
+        public TaskTemplateVersionsDtoConfiguration()
+        {
+            ToTable("TaskTemplateVersions");
         }
     }
 

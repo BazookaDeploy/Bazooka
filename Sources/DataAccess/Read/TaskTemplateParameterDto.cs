@@ -7,11 +7,10 @@ namespace DataAccess.Read
         [Key]
         public virtual int Id { get; set; }
 
-
         /// <summary>
         ///     The identifier of the task template
         /// </summary>
-        public virtual int TaskTemplateId { get; set; }
+        public virtual int TaskTemplateVersionId { get; set; }
 
         /// <summary>
         ///     name of the parameter

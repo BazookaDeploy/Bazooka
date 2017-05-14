@@ -76,7 +76,7 @@ var TemplatedTasksPage= React.createClass({
 
             <Grid fluid>
                 <Grid.Row>
-                    {this.state.tasks.map(x => (<Card title={x.Name} onClick={this.open}>Click to edit</Card>))}
+                    {this.state.tasks.map(x => (<Grid.Col className="taskTemplate" md={3}> <Card title={x.Name} onClick={this.open}>{x.Description}</Card></Grid.Col>))}
                 </Grid.Row>
             </Grid>
             </div>

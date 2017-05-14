@@ -29,6 +29,14 @@
         public virtual IList<TaskTemplateVersion> Versions { get; set; }
 
         /// <summary>
+        ///     Initialize an instance of <see cref="TaskTemplate"/>
+        /// </summary>
+        public TaskTemplate()
+        {
+            Versions = new List<TaskTemplateVersion>();
+        }
+
+        /// <summary>
         ///     Creates a new templated task
         /// </summary>
         /// <param name="name">Name of the task</param>
@@ -37,11 +45,6 @@
         {
             this.Name = name;
             this.Description = description;
-            Versions.Add(new TaskTemplateVersion()
-            {
-                Script = string.Empty,
-                Version = 1
-            });
         }
 
         /// <summary>
@@ -72,7 +75,7 @@
             this.Versions.Add(new TaskTemplateVersion()
             {
                 TaskTemplateId = this.Id,
-                Version = this.Versions.Last().Version + 1,
+                Version =this.Versions.Count == 0 ? 1 :  this.Versions.Last().Version + 1,
                 Script = script,
                 Parameters = parameters.ToList()
             });

@@ -445,3 +445,12 @@ margin-bottom:20px;
 .enviroment__agent--unreachable {
 	fill: rgba(237, 71, 71, 0.5);
 }
+
+.taskTemplate {
+    text-align: center;
+    cursor: pointer;
+
+    .card:hover {
+        background-color: lighten(#ccc,16%);
+    }
+}

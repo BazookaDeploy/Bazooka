@@ -8,7 +8,7 @@
     {
         public TaskTemplateParameterMap()
         {
-            Table("TaskTemplateParameterss");
+            Table("TaskTemplateParameters");
             Schema("dbo");
             Id<int>(x => x.Id,
                 map =>

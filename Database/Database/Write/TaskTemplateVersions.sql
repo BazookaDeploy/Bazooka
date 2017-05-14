@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[TaskTemplateVersions]
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
 	TaskTemplateId INT NOT NULL,
 	
 	Script NVARCHAR(MAX) NOT NULL, 

@@ -1681,9 +1681,6 @@ body {
   line-height: 36px; }
 
 .datetimepicker__calendar__days li.datetimepicker__days {
-  width: 13%;
-  min-width: 13%;
-  max-width: 13%;
   font-weight: 600; }
 
 .datetimepicker__calendar__days li:hover {
@@ -1712,7 +1709,10 @@ body {
   display: inline-block; }
 
 .datetimepicker__selector span.selected {
-  font-weight: 600; }
+  font-weight: 600;
+  background-color: black;
+  color: white;
+  border-radius: 10px; }
 
 .datetimepicker__hours {
   position: relative; }
@@ -1988,3 +1988,9 @@ body {
 
 .enviroment__agent--unreachable {
   fill: rgba(237, 71, 71, 0.5); }
+
+.taskTemplate {
+  text-align: center;
+  cursor: pointer; }
+  .taskTemplate .card:hover {
+    background-color: whitesmoke; }

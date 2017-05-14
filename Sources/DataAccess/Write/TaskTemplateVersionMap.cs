@@ -23,6 +23,7 @@ namespace DataAccess.Write
                 });
 
             Property(x => x.Version);
+            Property(x => x.TaskTemplateId);
             Property(x => x.Script, x => { x.NotNullable(true); x.Type(NHibernateUtil.StringClob); });
 
             Bag(x => x.Parameters, map =>
