@@ -35,6 +35,15 @@ var DeployDialog = React.createClass({
     }
   },
 
+  rollback: function () {
+      var res = window.confirm("Are you really sure you want to rollback the last deploy?")
+
+      if (res) {
+          Actions.rollback(this.props.Enviroment.Id, this.props.ApplicationId);
+          this.props.onClose();
+      }
+  },
+
   create: function () {
     var version = this.refs.version.value();
     if (version != null) {
@@ -79,6 +88,8 @@ var DeployDialog = React.createClass({
             }
         </Modal.Body>
         <Modal.Footer>
+
+          <Button onClick={this.rollback}>Rollback last deploy</Button>
           <Button onClick={this.props.onClose}>Close</Button>
           <Button primary onClick={this.create}>Deploy</Button>
         </Modal.Footer>

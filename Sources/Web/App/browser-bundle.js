@@ -29751,6 +29751,15 @@
 	    }
 	  },
 
+	  rollback: function rollback() {
+	    var res = window.confirm("Are you really sure you want to rollback the last deploy?");
+
+	    if (res) {
+	      _Actions2.default.rollback(this.props.Enviroment.Id, this.props.ApplicationId);
+	      this.props.onClose();
+	    }
+	  },
+
 	  create: function create() {
 	    var version = this.refs.version.value();
 	    if (version != null) {
@@ -29826,6 +29835,11 @@
 	        null,
 	        _react2.default.createElement(
 	          _Button2.default,
+	          { onClick: this.rollback },
+	          "Rollback last deploy"
+	        ),
+	        _react2.default.createElement(
+	          _Button2.default,
 	          { onClick: this.props.onClose },
 	          "Close"
 	        ),
@@ -29864,6 +29878,10 @@
 
 		startDeploy: function startDeploy(enviromentId, applicationId, version, tasks) {
 			return _Net2.default.post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, { tasks: tasks });
+		},
+
+		rollback: function rollback(enviromentId, applicationId) {
+			return _Net2.default.post("/api/deploy/rollback?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
 		},
 
 		scheduleDeploy: function scheduleDeploy(enviromentId, applicationId, version, date, tasks) {

@@ -78,6 +78,40 @@ namespace Web.Controllers
             };
         }
 
+
+        [HttpPost]
+        public void Rollback(int enviromentId, int applicationId)
+        {
+            var versions = db.Deployments
+                             .Where(x => x.ApplicationId == applicationId && x.EnviromentId == enviromentId)
+                             .OrderByDescending(x => x.StartDate)
+                             .Select(x => x.Version)
+                             .Take(2).ToList();
+
+            if(versions.Count() < 2) {
+                return;
+            }
+
+            var version = versions.ElementAt(1);
+
+            using (var session = WebApiApplication.Store.OpenSession())
+            {
+                var deploy = new Deployment()
+                {
+                    EnviromentId = enviromentId,
+                    ApplicationId = applicationId,
+                    Status = Status.Queud,
+                    Version = version,
+                    UserId = User.Identity.GetUserId()
+                };
+
+                session.Save(deploy);
+                session.Flush();
+
+                BackgroundJob.Enqueue(() => DeployJob.Execute(deploy.Id));
+            };
+        }
+
         [HttpPost]
         public void DeployHook(int enviromentId, int applicationId, string version, Guid secret)
         {

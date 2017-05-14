@@ -11,7 +11,11 @@ module.exports = {
 
 	startDeploy: function (enviromentId, applicationId, version, tasks) {
 		return Net.post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, { tasks: tasks });
-	},
+    },
+
+    rollback: function (enviromentId, applicationId) {
+        return Net.post("/api/deploy/rollback?enviromentId=" + enviromentId + "&applicationId=" + applicationId);
+    },
 
 	scheduleDeploy: function (enviromentId, applicationId, version, date, tasks) {
 		return Net.post("/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" +	version + "&start=" + date.toISOString(), { tasks: tasks });
