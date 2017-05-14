@@ -82,7 +82,8 @@ var DeploymentPage = React.createClass({
     getInitialState: function () {
         return {
             refreshing: false,
-            deployments: {}
+            deployments: {},
+            canceling:false
         };
     },
 
@@ -116,8 +117,10 @@ var DeploymentPage = React.createClass({
             return "Failed";
         } else if (status == 4) {
             return "Scheduled";
-        } else {
+        } else if (status == 5) {
             return "Canceled";
+        } else {
+            return "unknown";
         }
     },
 
@@ -125,9 +128,8 @@ var DeploymentPage = React.createClass({
         var res = window.confirm("Are you sure you want to cancel this deployment?");
 
         if (res) {
-            Actions.cancelDeployment(this.props.Id).then(x => {
-                Actions.updateDeployment(this.props.Id);
-                this.props.onRequestHide();
+            Actions.cancelDeployment(this.props.routeParams.id).then(x => {
+                this.reload();
             });
         }
     },
@@ -151,10 +153,9 @@ var DeploymentPage = React.createClass({
             <Grid fluid>
                 <Grid.Row>
                     <Grid.Col md={12}>
-
                         <h2>{this.state.deployments.Name} - {this.state.deployments.Configuration}         </h2>
 
-                        <h4>Current deployment status: {this.getStatus(this.state.deployments.Status) }  {this.state.deployments.Status == 4 ? <ModalTrigger modal={<CancelDialog Id={this.getParams().Id}/>}><button className='btn btn-warning btn-xs'>Cancel scheduled deploy</button></ModalTrigger> : <span />}</h4>
+                        <h4>Current deployment status: {this.getStatus(this.state.deployments.Status)}</h4>
 
                         <h5>Deploying version: {this.state.deployments.Version}</h5>
                         <span>

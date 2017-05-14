@@ -35464,7 +35464,8 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            refreshing: false,
-	            deployments: {}
+	            deployments: {},
+	            canceling: false
 	        };
 	    },
 
@@ -35500,8 +35501,10 @@
 	            return "Failed";
 	        } else if (status == 4) {
 	            return "Scheduled";
-	        } else {
+	        } else if (status == 5) {
 	            return "Canceled";
+	        } else {
+	            return "unknown";
 	        }
 	    },
 
@@ -35511,9 +35514,8 @@
 	        var res = window.confirm("Are you sure you want to cancel this deployment?");
 
 	        if (res) {
-	            _Actions2.default.cancelDeployment(this.props.Id).then(function (x) {
-	                _Actions2.default.updateDeployment(_this3.props.Id);
-	                _this3.props.onRequestHide();
+	            _Actions2.default.cancelDeployment(this.props.routeParams.id).then(function (x) {
+	                _this3.reload();
 	            });
 	        }
 	    },
@@ -35570,17 +35572,7 @@
 	                            "h4",
 	                            null,
 	                            "Current deployment status: ",
-	                            this.getStatus(this.state.deployments.Status),
-	                            "  ",
-	                            this.state.deployments.Status == 4 ? _react2.default.createElement(
-	                                ModalTrigger,
-	                                { modal: _react2.default.createElement(CancelDialog, { Id: this.getParams().Id }) },
-	                                _react2.default.createElement(
-	                                    "button",
-	                                    { className: "btn btn-warning btn-xs" },
-	                                    "Cancel scheduled deploy"
-	                                )
-	                            ) : _react2.default.createElement("span", null)
+	                            this.getStatus(this.state.deployments.Status)
 	                        ),
 	                        _react2.default.createElement(
 	                            "h5",
