@@ -114,41 +114,41 @@
 
 	var _ConfigPage2 = _interopRequireDefault(_ConfigPage);
 
-	var _TemplatedTasksPage = __webpack_require__(329);
+	var _TemplatedTasksPage = __webpack_require__(306);
 
 	var _TemplatedTasksPage2 = _interopRequireDefault(_TemplatedTasksPage);
 
-	var _GroupsPage = __webpack_require__(306);
+	var _GroupsPage = __webpack_require__(308);
 
 	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
 
-	var _ApplicationGroupsPage = __webpack_require__(308);
+	var _ApplicationGroupsPage = __webpack_require__(309);
 
 	var _ApplicationGroupsPage2 = _interopRequireDefault(_ApplicationGroupsPage);
 
-	var _DeploymentsPage = __webpack_require__(309);
+	var _DeploymentsPage = __webpack_require__(310);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(319);
+	var _DeploymentPage = __webpack_require__(320);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(321);
+	var _EnviromentsPage = __webpack_require__(322);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(324);
+	var _AgentPage = __webpack_require__(325);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(326);
+	var _StatisticsPage = __webpack_require__(327);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(229);
 
-	var _Store = __webpack_require__(328);
+	var _Store = __webpack_require__(329);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -30059,43 +30059,37 @@
 	                        _react2.default.createElement(
 	                            "li",
 	                            { className: "datetimepicker__days" },
-	                            "Su"
-	                        ),
-	                        " ",
-	                        _react2.default.createElement(
-	                            "li",
-	                            { className: "datetimepicker__days" },
 	                            "Mo"
 	                        ),
-	                        " ",
 	                        _react2.default.createElement(
 	                            "li",
 	                            { className: "datetimepicker__days" },
 	                            "Tu"
 	                        ),
-	                        " ",
 	                        _react2.default.createElement(
 	                            "li",
 	                            { className: "datetimepicker__days" },
 	                            "We"
 	                        ),
-	                        " ",
 	                        _react2.default.createElement(
 	                            "li",
 	                            { className: "datetimepicker__days" },
 	                            "Th"
 	                        ),
-	                        " ",
 	                        _react2.default.createElement(
 	                            "li",
 	                            { className: "datetimepicker__days" },
 	                            "Fr"
 	                        ),
-	                        " ",
 	                        _react2.default.createElement(
 	                            "li",
 	                            { className: "datetimepicker__days" },
 	                            "Sa"
+	                        ),
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "datetimepicker__days" },
+	                            "Su"
 	                        ),
 	                        this.renderDays()
 	                    )
@@ -34159,6 +34153,254 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var TemplatedTaskCreationDialog = _react2.default.createClass({
+	    displayName: "TemplatedTaskCreationDialog",
+	    getInitialState: function getInitialState() {
+	        return { name: "", description: "" };
+	    },
+	    close: function close() {
+	        this.setState({ name: "", description: "" });
+	        this.props.onClose();
+	    },
+	    create: function create() {
+	        var _this = this;
+
+	        if (this.state.name == "") {
+	            return;
+	        }
+
+	        _Actions2.default.createTemplatedtask(this.state.name, this.state.description).then(function (x) {
+	            _Notifications2.default.Notify(x);
+	            if (x.Success) {
+	                _this.props.onClose();
+	                _this.props.onCreate();
+	            }
+	        });
+	    },
+	    render: function render() {
+	        var _this2 = this;
+
+	        return _react2.default.createElement(
+	            _Modal2.default,
+	            _extends({ onClose: this.onClose }, this.props),
+	            _react2.default.createElement(
+	                _Modal2.default.Header,
+	                null,
+	                "Create new Templated task"
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Body,
+	                null,
+	                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.name, onChange: function onChange(e) {
+	                        return _this2.setState({ name: e.target.value });
+	                    } }),
+	                _react2.default.createElement(_Input2.default, { title: "Description", value: this.state.description, onChange: function onChange(e) {
+	                        return _this2.setState({ description: e.target.value });
+	                    } })
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Footer,
+	                null,
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: this.close },
+	                    "Cancel"
+	                ),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { primary: true, onClick: this.create },
+	                    "Create"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var TemplatedTasksPage = _react2.default.createClass({
+	    displayName: "TemplatedTasksPage",
+	    getInitialState: function getInitialState() {
+	        return { show: false, tasks: [] };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.update();
+	    },
+	    update: function update() {
+	        var _this3 = this;
+
+	        _Actions2.default.loadTemplatedTasks().then(function (x) {
+	            return _this3.setState({ tasks: x });
+	        });
+	    },
+	    open: function open() {},
+	    render: function render() {
+	        var _this4 = this;
+
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "TemplatedTasks ",
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: function onClick() {
+	                            return _this4.setState({ show: true });
+	                        } },
+	                    "Create new template"
+	                )
+	            ),
+	            _react2.default.createElement(TemplatedTaskCreationDialog, { show: this.state.show, onClose: function onClose() {
+	                    return _this4.setState({ show: false });
+	                }, onCreate: this.update }),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    this.state.tasks.map(function (x) {
+	                        return _react2.default.createElement(
+	                            _Card2.default,
+	                            { title: x.Name, onClick: _this4.open },
+	                            "Click to edit"
+	                        );
+	                    })
+	                )
+	            )
+	        );
+	    }
+	});
+
+	exports.default = TemplatedTasksPage;
+
+/***/ }),
+/* 307 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(258);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	var _Net = __webpack_require__(272);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+		updateUsers: function updateUsers() {
+			return _Net2.default.get("/api/users/all");
+		},
+
+		updateGroups: function updateGroups() {
+			return _Net2.default.get("/api/users/groups");
+		},
+
+		getUsersInGroup: function getUsersInGroup(id) {
+			return _Net2.default.get("api/users/group?groupName=" + id);
+		},
+
+		createGroup: function createGroup(name) {
+			return _Net2.default.post("api/users/CreateGroup", {
+				Name: name
+			});
+		},
+
+		addUser: function addUser(group, userId) {
+			return _Net2.default.post("api/users/addUserToGroup", {
+				Group: group,
+				UserId: userId
+			});
+		},
+
+		removeUser: function removeUser(group, userId) {
+			return _Net2.default.post("api/users/removeUserFromGroup", {
+				Group: group,
+				UserId: userId
+			});
+		},
+
+		getApplicationGroups: function getApplicationGroups() {
+			return _Net2.default.get("/api/applications/applicationGroups/");
+		},
+
+		createApplicationGroup: function createApplicationGroup(name) {
+			return _Net2.default.post("/api/applications/CreateApplicationGroup", {
+				Name: name
+			});
+		},
+
+		createTemplatedtask: function createTemplatedtask(name, description) {
+			return _Net2.default.post("/api/Templatedtask/CreateTemplatedTask", {
+				Name: name,
+				Description: description
+			});
+		},
+
+		loadTemplatedTasks: function loadTemplatedTasks() {
+			return _Net2.default.get("/api/Templatedtask/");
+		}
+	};
+
+/***/ }),
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(265);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Actions = __webpack_require__(307);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Button = __webpack_require__(264);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Grid = __webpack_require__(266);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Select = __webpack_require__(275);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Modal = __webpack_require__(274);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Input = __webpack_require__(277);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Card = __webpack_require__(283);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _reactRedux = __webpack_require__(229);
+
+	var _Notifications = __webpack_require__(280);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	var GroupCreationDialog = _react2.default.createClass({
 	    displayName: "GroupCreationDialog",
 	    getInitialState: function getInitialState() {
@@ -34369,78 +34611,7 @@
 	exports.default = GroupsPage;
 
 /***/ }),
-/* 307 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(258);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	var _Net = __webpack_require__(272);
-
-	var _Net2 = _interopRequireDefault(_Net);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-		updateUsers: function updateUsers() {
-			return _Net2.default.get("/api/users/all");
-		},
-
-		updateGroups: function updateGroups() {
-			return _Net2.default.get("/api/users/groups");
-		},
-
-		getUsersInGroup: function getUsersInGroup(id) {
-			return _Net2.default.get("api/users/group?groupName=" + id);
-		},
-
-		createGroup: function createGroup(name) {
-			return _Net2.default.post("api/users/CreateGroup", {
-				Name: name
-			});
-		},
-
-		addUser: function addUser(group, userId) {
-			return _Net2.default.post("api/users/addUserToGroup", {
-				Group: group,
-				UserId: userId
-			});
-		},
-
-		removeUser: function removeUser(group, userId) {
-			return _Net2.default.post("api/users/removeUserFromGroup", {
-				Group: group,
-				UserId: userId
-			});
-		},
-
-		getApplicationGroups: function getApplicationGroups() {
-			return _Net2.default.get("/api/applications/applicationGroups/");
-		},
-
-		createApplicationGroup: function createApplicationGroup(name) {
-			return _Net2.default.post("/api/applications/CreateApplicationGroup", {
-				Name: name
-			});
-		},
-
-		createTemplatedtask: function createTemplatedtask(name, description) {
-			return _Net2.default.post("/api/Templatedtask/CreateTemplatedTask", {
-				Name: name,
-				Description: description
-			});
-		},
-
-		loadTemplatedTasks: function loadTemplatedTasks() {
-			return _Net2.default.get("/api/Templatedtask/");
-		}
-	};
-
-/***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34620,7 +34791,7 @@
 	exports.default = ApplicationsGroupsPage;
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34649,41 +34820,41 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(310);
+	var _Actions = __webpack_require__(311);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(311);
+	var _ListIcon = __webpack_require__(312);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(312);
+	var _PlayIcon = __webpack_require__(313);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(313);
+	var _CircleOkIcon = __webpack_require__(314);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(314);
+	var _CircleRemoveIcon = __webpack_require__(315);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(315);
+	var _WatchIcon = __webpack_require__(316);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(316);
+	var _EraseIcon = __webpack_require__(317);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(169);
 
-	var _FormattedDate = __webpack_require__(317);
+	var _FormattedDate = __webpack_require__(318);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(318);
+	var _FormattedTime = __webpack_require__(319);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -34891,7 +35062,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34944,7 +35115,7 @@
 	};
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34968,7 +35139,7 @@
 	exports.default = ListIcon;
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34992,7 +35163,7 @@
 	exports.default = PlayIcon;
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35016,7 +35187,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35040,7 +35211,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35064,7 +35235,7 @@
 	exports.default = WatchIcon;
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35088,7 +35259,7 @@
 	exports.default = EraseIcon;
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35119,7 +35290,7 @@
 	exports.default = FormattedDate;
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35154,7 +35325,7 @@
 	exports.default = FormattedTime;
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35175,7 +35346,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(310);
+	var _Actions = __webpack_require__(311);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -35183,15 +35354,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(320);
+	var _Panel = __webpack_require__(321);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(317);
+	var _FormattedDate = __webpack_require__(318);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(318);
+	var _FormattedTime = __webpack_require__(319);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -35460,7 +35631,7 @@
 	exports.default = DeploymentPage;
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35504,7 +35675,7 @@
 	exports.default = Panel;
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35527,7 +35698,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(322);
+	var _Actions = __webpack_require__(323);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -35547,7 +35718,7 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(323);
+	var _ServerIcon = __webpack_require__(324);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -35830,7 +36001,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35902,7 +36073,7 @@
 	};
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35926,7 +36097,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35955,7 +36126,7 @@
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(322);
+	var _Actions = __webpack_require__(323);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -35963,7 +36134,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(325);
+	var _FileUpload = __webpack_require__(326);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
@@ -36113,7 +36284,7 @@
 	exports.default = AgentPage;
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36159,7 +36330,7 @@
 	exports.default = FileUpload;
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36192,7 +36363,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(327);
+	var _Actions = __webpack_require__(328);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -36544,7 +36715,7 @@
 	exports.default = StatisticsPage;
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36585,7 +36756,7 @@
 	};
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36624,183 +36795,6 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
-
-/***/ }),
-/* 329 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Header = __webpack_require__(265);
-
-	var _Header2 = _interopRequireDefault(_Header);
-
-	var _Actions = __webpack_require__(307);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	var _Button = __webpack_require__(264);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Grid = __webpack_require__(266);
-
-	var _Grid2 = _interopRequireDefault(_Grid);
-
-	var _Select = __webpack_require__(275);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Modal = __webpack_require__(274);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _Input = __webpack_require__(277);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Card = __webpack_require__(283);
-
-	var _Card2 = _interopRequireDefault(_Card);
-
-	var _reactRedux = __webpack_require__(229);
-
-	var _Notifications = __webpack_require__(280);
-
-	var _Notifications2 = _interopRequireDefault(_Notifications);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var TemplatedTaskCreationDialog = _react2.default.createClass({
-	    displayName: "TemplatedTaskCreationDialog",
-	    getInitialState: function getInitialState() {
-	        return { name: "", description: "" };
-	    },
-	    close: function close() {
-	        this.setState({ name: "", description: "" });
-	        this.props.onClose();
-	    },
-	    create: function create() {
-	        var _this = this;
-
-	        if (this.state.name == "") {
-	            return;
-	        }
-
-	        _Actions2.default.createTemplatedtask(this.state.name, this.state.description).then(function (x) {
-	            _Notifications2.default.Notify(x);
-	            if (x.Success) {
-	                _this.props.onClose();
-	                _this.props.onCreate();
-	            }
-	        });
-	    },
-	    render: function render() {
-	        var _this2 = this;
-
-	        return _react2.default.createElement(
-	            _Modal2.default,
-	            _extends({ onClose: this.onClose }, this.props),
-	            _react2.default.createElement(
-	                _Modal2.default.Header,
-	                null,
-	                "Create new Templated task"
-	            ),
-	            _react2.default.createElement(
-	                _Modal2.default.Body,
-	                null,
-	                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.name, onChange: function onChange(e) {
-	                        return _this2.setState({ name: e.target.value });
-	                    } }),
-	                _react2.default.createElement(_Input2.default, { title: "Description", value: this.state.description, onChange: function onChange(e) {
-	                        return _this2.setState({ description: e.target.value });
-	                    } })
-	            ),
-	            _react2.default.createElement(
-	                _Modal2.default.Footer,
-	                null,
-	                _react2.default.createElement(
-	                    _Button2.default,
-	                    { onClick: this.close },
-	                    "Cancel"
-	                ),
-	                _react2.default.createElement(
-	                    _Button2.default,
-	                    { primary: true, onClick: this.create },
-	                    "Create"
-	                )
-	            )
-	        );
-	    }
-	});
-
-	var TemplatedTasksPage = _react2.default.createClass({
-	    displayName: "TemplatedTasksPage",
-	    getInitialState: function getInitialState() {
-	        return { show: false, tasks: [] };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.update();
-	    },
-	    update: function update() {
-	        var _this3 = this;
-
-	        _Actions2.default.loadTemplatedTasks().then(function (x) {
-	            return _this3.setState({ tasks: x });
-	        });
-	    },
-	    open: function open() {},
-	    render: function render() {
-	        var _this4 = this;
-
-	        return _react2.default.createElement(
-	            "div",
-	            null,
-	            _react2.default.createElement(
-	                "h3",
-	                null,
-	                "TemplatedTasks ",
-	                _react2.default.createElement(
-	                    _Button2.default,
-	                    { onClick: function onClick() {
-	                            return _this4.setState({ show: true });
-	                        } },
-	                    "Create new template"
-	                )
-	            ),
-	            _react2.default.createElement(TemplatedTaskCreationDialog, { show: this.state.show, onClose: function onClose() {
-	                    return _this4.setState({ show: false });
-	                }, onCreate: this.update }),
-	            _react2.default.createElement(
-	                _Grid2.default,
-	                { fluid: true },
-	                _react2.default.createElement(
-	                    _Grid2.default.Row,
-	                    null,
-	                    this.state.tasks.map(function (x) {
-	                        return _react2.default.createElement(
-	                            _Card2.default,
-	                            { title: x.Name, onClick: _this4.open },
-	                            "Click to edit"
-	                        );
-	                    })
-	                )
-	            )
-	        );
-	    }
-	});
-
-	exports.default = TemplatedTasksPage;
 
 /***/ })
 /******/ ]);

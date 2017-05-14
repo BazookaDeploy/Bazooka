@@ -104,7 +104,13 @@ var DateTimePicker = React.createClass({
                         <span onClick={this.nextMonth} className="nextMonth">&gt;</span>
                     </div>
                     <div className="datetimepicker__calendar__days">
-                        <li className="datetimepicker__days">Su</li>	<li className="datetimepicker__days">Mo</li>	<li className="datetimepicker__days">Tu</li>	<li className="datetimepicker__days">We</li>	<li className="datetimepicker__days">Th</li>	<li className="datetimepicker__days">Fr</li>	<li className="datetimepicker__days">Sa</li>
+                        <li className="datetimepicker__days">Mo</li>
+                        <li className="datetimepicker__days">Tu</li>
+                        <li className="datetimepicker__days">We</li>
+                        <li className="datetimepicker__days">Th</li>
+                        <li className="datetimepicker__days">Fr</li>
+                        <li className="datetimepicker__days">Sa</li>
+                        <li className="datetimepicker__days">Su</li>
                         {this.renderDays()}
                     </div>
                 </div>

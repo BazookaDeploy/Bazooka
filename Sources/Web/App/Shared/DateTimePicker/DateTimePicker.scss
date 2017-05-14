@@ -21,9 +21,6 @@
 
 
 .datetimepicker__calendar__days li.datetimepicker__days{
-    width: 13%;
-    min-width: 13%;
-    max-width: 13%;
     font-weight: 600;   
 }
 
@@ -60,6 +57,9 @@
 
 .datetimepicker__selector span.selected {
     font-weight: 600;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
 }
 
 .datetimepicker__hours {
