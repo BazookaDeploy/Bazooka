@@ -118,37 +118,41 @@
 
 	var _TemplatedTasksPage2 = _interopRequireDefault(_TemplatedTasksPage);
 
-	var _GroupsPage = __webpack_require__(341);
+	var _TemplatedTaskPage = __webpack_require__(341);
+
+	var _TemplatedTaskPage2 = _interopRequireDefault(_TemplatedTaskPage);
+
+	var _GroupsPage = __webpack_require__(342);
 
 	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
 
-	var _ApplicationGroupsPage = __webpack_require__(342);
+	var _ApplicationGroupsPage = __webpack_require__(343);
 
 	var _ApplicationGroupsPage2 = _interopRequireDefault(_ApplicationGroupsPage);
 
-	var _DeploymentsPage = __webpack_require__(343);
+	var _DeploymentsPage = __webpack_require__(344);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(353);
+	var _DeploymentPage = __webpack_require__(354);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(355);
+	var _EnviromentsPage = __webpack_require__(356);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(358);
+	var _AgentPage = __webpack_require__(359);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(360);
+	var _StatisticsPage = __webpack_require__(361);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Store = __webpack_require__(362);
+	var _Store = __webpack_require__(363);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -191,7 +195,12 @@
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _ConfigPage2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'Groups', component: _GroupsPage2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: 'ApplicationGroups', component: _ApplicationGroupsPage2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'TemplatedTasks', component: _TemplatedTasksPage2.default })
+	        _react2.default.createElement(
+	          _reactRouter.Route,
+	          { path: 'TemplatedTasks' },
+	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _TemplatedTasksPage2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _TemplatedTaskPage2.default })
+	        )
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
@@ -36158,6 +36167,12 @@
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
+	var _Textarea = __webpack_require__(321);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _reactRouter = __webpack_require__(178);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var TemplatedTaskCreationDialog = _react2.default.createClass({
@@ -36201,7 +36216,7 @@
 	                _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.name, onChange: function onChange(e) {
 	                        return _this2.setState({ name: e.target.value });
 	                    } }),
-	                _react2.default.createElement(_Input2.default, { title: "Description", value: this.state.description, onChange: function onChange(e) {
+	                _react2.default.createElement(_Textarea2.default, { rows: 6, title: "Description", value: this.state.description, onChange: function onChange(e) {
 	                        return _this2.setState({ description: e.target.value });
 	                    } })
 	            ),
@@ -36238,7 +36253,9 @@
 	            return _this3.setState({ tasks: x });
 	        });
 	    },
-	    open: function open() {},
+	    open: function open(id) {
+	        this.props.router.push("/Configuration/TemplatedTasks/" + id);
+	    },
 	    render: function render() {
 	        var _this4 = this;
 
@@ -36272,9 +36289,15 @@
 	                            { className: "taskTemplate", md: 3 },
 	                            " ",
 	                            _react2.default.createElement(
-	                                _Card2.default,
-	                                { title: x.Name, onClick: _this4.open },
-	                                x.Description
+	                                "div",
+	                                { onClick: function onClick() {
+	                                        return _this4.open(x.Id);
+	                                    } },
+	                                _react2.default.createElement(
+	                                    _Card2.default,
+	                                    { title: x.Name },
+	                                    x.Description
+	                                )
 	                            )
 	                        );
 	                    })
@@ -36283,6 +36306,8 @@
 	        );
 	    }
 	});
+
+	TemplatedTasksPage = (0, _reactRouter.withRouter)(TemplatedTasksPage);
 
 	exports.default = TemplatedTasksPage;
 
@@ -36359,6 +36384,99 @@
 
 /***/ }),
 /* 341 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(298);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Actions = __webpack_require__(340);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Button = __webpack_require__(297);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Grid = __webpack_require__(299);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Select = __webpack_require__(308);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Modal = __webpack_require__(307);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Input = __webpack_require__(310);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Card = __webpack_require__(316);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _reactRedux = __webpack_require__(245);
+
+	var _Notifications = __webpack_require__(313);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	var _Textarea = __webpack_require__(321);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _reactRouter = __webpack_require__(178);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TemplatedTaskPage = _react2.default.createClass({
+	    displayName: "TemplatedTaskPage",
+	    getInitialState: function getInitialState() {
+	        return { parameters: [] };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.update();
+	    },
+	    update: function update() {},
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Templated Task"
+	            ),
+	            _react2.default.createElement(
+	                _Grid2.default,
+	                { fluid: true },
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    "Edit task"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	exports.default = TemplatedTaskPage;
+
+/***/ }),
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36623,7 +36741,7 @@
 	exports.default = GroupsPage;
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36803,7 +36921,7 @@
 	exports.default = ApplicationsGroupsPage;
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36832,41 +36950,41 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(344);
+	var _Actions = __webpack_require__(345);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(345);
+	var _ListIcon = __webpack_require__(346);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(346);
+	var _PlayIcon = __webpack_require__(347);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(347);
+	var _CircleOkIcon = __webpack_require__(348);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(348);
+	var _CircleRemoveIcon = __webpack_require__(349);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(349);
+	var _WatchIcon = __webpack_require__(350);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(350);
+	var _EraseIcon = __webpack_require__(351);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(178);
 
-	var _FormattedDate = __webpack_require__(351);
+	var _FormattedDate = __webpack_require__(352);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(352);
+	var _FormattedTime = __webpack_require__(353);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -37074,7 +37192,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37127,7 +37245,7 @@
 	};
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37151,7 +37269,7 @@
 	exports.default = ListIcon;
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37175,7 +37293,7 @@
 	exports.default = PlayIcon;
 
 /***/ }),
-/* 347 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37199,7 +37317,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 348 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37223,7 +37341,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ }),
-/* 349 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37247,7 +37365,7 @@
 	exports.default = WatchIcon;
 
 /***/ }),
-/* 350 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37271,7 +37389,7 @@
 	exports.default = EraseIcon;
 
 /***/ }),
-/* 351 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37302,7 +37420,7 @@
 	exports.default = FormattedDate;
 
 /***/ }),
-/* 352 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37337,7 +37455,7 @@
 	exports.default = FormattedTime;
 
 /***/ }),
-/* 353 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37358,7 +37476,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(344);
+	var _Actions = __webpack_require__(345);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37366,15 +37484,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(354);
+	var _Panel = __webpack_require__(355);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(351);
+	var _FormattedDate = __webpack_require__(352);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(352);
+	var _FormattedTime = __webpack_require__(353);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -37635,7 +37753,7 @@
 	exports.default = DeploymentPage;
 
 /***/ }),
-/* 354 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37679,7 +37797,7 @@
 	exports.default = Panel;
 
 /***/ }),
-/* 355 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37702,7 +37820,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(356);
+	var _Actions = __webpack_require__(357);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37722,7 +37840,7 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(357);
+	var _ServerIcon = __webpack_require__(358);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -38005,7 +38123,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ }),
-/* 356 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38077,7 +38195,7 @@
 	};
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38101,7 +38219,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38130,7 +38248,7 @@
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(356);
+	var _Actions = __webpack_require__(357);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -38138,7 +38256,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(359);
+	var _FileUpload = __webpack_require__(360);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
@@ -38288,7 +38406,7 @@
 	exports.default = AgentPage;
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38334,7 +38452,7 @@
 	exports.default = FileUpload;
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38367,7 +38485,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(361);
+	var _Actions = __webpack_require__(362);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -38719,7 +38837,7 @@
 	exports.default = StatisticsPage;
 
 /***/ }),
-/* 361 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38760,7 +38878,7 @@
 	};
 
 /***/ }),
-/* 362 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";

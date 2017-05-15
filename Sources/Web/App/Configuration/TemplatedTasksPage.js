@@ -9,6 +9,8 @@ import Input from "../Shared/Input";
 import Card from "../Shared/Card";
 import { connect } from 'react-redux';
 import Notification from "../Shared/Notifications";
+import Textarea from "../Shared/Textarea";
+import { withRouter } from "react-router";
 
 var TemplatedTaskCreationDialog = React.createClass({
     getInitialState(){
@@ -39,7 +41,7 @@ var TemplatedTaskCreationDialog = React.createClass({
                     <Modal.Header>Create new Templated task</Modal.Header>
                     <Modal.Body>
                         <Input title="Name" value={this.state.name} onChange={(e) => this.setState({name: e.target.value})} />
-                        <Input title="Description" value={this.state.description} onChange={(e) => this.setState({ description: e.target.value })} />
+                        <Textarea rows={6} title="Description" value={this.state.description} onChange={(e) => this.setState({ description: e.target.value })} />
 
                     </Modal.Body>
                     <Modal.Footer>
@@ -64,8 +66,8 @@ var TemplatedTasksPage= React.createClass({
         Actions.loadTemplatedTasks().then(x => this.setState({ tasks: x }));
     },
 
-    open() {
-
+    open(id) {
+        this.props.router.push("/Configuration/TemplatedTasks/" + id);
     },
     
     render(){
@@ -76,12 +78,14 @@ var TemplatedTasksPage= React.createClass({
 
             <Grid fluid>
                 <Grid.Row>
-                    {this.state.tasks.map(x => (<Grid.Col className="taskTemplate" md={3}> <Card title={x.Name} onClick={this.open}>{x.Description}</Card></Grid.Col>))}
+                    {this.state.tasks.map(x => (<Grid.Col className="taskTemplate" md={3} > <div onClick={() => this.open(x.Id)}><Card title={x.Name}>{x.Description}</Card></div></Grid.Col>))}
                 </Grid.Row>
             </Grid>
             </div>
         )
     }
 });
+
+TemplatedTasksPage = withRouter(TemplatedTasksPage);
 
 export default TemplatedTasksPage;
