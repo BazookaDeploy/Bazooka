@@ -22,6 +22,23 @@ namespace Web.Controllers
             return db.Query<TasKTemplateDto>().Single(X => X.Id == id);
         }
 
+        [HttpGet]
+        public object LastVersion(int id)
+        {
+            var o = db.Query<TasKTemplateDto>().Single(X => X.Id == id);
+            var v =  db.Query<TaskTemplateVersionDto>().Where(X => X.TaskTemplateId == id).OrderByDescending(x => x.Version).First();
+            var p = db.Query<TaskTemplateParameterDto>().Where(x => x.TaskTemplateVersionId == v.Id).ToList();
+
+            return new
+            {
+                o.Name,
+                o.Description,
+                v.Script,
+                v.Version,
+                Parameters = p
+            };
+        }
+
         [HttpPost]
         public ExecutionResult CreateTemplatedTask(CreateTemplatedTask command)
         {
@@ -29,7 +46,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ExecutionResult CreateDescription(ChangeTemplatedTaskDescription command)
+        public ExecutionResult ChangeDescription(ChangeTemplatedTaskDescription command)
         {
             return Execute(command);
         }

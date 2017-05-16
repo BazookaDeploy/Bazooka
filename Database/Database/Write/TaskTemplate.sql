@@ -1,6 +1,6 @@
 ﻿CREATE TABLE dbo.[TaskTemplate]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	Name NVARcHAR(5) NOT NULL,
+	Name NVARcHAR(100) NOT NULL,
 	Description NVARCHAR(2000) 
 )

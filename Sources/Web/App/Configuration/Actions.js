@@ -54,5 +54,17 @@ module.exports = {
 
     loadTemplatedTasks: function () {
         return Net.get("/api/Templatedtask/");
-    }
+    },
+
+    lastVersion: function (id) {
+        return Net.get("/api/TemplatedTask/LastVersion/" + id);
+    },
+
+    rename: function (id, name) {
+        return Net.post("/api/TemplatedTask/Rename/", { TemplatedTaskId: id, Name: name });
+    },
+
+    changeDescription: function (id, description) {
+        return Net.post("/api/TemplatedTask/ChangeDescription/", { TemplatedTaskId: id, Description: description });
+    },
 };

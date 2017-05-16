@@ -36379,6 +36379,18 @@
 
 		loadTemplatedTasks: function loadTemplatedTasks() {
 			return _Net2.default.get("/api/Templatedtask/");
+		},
+
+		lastVersion: function lastVersion(id) {
+			return _Net2.default.get("/api/TemplatedTask/LastVersion/" + id);
+		},
+
+		rename: function rename(id, name) {
+			return _Net2.default.post("/api/TemplatedTask/Rename/", { TemplatedTaskId: id, Name: name });
+		},
+
+		changeDescription: function changeDescription(id, description) {
+			return _Net2.default.post("/api/TemplatedTask/ChangeDescription/", { TemplatedTaskId: id, Description: description });
 		}
 	};
 
@@ -36445,20 +36457,51 @@
 	var TemplatedTaskPage = _react2.default.createClass({
 	    displayName: "TemplatedTaskPage",
 	    getInitialState: function getInitialState() {
-	        return { parameters: [] };
+	        return { Parameters: [] };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        this.update();
 	    },
-	    update: function update() {},
+	    update: function update() {
+	        var _this = this;
+
+	        _Actions2.default.lastVersion(this.props.params.id).then(function (x) {
+	            return _this.setState(x);
+	        });
+	    },
+
+
+	    rename: function rename() {
+	        var _this2 = this;
+
+	        if (this.state.Name.length > 0) {
+	            _Actions2.default.rename(this.props.params.id, this.state.Name).then(function () {
+	                return _this2.update();
+	            });
+	        }
+	    },
+
+	    changeDescription: function changeDescription() {
+	        var _this3 = this;
+
+	        if (this.state.Description.length > 0) {
+	            _Actions2.default.changeDescription(this.props.params.id, this.state.Description).then(function () {
+	                return _this3.update();
+	            });
+	        }
+	    },
+
 	    render: function render() {
+	        var _this4 = this;
+
 	        return _react2.default.createElement(
 	            "div",
 	            null,
 	            _react2.default.createElement(
 	                "h3",
 	                null,
-	                "Templated Task"
+	                "Templated Task ",
+	                this.state.Name
 	            ),
 	            _react2.default.createElement(
 	                _Grid2.default,
@@ -36466,7 +36509,25 @@
 	                _react2.default.createElement(
 	                    _Grid2.default.Row,
 	                    null,
-	                    "Edit task"
+	                    _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.Name, onChange: function onChange(e) {
+	                            return _this4.setState({ Name: e.target.value });
+	                        } }),
+	                    _react2.default.createElement(
+	                        _Button2.default,
+	                        { block: true, onClick: this.rename },
+	                        "Rename"
+	                    ),
+	                    _react2.default.createElement(_Textarea2.default, { title: "Description", rows: 5, value: this.state.Description, onChange: function onChange(e) {
+	                            return _this4.setState({ Description: e.target.value });
+	                        } }),
+	                    _react2.default.createElement(
+	                        _Button2.default,
+	                        { onClick: this.changeDescription, block: true },
+	                        "Change description"
+	                    ),
+	                    _react2.default.createElement(_Textarea2.default, { title: "Script", rows: 20, value: this.state.Script, onChange: function onChange(e) {
+	                            return _this4.setState({ Script: e.target.value });
+	                        } })
 	                )
 	            )
 	        );
