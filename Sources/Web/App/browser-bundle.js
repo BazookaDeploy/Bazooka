@@ -36391,6 +36391,10 @@
 
 		changeDescription: function changeDescription(id, description) {
 			return _Net2.default.post("/api/TemplatedTask/ChangeDescription/", { TemplatedTaskId: id, Description: description });
+		},
+
+		createNewVersion: function createNewVersion(id, script, parameters) {
+			return _Net2.default.post("/api/TemplatedTask/CreateNewVersion/", { TemplatedTaskId: id, Script: script, Parameters: parameters });
 		}
 	};
 
@@ -36435,6 +36439,10 @@
 	var _Input = __webpack_require__(310);
 
 	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Table = __webpack_require__(295);
+
+	var _Table2 = _interopRequireDefault(_Table);
 
 	var _Card = __webpack_require__(316);
 
@@ -36491,8 +36499,37 @@
 	        }
 	    },
 
-	    render: function render() {
+	    removeParameter: function removeParameter(index) {
+	        this.state.Parameters.splice(index, 1);
+	        this.setState({ Parameters: this.state.Parameters });
+	    },
+
+	    addParameter: function addParameter() {
+	        if (this.state.temporaryName) {
+	            this.setState({
+	                Parameters: this.state.Parameters.concat({
+	                    Name: this.state.temporaryName,
+	                    Optional: this.state.temporaryOptional,
+	                    Encrypted: this.state.temporaryEncrypted
+	                }),
+	                temporaryName: "",
+	                temporaryOptional: false,
+	                temporaryEncrypted: false
+	            });
+	        }
+	    },
+
+	    save: function save() {
 	        var _this4 = this;
+
+	        debugger;
+	        _Actions2.default.createNewVersion(this.props.params.id, this.state.Script, this.state.Parameters).then(function (x) {
+	            return _this4.update();
+	        });
+	    },
+
+	    render: function render() {
+	        var _this5 = this;
 
 	        return _react2.default.createElement(
 	            "div",
@@ -36510,24 +36547,153 @@
 	                    _Grid2.default.Row,
 	                    null,
 	                    _react2.default.createElement(_Input2.default, { title: "Name", value: this.state.Name, onChange: function onChange(e) {
-	                            return _this4.setState({ Name: e.target.value });
+	                            return _this5.setState({ Name: e.target.value });
 	                        } }),
 	                    _react2.default.createElement(
 	                        _Button2.default,
-	                        { block: true, onClick: this.rename },
+	                        { primary: true, block: true, onClick: this.rename },
 	                        "Rename"
 	                    ),
 	                    _react2.default.createElement(_Textarea2.default, { title: "Description", rows: 5, value: this.state.Description, onChange: function onChange(e) {
-	                            return _this4.setState({ Description: e.target.value });
+	                            return _this5.setState({ Description: e.target.value });
 	                        } }),
 	                    _react2.default.createElement(
 	                        _Button2.default,
-	                        { onClick: this.changeDescription, block: true },
+	                        { primary: true, onClick: this.changeDescription, block: true },
 	                        "Change description"
 	                    ),
 	                    _react2.default.createElement(_Textarea2.default, { title: "Script", rows: 20, value: this.state.Script, onChange: function onChange(e) {
-	                            return _this4.setState({ Script: e.target.value });
+	                            return _this5.setState({ Script: e.target.value });
 	                        } })
+	                ),
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        "h5",
+	                        null,
+	                        "Parameters"
+	                    ),
+	                    _react2.default.createElement(
+	                        _Table2.default,
+	                        null,
+	                        _react2.default.createElement(
+	                            _Table2.default.Head,
+	                            null,
+	                            _react2.default.createElement(
+	                                "tr",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    "Name"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    "Optional"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    "Encrypted"
+	                                ),
+	                                _react2.default.createElement("td", null)
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            _Table2.default.Body,
+	                            null,
+	                            this.state.Parameters.map(function (x, i) {
+	                                return _react2.default.createElement(
+	                                    "tr",
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        "td",
+	                                        null,
+	                                        x.Name
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "td",
+	                                        null,
+	                                        x.Optional && _react2.default.createElement(
+	                                            "span",
+	                                            null,
+	                                            "\u2714"
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "td",
+	                                        null,
+	                                        x.Encrypted && _react2.default.createElement(
+	                                            "span",
+	                                            null,
+	                                            "\u2714"
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "td",
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            _Button2.default,
+	                                            { onClick: function onClick() {
+	                                                    return _this5.removeParameter(i);
+	                                                } },
+	                                            "Delete"
+	                                        )
+	                                    )
+	                                );
+	                            }),
+	                            _react2.default.createElement(
+	                                "tr",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    _react2.default.createElement(_Input2.default, { value: this.state.temporaryName, onChange: function onChange(e) {
+	                                            return _this5.setState({ temporaryName: e.target.value });
+	                                        } })
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    _react2.default.createElement("input", { type: "checkbox", checked: this.state.temporaryOptional, onClick: function onClick(e) {
+	                                            return _this5.setState({ temporaryOptional: !_this5.state.temporaryOptional });
+	                                        } })
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    _react2.default.createElement("input", { type: "checkbox", checked: this.state.temporaryEncrypted, onClick: function onClick(e) {
+	                                            return _this5.setState({ temporaryEncrypted: !_this5.state.temporaryEncrypted });
+	                                        } })
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _Button2.default,
+	                                        { onClick: this.addParameter },
+	                                        "Add"
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Grid2.default.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _Button2.default,
+	                        { block: true, primary: true, onClick: this.save },
+	                        "Save"
+	                    ),
+	                    _react2.default.createElement("br", null),
+	                    "\xA0",
+	                    _react2.default.createElement("br", null),
+	                    "\xA0",
+	                    _react2.default.createElement("br", null)
 	                )
 	            )
 	        );

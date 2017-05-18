@@ -67,4 +67,8 @@ module.exports = {
     changeDescription: function (id, description) {
         return Net.post("/api/TemplatedTask/ChangeDescription/", { TemplatedTaskId: id, Description: description });
     },
+
+    createNewVersion: function (id, script, parameters) {
+        return Net.post("/api/TemplatedTask/CreateNewVersion/", { TemplatedTaskId: id, Script: script, Parameters: parameters });
+    }
 };
