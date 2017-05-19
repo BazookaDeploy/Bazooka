@@ -19,7 +19,9 @@
         /// <summary>
         ///     The identifier of the task template
         /// </summary>
-        public virtual int TaskTemplateId { get; set; }
+        //public virtual int TaskTemplateVersionId { get; set; }
+
+        public virtual TaskTemplateVersion Version { get; set; }
 
         /// <summary>
         ///     name of the parameter

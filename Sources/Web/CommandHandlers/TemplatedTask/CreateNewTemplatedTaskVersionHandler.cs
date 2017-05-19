@@ -13,8 +13,7 @@ namespace Web.CommandHandlers
             {
                 Encrypted = x.Encrypted,
                 Name = x.Name,
-                Optional = x.Optional,
-                TaskTemplateId = task.Id
+                Optional = x.Optional
             }).ToList());
             Repository.Save(task);
         }

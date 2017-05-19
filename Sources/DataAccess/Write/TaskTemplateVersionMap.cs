@@ -29,7 +29,7 @@ namespace DataAccess.Write
             Bag(x => x.Parameters, map =>
             {
                 map.Key(km => km.Column("TaskTemplateVersionId"));
-                map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                map.Cascade(Cascade.All );
                 map.Inverse(true);
             },
             x => x.OneToMany());

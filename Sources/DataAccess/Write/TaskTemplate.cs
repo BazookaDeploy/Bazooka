@@ -72,13 +72,16 @@
         /// <param name="parameters">New set of parameters</param>
         public virtual void CreateNewVersion(string script, ICollection<TaskTemplateParameter> parameters)
         {
-            this.Versions.Add(new TaskTemplateVersion()
+            var version = new TaskTemplateVersion()
             {
                 TaskTemplateId = this.Id,
                 Version =this.Versions.Count == 0 ? 1 :  this.Versions.Last().Version + 1,
                 Script = script,
                 Parameters = parameters.ToList()
-            });
+            };
+
+            version.Parameters.ToList().ForEach(x => x.Version = version);
+            this.Versions.Add(version);
         }
     }
 }
