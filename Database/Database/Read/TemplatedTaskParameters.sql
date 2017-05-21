@@ -1,2 +1,2 @@
 ﻿CREATE VIEW rd.[TemplatedTaskParameters]
-	AS SELECT * FROM TemplatedTaskParameters
+	AS SELECT * FROM dbo.TemplatedTaskParameters

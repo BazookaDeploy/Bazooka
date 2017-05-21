@@ -119,6 +119,10 @@
     <Compile Include="Write\TaskTemplateParameter.cs" />
     <Compile Include="Write\TaskTemplateParameterMap.cs" />
     <Compile Include="Write\TaskTemplateVersion.cs" />
+    <Compile Include="Write\TemplatedTask.cs" />
+    <Compile Include="Write\TemplatedTaskMap.cs" />
+    <Compile Include="Write\TemplatedTaskParameterMap.cs" />
+    <Compile Include="Write\TemplatedTaskParameter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
