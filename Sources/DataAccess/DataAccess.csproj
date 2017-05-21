@@ -79,6 +79,8 @@
     <Compile Include="Read\TaskDto.cs" />
     <Compile Include="Read\TaskTemplateVersionDto.cs" />
     <Compile Include="Read\TaskType.cs" />
+    <Compile Include="Read\TemplatedTaskDto.cs" />
+    <Compile Include="Read\TemplatedTaskParameterDto.cs" />
     <Compile Include="Read\UserDto.cs" />
     <Compile Include="Read\UsersInGroupsDto.cs" />
     <Compile Include="Write\Agent.cs" />

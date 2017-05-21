@@ -59,6 +59,8 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new TaskTemplateDtoConfiguration());
             modelBuilder.Configurations.Add(new TaskTemplateVersionsDtoConfiguration());
             modelBuilder.Configurations.Add(new TaskTemplateParameterDtoConfiguration());
+            modelBuilder.Configurations.Add(new TemplatedTaskDtoDtoConfiguration());
+            modelBuilder.Configurations.Add(new TemplatedTaskParameterDtoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -252,6 +254,21 @@ namespace DataAccess.Read
         }
     }
 
+    public class TemplatedTaskDtoDtoConfiguration : EntityTypeConfiguration<TemplatedTaskDto>
+    {
+        public TemplatedTaskDtoDtoConfiguration()
+        {
+            ToTable("TemplatedTask");
+        }
+    }
+
+    public class TemplatedTaskParameterDtoConfiguration : EntityTypeConfiguration<TemplatedTaskParameterDto>
+    {
+        public TemplatedTaskParameterDtoConfiguration()
+        {
+            ToTable("TemplatedTaskParameters");
+        }
+    }
 
 
     public class DeploymentDtoConfiguration : EntityTypeConfiguration<DeploymentDto>
