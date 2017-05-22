@@ -40,25 +40,25 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ExecutionResult CreateTemplatedTask(CreateTemplatedTask command)
+        public ExecutionResult CreateTemplatedTask(CreateTaskTemplate command)
         {
             return Execute(command);
         }
 
         [HttpPost]
-        public ExecutionResult ChangeDescription(ChangeTemplatedTaskDescription command)
+        public ExecutionResult ChangeDescription(ChangeTaskTemplateDescription command)
         {
             return Execute(command);
         }
 
         [HttpPost]
-        public ExecutionResult Rename(RenameTemplatedTask command)
+        public ExecutionResult Rename(RenameTaskTemplate command)
         {
             return Execute(command);
         }
 
         [HttpPost]
-        public ExecutionResult CreateNewVersion(CreateNewTemplatedTaskVersion command)
+        public ExecutionResult CreateNewVersion(CreateNewTaskTemplateVersion command)
         {
             return Execute(command);
         }

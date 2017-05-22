@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class CreateNewTemplatedTaskVersion : ICommand, ICanBeRunOnlyByAdministrator
+    public class CreateNewTaskTemplateVersion : ICommand, ICanBeRunOnlyByAdministrator
     {
         public int TemplatedTaskId { get; set; }
 

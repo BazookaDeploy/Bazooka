@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class ChangeTemplatedTaskDescription : ICommand, ICanBeRunOnlyByAdministrator
+    public class ChangeTaskTemplateDescription : ICommand, ICanBeRunOnlyByAdministrator
     {
         public int TemplatedTaskId { get; set; }
 

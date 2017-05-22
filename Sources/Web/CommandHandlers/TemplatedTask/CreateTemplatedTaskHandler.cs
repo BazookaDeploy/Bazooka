@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using Web.Commands;
 
-    public class CreateTemplatedTaskHandler : CommandHandler<CreateTemplatedTask>
+    public class CreateTemplatedTaskHandler : CommandHandler<CreateTaskTemplate>
     {
-        public override void Apply(CreateTemplatedTask command)
+        public override void Apply(CreateTaskTemplate command)
         {
             var task = new TaskTemplate();
             task.Create(command.Name, command.Description);

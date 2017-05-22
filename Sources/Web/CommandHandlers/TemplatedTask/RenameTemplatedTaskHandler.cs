@@ -3,9 +3,9 @@ using Web.Commands;
 
 namespace Web.CommandHandlers
 {
-    public class RenameTemplatedTaskHandler : CommandHandler<RenameTemplatedTask>
+    public class RenameTemplatedTaskHandler : CommandHandler<RenameTaskTemplate>
     {
-        public override void Apply(RenameTemplatedTask command)
+        public override void Apply(RenameTaskTemplate command)
         {
             var task = Repository.Get<TaskTemplate>(command.TemplatedTaskId);
             task.Rename(command.Name);
