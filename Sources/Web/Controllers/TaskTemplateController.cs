@@ -6,7 +6,7 @@ using Web.Commands;
 
 namespace Web.Controllers
 {
-    public class TemplatedTaskController : BaseController
+    public class TaskTemplateController : BaseController
     {
 
         public IReadContext db { get; set; }

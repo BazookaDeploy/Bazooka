@@ -46,29 +46,29 @@ module.exports = {
     },
 
     createTemplatedtask: function (name, description) {
-        return Net.post("/api/Templatedtask/CreateTemplatedTask", {
+        return Net.post("/api/TaskTemplate/CreateTemplatedTask", {
             Name: name,
             Description: description
         });
     }, 
 
     loadTemplatedTasks: function () {
-        return Net.get("/api/Templatedtask/");
+        return Net.get("/api/TaskTemplate/");
     },
 
     lastVersion: function (id) {
-        return Net.get("/api/TemplatedTask/LastVersion/" + id);
+        return Net.get("/api/TaskTemplate/LastVersion/" + id);
     },
 
     rename: function (id, name) {
-        return Net.post("/api/TemplatedTask/Rename/", { TemplatedTaskId: id, Name: name });
+        return Net.post("/api/TaskTemplate/Rename/", { TemplatedTaskId: id, Name: name });
     },
 
     changeDescription: function (id, description) {
-        return Net.post("/api/TemplatedTask/ChangeDescription/", { TemplatedTaskId: id, Description: description });
+        return Net.post("/api/TaskTemplate/ChangeDescription/", { TemplatedTaskId: id, Description: description });
     },
 
     createNewVersion: function (id, script, parameters) {
-        return Net.post("/api/TemplatedTask/CreateNewVersion/", { TemplatedTaskId: id, Script: script, Parameters: parameters });
+        return Net.post("/api/TaskTemplate/CreateNewVersion/", { TemplatedTaskId: id, Script: script, Parameters: parameters });
     }
 };
