@@ -17,7 +17,27 @@ namespace DataAccess.Write
 
         public virtual int? ApplicationGroupId { get; set; }
 
+        public void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<Parameter> enumerable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateTemplatedTask(int id, int version)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual IList<AllowedUser> AllowedUsers { get; set; }
+
+        public void RenameTemplatedTask(int id, int enviromentId, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddTemplatedTask(int agentId, int enviromentId, string name, IEnumerable<Parameter> enumerable)
+        {
+            throw new NotImplementedException();
+        }
 
         public virtual IList<AllowedGroup> AllowedGroups { get; set; }
 

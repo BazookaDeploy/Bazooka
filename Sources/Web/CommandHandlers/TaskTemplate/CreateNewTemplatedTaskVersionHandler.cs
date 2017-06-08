@@ -4,7 +4,7 @@ using Web.Commands;
 
 namespace Web.CommandHandlers
 {
-    public class CreateNewTemplatedTaskVersionHandler : CommandHandler<CreateNewTaskTemplateVersion>
+    public class CreateNewTaskTemplateVersionHandler : CommandHandler<CreateNewTaskTemplateVersion>
     {
         public override void Apply(CreateNewTaskTemplateVersion command)
         {

@@ -3,7 +3,7 @@ using Web.Commands;
 
 namespace Web.CommandHandlers
 {
-    public class RenameTemplatedTaskHandler : CommandHandler<RenameTaskTemplate>
+    public class RenameTaskTemplateHandler : CommandHandler<RenameTaskTemplate>
     {
         public override void Apply(RenameTaskTemplate command)
         {
