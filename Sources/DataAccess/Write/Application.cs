@@ -89,7 +89,19 @@ namespace DataAccess.Write
 
         public void AddTemplatedTask(int agentId, int enviromentId, string name, IEnumerable<Parameter> enumerable)
         {
-            throw new NotImplementedException();
+            this.TemplatedTasks.Add(new TemplatedTask()
+            {
+                AgentId = agentId,
+                ApplicationId = this.Id,
+                EnviromentId = enviromentId,
+                Name = name,
+                Position = this.NewTaskNumber(),
+                Prameters = enumerable.Select(x => new TemplatedTaskParameter()
+                {
+                    TaskTemplateParameterId = x.ParameterId,
+                    Value = x.Value
+                }).ToList()
+            });
         }
 
         public virtual void AddAdministrator(System.Guid userId)
