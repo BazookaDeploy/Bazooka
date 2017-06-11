@@ -6,6 +6,7 @@
         Mail = 1,
         RemoteScript = 2,
         LocalScript = 3,
-        Database = 4
+        Database = 4,
+        Templated = 5
     }
 }

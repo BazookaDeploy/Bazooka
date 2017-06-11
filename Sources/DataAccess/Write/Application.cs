@@ -17,27 +17,7 @@ namespace DataAccess.Write
 
         public virtual int? ApplicationGroupId { get; set; }
 
-        public void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<Parameter> enumerable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateTemplatedTask(int id, int version)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual IList<AllowedUser> AllowedUsers { get; set; }
-
-        public void RenameTemplatedTask(int id, int enviromentId, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddTemplatedTask(int agentId, int enviromentId, string name, IEnumerable<Parameter> enumerable)
-        {
-            throw new NotImplementedException();
-        }
 
         public virtual IList<AllowedGroup> AllowedGroups { get; set; }
 
@@ -50,6 +30,8 @@ namespace DataAccess.Write
         public virtual IList<LocalScriptTask> LocalScriptTasks { get; set; }
 
         public virtual IList<RemoteScriptTask> RemoteScriptTasks { get; set; }
+
+        public virtual IList<TemplatedTask> TemplatedTasks { get; set; }
 
         public virtual IList<ApplicationAdministrator> Administrators { get; set; }
 
@@ -82,7 +64,32 @@ namespace DataAccess.Write
                 list.AddRange(RemoteScriptTasks.Select(x => (IMovable)x).ToList());
             }
 
+            if (TemplatedTasks != null)
+            {
+                list.AddRange(TemplatedTasks.Select(x => (IMovable)x).ToList());
+            }
+
             return list;
+        }
+
+        public void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<Parameter> enumerable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateTemplatedTask(int id, int version)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RenameTemplatedTask(int id, int enviromentId, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddTemplatedTask(int agentId, int enviromentId, string name, IEnumerable<Parameter> enumerable)
+        {
+            throw new NotImplementedException();
         }
 
         public virtual void AddAdministrator(System.Guid userId)
@@ -193,6 +200,20 @@ namespace DataAccess.Write
                 }).ToList();
 
                 foreach (var task in tasks) { this.RemoteScriptTasks.Add(task); }
+            }
+
+            if (TemplatedTasks != null)
+            {
+                var tasks = this.TemplatedTasks.Where(x => x.EnviromentId == originalEnviromentId && !x.Deleted).Select(x => new TemplatedTask()
+                {
+                    AgentId = machineId,
+                    EnviromentId = enviromentId,
+                    Name = x.Name,
+                    Position = this.NewTaskNumber(),
+                    ApplicationId = x.ApplicationId
+                }).ToList();
+
+                foreach (var task in tasks) { this.TemplatedTasks.Add(task); }
             }
         }
 
@@ -389,7 +410,9 @@ namespace DataAccess.Write
             var c = (this.LocalScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new LocalScriptTask()).Position;
             var d = (this.MailTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new MailTask()).Position;
             var e = (this.RemoteScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new RemoteScriptTask()).Position;
-            var position = (new int[] { a, b, c, d, e }).ToList().Max();
+            var f = (this.TemplatedTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new TemplatedTask()).Position;
+
+            var position = (new int[] { a, b, c, d, e, f }).ToList().Max();
 
             return position + 1;
         }
@@ -436,6 +459,10 @@ namespace DataAccess.Write
                 case TaskType.Database:
                     this.DatabaseTasks.Remove(this.DatabaseTasks.Single(x => x.Id == taskId));
                     break;
+                case TaskType.Templated:
+                    this.TemplatedTasks.Remove(this.TemplatedTasks.Single(x => x.Id == taskId));
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
