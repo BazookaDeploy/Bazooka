@@ -27,7 +27,7 @@ namespace DataAccess.Write
             Property(x => x.ApplicationId);
             Property(x => x.Deleted);
             Property(x => x.EnviromentId);
-
+            Property(x => x.TaskTemplateVersionId);
 
             Bag(x => x.Prameters, map =>
             {

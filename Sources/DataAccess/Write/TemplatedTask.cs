@@ -13,6 +13,7 @@ namespace DataAccess.Write
         public virtual int EnviromentId { get; set; }
         public virtual int ApplicationId { get; set; }
         public virtual int AgentId { get; set; }
+        public virtual int TaskTemplateVersionId { get; set; }
 
         public virtual IList<TemplatedTaskParameter> Prameters { get; set; }
 

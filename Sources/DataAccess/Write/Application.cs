@@ -74,20 +74,31 @@ namespace DataAccess.Write
 
         public void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<Parameter> enumerable)
         {
-            throw new NotImplementedException();
+            var task = this.TemplatedTasks.Single(x => x.Id == id);
+
+            task.AgentId = agentId;
+            task.Prameters = enumerable.Select(x => new TemplatedTaskParameter()
+            {
+                TaskTemplateParameterId = x.ParameterId,
+                Value = x.Value
+            }).ToList();
         }
 
         public void UpdateTemplatedTask(int id, int version)
         {
-            throw new NotImplementedException();
+            var task = this.TemplatedTasks.Single(x => x.Id == id);
+
+            task.TaskTemplateVersionId = version;
         }
 
         public void RenameTemplatedTask(int id, int enviromentId, string name)
         {
-            throw new NotImplementedException();
+            var task = this.TemplatedTasks.Single(x => x.Id == id && x.EnviromentId == enviromentId);
+
+            task.Name = name;
         }
 
-        public void AddTemplatedTask(int agentId, int enviromentId, string name, IEnumerable<Parameter> enumerable)
+        public void AddTemplatedTask(int agentId, int enviromentId, int version, string name, IEnumerable<Parameter> enumerable)
         {
             this.TemplatedTasks.Add(new TemplatedTask()
             {
@@ -95,6 +106,8 @@ namespace DataAccess.Write
                 ApplicationId = this.Id,
                 EnviromentId = enviromentId,
                 Name = name,
+                TaskTemplateVersionId = version,
+                Deleted = false,
                 Position = this.NewTaskNumber(),
                 Prameters = enumerable.Select(x => new TemplatedTaskParameter()
                 {
