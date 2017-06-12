@@ -9,4 +9,7 @@
 		SELECT Id,Name,2 AS Type, EnviromentId,ApplicationId, Position FROM [dbo].RemoteScriptTasks WHERE Deleted  = 0 
 		UNION
 		SELECT Id,Name,4 AS Type, EnviromentId,ApplicationId, Position FROM [dbo].DatabaseTasks WHERE Deleted  = 0 
+		UNION
+		SELECT Id,Name,5 AS Type, EnviromentId,ApplicationId, Position FROM [dbo].TemplatedTask WHERE Deleted  = 0 
+
 	)
