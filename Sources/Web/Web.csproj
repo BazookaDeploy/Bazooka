@@ -301,6 +301,7 @@
     <Compile Include="Commands\ICanBeRunByApplicationAdministrator.cs" />
     <Compile Include="Commands\TemplatedTasks\RenameTaskTemplate.cs" />
     <Compile Include="Commands\Application\UpdateTemplatedTask.cs" />
+    <Compile Include="Controllers\TemplatedTaskController.cs" />
     <Compile Include="Controllers\TaskTemplateController.cs" />
     <Compile Include="DataServices\Routes.cs" />
     <Compile Include="Infrastructure\IPermissionChecker.cs" />
