@@ -13,7 +13,7 @@ import MailTaskCreationDialog from "./Tasks/MailTask/CreateDialog";
 import LocalScriptTaskCreationDialog from "./Tasks/LocalScriptTask/CreateDialog";
 import DatabaseTaskCreationDialog from "./Tasks/DatabaseTasks/CreateDialog";
 import DeployTaskCreationDialog from "./Tasks/DeployTasks/DeployUnitsDialog";
-
+import TempleatedTaskCreationDialog from "./Tasks/TemplatedTask/CreateDialog";
 
 
 var TaskSelectDialog = React.createClass({
@@ -23,7 +23,8 @@ var TaskSelectDialog = React.createClass({
             show1:false,
             show2:false,
             show3:false,
-            show4:false
+            show4: false,
+            show5: false,
         }
     },
 
@@ -33,7 +34,8 @@ var TaskSelectDialog = React.createClass({
             show1:false,
             show2:false,
             show3:false,
-            show4:false          
+            show4: false,
+            show5: false,
         }, this.props.onClose)
     },
 
@@ -55,7 +57,11 @@ var TaskSelectDialog = React.createClass({
         {this.state.show3 && <RemoteScriptTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show3} onClose={this.onClose} /> }
 
         <Button block onClick={() => this.setState({show4:true})}>Database task</Button>
-        {this.state.show4 && <DatabaseTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show4} onClose={this.onClose} /> }
+        {this.state.show4 && <DatabaseTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show4} onClose={this.onClose} />}
+
+        <Button block onClick={() => this.setState({ show5: true })}>Templated task</Button>
+        {this.state.show5 && <TempleatedTaskCreationDialog onCreate={this.props.onCreate} Enviroment={this.props.EnviromentId} EnviromentId={this.props.EnviromentId} ApplicationId={this.props.ApplicationId} show={this.state.show5} onClose={this.onClose} />}
+
      </Modal.Body>
      <Modal.Footer>
        <Button onClick={this.props.onClose}>Close</Button>
@@ -145,7 +151,10 @@ var TaskLine = React.createClass({
             case 3:
                 return <Link activeClassName="active" to={"/Applications/"+ this.props.params.id+ "/Enviroment/"+this.props.params.enviromentId+ "/Tasks/LocalScriptTask/"+ this.props.task.Id}>{this.props.task.Name}</Link>;
             case 4:
-                return <Link activeClassName="active" to={"/Applications/"+ this.props.params.id+ "/Enviroment/"+this.props.params.enviromentId+ "/Tasks/DatabaseTask/"+ this.props.task.Id}>{this.props.task.Name}</Link>;
+                return <Link activeClassName="active" to={"/Applications/" + this.props.params.id + "/Enviroment/" + this.props.params.enviromentId + "/Tasks/DatabaseTask/" + this.props.task.Id}>{this.props.task.Name}</Link>;
+            case 5:
+                return <Link activeClassName="active" to={"/Applications/" + this.props.params.id + "/Enviroment/" + this.props.params.enviromentId + "/Tasks/TemplatedTask/" + this.props.task.Id}>{this.props.task.Name}</Link>;
+
         }
     }
 });

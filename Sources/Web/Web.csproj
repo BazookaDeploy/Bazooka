@@ -243,6 +243,9 @@
     <Content Include="App\Applications\Tasks\RemoteScriptTask\Actions.js" />
     <Content Include="App\Applications\Tasks\RemoteScriptTask\CreateDialog.js" />
     <Content Include="App\Applications\Tasks\RemoteScriptTask\EditPage.js" />
+    <Content Include="App\Applications\Tasks\TemplatedTask\Actions.js" />
+    <Content Include="App\Applications\Tasks\TemplatedTask\CreateDialog.js" />
+    <Content Include="App\Applications\Tasks\TemplatedTask\EditPage.js" />
     <Content Include="App\Configuration\Actions.js" />
     <Content Include="App\Configuration\ConfigPage.js" />
     <Content Include="App\Configuration\GroupsPage.js" />

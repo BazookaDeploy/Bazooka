@@ -106,6 +106,10 @@
 
 	var _EditPage8 = _interopRequireDefault(_EditPage7);
 
+	var _EditPage9 = __webpack_require__(366);
+
+	var _EditPage10 = _interopRequireDefault(_EditPage9);
+
 	var _ConfigurationPage = __webpack_require__(337);
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
@@ -184,7 +188,8 @@
 	            _react2.default.createElement(_reactRouter.Route, { path: 'DatabaseTask/:taskId', component: _EditPage2.default }),
 	            _react2.default.createElement(_reactRouter.Route, { path: 'MailTask/:taskId', component: _EditPage6.default }),
 	            _react2.default.createElement(_reactRouter.Route, { path: 'LocalScriptTask/:taskId', component: _EditPage4.default }),
-	            _react2.default.createElement(_reactRouter.Route, { path: 'RemoteScriptTask/:taskId', component: _EditPage8.default })
+	            _react2.default.createElement(_reactRouter.Route, { path: 'RemoteScriptTask/:taskId', component: _EditPage8.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'TemplatedTask/:taskId', component: _EditPage10.default })
 	          ),
 	          _react2.default.createElement(_reactRouter.Route, { path: 'Enviroment/:enviromentId/Users', component: _AllowedUserPage2.default })
 	        )
@@ -33637,6 +33642,10 @@
 
 	var _DeployUnitsDialog2 = _interopRequireDefault(_DeployUnitsDialog);
 
+	var _CreateDialog9 = __webpack_require__(364);
+
+	var _CreateDialog10 = _interopRequireDefault(_CreateDialog9);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var TaskSelectDialog = _react2.default.createClass({
@@ -33647,7 +33656,8 @@
 	            show1: false,
 	            show2: false,
 	            show3: false,
-	            show4: false
+	            show4: false,
+	            show5: false
 	        };
 	    },
 	    onClose: function onClose() {
@@ -33656,7 +33666,8 @@
 	            show1: false,
 	            show2: false,
 	            show3: false,
-	            show4: false
+	            show4: false,
+	            show5: false
 	        }, this.props.onClose);
 	    },
 
@@ -33714,7 +33725,15 @@
 	                        } },
 	                    "Database task"
 	                ),
-	                this.state.show4 && _react2.default.createElement(_CreateDialog8.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show4, onClose: this.onClose })
+	                this.state.show4 && _react2.default.createElement(_CreateDialog8.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show4, onClose: this.onClose }),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { block: true, onClick: function onClick() {
+	                            return _this.setState({ show5: true });
+	                        } },
+	                    "Templated task"
+	                ),
+	                this.state.show5 && _react2.default.createElement(_CreateDialog10.default, { onCreate: this.props.onCreate, Enviroment: this.props.EnviromentId, EnviromentId: this.props.EnviromentId, ApplicationId: this.props.ApplicationId, show: this.state.show5, onClose: this.onClose })
 	            ),
 	            _react2.default.createElement(
 	                _Modal2.default.Footer,
@@ -33875,6 +33894,13 @@
 	                    { activeClassName: "active", to: "/Applications/" + this.props.params.id + "/Enviroment/" + this.props.params.enviromentId + "/Tasks/DatabaseTask/" + this.props.task.Id },
 	                    this.props.task.Name
 	                );
+	            case 5:
+	                return _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { activeClassName: "active", to: "/Applications/" + this.props.params.id + "/Enviroment/" + this.props.params.enviromentId + "/Tasks/TemplatedTask/" + this.props.task.Id },
+	                    this.props.task.Name
+	                );
+
 	        }
 	    }
 	});
@@ -39144,6 +39170,311 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
+
+/***/ }),
+/* 364 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Actions = __webpack_require__(365);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Modal = __webpack_require__(307);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(297);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(310);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(308);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(321);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Notifications = __webpack_require__(313);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TemplatedTaskCreateDialog = _react2.default.createClass({
+	  displayName: "TemplatedTaskCreateDialog",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Name: "",
+	      ConnectionString: "",
+	      Pack: "",
+	      DatabaseName: "",
+	      "Repository": "",
+	      Machine: "",
+	      Agents: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+
+	    _Actions2.default.getAgents(this.props.EnviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  create: function create() {
+	    var _this2 = this;
+
+	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
+	      _Actions2.default.createTemplatedTask(this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.props.EnviromentId, this.state.Repository, this.state.Machine, this.props.ApplicationId).then(function (x) {
+	        _Notifications2.default.Notify(x);
+	        _this2.props.onCreate();
+	        _this2.props.onClose();
+	      });
+	    }
+	  },
+
+	  render: function render() {
+	    var _this3 = this;
+
+	    return _react2.default.createElement(
+	      _Modal2.default,
+	      this.props,
+	      _react2.default.createElement(
+	        _Modal2.default.Header,
+	        null,
+	        "Add new Database task"
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Body,
+	        null,
+	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
+	            return _this3.setState({ Name: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", onChange: function onChange(e) {
+	            return _this3.setState({ ConnectionString: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", onChange: function onChange(e) {
+	            return _this3.setState({ Pack: e.target.value });
+	          } }),
+	        _react2.default.createElement(
+	          _Select2.default,
+	          { title: "Machine", onChange: function onChange(e) {
+	              return _this3.setState({ Machine: e.target.value });
+	            } },
+	          _react2.default.createElement("option", null),
+	          this.state.Agents.map(function (x) {
+	            return _react2.default.createElement(
+	              "option",
+	              { value: x.Id },
+	              x.Name,
+	              "- ",
+	              x.Address
+	            );
+	          })
+	        ),
+	        _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", onChange: function onChange(e) {
+	            return _this3.setState({ Repository: e.target.value });
+	          } }),
+	        _react2.default.createElement(_Input2.default, { title: "Database name", placeholder: "Database Name", onChange: function onChange(e) {
+	            return _this3.setState({ DatabaseName: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        _Modal2.default.Footer,
+	        null,
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { onClick: this.props.onClose },
+	          "Close"
+	        ),
+	        _react2.default.createElement(
+	          _Button2.default,
+	          { primary: true, onClick: this.create },
+	          "Create"
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TemplatedTaskCreateDialog;
+
+/***/ }),
+/* 365 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(291);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	var _Net = __webpack_require__(305);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	    getAgents: function getAgents(id) {
+	        return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
+	    },
+
+	    getTemplatedTask: function getTemplatedTask(id) {
+	        return _Net2.default.get("/api/TemplatedTasks/" + id);
+	    },
+
+	    createTempaltedTask: function createTempaltedTask() {
+	        return _Net2.default.post("/api/TemplatedTasks/CreateTemplatedTask", {});
+	    },
+
+	    updateTemplatedTasks: function updateTemplatedTasks() {
+	        return _Net2.default.post("/api/TemplatedTasks/ModifyTemplatedTask", {});
+	    }
+	};
+
+/***/ }),
+/* 366 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(297);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(310);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(308);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(321);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Actions = __webpack_require__(365);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Notifications = __webpack_require__(313);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EditPage = _react2.default.createClass({
+	  displayName: "EditPage",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Id: 0,
+	      EnviromentId: 0,
+	      Name: "",
+	      ConnectionString: "",
+	      Pack: "",
+	      DatabaseName: "",
+	      Repository: "",
+	      AgentId: "",
+	      Agents: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.update(this.props.params.taskId, this.props.params.enviromentId);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (this.props.params.taskId != nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId) {
+	      this.update(nextProps.params.taskId, nextProps.params.enviromentId);
+	    }
+	  },
+
+
+	  update: function update(taskId, enviromentId) {
+	    var _this = this;
+
+	    _Actions2.default.getDatabaseTask(taskId).then(function (x) {
+	      x.Pack = x.Package;
+	      _this.setState(x);
+	    });
+	    _Actions2.default.getAgents(enviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  save: function save() {
+	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
+	      _Actions2.default.updateDatabaseTask(this.state.Id, this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.state.EnviromentId, this.state.Repository, this.state.AgentId, this.state.ApplicationId).then(function (x) {
+	        _Notifications2.default.Notify(x);
+	      });
+	    }
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
+	          return _this2.setState({ Name: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", value: this.state.ConnectionString, onChange: function onChange(e) {
+	          return _this2.setState({ ConnectionString: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", value: this.state.Pack, onChange: function onChange(e) {
+	          return _this2.setState({ Pack: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Select2.default,
+	        { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
+	            return _this2.setState({ AgentId: e.target.value });
+	          } },
+	        this.state.Agents.map(function (x) {
+	          return _react2.default.createElement(
+	            "option",
+	            { value: x.Id },
+	            x.Name,
+	            "- ",
+	            x.Address
+	          );
+	        })
+	      ),
+	      _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
+	          return _this2.setState({ Repository: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "DatabaseName", placeholder: "Database Name", value: this.state.DatabaseName, onChange: function onChange(e) {
+	          return _this2.setState({ DatabaseName: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Button2.default,
+	        { primary: true, block: true, onClick: this.save },
+	        "Save"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = EditPage;
 
 /***/ })
 /******/ ]);

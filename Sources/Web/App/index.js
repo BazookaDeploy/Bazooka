@@ -15,6 +15,7 @@ import DeployTaskEditPage from "./Applications/Tasks/DeployTasks/DeployUnitEditP
 import LocalScriptTaskEditPage from "./Applications/Tasks/LocalScriptTask/EditPage";
 import MailTaskEditPage from "./Applications/Tasks/MailTask/EditPage";
 import RemoteScriptTaskEditPage from "./Applications/Tasks/RemoteScriptTask/EditPage";
+import TemplatedTaskEditPage from "./Applications/Tasks/TemplatedTask/EditPage";
 
 
 import ConfigurationPage from "./Configuration/ConfigurationPage";
@@ -46,7 +47,8 @@ var route = <Provider store={store} >
               <Route path="DatabaseTask/:taskId" component={DatabaseTaskEditPage} />
               <Route path="MailTask/:taskId" component={MailTaskEditPage}/>
               <Route path="LocalScriptTask/:taskId" component={LocalScriptTaskEditPage}/>
-              <Route path="RemoteScriptTask/:taskId" component={RemoteScriptTaskEditPage}/>
+              <Route path="RemoteScriptTask/:taskId" component={RemoteScriptTaskEditPage} />
+              <Route path="TemplatedTask/:taskId" component={TemplatedTaskEditPage} />
             </Route>
             <Route path="Enviroment/:enviromentId/Users" component={AllowedUsersPage} />
         </Route> 
