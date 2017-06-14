@@ -72,7 +72,7 @@ namespace DataAccess.Write
             return list;
         }
 
-        public void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<Parameter> enumerable)
+        public virtual void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<Parameter> enumerable)
         {
             var task = this.TemplatedTasks.Single(x => x.Id == id);
 
@@ -84,21 +84,21 @@ namespace DataAccess.Write
             }).ToList();
         }
 
-        public void UpdateTemplatedTask(int id, int version)
+        public virtual void UpdateTemplatedTask(int id, int version)
         {
             var task = this.TemplatedTasks.Single(x => x.Id == id);
 
             task.TaskTemplateVersionId = version;
         }
 
-        public void RenameTemplatedTask(int id, int enviromentId, string name)
+        public virtual void RenameTemplatedTask(int id, int enviromentId, string name)
         {
             var task = this.TemplatedTasks.Single(x => x.Id == id && x.EnviromentId == enviromentId);
 
             task.Name = name;
         }
 
-        public void AddTemplatedTask(int agentId, int enviromentId, int version, string name, IEnumerable<Parameter> enumerable)
+        public virtual void AddTemplatedTask(int agentId, int enviromentId, int version, string name, IEnumerable<Parameter> enumerable)
         {
             this.TemplatedTasks.Add(new TemplatedTask()
             {

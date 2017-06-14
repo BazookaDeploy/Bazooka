@@ -36371,30 +36371,30 @@
 		},
 
 		createTemplatedtask: function createTemplatedtask(name, description) {
-			return _Net2.default.post("/api/Templatedtask/CreateTemplatedTask", {
+			return _Net2.default.post("/api/TaskTemplate/CreateTemplatedTask", {
 				Name: name,
 				Description: description
 			});
 		},
 
 		loadTemplatedTasks: function loadTemplatedTasks() {
-			return _Net2.default.get("/api/Templatedtask/");
+			return _Net2.default.get("/api/TaskTemplate/");
 		},
 
 		lastVersion: function lastVersion(id) {
-			return _Net2.default.get("/api/TemplatedTask/LastVersion/" + id);
+			return _Net2.default.get("/api/TaskTemplate/LastVersion/" + id);
 		},
 
 		rename: function rename(id, name) {
-			return _Net2.default.post("/api/TemplatedTask/Rename/", { TemplatedTaskId: id, Name: name });
+			return _Net2.default.post("/api/TaskTemplate/Rename/", { TemplatedTaskId: id, Name: name });
 		},
 
 		changeDescription: function changeDescription(id, description) {
-			return _Net2.default.post("/api/TemplatedTask/ChangeDescription/", { TemplatedTaskId: id, Description: description });
+			return _Net2.default.post("/api/TaskTemplate/ChangeDescription/", { TemplatedTaskId: id, Description: description });
 		},
 
 		createNewVersion: function createNewVersion(id, script, parameters) {
-			return _Net2.default.post("/api/TemplatedTask/CreateNewVersion/", { TemplatedTaskId: id, Script: script, Parameters: parameters });
+			return _Net2.default.post("/api/TaskTemplate/CreateNewVersion/", { TemplatedTaskId: id, Script: script, Parameters: parameters });
 		}
 	};
 
