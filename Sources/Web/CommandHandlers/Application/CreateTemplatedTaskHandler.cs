@@ -9,7 +9,7 @@
         public override void Apply(CreateTemplatedTask command)
         {
             var application = Repository.Get<Application>(command.ApplicationId);
-            application.AddTemplatedTask(command.AgentId, command.EnviromentId, command.Version, command.Name, command.Parameters.Select(x => new Parameter()
+            application.AddTemplatedTask(command.AgentId, command.EnviromentId, command.TaskVersionId, command.Name, command.Parameters.Select(x => new Parameter()
             {
                 ParameterId = x.ParameterId,
                 Value = x.Value

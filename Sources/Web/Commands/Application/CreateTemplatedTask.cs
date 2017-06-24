@@ -7,13 +7,11 @@ namespace Web.Commands
 {
     public class CreateTemplatedTask : ICommand, ICanBeRunByApplicationAdministrator
     {
-        public virtual int Id { get; set; }
         public virtual string Name { get; set; }
         public virtual int EnviromentId { get; set; }
         public virtual int ApplicationId { get; set; }
         public virtual int AgentId { get; set; }
-        public virtual int Version { get; set; }
-
+        public virtual int TaskVersionId { get; set; }
         public ICollection<TemplatedTaskParameter> Parameters { get; set; }
     }
 

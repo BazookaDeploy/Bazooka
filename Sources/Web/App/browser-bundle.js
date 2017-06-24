@@ -82,81 +82,81 @@
 
 	var _TasksPage2 = _interopRequireDefault(_TasksPage);
 
-	var _AllowedUserPage = __webpack_require__(330);
+	var _AllowedUserPage = __webpack_require__(331);
 
 	var _AllowedUserPage2 = _interopRequireDefault(_AllowedUserPage);
 
-	var _EditPage = __webpack_require__(331);
+	var _EditPage = __webpack_require__(332);
 
 	var _EditPage2 = _interopRequireDefault(_EditPage);
 
-	var _DeployUnitEditPage = __webpack_require__(332);
+	var _DeployUnitEditPage = __webpack_require__(333);
 
 	var _DeployUnitEditPage2 = _interopRequireDefault(_DeployUnitEditPage);
 
-	var _EditPage3 = __webpack_require__(334);
+	var _EditPage3 = __webpack_require__(335);
 
 	var _EditPage4 = _interopRequireDefault(_EditPage3);
 
-	var _EditPage5 = __webpack_require__(335);
+	var _EditPage5 = __webpack_require__(336);
 
 	var _EditPage6 = _interopRequireDefault(_EditPage5);
 
-	var _EditPage7 = __webpack_require__(336);
+	var _EditPage7 = __webpack_require__(337);
 
 	var _EditPage8 = _interopRequireDefault(_EditPage7);
 
-	var _EditPage9 = __webpack_require__(366);
+	var _EditPage9 = __webpack_require__(338);
 
 	var _EditPage10 = _interopRequireDefault(_EditPage9);
 
-	var _ConfigurationPage = __webpack_require__(337);
+	var _ConfigurationPage = __webpack_require__(340);
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
 
-	var _ConfigPage = __webpack_require__(338);
+	var _ConfigPage = __webpack_require__(341);
 
 	var _ConfigPage2 = _interopRequireDefault(_ConfigPage);
 
-	var _TemplatedTasksPage = __webpack_require__(339);
+	var _TemplatedTasksPage = __webpack_require__(342);
 
 	var _TemplatedTasksPage2 = _interopRequireDefault(_TemplatedTasksPage);
 
-	var _TemplatedTaskPage = __webpack_require__(341);
+	var _TemplatedTaskPage = __webpack_require__(344);
 
 	var _TemplatedTaskPage2 = _interopRequireDefault(_TemplatedTaskPage);
 
-	var _GroupsPage = __webpack_require__(342);
+	var _GroupsPage = __webpack_require__(345);
 
 	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
 
-	var _ApplicationGroupsPage = __webpack_require__(343);
+	var _ApplicationGroupsPage = __webpack_require__(346);
 
 	var _ApplicationGroupsPage2 = _interopRequireDefault(_ApplicationGroupsPage);
 
-	var _DeploymentsPage = __webpack_require__(344);
+	var _DeploymentsPage = __webpack_require__(347);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(354);
+	var _DeploymentPage = __webpack_require__(357);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(356);
+	var _EnviromentsPage = __webpack_require__(359);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(359);
+	var _AgentPage = __webpack_require__(362);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(361);
+	var _StatisticsPage = __webpack_require__(364);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Store = __webpack_require__(363);
+	var _Store = __webpack_require__(366);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -33642,7 +33642,7 @@
 
 	var _DeployUnitsDialog2 = _interopRequireDefault(_DeployUnitsDialog);
 
-	var _CreateDialog9 = __webpack_require__(364);
+	var _CreateDialog9 = __webpack_require__(330);
 
 	var _CreateDialog10 = _interopRequireDefault(_CreateDialog9);
 
@@ -34953,6 +34953,291 @@
 
 	"use strict";
 
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Actions = __webpack_require__(339);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Modal = __webpack_require__(307);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Button = __webpack_require__(297);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(310);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Grid = __webpack_require__(299);
+
+	var _Grid2 = _interopRequireDefault(_Grid);
+
+	var _Select = __webpack_require__(308);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(321);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Notifications = __webpack_require__(313);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TemplatedTaskCreateDialog = _react2.default.createClass({
+	    displayName: "TemplatedTaskCreateDialog",
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            Name: "",
+	            Agent: null,
+	            Tasks: [],
+	            TaskId: null,
+	            TaskVersionId: null,
+	            Parameters: [],
+	            RequiredParameters: [],
+	            Agents: [],
+	            key: "",
+	            value: ""
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        _Actions2.default.getAgents(this.props.EnviromentId).then(function (x) {
+	            _this.setState({ Agents: x });
+	        });
+
+	        _Actions2.default.loadTemplatedTasks().then(function (x) {
+	            _this.setState({ Tasks: x });
+	        });
+	    },
+
+	    create: function create() {
+	        var _this2 = this;
+
+	        if (this.state.Name != "" && this.state.Agent != "" && this.state.Task != "") {
+	            _Actions2.default.createTemplatedTask(this.state.Name, this.props.EnviromentId, this.props.ApplicationId, this.state.Agent, this.state.TaskId, this.state.TaskVersionId, this.state.Parameters).then(function (x) {
+	                _Notifications2.default.Notify(x);
+	                if (x.Success) {
+	                    _this2.props.onCreate();
+	                    _this2.props.onClose();
+	                }
+	            });
+	        }
+	    },
+
+	    addParameter: function addParameter() {
+	        var _this3 = this;
+
+	        if (this.state.key.length != 0 && this.state.value.length != 0 && !this.state.Parameters.some(function (x) {
+	            return x.Key == _this3.state.key;
+	        })) {
+
+	            this.setState({
+	                Parameters: this.state.Parameters.concat({
+	                    Name: this.state.key,
+	                    Value: this.state.value
+	                }),
+	                key: "",
+	                value: "",
+	                Encrypted: false
+	            });
+	        }
+	    },
+
+	    remove: function remove(key) {
+	        var index = -1;
+	        var i;
+	        for (i = 0; i < this.state.Parameters.length; i++) {
+	            if (this.state.Parameters[i].Name == key) {
+	                index = i;
+	                break;
+	            }
+	        }
+	        this.state.Parameters.splice(index, 1);
+	        this.setState({
+	            Parameters: this.state.Parameters
+	        });
+	    },
+
+	    changeTask: function changeTask(id) {
+	        var _this4 = this;
+
+	        this.setState({
+	            TaskId: id
+
+	        });
+	        _Actions2.default.lastVersion(id).then(function (x) {
+	            return _this4.setState({ RequiredParameters: x.Parameters, TaskVersionId: x.TaskTemplateVersionId });
+	        });
+	    },
+
+	    render: function render() {
+	        var _this5 = this;
+
+	        return _react2.default.createElement(
+	            _Modal2.default,
+	            this.props,
+	            _react2.default.createElement(
+	                _Modal2.default.Header,
+	                null,
+	                "Add new Templated task"
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Body,
+	                null,
+	                _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
+	                        return _this5.setState({ Name: e.target.value });
+	                    } }),
+	                _react2.default.createElement(
+	                    _Select2.default,
+	                    { title: "Machine", onChange: function onChange(e) {
+	                            return _this5.setState({ Machine: e.target.value });
+	                        } },
+	                    _react2.default.createElement("option", null),
+	                    this.state.Agents.map(function (x) {
+	                        return _react2.default.createElement(
+	                            "option",
+	                            { value: x.Id },
+	                            x.Name,
+	                            "- ",
+	                            x.Address
+	                        );
+	                    })
+	                ),
+	                _react2.default.createElement(
+	                    _Select2.default,
+	                    { title: "Task", onChange: function onChange(e) {
+	                            return _this5.changeTask(e.target.value);
+	                        } },
+	                    _react2.default.createElement("option", null),
+	                    this.state.Tasks.map(function (x) {
+	                        return _react2.default.createElement(
+	                            "option",
+	                            { value: x.Id },
+	                            x.Name
+	                        );
+	                    })
+	                ),
+	                _react2.default.createElement(
+	                    "h3",
+	                    null,
+	                    "Parameters "
+	                ),
+	                _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Required:"
+	                ),
+	                " ",
+	                this.state.RequiredParameters.filter(function (x) {
+	                    return !x.Optional;
+	                }).map(function (x) {
+	                    return _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        x.Name,
+	                        ","
+	                    );
+	                }),
+	                _react2.default.createElement("br", null),
+	                _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Optional"
+	                ),
+	                ": ",
+	                this.state.RequiredParameters.filter(function (x) {
+	                    return x.Optional;
+	                }).map(function (x) {
+	                    return _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        x.Name,
+	                        ","
+	                    );
+	                }),
+	                _react2.default.createElement(
+	                    "ul",
+	                    null,
+	                    this.state.Parameters.map(function (x) {
+	                        return _react2.default.createElement(
+	                            "li",
+	                            null,
+	                            x.Name,
+	                            ": ",
+	                            x.Value
+	                        );
+	                    })
+	                ),
+	                _react2.default.createElement(
+	                    _Grid2.default,
+	                    { fluid: true },
+	                    _react2.default.createElement(
+	                        _Grid2.default.Row,
+	                        null,
+	                        _react2.default.createElement(
+	                            _Grid2.default.Col,
+	                            { md: 3 },
+	                            _react2.default.createElement(_Input2.default, { title: "Key", placeholder: "Key", value: this.state.key, onChange: function onChange(e) {
+	                                    return _this5.setState({ key: e.target.value });
+	                                } })
+	                        ),
+	                        _react2.default.createElement(
+	                            _Grid2.default.Col,
+	                            { md: 3 },
+	                            _react2.default.createElement(_Input2.default, { title: "Value", placeholder: "Value", value: this.state.value, onChange: function onChange(e) {
+	                                    return _this5.setState({ value: e.target.value });
+	                                } })
+	                        ),
+	                        _react2.default.createElement(
+	                            _Grid2.default.Col,
+	                            { md: 4 },
+	                            _react2.default.createElement("br", null),
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { primary: true, onClick: this.addParameter },
+	                                "Add Parameter"
+	                            )
+	                        )
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                _Modal2.default.Footer,
+	                null,
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { onClick: this.props.onClose },
+	                    "Close"
+	                ),
+	                _react2.default.createElement(
+	                    _Button2.default,
+	                    { primary: true, onClick: this.create },
+	                    "Create"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = TemplatedTaskCreateDialog;
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -35176,7 +35461,7 @@
 	exports.default = AllowedUsersPage;
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35306,7 +35591,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35339,7 +35624,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(333);
+	var _Tabs = __webpack_require__(334);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -35601,7 +35886,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35672,7 +35957,7 @@
 	exports.default = Tabs;
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35701,7 +35986,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(333);
+	var _Tabs = __webpack_require__(334);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -35777,7 +36062,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35882,7 +36167,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36003,7 +36288,211 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 337 */
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(297);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(310);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(308);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Textarea = __webpack_require__(321);
+
+	var _Textarea2 = _interopRequireDefault(_Textarea);
+
+	var _Actions = __webpack_require__(339);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	var _Notifications = __webpack_require__(313);
+
+	var _Notifications2 = _interopRequireDefault(_Notifications);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EditPage = _react2.default.createClass({
+	  displayName: "EditPage",
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      Id: 0,
+	      EnviromentId: 0,
+	      Name: "",
+	      ConnectionString: "",
+	      Pack: "",
+	      DatabaseName: "",
+	      Repository: "",
+	      AgentId: "",
+	      Agents: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.update(this.props.params.taskId, this.props.params.enviromentId);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (this.props.params.taskId != nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId) {
+	      this.update(nextProps.params.taskId, nextProps.params.enviromentId);
+	    }
+	  },
+
+
+	  update: function update(taskId, enviromentId) {
+	    var _this = this;
+
+	    _Actions2.default.getDatabaseTask(taskId).then(function (x) {
+	      x.Pack = x.Package;
+	      _this.setState(x);
+	    });
+	    _Actions2.default.getAgents(enviromentId).then(function (x) {
+	      _this.setState({ Agents: x });
+	    });
+	  },
+
+	  save: function save() {
+	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
+	      _Actions2.default.updateDatabaseTask(this.state.Id, this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.state.EnviromentId, this.state.Repository, this.state.AgentId, this.state.ApplicationId).then(function (x) {
+	        _Notifications2.default.Notify(x);
+	      });
+	    }
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
+	          return _this2.setState({ Name: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", value: this.state.ConnectionString, onChange: function onChange(e) {
+	          return _this2.setState({ ConnectionString: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", value: this.state.Pack, onChange: function onChange(e) {
+	          return _this2.setState({ Pack: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Select2.default,
+	        { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
+	            return _this2.setState({ AgentId: e.target.value });
+	          } },
+	        this.state.Agents.map(function (x) {
+	          return _react2.default.createElement(
+	            "option",
+	            { value: x.Id },
+	            x.Name,
+	            "- ",
+	            x.Address
+	          );
+	        })
+	      ),
+	      _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
+	          return _this2.setState({ Repository: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "DatabaseName", placeholder: "Database Name", value: this.state.DatabaseName, onChange: function onChange(e) {
+	          return _this2.setState({ DatabaseName: e.target.value });
+	        } }),
+	      _react2.default.createElement(
+	        _Button2.default,
+	        { primary: true, block: true, onClick: this.save },
+	        "Save"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = EditPage;
+
+/***/ }),
+/* 339 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(291);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	var _Net = __webpack_require__(305);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	    getAgents: function getAgents(id) {
+	        return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
+	    },
+
+	    getTemplatedTask: function getTemplatedTask(id) {
+	        return _Net2.default.get("/api/TemplatedTasks/" + id);
+	    },
+
+	    loadTemplatedTasks: function loadTemplatedTasks() {
+	        return _Net2.default.get("/api/TaskTemplate/");
+	    },
+
+	    lastVersion: function lastVersion(id) {
+	        return _Net2.default.get("/api/TaskTemplate/LastVersion/" + id);
+	    },
+
+	    createTemplatedTask: function createTemplatedTask(name, enviromentId, applicationId, agentId, taskId, taskVersionId, parameters) {
+	        return _Net2.default.post("/api/TemplatedTask/CreateTemplatedTask", {
+	            Name: name,
+	            EnviromentId: enviromentId,
+	            ApplicationId: applicationId,
+	            AgentId: agentId,
+	            TaskId: taskId,
+	            TaskVersionId: taskVersionId,
+	            Parameters: parameters
+	        });
+	    },
+
+	    modifyTemplatedTask: function modifyTemplatedTask(id, enviromentId, applicationId, agentId, parameters) {
+	        return _Net2.default.post("/api/TemplatedTask/ModifyTemplatedTask", {
+	            Id: id,
+	            EnviromentId: enviromentId,
+	            ApplicationId: applicationId,
+	            AgentId: agentId,
+	            Parameters: parameters
+	        });
+	    },
+
+	    renameTemplatedTask: function renameTemplatedTask(id, enviromentId, applicationId, name) {
+	        return _Net2.default.post("/api/TemplatedTask/RenameTemplatedTask", {
+	            Name: name,
+	            Id: id,
+	            EnviromentId: enviromentId,
+	            ApplicationId: applicationId,
+	            AgentId: agentId
+	        });
+	    },
+
+	    updateTemplatedTasks: function updateTemplatedTasks(id, applicationId, version) {
+	        return _Net2.default.post("/api/TemplatedTask/UpdateTemplatedTask", {
+	            Id: id,
+	            ApplicationId: applicationId,
+	            Version: version
+	        });
+	    }
+	};
+
+/***/ }),
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36092,7 +36581,7 @@
 	exports.default = ConfigurationPage;
 
 /***/ }),
-/* 338 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36140,7 +36629,7 @@
 	exports.default = ConfigPage;
 
 /***/ }),
-/* 339 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36159,7 +36648,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(340);
+	var _Actions = __webpack_require__(343);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -36338,7 +36827,7 @@
 	exports.default = TemplatedTasksPage;
 
 /***/ }),
-/* 340 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36425,7 +36914,7 @@
 	};
 
 /***/ }),
-/* 341 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36442,7 +36931,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(340);
+	var _Actions = __webpack_require__(343);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -36729,7 +37218,7 @@
 	exports.default = TemplatedTaskPage;
 
 /***/ }),
-/* 342 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36748,7 +37237,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(340);
+	var _Actions = __webpack_require__(343);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -36994,7 +37483,7 @@
 	exports.default = GroupsPage;
 
 /***/ }),
-/* 343 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37013,7 +37502,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(340);
+	var _Actions = __webpack_require__(343);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37174,7 +37663,7 @@
 	exports.default = ApplicationsGroupsPage;
 
 /***/ }),
-/* 344 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37203,41 +37692,41 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(345);
+	var _Actions = __webpack_require__(348);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(346);
+	var _ListIcon = __webpack_require__(349);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(347);
+	var _PlayIcon = __webpack_require__(350);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(348);
+	var _CircleOkIcon = __webpack_require__(351);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(349);
+	var _CircleRemoveIcon = __webpack_require__(352);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(350);
+	var _WatchIcon = __webpack_require__(353);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(351);
+	var _EraseIcon = __webpack_require__(354);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(178);
 
-	var _FormattedDate = __webpack_require__(352);
+	var _FormattedDate = __webpack_require__(355);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(353);
+	var _FormattedTime = __webpack_require__(356);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -37445,7 +37934,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ }),
-/* 345 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37498,7 +37987,7 @@
 	};
 
 /***/ }),
-/* 346 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37522,7 +38011,7 @@
 	exports.default = ListIcon;
 
 /***/ }),
-/* 347 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37546,7 +38035,7 @@
 	exports.default = PlayIcon;
 
 /***/ }),
-/* 348 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37570,7 +38059,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 349 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37594,7 +38083,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ }),
-/* 350 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37618,7 +38107,7 @@
 	exports.default = WatchIcon;
 
 /***/ }),
-/* 351 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37642,7 +38131,7 @@
 	exports.default = EraseIcon;
 
 /***/ }),
-/* 352 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37673,7 +38162,7 @@
 	exports.default = FormattedDate;
 
 /***/ }),
-/* 353 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37708,7 +38197,7 @@
 	exports.default = FormattedTime;
 
 /***/ }),
-/* 354 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37729,7 +38218,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(345);
+	var _Actions = __webpack_require__(348);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37737,15 +38226,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(355);
+	var _Panel = __webpack_require__(358);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(352);
+	var _FormattedDate = __webpack_require__(355);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(353);
+	var _FormattedTime = __webpack_require__(356);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -38006,7 +38495,7 @@
 	exports.default = DeploymentPage;
 
 /***/ }),
-/* 355 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38050,7 +38539,7 @@
 	exports.default = Panel;
 
 /***/ }),
-/* 356 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38073,7 +38562,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(357);
+	var _Actions = __webpack_require__(360);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -38093,7 +38582,7 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(358);
+	var _ServerIcon = __webpack_require__(361);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -38376,7 +38865,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ }),
-/* 357 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38448,7 +38937,7 @@
 	};
 
 /***/ }),
-/* 358 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38472,7 +38961,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 359 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38501,7 +38990,7 @@
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(357);
+	var _Actions = __webpack_require__(360);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -38509,7 +38998,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(360);
+	var _FileUpload = __webpack_require__(363);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
@@ -38659,7 +39148,7 @@
 	exports.default = AgentPage;
 
 /***/ }),
-/* 360 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38705,7 +39194,7 @@
 	exports.default = FileUpload;
 
 /***/ }),
-/* 361 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38730,7 +39219,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(333);
+	var _Tabs = __webpack_require__(334);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -38738,7 +39227,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(362);
+	var _Actions = __webpack_require__(365);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -39090,7 +39579,7 @@
 	exports.default = StatisticsPage;
 
 /***/ }),
-/* 362 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39131,7 +39620,7 @@
 	};
 
 /***/ }),
-/* 363 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39170,311 +39659,6 @@
 	var store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 	exports.default = store;
-
-/***/ }),
-/* 364 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Actions = __webpack_require__(365);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	var _Modal = __webpack_require__(307);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _Button = __webpack_require__(297);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(310);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Select = __webpack_require__(308);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Textarea = __webpack_require__(321);
-
-	var _Textarea2 = _interopRequireDefault(_Textarea);
-
-	var _Notifications = __webpack_require__(313);
-
-	var _Notifications2 = _interopRequireDefault(_Notifications);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var TemplatedTaskCreateDialog = _react2.default.createClass({
-	  displayName: "TemplatedTaskCreateDialog",
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      Name: "",
-	      ConnectionString: "",
-	      Pack: "",
-	      DatabaseName: "",
-	      "Repository": "",
-	      Machine: "",
-	      Agents: []
-	    };
-	  },
-
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-
-	    _Actions2.default.getAgents(this.props.EnviromentId).then(function (x) {
-	      _this.setState({ Agents: x });
-	    });
-	  },
-
-	  create: function create() {
-	    var _this2 = this;
-
-	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
-	      _Actions2.default.createTemplatedTask(this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.props.EnviromentId, this.state.Repository, this.state.Machine, this.props.ApplicationId).then(function (x) {
-	        _Notifications2.default.Notify(x);
-	        _this2.props.onCreate();
-	        _this2.props.onClose();
-	      });
-	    }
-	  },
-
-	  render: function render() {
-	    var _this3 = this;
-
-	    return _react2.default.createElement(
-	      _Modal2.default,
-	      this.props,
-	      _react2.default.createElement(
-	        _Modal2.default.Header,
-	        null,
-	        "Add new Database task"
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Body,
-	        null,
-	        _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
-	            return _this3.setState({ Name: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", onChange: function onChange(e) {
-	            return _this3.setState({ ConnectionString: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", onChange: function onChange(e) {
-	            return _this3.setState({ Pack: e.target.value });
-	          } }),
-	        _react2.default.createElement(
-	          _Select2.default,
-	          { title: "Machine", onChange: function onChange(e) {
-	              return _this3.setState({ Machine: e.target.value });
-	            } },
-	          _react2.default.createElement("option", null),
-	          this.state.Agents.map(function (x) {
-	            return _react2.default.createElement(
-	              "option",
-	              { value: x.Id },
-	              x.Name,
-	              "- ",
-	              x.Address
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", onChange: function onChange(e) {
-	            return _this3.setState({ Repository: e.target.value });
-	          } }),
-	        _react2.default.createElement(_Input2.default, { title: "Database name", placeholder: "Database Name", onChange: function onChange(e) {
-	            return _this3.setState({ DatabaseName: e.target.value });
-	          } })
-	      ),
-	      _react2.default.createElement(
-	        _Modal2.default.Footer,
-	        null,
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { onClick: this.props.onClose },
-	          "Close"
-	        ),
-	        _react2.default.createElement(
-	          _Button2.default,
-	          { primary: true, onClick: this.create },
-	          "Create"
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = TemplatedTaskCreateDialog;
-
-/***/ }),
-/* 365 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(291);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	var _Net = __webpack_require__(305);
-
-	var _Net2 = _interopRequireDefault(_Net);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	    getAgents: function getAgents(id) {
-	        return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
-	    },
-
-	    getTemplatedTask: function getTemplatedTask(id) {
-	        return _Net2.default.get("/api/TemplatedTasks/" + id);
-	    },
-
-	    createTempaltedTask: function createTempaltedTask() {
-	        return _Net2.default.post("/api/TemplatedTasks/CreateTemplatedTask", {});
-	    },
-
-	    updateTemplatedTasks: function updateTemplatedTasks() {
-	        return _Net2.default.post("/api/TemplatedTasks/ModifyTemplatedTask", {});
-	    }
-	};
-
-/***/ }),
-/* 366 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Button = __webpack_require__(297);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(310);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Select = __webpack_require__(308);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Textarea = __webpack_require__(321);
-
-	var _Textarea2 = _interopRequireDefault(_Textarea);
-
-	var _Actions = __webpack_require__(365);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	var _Notifications = __webpack_require__(313);
-
-	var _Notifications2 = _interopRequireDefault(_Notifications);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var EditPage = _react2.default.createClass({
-	  displayName: "EditPage",
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      Id: 0,
-	      EnviromentId: 0,
-	      Name: "",
-	      ConnectionString: "",
-	      Pack: "",
-	      DatabaseName: "",
-	      Repository: "",
-	      AgentId: "",
-	      Agents: []
-	    };
-	  },
-
-	  componentDidMount: function componentDidMount() {
-	    this.update(this.props.params.taskId, this.props.params.enviromentId);
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (this.props.params.taskId != nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId) {
-	      this.update(nextProps.params.taskId, nextProps.params.enviromentId);
-	    }
-	  },
-
-
-	  update: function update(taskId, enviromentId) {
-	    var _this = this;
-
-	    _Actions2.default.getDatabaseTask(taskId).then(function (x) {
-	      x.Pack = x.Package;
-	      _this.setState(x);
-	    });
-	    _Actions2.default.getAgents(enviromentId).then(function (x) {
-	      _this.setState({ Agents: x });
-	    });
-	  },
-
-	  save: function save() {
-	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
-	      _Actions2.default.updateDatabaseTask(this.state.Id, this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.state.EnviromentId, this.state.Repository, this.state.AgentId, this.state.ApplicationId).then(function (x) {
-	        _Notifications2.default.Notify(x);
-	      });
-	    }
-	  },
-
-	  render: function render() {
-	    var _this2 = this;
-
-	    return _react2.default.createElement(
-	      "div",
-	      null,
-	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
-	          return _this2.setState({ Name: e.target.value });
-	        } }),
-	      _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", value: this.state.ConnectionString, onChange: function onChange(e) {
-	          return _this2.setState({ ConnectionString: e.target.value });
-	        } }),
-	      _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", value: this.state.Pack, onChange: function onChange(e) {
-	          return _this2.setState({ Pack: e.target.value });
-	        } }),
-	      _react2.default.createElement(
-	        _Select2.default,
-	        { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
-	            return _this2.setState({ AgentId: e.target.value });
-	          } },
-	        this.state.Agents.map(function (x) {
-	          return _react2.default.createElement(
-	            "option",
-	            { value: x.Id },
-	            x.Name,
-	            "- ",
-	            x.Address
-	          );
-	        })
-	      ),
-	      _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
-	          return _this2.setState({ Repository: e.target.value });
-	        } }),
-	      _react2.default.createElement(_Input2.default, { title: "DatabaseName", placeholder: "Database Name", value: this.state.DatabaseName, onChange: function onChange(e) {
-	          return _this2.setState({ DatabaseName: e.target.value });
-	        } }),
-	      _react2.default.createElement(
-	        _Button2.default,
-	        { primary: true, block: true, onClick: this.save },
-	        "Save"
-	      )
-	    );
-	  }
-	});
-
-	module.exports = EditPage;
 
 /***/ })
 /******/ ]);

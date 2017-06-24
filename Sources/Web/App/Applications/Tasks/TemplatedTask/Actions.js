@@ -10,13 +10,51 @@ module.exports = {
         return Net.get("/api/TemplatedTasks/" + id);
     },
 
-    createTempaltedTask: function () {
-        return Net.post("/api/TemplatedTasks/CreateTemplatedTask", {
+    loadTemplatedTasks: function () {
+        return Net.get("/api/TaskTemplate/");
+    },
+
+    lastVersion: function (id) {
+        return Net.get("/api/TaskTemplate/LastVersion/" + id);
+    },
+
+    createTemplatedTask: function (name, enviromentId, applicationId, agentId, taskId, taskVersionId, parameters) {
+        return Net.post("/api/TemplatedTask/CreateTemplatedTask", {
+            Name: name,
+            EnviromentId: enviromentId,
+            ApplicationId: applicationId,
+            AgentId: agentId,
+            TaskId: taskId,
+            TaskVersionId: taskVersionId,
+            Parameters: parameters
         });
     },
 
-    updateTemplatedTasks: function () {
-        return Net.post("/api/TemplatedTasks/ModifyTemplatedTask", {
+    modifyTemplatedTask: function (id, enviromentId, applicationId, agentId, parameters) {
+        return Net.post("/api/TemplatedTask/ModifyTemplatedTask", {
+            Id:id,
+            EnviromentId: enviromentId,
+            ApplicationId: applicationId,
+            AgentId: agentId,
+            Parameters: parameters
+        });
+    },
+
+    renameTemplatedTask: function (id, enviromentId, applicationId, name) {
+        return Net.post("/api/TemplatedTask/RenameTemplatedTask", {
+            Name: name,
+            Id:id,
+            EnviromentId: enviromentId,
+            ApplicationId: applicationId,
+            AgentId: agentId
+        });
+    },
+
+    updateTemplatedTasks: function (id, applicationId, version) {
+        return Net.post("/api/TemplatedTask/UpdateTemplatedTask", {
+            Id: id,
+            ApplicationId: applicationId,
+            Version:version
         });
     }
 }

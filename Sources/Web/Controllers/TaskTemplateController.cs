@@ -35,6 +35,7 @@ namespace Web.Controllers
                 o.Description,
                 v.Script,
                 v.Version,
+                TaskTemplateVersionId = v.Id,
                 Parameters = p
             };
         }
