@@ -277,6 +277,7 @@
     <Compile Include="CommandHandlers\Application\CloneApplicationFromExistingBusinessRule.cs" />
     <Compile Include="CommandHandlers\Application\CloneApplicationFromExistingHandler.cs" />
     <Compile Include="CommandHandlers\Application\CopyConfigurationFromEnviromentHandler.cs" />
+    <Compile Include="CommandHandlers\Application\CreateTemplatedTaskRule.cs" />
     <Compile Include="CommandHandlers\Application\CreateDatabaseTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateRemoteScriptTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\CreateMailTaskHandler.cs" />

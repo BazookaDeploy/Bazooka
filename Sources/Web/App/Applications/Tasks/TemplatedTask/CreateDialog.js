@@ -56,7 +56,6 @@ var TemplatedTaskCreateDialog = React.createClass({
 
       })
       Actions.lastVersion(id).then(x => {
-          debugger;
           this.setState({
               RequiredParameters: x.Parameters,
               Parameters: x.Parameters.map(z => { return { TaskTemplateParameterId : z.Id, Name: z.Name, Optional : z.Optional } }),
@@ -66,7 +65,6 @@ var TemplatedTaskCreateDialog = React.createClass({
   },
 
   setParameter: function (value, id) {
-      debugger;
       this.state.Parameters.filter(x => x.TaskTemplateParameterId == id)[0].Value = value;
       this.setState({ Parameters: this.state.Parameters})
   },

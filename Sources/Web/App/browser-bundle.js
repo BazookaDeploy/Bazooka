@@ -35047,7 +35047,6 @@
 
 	        });
 	        _Actions2.default.lastVersion(id).then(function (x) {
-	            debugger;
 	            _this3.setState({
 	                RequiredParameters: x.Parameters,
 	                Parameters: x.Parameters.map(function (z) {
@@ -35059,7 +35058,6 @@
 	    },
 
 	    setParameter: function setParameter(value, id) {
-	        debugger;
 	        this.state.Parameters.filter(function (x) {
 	            return x.TaskTemplateParameterId == id;
 	        })[0].Value = value;
