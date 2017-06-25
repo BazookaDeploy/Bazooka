@@ -82,31 +82,31 @@
 
 	var _TasksPage2 = _interopRequireDefault(_TasksPage);
 
-	var _AllowedUserPage = __webpack_require__(331);
+	var _AllowedUserPage = __webpack_require__(332);
 
 	var _AllowedUserPage2 = _interopRequireDefault(_AllowedUserPage);
 
-	var _EditPage = __webpack_require__(332);
+	var _EditPage = __webpack_require__(333);
 
 	var _EditPage2 = _interopRequireDefault(_EditPage);
 
-	var _DeployUnitEditPage = __webpack_require__(333);
+	var _DeployUnitEditPage = __webpack_require__(334);
 
 	var _DeployUnitEditPage2 = _interopRequireDefault(_DeployUnitEditPage);
 
-	var _EditPage3 = __webpack_require__(335);
+	var _EditPage3 = __webpack_require__(336);
 
 	var _EditPage4 = _interopRequireDefault(_EditPage3);
 
-	var _EditPage5 = __webpack_require__(336);
+	var _EditPage5 = __webpack_require__(337);
 
 	var _EditPage6 = _interopRequireDefault(_EditPage5);
 
-	var _EditPage7 = __webpack_require__(337);
+	var _EditPage7 = __webpack_require__(338);
 
 	var _EditPage8 = _interopRequireDefault(_EditPage7);
 
-	var _EditPage9 = __webpack_require__(338);
+	var _EditPage9 = __webpack_require__(339);
 
 	var _EditPage10 = _interopRequireDefault(_EditPage9);
 
@@ -34957,7 +34957,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(339);
+	var _Actions = __webpack_require__(331);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -34972,6 +34972,10 @@
 	var _Input = __webpack_require__(310);
 
 	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Table = __webpack_require__(295);
+
+	var _Table2 = _interopRequireDefault(_Table);
 
 	var _Grid = __webpack_require__(299);
 
@@ -35035,54 +35039,35 @@
 	        }
 	    },
 
-	    addParameter: function addParameter() {
-	        var _this3 = this;
-
-	        if (this.state.key.length != 0 && this.state.value.length != 0 && !this.state.Parameters.some(function (x) {
-	            return x.Key == _this3.state.key;
-	        })) {
-
-	            this.setState({
-	                Parameters: this.state.Parameters.concat({
-	                    Name: this.state.key,
-	                    Value: this.state.value
-	                }),
-	                key: "",
-	                value: "",
-	                Encrypted: false
-	            });
-	        }
-	    },
-
-	    remove: function remove(key) {
-	        var index = -1;
-	        var i;
-	        for (i = 0; i < this.state.Parameters.length; i++) {
-	            if (this.state.Parameters[i].Name == key) {
-	                index = i;
-	                break;
-	            }
-	        }
-	        this.state.Parameters.splice(index, 1);
-	        this.setState({
-	            Parameters: this.state.Parameters
-	        });
-	    },
-
 	    changeTask: function changeTask(id) {
-	        var _this4 = this;
+	        var _this3 = this;
 
 	        this.setState({
 	            TaskId: id
 
 	        });
 	        _Actions2.default.lastVersion(id).then(function (x) {
-	            return _this4.setState({ RequiredParameters: x.Parameters, TaskVersionId: x.TaskTemplateVersionId });
+	            debugger;
+	            _this3.setState({
+	                RequiredParameters: x.Parameters,
+	                Parameters: x.Parameters.map(function (z) {
+	                    return { TaskTemplateParameterId: z.Id, Name: z.Name, Optional: z.Optional };
+	                }),
+	                TaskVersionId: x.TaskTemplateVersionId
+	            });
 	        });
 	    },
 
+	    setParameter: function setParameter(value, id) {
+	        debugger;
+	        this.state.Parameters.filter(function (x) {
+	            return x.TaskTemplateParameterId == id;
+	        })[0].Value = value;
+	        this.setState({ Parameters: this.state.Parameters });
+	    },
+
 	    render: function render() {
-	        var _this5 = this;
+	        var _this4 = this;
 
 	        return _react2.default.createElement(
 	            _Modal2.default,
@@ -35096,12 +35081,12 @@
 	                _Modal2.default.Body,
 	                null,
 	                _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, onChange: function onChange(e) {
-	                        return _this5.setState({ Name: e.target.value });
+	                        return _this4.setState({ Name: e.target.value });
 	                    } }),
 	                _react2.default.createElement(
 	                    _Select2.default,
 	                    { title: "Machine", onChange: function onChange(e) {
-	                            return _this5.setState({ Machine: e.target.value });
+	                            return _this4.setState({ Agent: e.target.value });
 	                        } },
 	                    _react2.default.createElement("option", null),
 	                    this.state.Agents.map(function (x) {
@@ -35117,7 +35102,7 @@
 	                _react2.default.createElement(
 	                    _Select2.default,
 	                    { title: "Task", onChange: function onChange(e) {
-	                            return _this5.changeTask(e.target.value);
+	                            return _this4.changeTask(e.target.value);
 	                        } },
 	                    _react2.default.createElement("option", null),
 	                    this.state.Tasks.map(function (x) {
@@ -35134,81 +35119,61 @@
 	                    "Parameters "
 	                ),
 	                _react2.default.createElement(
-	                    "b",
+	                    _Table2.default,
 	                    null,
-	                    "Required:"
-	                ),
-	                " ",
-	                this.state.RequiredParameters.filter(function (x) {
-	                    return !x.Optional;
-	                }).map(function (x) {
-	                    return _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        x.Name,
-	                        ","
-	                    );
-	                }),
-	                _react2.default.createElement("br", null),
-	                _react2.default.createElement(
-	                    "b",
-	                    null,
-	                    "Optional"
-	                ),
-	                ": ",
-	                this.state.RequiredParameters.filter(function (x) {
-	                    return x.Optional;
-	                }).map(function (x) {
-	                    return _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        x.Name,
-	                        ","
-	                    );
-	                }),
-	                _react2.default.createElement(
-	                    "ul",
-	                    null,
-	                    this.state.Parameters.map(function (x) {
-	                        return _react2.default.createElement(
-	                            "li",
-	                            null,
-	                            x.Name,
-	                            ": ",
-	                            x.Value
-	                        );
-	                    })
-	                ),
-	                _react2.default.createElement(
-	                    _Grid2.default,
-	                    { fluid: true },
 	                    _react2.default.createElement(
-	                        _Grid2.default.Row,
+	                        _Table2.default.Head,
 	                        null,
 	                        _react2.default.createElement(
-	                            _Grid2.default.Col,
-	                            { md: 3 },
-	                            _react2.default.createElement(_Input2.default, { title: "Key", placeholder: "Key", value: this.state.key, onChange: function onChange(e) {
-	                                    return _this5.setState({ key: e.target.value });
-	                                } })
-	                        ),
-	                        _react2.default.createElement(
-	                            _Grid2.default.Col,
-	                            { md: 3 },
-	                            _react2.default.createElement(_Input2.default, { title: "Value", placeholder: "Value", value: this.state.value, onChange: function onChange(e) {
-	                                    return _this5.setState({ value: e.target.value });
-	                                } })
-	                        ),
-	                        _react2.default.createElement(
-	                            _Grid2.default.Col,
-	                            { md: 4 },
-	                            _react2.default.createElement("br", null),
+	                            "tr",
+	                            null,
 	                            _react2.default.createElement(
-	                                _Button2.default,
-	                                { primary: true, onClick: this.addParameter },
-	                                "Add Parameter"
+	                                "th",
+	                                null,
+	                                "Parameter"
+	                            ),
+	                            _react2.default.createElement(
+	                                "th",
+	                                null,
+	                                "Value"
+	                            ),
+	                            _react2.default.createElement(
+	                                "th",
+	                                null,
+	                                "Required"
 	                            )
 	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Table2.default.Body,
+	                        null,
+	                        this.state.Parameters.map(function (x) {
+	                            return _react2.default.createElement(
+	                                "tr",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    x.Name
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    _react2.default.createElement(_Input2.default, { placeholder: "Value", onChange: function onChange(e) {
+	                                            return _this4.setParameter(e.target.value, x.TaskTemplateParameterId);
+	                                        } })
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    !x.Optional && _react2.default.createElement(
+	                                        "span",
+	                                        null,
+	                                        "Required"
+	                                    )
+	                                )
+	                            );
+	                        })
 	                    )
 	                )
 	            ),
@@ -35234,6 +35199,80 @@
 
 /***/ }),
 /* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _reqwest = __webpack_require__(291);
+
+	var _reqwest2 = _interopRequireDefault(_reqwest);
+
+	var _Net = __webpack_require__(305);
+
+	var _Net2 = _interopRequireDefault(_Net);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	    getAgents: function getAgents(id) {
+	        return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
+	    },
+
+	    getTemplatedTask: function getTemplatedTask(id) {
+	        return _Net2.default.get("/api/TemplatedTasks/" + id);
+	    },
+
+	    loadTemplatedTasks: function loadTemplatedTasks() {
+	        return _Net2.default.get("/api/TaskTemplate/");
+	    },
+
+	    lastVersion: function lastVersion(id) {
+	        return _Net2.default.get("/api/TaskTemplate/LastVersion/" + id);
+	    },
+
+	    createTemplatedTask: function createTemplatedTask(name, enviromentId, applicationId, agentId, taskId, taskVersionId, parameters) {
+	        return _Net2.default.post("/api/TemplatedTask/CreateTemplatedTask", {
+	            Name: name,
+	            EnviromentId: enviromentId,
+	            ApplicationId: applicationId,
+	            AgentId: agentId,
+	            TaskId: taskId,
+	            TaskVersionId: taskVersionId,
+	            Parameters: parameters
+	        });
+	    },
+
+	    modifyTemplatedTask: function modifyTemplatedTask(id, enviromentId, applicationId, agentId, parameters) {
+	        return _Net2.default.post("/api/TemplatedTask/ModifyTemplatedTask", {
+	            Id: id,
+	            EnviromentId: enviromentId,
+	            ApplicationId: applicationId,
+	            AgentId: agentId,
+	            Parameters: parameters
+	        });
+	    },
+
+	    renameTemplatedTask: function renameTemplatedTask(id, enviromentId, applicationId, name) {
+	        return _Net2.default.post("/api/TemplatedTask/RenameTemplatedTask", {
+	            Name: name,
+	            Id: id,
+	            EnviromentId: enviromentId,
+	            ApplicationId: applicationId,
+	            AgentId: agentId
+	        });
+	    },
+
+	    updateTemplatedTasks: function updateTemplatedTasks(id, applicationId, version) {
+	        return _Net2.default.post("/api/TemplatedTask/UpdateTemplatedTask", {
+	            Id: id,
+	            ApplicationId: applicationId,
+	            Version: version
+	        });
+	    }
+	};
+
+/***/ }),
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35461,7 +35500,7 @@
 	exports.default = AllowedUsersPage;
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35591,7 +35630,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35624,7 +35663,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(334);
+	var _Tabs = __webpack_require__(335);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -35886,7 +35925,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35957,7 +35996,7 @@
 	exports.default = Tabs;
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35986,7 +36025,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(334);
+	var _Tabs = __webpack_require__(335);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -36062,7 +36101,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36167,7 +36206,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36288,7 +36327,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36313,7 +36352,7 @@
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Actions = __webpack_require__(339);
+	var _Actions = __webpack_require__(331);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -36416,80 +36455,6 @@
 	});
 
 	module.exports = EditPage;
-
-/***/ }),
-/* 339 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _reqwest = __webpack_require__(291);
-
-	var _reqwest2 = _interopRequireDefault(_reqwest);
-
-	var _Net = __webpack_require__(305);
-
-	var _Net2 = _interopRequireDefault(_Net);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	    getAgents: function getAgents(id) {
-	        return _Net2.default.get("/api/Agents/AgentsByEnviroment/" + id);
-	    },
-
-	    getTemplatedTask: function getTemplatedTask(id) {
-	        return _Net2.default.get("/api/TemplatedTasks/" + id);
-	    },
-
-	    loadTemplatedTasks: function loadTemplatedTasks() {
-	        return _Net2.default.get("/api/TaskTemplate/");
-	    },
-
-	    lastVersion: function lastVersion(id) {
-	        return _Net2.default.get("/api/TaskTemplate/LastVersion/" + id);
-	    },
-
-	    createTemplatedTask: function createTemplatedTask(name, enviromentId, applicationId, agentId, taskId, taskVersionId, parameters) {
-	        return _Net2.default.post("/api/TemplatedTask/CreateTemplatedTask", {
-	            Name: name,
-	            EnviromentId: enviromentId,
-	            ApplicationId: applicationId,
-	            AgentId: agentId,
-	            TaskId: taskId,
-	            TaskVersionId: taskVersionId,
-	            Parameters: parameters
-	        });
-	    },
-
-	    modifyTemplatedTask: function modifyTemplatedTask(id, enviromentId, applicationId, agentId, parameters) {
-	        return _Net2.default.post("/api/TemplatedTask/ModifyTemplatedTask", {
-	            Id: id,
-	            EnviromentId: enviromentId,
-	            ApplicationId: applicationId,
-	            AgentId: agentId,
-	            Parameters: parameters
-	        });
-	    },
-
-	    renameTemplatedTask: function renameTemplatedTask(id, enviromentId, applicationId, name) {
-	        return _Net2.default.post("/api/TemplatedTask/RenameTemplatedTask", {
-	            Name: name,
-	            Id: id,
-	            EnviromentId: enviromentId,
-	            ApplicationId: applicationId,
-	            AgentId: agentId
-	        });
-	    },
-
-	    updateTemplatedTasks: function updateTemplatedTasks(id, applicationId, version) {
-	        return _Net2.default.post("/api/TemplatedTask/UpdateTemplatedTask", {
-	            Id: id,
-	            ApplicationId: applicationId,
-	            Version: version
-	        });
-	    }
-	};
 
 /***/ }),
 /* 340 */
@@ -39219,7 +39184,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(334);
+	var _Tabs = __webpack_require__(335);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 

@@ -72,14 +72,14 @@ namespace DataAccess.Write
             return list;
         }
 
-        public virtual void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<Parameter> enumerable)
+        public virtual void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<TemplatedTaskParameter> enumerable)
         {
             var task = this.TemplatedTasks.Single(x => x.Id == id);
 
             task.AgentId = agentId;
             task.Prameters = enumerable.Select(x => new TemplatedTaskParameter()
             {
-                TaskTemplateParameterId = x.ParameterId,
+                TaskTemplateParameterId = x.TaskTemplateParameterId,
                 Value = x.Value
             }).ToList();
         }
@@ -98,9 +98,9 @@ namespace DataAccess.Write
             task.Name = name;
         }
 
-        public virtual void AddTemplatedTask(int agentId, int enviromentId, int version, string name, IEnumerable<Parameter> enumerable)
+        public virtual void AddTemplatedTask(int agentId, int enviromentId, int version, string name, IEnumerable<TemplatedTaskParameter> enumerable)
         {
-            this.TemplatedTasks.Add(new TemplatedTask()
+            var a = new TemplatedTask()
             {
                 AgentId = agentId,
                 ApplicationId = this.Id,
@@ -108,13 +108,17 @@ namespace DataAccess.Write
                 Name = name,
                 TaskTemplateVersionId = version,
                 Deleted = false,
-                Position = this.NewTaskNumber(),
-                Prameters = enumerable.Select(x => new TemplatedTaskParameter()
-                {
-                    TaskTemplateParameterId = x.ParameterId,
-                    Value = x.Value
-                }).ToList()
-            });
+                Position = this.NewTaskNumber()
+            };
+
+            a.Prameters = enumerable.Select(x => new TemplatedTaskParameter()
+            {
+                TemplatedTask = a,
+                TaskTemplateParameterId = x.TaskTemplateParameterId,
+                Value = x.Value
+            }).ToList();
+
+            this.TemplatedTasks.Add(a);
         }
 
         public virtual void AddAdministrator(System.Guid userId)

@@ -20,7 +20,7 @@ namespace Web.Commands
         /// <summary>
         ///     name of the parameter
         /// </summary>
-        public virtual int ParameterId { get; set; }
+        public virtual int  TaskTemplateParameterId { get; set; }
 
         /// <summary>
         ///     name of the parameter

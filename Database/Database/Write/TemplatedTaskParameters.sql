@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[TemplatedTaskParameters]
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
 	TemplatedTaskId int not null,
 	TaskTemplateParameterId int not null,
 	Value nvarchar(250) not null, 

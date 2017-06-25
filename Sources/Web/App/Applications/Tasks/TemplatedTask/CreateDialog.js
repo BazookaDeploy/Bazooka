@@ -3,6 +3,7 @@ import Actions from "./Actions";
 import Modal from "../../../Shared/Modal";
 import Button from "../../../Shared/Button";
 import Input from "../../../Shared/Input";
+import Table from "../../../Shared/Table";
 import Grid from "../../../Shared/Grid";
 import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
@@ -47,37 +48,6 @@ var TemplatedTaskCreateDialog = React.createClass({
     }
   },
 
-  addParameter: function () {
-      if (this.state.key.length != 0 &&
-          this.state.value.length != 0 &&
-          !this.state.Parameters.some(x => x.Key == this.state.key)) {
-
-          this.setState({
-              Parameters: this.state.Parameters.concat({
-                  Name: this.state.key,
-                  Value: this.state.value
-              }),
-              key: "",
-              value: "",
-              Encrypted: false
-          })
-      }
-  },
-
-  remove: function (key) {
-      var index = -1;
-      var i;
-      for (i = 0; i < this.state.Parameters.length; i++) {
-          if (this.state.Parameters[i].Name == key) {
-              index = i;
-              break;
-          }
-      }
-      this.state.Parameters.splice(index, 1);
-      this.setState({
-          Parameters: this.state.Parameters
-      });
-  },
 
 
   changeTask: function (id) {
@@ -85,7 +55,20 @@ var TemplatedTaskCreateDialog = React.createClass({
           TaskId: id
 
       })
-      Actions.lastVersion(id).then(x => this.setState({ RequiredParameters: x.Parameters, TaskVersionId: x.TaskTemplateVersionId}))
+      Actions.lastVersion(id).then(x => {
+          debugger;
+          this.setState({
+              RequiredParameters: x.Parameters,
+              Parameters: x.Parameters.map(z => { return { TaskTemplateParameterId : z.Id, Name: z.Name, Optional : z.Optional } }),
+              TaskVersionId: x.TaskTemplateVersionId
+          })
+      })
+  },
+
+  setParameter: function (value, id) {
+      debugger;
+      this.state.Parameters.filter(x => x.TaskTemplateParameterId == id)[0].Value = value;
+      this.setState({ Parameters: this.state.Parameters})
   },
 
   render:function(){
@@ -95,7 +78,7 @@ var TemplatedTaskCreateDialog = React.createClass({
      <Modal.Body>
                 <Input title="Name" placeholder="Name" autoFocus onChange={(e) => this.setState({ Name: e.target.value })} />
 
-           <Select title="Machine" onChange={(e)=> this.setState({Machine: e.target.value})}>
+           <Select title="Machine" onChange={(e)=> this.setState({Agent: e.target.value})}>
               <option />
              {this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
            </Select>
@@ -106,27 +89,23 @@ var TemplatedTaskCreateDialog = React.createClass({
            </Select>
 
            <h3>Parameters </h3>
-           <b>Required:</b> {this.state.RequiredParameters.filter(x => !x.Optional).map(x => <span>{x.Name},</span>)}
-           <br /><b>Optional</b>: {this.state.RequiredParameters.filter(x => x.Optional).map(x => <span>{x.Name},</span>)}
-           <ul>
-                    {this.state.Parameters.map(x => <li>{x.Name}: {x.Value}</li>)}
-           </ul>
 
-           <Grid fluid>
-               <Grid.Row>
-
-                   <Grid.Col md={3}>
-                       <Input title="Key" placeholder="Key" value={this.state.key} onChange={(e) => this.setState({ key: e.target.value })} />
-                   </Grid.Col>
-                   <Grid.Col md={3}>
-                       <Input title="Value" placeholder="Value" value={this.state.value} onChange={(e) => this.setState({ value: e.target.value })} />
-                   </Grid.Col>
-                   <Grid.Col md={4}>
-                       <br />
-                       <Button primary onClick={this.addParameter} >Add Parameter</Button>
-                   </Grid.Col>
-               </Grid.Row>
-           </Grid>
+                <Table>
+                    <Table.Head>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                            <th>Required</th>
+                        </tr>
+                    </Table.Head>
+                    <Table.Body>
+                        {this.state.Parameters.map(x => <tr>
+                            <td>{x.Name}</td>
+                            <td><Input placeholder="Value" onChange={(e) => this.setParameter(e.target.value, x.TaskTemplateParameterId)} /></td>
+                            <td>{!x.Optional && <span>Required</span>}</td>
+                        </tr>)}
+                    </Table.Body>
+                </Table>
 
 
      </Modal.Body>
