@@ -11,12 +11,8 @@ var EditPage = React.createClass({
     return {
       Id:0,
       EnviromentId:0,
-			Name:"",
-      ConnectionString:"",
-      Pack:"",
-      DatabaseName:"",
-			Repository:"",
-			AgentId:"",
+	  Name:"",
+	  AgentId:"",
       Agents:[]
     };
   },
@@ -32,28 +28,57 @@ var EditPage = React.createClass({
   },	
 
   update:function(taskId, enviromentId){
-    Actions.getDatabaseTask(taskId).then(x => {
-			x.Pack=x.Package;
-      this.setState(x);
-    })
+        Actions.getTemplatedTask(taskId).then(x => {
+          this.setState(x);
+        })
 		Actions.getAgents(enviromentId).then(x => {
 			this.setState({Agents:x})
 		})
   },
 
   save:function(){
-    if(this.state.Name!="" && this.state.ConnectionString!=""&& this.state.Pack!=""&& this.state.DatabaseName!=""&& this.state.Repository!=""&& this.state.Machine!=""){
-      Actions.updateDatabaseTask(this.state.Id,this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.state.EnviromentId, this.state.Repository,this.state.AgentId, this.state.ApplicationId).then(x => {
+      if (this.state.Name != "") {
+          Actions.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.Parameters).then(x => {
         Notification.Notify(x);
       })
     }
   },
 
+  updateToLatest: function () {
+      if (this.state.Name != "") {
+          Actions.updateTemplatedTasks(this.state.Id, this.state.ApplicationId, this.state.LastKnownVersion).then(x => {
+              Notification.Notify(x);
+          })
+      }
+  },
+
+  rename: function () {
+      if (this.state.Name != "") {
+          Actions.renameTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.Name).then(x => {
+              Notification.Notify(x);
+          })
+      }
+  },
+
+  setParameter: function (value, id) {
+      this.state.Parameters.filter(x => x.TaskTemplateParameterId == id)[0].Value = value;
+      this.setState({ Parameters: this.state.Parameters })
+  },
+
+
   render:function(){
     return(
       <div>
 
-											<Input title="Name" placeholder="Name" autoFocus  value={this.state.Name}  onChange={(e)=>this.setState({Name:e.target.value})} />
+            <Input title="Name" placeholder="Name" autoFocus value={this.state.Name} onChange={(e) => this.setState({ Name: e.target.value })} />
+
+            <Button primary block onClick={this.rename}>Rename</Button>
+
+            <Select title="Machine" onChange={(e) => this.setState({ Agent: e.target.value })}>
+                <option />
+                {this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
+            </Select>
+
 		<Input title="Connection string" placeholder="ConnectionString"  value={this.state.ConnectionString}   onChange={(e)=>this.setState({ConnectionString:e.target.value}) }/>
 											<Input title="Package" placeholder="Package"   value={this.state.Pack}  onChange={(e)=>this.setState({Pack:e.target.value})} />
 											<Select title="Agent"  value={this.state.AgentId} onChange={(e)=>this.setState({AgentId:e.target.value})}>
@@ -62,7 +87,9 @@ var EditPage = React.createClass({
 											<Input title="Repository" placeholder="Repository" value={this.state.Repository}  onChange={(e)=>this.setState({Repository:e.target.value})}  />
 										<Input title="DatabaseName" placeholder="Database Name"value={this.state.DatabaseName}  onChange={(e)=>this.setState({DatabaseName:e.target.value})}  />
 
-       <Button primary block onClick={this.save}>Save</Button>
+                                        <Button primary block onClick={this.save}>Save</Button>
+                                        <Button primary block onClick={this.updateToLatest}>Update to latest version</Button>
+
        </div>
 );
    }

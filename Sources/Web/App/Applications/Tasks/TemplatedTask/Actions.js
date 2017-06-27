@@ -10,6 +10,7 @@ module.exports = {
         return Net.get("/api/TemplatedTasks/" + id);
     },
 
+
     loadTemplatedTasks: function () {
         return Net.get("/api/TaskTemplate/");
     },
