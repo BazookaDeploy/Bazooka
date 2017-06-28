@@ -74,18 +74,10 @@ var EditPage = React.createClass({
 
             <Button primary block onClick={this.rename}>Rename</Button>
 
-            <Select title="Machine" onChange={(e) => this.setState({ Agent: e.target.value })}>
-                <option />
-                {this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
-            </Select>
 
-		<Input title="Connection string" placeholder="ConnectionString"  value={this.state.ConnectionString}   onChange={(e)=>this.setState({ConnectionString:e.target.value}) }/>
-											<Input title="Package" placeholder="Package"   value={this.state.Pack}  onChange={(e)=>this.setState({Pack:e.target.value})} />
 											<Select title="Agent"  value={this.state.AgentId} onChange={(e)=>this.setState({AgentId:e.target.value})}>
 													{this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
 											</Select>
-											<Input title="Repository" placeholder="Repository" value={this.state.Repository}  onChange={(e)=>this.setState({Repository:e.target.value})}  />
-										<Input title="DatabaseName" placeholder="Database Name"value={this.state.DatabaseName}  onChange={(e)=>this.setState({DatabaseName:e.target.value})}  />
 
                                         <Button primary block onClick={this.save}>Save</Button>
                                         <Button primary block onClick={this.updateToLatest}>Update to latest version</Button>

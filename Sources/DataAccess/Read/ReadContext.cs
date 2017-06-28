@@ -258,7 +258,7 @@ namespace DataAccess.Read
     {
         public TemplatedTaskDtoDtoConfiguration()
         {
-            ToTable("TemplatedTask");
+            ToTable("TemplatedTasks");
         }
     }
 

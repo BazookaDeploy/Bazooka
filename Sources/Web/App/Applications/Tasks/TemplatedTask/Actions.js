@@ -7,7 +7,7 @@ module.exports = {
     },
 
     getTemplatedTask: function (id) {
-        return Net.get("/api/TemplatedTasks/" + id);
+        return Net.get("/api/TemplatedTask/" + id);
     },
 
 
@@ -46,8 +46,7 @@ module.exports = {
             Name: name,
             Id:id,
             EnviromentId: enviromentId,
-            ApplicationId: applicationId,
-            AgentId: agentId
+            ApplicationId: applicationId
         });
     },
 
