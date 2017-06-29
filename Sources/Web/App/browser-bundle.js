@@ -35260,7 +35260,7 @@
 	    },
 
 	    updateTemplatedTasks: function updateTemplatedTasks(id, applicationId, version) {
-	        return _Net2.default.post("/api/TemplatedTask/UpdateTemplatedTask", {
+	        return _Net2.default.post("/api/TemplatedTask/Update", {
 	            Id: id,
 	            ApplicationId: applicationId,
 	            Version: version

@@ -51,7 +51,7 @@ module.exports = {
     },
 
     updateTemplatedTasks: function (id, applicationId, version) {
-        return Net.post("/api/TemplatedTask/UpdateTemplatedTask", {
+        return Net.post("/api/TemplatedTask/Update", {
             Id: id,
             ApplicationId: applicationId,
             Version:version

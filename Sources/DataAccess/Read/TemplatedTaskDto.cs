@@ -18,5 +18,7 @@ namespace DataAccess.Read
 
 
         public virtual int Position { get; set; }
+
+        public virtual int LastKnownVersion { get; set; }
     }
 }
