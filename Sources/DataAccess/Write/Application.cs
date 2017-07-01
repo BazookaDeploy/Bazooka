@@ -84,11 +84,21 @@ namespace DataAccess.Write
             }).ToList();
         }
 
-        public virtual void UpdateTemplatedTask(int id, int version)
+        public virtual void UpdateTemplatedTask(int id, int version, ICollection<Tuple<int,int>> newVersions)
         {
             var task = this.TemplatedTasks.Single(x => x.Id == id);
 
             task.TaskTemplateVersionId = version;
+            foreach(var par in newVersions)
+            {
+                foreach(var param in task.Prameters)
+                {
+                    if(par.Item1 == param.TaskTemplateParameterId)
+                    {
+                        param.TaskTemplateParameterId = par.Item2;
+                    }
+                }
+            }
         }
 
         public virtual void RenameTemplatedTask(int id, int enviromentId, string name)
