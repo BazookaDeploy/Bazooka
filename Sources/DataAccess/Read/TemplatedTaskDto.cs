@@ -21,6 +21,10 @@ namespace DataAccess.Read
 
         public virtual int LastKnownVersion { get; set; }
 
+        public virtual string AgentName { get; set; }
+
+        public virtual string Script { get; set; }
+
         public virtual IList<TemplatedTaskParameterDto> Parameters { get; set; }
     }
 }

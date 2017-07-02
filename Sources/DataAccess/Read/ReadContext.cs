@@ -20,6 +20,7 @@ namespace DataAccess.Read
         public DbSet<LocalScriptTaskDto> LocalScriptTasks { get; set; }
         public DbSet<RemoteScriptTaskDto> RemoteScriptTasks { get; set; }
         public DbSet<DatabaseTaskDto> DatabaseTasks { get; set; }
+        public DbSet<TemplatedTaskDto> TemplatedTasks { get; set; }
 
         public DbSet<DeploymentDto> Deployments { get; set; }
 

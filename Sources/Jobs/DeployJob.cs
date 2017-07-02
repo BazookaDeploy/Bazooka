@@ -11,6 +11,7 @@
     using System.Configuration;
     using System.Linq;
     using System.Net.Http;
+    using System.Data.Entity;
     using System.Net.Mail;
 
     /// <summary>
@@ -110,6 +111,9 @@
                             break;
                         case TaskType.Database:
                             DeployJob.DatabaseTask(task.Id, deploymentId, version, config);
+                            break;
+                        case TaskType.Templated:
+                            DeployJob.TemplatedTask(task.Id, deploymentId, version, config);
                             break;
                     }
                 }
@@ -347,6 +351,88 @@
                 }
             }
         }
+
+        private static void TemplatedTask(int id, int deploymentId, string version, string config)
+        {
+            using (var dc = new ReadContext())
+            {
+                var unit = dc.TemplatedTasks.Include(x => x.Parameters).Single(x => x.Id == id);
+
+
+                var res = new List<string>();
+                ExecutionResult ret;
+
+                using (var session = Store.OpenSession())
+                {
+                    session.Save(new DataAccess.Write.LogEntry()
+                    {
+                        DeploymentId = deploymentId,
+                        Error = false,
+                        TaskName = unit.Name,
+                        Text = "Executing templated task " + unit.Name,
+                        TimeStamp = DateTime.UtcNow
+                    });
+
+                    session.Flush();
+                }
+
+                var address = unit.AgentName;
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(address);
+                    client.Timeout = TimeSpan.FromSeconds(300);
+
+                    var result2 = client.PostAsJsonAsync("/api/deploy/ExecuteTemplatedTask", new Bazooka.Core.Dto.TemplatedTaskDto()
+                    {
+                        Script = unit.Script,
+                        Parameters = unit.Parameters.Select(x => new ParameterDto()
+                        {
+                            Name = x.Name,
+                            Value = x.Value
+                        }).ToList()
+                    });
+
+                    var result = result2.Result;
+                    var response = result.Content.ReadAsStringAsync().Result;
+
+                    ret = JsonConvert.DeserializeObject<ExecutionResult>(response);
+
+                    using (var session = Store.OpenSession())
+                    {
+
+                        session.Save(new DataAccess.Write.LogEntry()
+                        {
+                            DeploymentId = deploymentId,
+                            Error = false,
+                            TaskName = unit.Name,
+                            Text = String.Join("\r\n", ret.Log.Select(x => x.Text)),
+                            TimeStamp = DateTime.UtcNow
+                        });
+
+                        session.Flush();
+                    }
+
+                }
+
+                using (var session = Store.OpenSession())
+                {
+                    foreach (var mess in ret.Log)
+                    {
+                        session.Save(new DataAccess.Write.LogEntry()
+                        {
+                            DeploymentId = deploymentId,
+                            Error = mess.Error,
+                            TaskName = unit.Name,
+                            Text = mess.Text,
+                            TimeStamp = mess.TimeStamp
+                        });
+                    }
+                    session.Flush();
+                }
+            }
+        }
+
 
         private static void MailTask(int id, int deploymentId, string version, string config)
         {
