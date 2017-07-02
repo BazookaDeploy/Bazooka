@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="CustomPathResolver.cs" />
     <Compile Include="DacpacHelpers.cs" />
+    <Compile Include="Dto\TemplatedTaskDto.cs" />
     <Compile Include="Dto\DatabaseDeployDto.cs" />
     <Compile Include="Dto\ExecutionResult.cs" />
     <Compile Include="Dto\InstallDto.cs" />
