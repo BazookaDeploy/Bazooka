@@ -35241,7 +35241,7 @@
 	    },
 
 	    modifyTemplatedTask: function modifyTemplatedTask(id, enviromentId, applicationId, agentId, parameters) {
-	        return _Net2.default.post("/api/TemplatedTask/ModifyTemplatedTask", {
+	        return _Net2.default.post("/api/TemplatedTask/Modify", {
 	            Id: id,
 	            EnviromentId: enviromentId,
 	            ApplicationId: applicationId,
@@ -36349,6 +36349,10 @@
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
+	var _Table = __webpack_require__(295);
+
+	var _Table2 = _interopRequireDefault(_Table);
+
 	var _Actions = __webpack_require__(331);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
@@ -36368,7 +36372,8 @@
 	      EnviromentId: 0,
 	      Name: "",
 	      AgentId: "",
-	      Agents: []
+	      Agents: [],
+	      Parameters: []
 	    };
 	  },
 
@@ -36452,6 +36457,69 @@
 	            x.Address
 	          );
 	        })
+	      ),
+	      _react2.default.createElement(
+	        "h3",
+	        null,
+	        "Parameters "
+	      ),
+	      _react2.default.createElement(
+	        _Table2.default,
+	        null,
+	        _react2.default.createElement(
+	          _Table2.default.Head,
+	          null,
+	          _react2.default.createElement(
+	            "tr",
+	            null,
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              "Parameter"
+	            ),
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              "Value"
+	            ),
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              "Required"
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _Table2.default.Body,
+	          null,
+	          this.state.Parameters.map(function (x) {
+	            return _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "td",
+	                null,
+	                x.Name
+	              ),
+	              _react2.default.createElement(
+	                "td",
+	                null,
+	                _react2.default.createElement(_Input2.default, { placeholder: "Value", value: x.Value, onChange: function onChange(e) {
+	                    return _this2.setParameter(e.target.value, x.TaskTemplateParameterId);
+	                  } })
+	              ),
+	              _react2.default.createElement(
+	                "td",
+	                null,
+	                !x.Optional && _react2.default.createElement(
+	                  "span",
+	                  null,
+	                  "Required"
+	                )
+	              )
+	            );
+	          })
+	        )
 	      ),
 	      _react2.default.createElement(
 	        _Button2.default,

@@ -3,6 +3,7 @@ import Button from "../../../Shared/Button";
 import Input from "../../../Shared/Input";
 import Select from "../../../Shared/Select";
 import Textarea from "../../../Shared/Textarea";
+import Table from "../../../Shared/Table";
 import Actions from "./Actions";
 import Notification from "../../../Shared/Notifications";
 
@@ -13,7 +14,8 @@ var EditPage = React.createClass({
       EnviromentId:0,
 	  Name:"",
 	  AgentId:"",
-      Agents:[]
+      Agents: [],
+      Parameters: []
     };
   },
 
@@ -78,6 +80,26 @@ var EditPage = React.createClass({
 											<Select title="Agent"  value={this.state.AgentId} onChange={(e)=>this.setState({AgentId:e.target.value})}>
 													{this.state.Agents.map(x => (<option value={x.Id}>{x.Name}- {x.Address}</option>))}
 											</Select>
+
+                                            <h3>Parameters </h3>
+
+                                            <Table>
+                                                <Table.Head>
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Value</th>
+                                                        <th>Required</th>
+                                                    </tr>
+                                                </Table.Head>
+                                                <Table.Body>
+                                                    {this.state.Parameters.map(x => <tr>
+                                                        <td>{x.Name}</td>
+                                                        <td><Input placeholder="Value" value={x.Value} onChange={(e) => this.setParameter(e.target.value, x.TaskTemplateParameterId)} /></td>
+                                                        <td>{!x.Optional && <span>Required</span>}</td>
+                                                    </tr>)}
+                                                </Table.Body>
+                                            </Table>
+
 
                                         <Button primary block onClick={this.save}>Save</Button>
                                         <Button primary block onClick={this.updateToLatest}>Update to latest version</Button>

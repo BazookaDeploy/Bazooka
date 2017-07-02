@@ -77,11 +77,10 @@ namespace DataAccess.Write
             var task = this.TemplatedTasks.Single(x => x.Id == id);
 
             task.AgentId = agentId;
-            task.Prameters = enumerable.Select(x => new TemplatedTaskParameter()
+            enumerable.ToList().ForEach(x =>
             {
-                TaskTemplateParameterId = x.TaskTemplateParameterId,
-                Value = x.Value
-            }).ToList();
+                task.Prameters.Single(z => z.TaskTemplateParameterId == x.TaskTemplateParameterId).Value = x.Value;
+            });
         }
 
         public virtual void UpdateTemplatedTask(int id, int version, ICollection<Tuple<int,int>> newVersions)

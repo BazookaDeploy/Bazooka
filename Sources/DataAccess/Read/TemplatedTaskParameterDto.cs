@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataAccess.Read
+﻿namespace DataAccess.Read
 {
     public class TemplatedTaskParameterDto
     {
@@ -12,6 +6,12 @@ namespace DataAccess.Read
 
         public virtual int TaskTemplateParameterId { get; set; }
 
+        public virtual int TemplatedTaskId { get; set; }
+
         public virtual string Value { get; set; }
+
+        public virtual string Name { get; set; }
+
+        public virtual bool Optional { get; set; }
     }
 }

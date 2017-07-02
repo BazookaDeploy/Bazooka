@@ -32,7 +32,7 @@ module.exports = {
     },
 
     modifyTemplatedTask: function (id, enviromentId, applicationId, agentId, parameters) {
-        return Net.post("/api/TemplatedTask/ModifyTemplatedTask", {
+        return Net.post("/api/TemplatedTask/Modify", {
             Id:id,
             EnviromentId: enviromentId,
             ApplicationId: applicationId,

@@ -1,5 +1,6 @@
 ﻿using DataAccess.Read;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using Web.Commands;
@@ -19,7 +20,7 @@ namespace Web.Controllers
 
         public TemplatedTaskDto Get(int id)
         {
-            return db.Query<TemplatedTaskDto>().Single(X => X.Id == id);
+            return db.Query<TemplatedTaskDto>().Include(x => x.Parameters).Single(X => X.Id == id);
         }
 
         [HttpPost]
