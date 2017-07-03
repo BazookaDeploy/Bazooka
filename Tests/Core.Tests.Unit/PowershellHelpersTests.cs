@@ -84,6 +84,32 @@ namespace Core.Tests.Unit
             }
 
             [TestMethod]
+            public void ShouldLogOutputIfWriteOutput()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+
+                PowershellHelpers.ExecuteScript(".", "Write-Output 'test'", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("test");
+                logger.Logs.ElementAt(0).Error.Should().Be.False();
+            }
+
+            [TestMethod]
+            public void ShouldLogOutputofCommand()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+
+                PowershellHelpers.ExecuteScript(".", "&echo 'test'", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("test");
+                logger.Logs.ElementAt(0).Error.Should().Be.False();
+            }
+
+            [TestMethod]
             public void ShouldRunScript()
             {
                 var logger = new StringLogger();
