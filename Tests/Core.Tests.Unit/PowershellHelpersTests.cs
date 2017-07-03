@@ -68,7 +68,19 @@ namespace Core.Tests.Unit
 
                 logger.Logs.Count.Should().Be.EqualTo(1);
                 logger.Logs.ElementAt(0).Error.Should().Be.True();
+            }
 
+            [TestMethod]
+            public void ShouldLogErrorIfWriteError()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+
+                PowershellHelpers.ExecuteScript(".", "Write-Error 'test'", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("test");
+                logger.Logs.ElementAt(0).Error.Should().Be.True();
             }
 
             [TestMethod]

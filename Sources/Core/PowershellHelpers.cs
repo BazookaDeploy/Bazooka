@@ -88,7 +88,7 @@
                     return;
                 }
                 
-                log.Log(String.Join("\r\n", results.Select(x => x.ToString())), PowerShellInstance.Streams.Error.Count >0);
+                log.Log(String.Join("\r\n", results.Select(x => x.ToString()).Union(PowerShellInstance.Streams.Error.Select(x => x.ToString()))), PowerShellInstance.Streams.Error.Count >0);
             }
         }
 
