@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpTestsEx;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Core.Tests.Unit
@@ -116,7 +117,11 @@ namespace Core.Tests.Unit
                 var parameters = new Dictionary<string, string>();
                 parameters.Add("username", "paolo");
                 parameters.Add("password", "240686pn");
-                PowershellHelpers.Execute(@"C:\\Users\Paolo\Downloads", "Install.ps1","test", logger, parameters);
+
+                var path = Path.GetTempPath();
+                var fileName = Path.GetRandomFileName();
+                File.WriteAllText(Path.Combine(path, fileName + ".ps1"), "Write-Output 'test'");
+                PowershellHelpers.Execute(path, fileName + ".ps1", "test", logger, parameters);
 
                 logger.Logs.Count.Should().Be.EqualTo(1);
                 logger.Logs.ElementAt(0).Error.Should().Be.True();
