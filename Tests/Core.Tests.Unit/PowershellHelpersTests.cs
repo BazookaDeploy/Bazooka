@@ -111,6 +111,26 @@ namespace Core.Tests.Unit
             }
 
             [TestMethod]
+            public void ShouldLogOrderedOutputRecognizingLevel()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+                var script = @"Write-Output 'test'
+Write-Error 'test2'
+Write-Output 'test3'";
+                PowershellHelpers.ExecuteScript(".", script, logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(3);
+                logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("test");
+                logger.Logs.ElementAt(1).Text.Should().Be.EqualTo("test3");
+                logger.Logs.ElementAt(2).Text.Should().Be.EqualTo("test2");
+                logger.Logs.ElementAt(0).Error.Should().Be.False();
+                logger.Logs.ElementAt(1).Error.Should().Be.False();
+                logger.Logs.ElementAt(2).Error.Should().Be.True();
+            }
+
+
+            [TestMethod]
             public void ShouldRunScript()
             {
                 var logger = new StringLogger();
@@ -124,8 +144,24 @@ namespace Core.Tests.Unit
                 PowershellHelpers.Execute(path, fileName + ".ps1", "test", logger, parameters);
 
                 logger.Logs.Count.Should().Be.EqualTo(1);
-                logger.Logs.ElementAt(0).Error.Should().Be.True();
+                logger.Logs.ElementAt(0).Error.Should().Be.False();
+            }
 
+            [TestMethod]
+            public void ShouldRunScriptAndError()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+                parameters.Add("username", "paolo");
+                parameters.Add("password", "240686pn");
+
+                var path = Path.GetTempPath();
+                var fileName = Path.GetRandomFileName();
+                File.WriteAllText(Path.Combine(path, fileName + ".ps1"), "Write-Error 'test'");
+                PowershellHelpers.Execute(path, fileName + ".ps1", "test", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Error.Should().Be.True();
             }
         }
 

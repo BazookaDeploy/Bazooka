@@ -49,11 +49,14 @@
             }
             catch (RuntimeException e)
             {
-                log.Log(String.Join("\r\n", results.Select(x => x.ToString())) + "\r\n" + e.Message.ToString(), true);
-                return;
+                log.Log(e.Message, true);
+            }
+            finally
+            {
+                results.ToList().ForEach(x => log.Log(x.ToString()));
+                pipeline.Error.ReadToEnd().ToList().ForEach(x => log.Log(x.ToString(), true));
             }
 
-            log.Log(String.Join("\r\n", results.Select(x => x.ToString())), pipeline.Error.Count > 0);
         }
 
         /// <summary>
@@ -84,11 +87,13 @@
                     results = PowerShellInstance.Invoke();
                 }catch(RuntimeException e)
                 {
-                    log.Log(String.Join("\r\n", results.Select(x => x.ToString())) + "\r\n"+e.Message.ToString(), true);
-                    return;
+                    log.Log(e.Message, true);
                 }
-                
-                log.Log(String.Join("\r\n", results.Select(x => x.ToString()).Union(PowerShellInstance.Streams.Error.Select(x => x.ToString()))), PowerShellInstance.Streams.Error.Count >0);
+                finally
+                {
+                    results.ToList().ForEach(x => log.Log(x.ToString()));
+                    PowerShellInstance.Streams.Error.ToList().ForEach(x => log.Log(x.ToString(), true));
+                }
             }
         }
 
