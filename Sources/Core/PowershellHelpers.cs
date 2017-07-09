@@ -78,6 +78,7 @@
                 foreach (var param in parameters.Keys)
                 {
                     PowerShellInstance.AddParameter(param, parameters[param]);
+                    PowerShellInstance.Runspace.SessionStateProxy.SetVariable(param, parameters[param]);
                 }
 
                 PowerShellInstance.AddParameter("-Verb", "RunAs");
@@ -91,7 +92,7 @@
                 }
                 finally
                 {
-                    results.ToList().ForEach(x => log.Log(x.ToString()));
+                    results.Where(x => x!=null).ToList().ForEach(x => log.Log(x.ToString()));
                     PowerShellInstance.Streams.Error.ToList().ForEach(x => log.Log(x.ToString(), true));
                 }
             }

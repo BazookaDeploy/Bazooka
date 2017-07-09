@@ -400,36 +400,36 @@
 
                     using (var session = Store.OpenSession())
                     {
-
-                        session.Save(new DataAccess.Write.LogEntry()
+                        ret.Log.ToList().ForEach(x =>
                         {
-                            DeploymentId = deploymentId,
-                            Error = false,
-                            TaskName = unit.Name,
-                            Text = String.Join("\r\n", ret.Log.Select(x => x.Text)),
-                            TimeStamp = DateTime.UtcNow
+                            session.Save(new DataAccess.Write.LogEntry()
+                            {
+                                DeploymentId = deploymentId,
+                                Error = x.Error,
+                                TaskName = unit.Name,
+                                Text = x.Text,
+                                TimeStamp = DateTime.UtcNow
+                            });
                         });
+
+                        if (!ret.Success && ret.Exception!=null)
+                        {
+                            session.Save(new DataAccess.Write.LogEntry()
+                            {
+                                DeploymentId = deploymentId,
+                                Error = true,
+                                TaskName = unit.Name,
+                                Text = ret.Exception,
+                                TimeStamp = DateTime.UtcNow
+                            });
+                        }
+
 
                         session.Flush();
                     }
 
                 }
 
-                using (var session = Store.OpenSession())
-                {
-                    foreach (var mess in ret.Log)
-                    {
-                        session.Save(new DataAccess.Write.LogEntry()
-                        {
-                            DeploymentId = deploymentId,
-                            Error = mess.Error,
-                            TaskName = unit.Name,
-                            Text = mess.Text,
-                            TimeStamp = mess.TimeStamp
-                        });
-                    }
-                    session.Flush();
-                }
             }
         }
 
