@@ -25,6 +25,10 @@ namespace DataAccess.Read
 
         public virtual string Script { get; set; }
 
+        public virtual string CurrentlyDeployedVersion { get; set; }
+        public virtual string PackageName { get; set; }
+        public virtual string Repository { get; set; }
+
         public virtual IList<TemplatedTaskParameterDto> Parameters { get; set; }
     }
 }

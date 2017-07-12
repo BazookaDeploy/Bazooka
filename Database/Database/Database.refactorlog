@@ -147,4 +147,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Version" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="4cce0ae1-fdef-4be5-a6b0-8632ea5bba6e" ChangeDateTime="07/12/2017 21:09:02">
+    <Property Name="ElementName" Value="[dbo].[TemplatedTask].[PacakgeName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TemplatedTask]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PackageName" />
+  </Operation>
 </Operations>
