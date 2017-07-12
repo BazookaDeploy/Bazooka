@@ -390,6 +390,9 @@
                         {
                             Name = x.Name,
                             Value = x.Value
+                        }).Concat(new List<ParameterDto>() {
+                            new ParameterDto(){ Name = "config", Value = config },
+                            new ParameterDto(){ Name = "version", Value = version }
                         }).ToList()
                     });
 
