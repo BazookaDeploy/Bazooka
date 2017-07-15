@@ -72,11 +72,14 @@ namespace DataAccess.Write
             return list;
         }
 
-        public virtual void ModifyTemplatedTask(int id, int agentId, int enviromentId, IEnumerable<TemplatedTaskParameter> enumerable)
+        public virtual void ModifyTemplatedTask(int id, int agentId, int enviromentId, string packageName, string repository,  IEnumerable<TemplatedTaskParameter> enumerable)
         {
             var task = this.TemplatedTasks.Single(x => x.Id == id);
 
             task.AgentId = agentId;
+            task.PackageName = packageName;
+            task.Repository = repository;
+
             enumerable.ToList().ForEach(x =>
             {
                 task.Prameters.Single(z => z.TaskTemplateParameterId == x.TaskTemplateParameterId).Value = x.Value;

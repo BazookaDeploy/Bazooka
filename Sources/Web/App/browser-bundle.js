@@ -35240,12 +35240,14 @@
 	        });
 	    },
 
-	    modifyTemplatedTask: function modifyTemplatedTask(id, enviromentId, applicationId, agentId, parameters) {
+	    modifyTemplatedTask: function modifyTemplatedTask(id, enviromentId, applicationId, agentId, packageName, repository, parameters) {
 	        return _Net2.default.post("/api/TemplatedTask/Modify", {
 	            Id: id,
 	            EnviromentId: enviromentId,
 	            ApplicationId: applicationId,
 	            AgentId: agentId,
+	            PackageName: packageName,
+	            Repository: repository,
 	            Parameters: parameters
 	        });
 	    },
@@ -36400,7 +36402,7 @@
 
 	  save: function save() {
 	    if (this.state.Name != "") {
-	      _Actions2.default.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.Parameters).then(function (x) {
+	      _Actions2.default.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.PackageName, this.state.Repository, this.state.Parameters).then(function (x) {
 	        _Notifications2.default.Notify(x);
 	      });
 	    }
@@ -36443,6 +36445,12 @@
 	        { primary: true, block: true, onClick: this.rename },
 	        "Rename"
 	      ),
+	      _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "PackageName", value: this.state.PackageName, onChange: function onChange(e) {
+	          return _this2.setState({ PackageName: e.target.value });
+	        } }),
+	      _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
+	          return _this2.setState({ Repository: e.target.value });
+	        } }),
 	      _react2.default.createElement(
 	        _Select2.default,
 	        { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {

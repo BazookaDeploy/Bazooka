@@ -15,7 +15,11 @@ namespace DataAccess.Read
         public virtual int ApplicationId { get; set; }
 
         public virtual int AgentId { get; set; }
+        public virtual string ApplicationName { get; set; }
 
+        public virtual string GroupName { get; set; }
+
+        public virtual string EnviromentName { get; set; }
 
         public virtual int Position { get; set; }
 

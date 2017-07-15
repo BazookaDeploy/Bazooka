@@ -22,11 +22,15 @@ namespace Web.Controllers
             var repos = db.DeploTasks
                           .Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId)
                           .Select(x => x.Repository)
+                          .Union(db.TemplatedTasks.Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId && x.Repository!=null)
+                          .Select(x => x.Repository))
                           .ToList();
 
             var package = db.DeploTasks
                           .Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId)
                           .Select(x => x.PackageName)
+                          .Union(db.TemplatedTasks.Where(x => x.EnviromentId == enviromentId && x.ApplicationId == applicationId && x.PackageName != null)
+                          .Select(x => x.PackageName))
                           .First();
 
             return PackageSearcher.Search(repos, package);

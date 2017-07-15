@@ -9,7 +9,7 @@
         public override void Apply(ModifyTemplatedTask command)
         {
             var application = Repository.Get<Application>(command.ApplicationId);
-            application.ModifyTemplatedTask(command.Id,command.AgentId, command.EnviromentId, command.Parameters.Select(x => new DataAccess.Write.TemplatedTaskParameter()
+            application.ModifyTemplatedTask(command.Id,command.AgentId, command.EnviromentId, command.PackageName, command.Repository, command.Parameters.Select(x => new DataAccess.Write.TemplatedTaskParameter()
             {
                 TaskTemplateParameterId = x.TaskTemplateParameterId,
                 Value = x.Value

@@ -19,7 +19,25 @@ namespace Web.Controllers
             var deployable = db.Query<DeployersDto>().Where(x => x.UserId == id).ToList();
             var deployableApps = deployable.Select(x => x.ApplicationId).Distinct().ToList();
 
-            var applications = db.Query<DeployTaskDto>().Where(x => x.ApplicationId == x.ApplicationId).ToList();
+            var applications = db.Query<DeployTaskDto>().Where(x => x.ApplicationId == x.ApplicationId).Select(x => new {
+                x.ApplicationId,
+                x.ApplicationName,
+                x.CurrentlyDeployedVersion,
+                x.EnviromentName,
+                x.EnviromentId,
+                x.GroupName,
+                x.Id,
+                x.Name
+            }).Union(db.Query<TemplatedTaskDto>().Where(x => x.ApplicationId == x.ApplicationId).Select(x => new {
+                x.ApplicationId,
+                x.ApplicationName,
+                x.CurrentlyDeployedVersion,
+                x.EnviromentName,
+                x.EnviromentId,
+                x.GroupName,
+                x.Id,
+                x.Name
+            })).ToList();
 
 
             return new

@@ -31,12 +31,14 @@ module.exports = {
         });
     },
 
-    modifyTemplatedTask: function (id, enviromentId, applicationId, agentId, parameters) {
+    modifyTemplatedTask: function (id, enviromentId, applicationId, agentId, packageName, repository, parameters) {
         return Net.post("/api/TemplatedTask/Modify", {
             Id:id,
             EnviromentId: enviromentId,
             ApplicationId: applicationId,
             AgentId: agentId,
+            PackageName: packageName,
+            Repository:repository,
             Parameters: parameters
         });
     },

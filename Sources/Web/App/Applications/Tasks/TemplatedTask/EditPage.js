@@ -40,7 +40,7 @@ var EditPage = React.createClass({
 
   save:function(){
       if (this.state.Name != "") {
-          Actions.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.Parameters).then(x => {
+          Actions.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.PackageName, this.state.Repository, this.state.Parameters).then(x => {
         Notification.Notify(x);
       })
     }
@@ -75,6 +75,10 @@ var EditPage = React.createClass({
             <Input title="Name" placeholder="Name" autoFocus value={this.state.Name} onChange={(e) => this.setState({ Name: e.target.value })} />
 
             <Button primary block onClick={this.rename}>Rename</Button>
+
+            <Input title="Package" placeholder="PackageName" value={this.state.PackageName} onChange={(e) => this.setState({ PackageName: e.target.value })} />
+
+            <Input title="Repository" placeholder="Repository" value={this.state.Repository} onChange={(e) => this.setState({ Repository: e.target.value })} />
 
 
 											<Select title="Agent"  value={this.state.AgentId} onChange={(e)=>this.setState({AgentId:e.target.value})}>

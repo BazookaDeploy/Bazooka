@@ -401,6 +401,9 @@
 
                     ret = JsonConvert.DeserializeObject<ExecutionResult>(response);
 
+
+
+
                     using (var session = Store.OpenSession())
                     {
                         ret.Log.ToList().ForEach(x =>
@@ -415,7 +418,13 @@
                             });
                         });
 
-                        if (!ret.Success && ret.Exception!=null)
+                        var task = session.Load<TemplatedTask>(unit.Id);
+                        task.CurrentlyDeployedVersion = version;
+                        session.Update(task);
+                        session.Flush();
+
+
+                        if (!ret.Success && ret.Exception != null)
                         {
                             session.Save(new DataAccess.Write.LogEntry()
                             {

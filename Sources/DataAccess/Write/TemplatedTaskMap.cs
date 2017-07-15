@@ -28,6 +28,8 @@ namespace DataAccess.Write
             Property(x => x.Deleted);
             Property(x => x.EnviromentId);
             Property(x => x.TaskTemplateVersionId);
+            Property(x => x.PackageName);
+            Property(x => x.Repository);
 
             Bag(x => x.Prameters, map =>
             {
