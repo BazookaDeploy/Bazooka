@@ -13,6 +13,22 @@
     /// </summary>
     public class PackageInstaller : IPackageInstaller
     {
+        public static void Install(string package, string version, string repository, string directory, string configuration)
+        {
+            var logger = new ConsoleLogger();
+            var info = new PackageInfo()
+            {
+                Configuration = configuration,
+                InstallationDirectory = directory,
+                Name = package,
+                Version = version
+            };
+
+            DownloadPackage(info, new List<string>() { repository }, logger);
+
+            ApplyTransformations(info, null, null, logger);
+        }
+
         /// <summary>
         ///     Logger to use
         /// </summary>
@@ -26,11 +42,11 @@
         {
             Logger.Log(string.Format("Installing application {0} version {1}", info.Name, info.Version));
 
-            DownloadPackage(info, repositories);
+            DownloadPackage(info, repositories, this.Logger);
 
-            ApplyTransformations(info, null, null);
+            ApplyTransformations(info, null, null, this.Logger);
 
-            ExecuteInstallScript(info, parameters, null);
+            ExecuteInstallScript(info, parameters, null, this.Logger);
 
             Logger.Log(string.Format("Installed application {0} version {1}", info.Name, info.Version));
 
@@ -40,21 +56,21 @@
         ///     Searches for an install script and executes it passing the configuration as parameter
         /// </summary>
         /// <param name="info">Pacakge installation informations</param>
-        private void ExecuteInstallScript(PackageInfo info, Dictionary<string, string> parameters, string installScript)
+        private static void ExecuteInstallScript(PackageInfo info, Dictionary<string, string> parameters, string installScript, ILogger logger)
         {
             if (installScript != null && installScript.Trim().Length > 0)
             {
-                Logger.Log("Executing install script passed as parameter");
+                logger.Log("Executing install script passed as parameter");
 
-                PowershellHelpers.ExecuteScript(info.InstallationDirectory, installScript, Logger, parameters);
+                PowershellHelpers.ExecuteScript(info.InstallationDirectory, installScript, logger, parameters);
             }
 
             var file = Path.Combine(info.InstallationDirectory, "install.ps1");
 
             if (File.Exists(file))
             {
-                Logger.Log("Executing install script inside package...");
-                PowershellHelpers.Execute(info.InstallationDirectory, "install.ps1", info.Configuration, Logger, parameters);
+                logger.Log("Executing install script inside package...");
+                PowershellHelpers.Execute(info.InstallationDirectory, "install.ps1", info.Configuration, logger, parameters);
             }
         }
 
@@ -62,11 +78,11 @@
         ///     Searches for a suitable config transformation and applies it 
         /// </summary>
         /// <param name="info">Package info</param>
-        private void ApplyTransformations(PackageInfo info, string configFile, string transform)
+        private static void ApplyTransformations(PackageInfo info, string configFile, string transform, ILogger logger)
         {
             if (configFile != null && transform != null)
             {
-                Logger.Log("Applying transform passed as parameter");
+                logger.Log("Applying transform passed as parameter");
 
                 using (var transformation = new XmlTransformation(transform, isTransformAFile: false, logger: null))
                 {
@@ -90,7 +106,7 @@
                             using (var fileStream = File.OpenWrite(dest))
                             {
                                 document.Save(fileStream);
-                                Logger.Log("Transformation applied successfully");
+                                logger.Log("Transformation applied successfully");
                             }
                         }
                         else
@@ -109,7 +125,7 @@
 
             foreach (var file in files)
             {
-                Logger.Log(String.Format("Applying transformation {0} contained in package ...", Path.GetFileName(file)));
+                logger.Log(String.Format("Applying transformation {0} contained in package ...", Path.GetFileName(file)));
 
                 var sb = new StringBuilder();
                 using (StreamReader sr = new StreamReader(file.Replace(".config", "." + info.Configuration + ".config")))
@@ -143,7 +159,7 @@
                             using (var fileStream = File.OpenWrite(file))
                             {
                                 document.Save(fileStream);
-                                Logger.Log("Transformation applied successfully");
+                                logger.Log("Transformation applied successfully");
                             }
                         }
                         else
@@ -159,9 +175,9 @@
         ///     Downloads the specified package and installs it in the configured folder
         /// </summary>
         /// <param name="info">Pacakge informations</param>
-        private void DownloadPackage(PackageInfo info, ICollection<string> repositories)
+        private static void DownloadPackage(PackageInfo info, ICollection<string> repositories, ILogger logger)
         {
-            Logger.Log(String.Format("Downloading package for {0} version {1} ... ", info.Name, info.Version));
+            logger.Log(String.Format("Downloading package for {0} version {1} ... ", info.Name, info.Version));
 
             var factory = new PackageRepositoryFactory();
 
@@ -183,7 +199,7 @@
 
             manager.InstallPackage(package, false, true);
 
-            Logger.Log(String.Format("Package for {0} version {1} downloaded ... ", info.Name, info.Version));
+            logger.Log(String.Format("Package for {0} version {1} downloaded ... ", info.Name, info.Version));
         }
 
         /// <summary>
@@ -199,11 +215,11 @@
         {
             Logger.Log(String.Format("Starting installation of {0} version {1} ... ", info.Name, info.Version));
 
-            DownloadPackage(info, repositories);
+            DownloadPackage(info, repositories, this.Logger);
 
-            ApplyTransformations(info, configFile, configTrasform);
+            ApplyTransformations(info, configFile, configTrasform, this.Logger);
 
-            ExecuteInstallScript(info, parameters, installScript);
+            ExecuteInstallScript(info, parameters, installScript, this.Logger);
 
             Logger.Log(String.Format("{0} version {1} Installed successfully ", info.Name, info.Version));
         }

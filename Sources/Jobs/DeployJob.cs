@@ -391,6 +391,8 @@
                             Name = x.Name,
                             Value = x.Value
                         }).Concat(new List<ParameterDto>() {
+                            new ParameterDto(){ Name = "packageName", Value = unit.PackageName },
+                            new ParameterDto(){ Name = "repository", Value = unit.Repository },
                             new ParameterDto(){ Name = "config", Value = config },
                             new ParameterDto(){ Name = "version", Value = version }
                         }).ToList()

@@ -14,6 +14,24 @@
         /// </summary>
         public ILogger Logger { get; set; }
 
+        public static void Remove(string package, string repository, string directory, string version)
+        {
+            var logger = new ConsoleLogger();
+            var info = new PackageInfo()
+            {
+                InstallationDirectory = directory,
+                Name = package,
+                Version = version
+            };
+
+            logger.Log(string.Format("Uninstalling application {0} version {1}", info.Name, info.Version));
+
+
+            DeleteFiles(info, new List<string>() { repository }, logger);
+
+            logger.Log(string.Format("Uninstalled application {0} version {1}", info.Name, info.Version));
+        }
+
         /// <summary>
         ///     Removes an installed package from the system
         /// </summary>
@@ -22,9 +40,9 @@
         {
             Logger.Log(string.Format("Uninstalling application {0} version {1}", info.Name, info.Version));
 
-            ExecuteRemoveScript(info,parameters, optionalScript);
+            ExecuteRemoveScript(info,parameters, optionalScript, this.Logger);
 
-            DeleteFiles(info,repositories);
+            DeleteFiles(info,repositories, this.Logger);
 
             Logger.Log(string.Format("Uninstalled application {0} version {1}", info.Name, info.Version));
         }
@@ -34,9 +52,9 @@
         /// </summary>
         /// <param name="installed">Insyalled package</param>
         /// <param name="repositories">Repositories where to find the package</param>
-        private void DeleteFiles(PackageInfo installed, ICollection<string> repositories)
+        private static void DeleteFiles(PackageInfo installed, ICollection<string> repositories, ILogger logger)
         {
-            Logger.Log("Deleting installed files... ");
+            logger.Log("Deleting installed files... ");
 
             var factory = new PackageRepositoryFactory();
 
@@ -62,7 +80,7 @@
                 File.Delete(config);
             }
 
-            Logger.Log("Installed files deleted");
+            logger.Log("Installed files deleted");
         }
 
         /// <summary>
@@ -71,20 +89,20 @@
         /// <param name="installed">Installed package</param>
         /// <param name="parameters">Parameters to pass to the script</param>
         /// <param name="optionalScript">optional additiona script to execute</param>
-        private void ExecuteRemoveScript(PackageInfo installed, Dictionary<string, string> parameters, string optionalScript)
+        private static void ExecuteRemoveScript(PackageInfo installed, Dictionary<string, string> parameters, string optionalScript, ILogger logger)
         {
             if (optionalScript != null && optionalScript.Trim().Length > 0)
             {
-                Logger.Log("Executing uninstallation script specified as parameter...");
-                PowershellHelpers.ExecuteScript(installed.InstallationDirectory, optionalScript, Logger, parameters);
+                logger.Log("Executing uninstallation script specified as parameter...");
+                PowershellHelpers.ExecuteScript(installed.InstallationDirectory, optionalScript, logger, parameters);
                 return;
             }
 
             if (File.Exists(Path.Combine(installed.InstallationDirectory, "Uninstall.ps1")))
             {
-                Logger.Log("Executing uninstall script contained in package ... ");
+                logger.Log("Executing uninstall script contained in package ... ");
 
-                PowershellHelpers.Execute(installed.InstallationDirectory, "Uninstall.ps1", installed.Configuration, Logger, parameters);
+                PowershellHelpers.Execute(installed.InstallationDirectory, "Uninstall.ps1", installed.Configuration, logger, parameters);
             }
         }
     }

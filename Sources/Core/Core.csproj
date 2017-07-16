@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleLogger.cs" />
     <Compile Include="CustomPathResolver.cs" />
     <Compile Include="DacpacHelpers.cs" />
     <Compile Include="Dto\TemplatedTaskDto.cs" />
