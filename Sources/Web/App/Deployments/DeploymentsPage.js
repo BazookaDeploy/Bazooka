@@ -51,12 +51,13 @@ var Deployment = React.createClass({
     },
 
     render() {
+        var date =new Date( this.props.item.StartDate);
         return <tr onClick={this.navigate}>
             <td>{this.getStatus() }</td>
             <td>{this.props.item.Name} - {this.props.item.Configuration}</td>
             <td>{this.props.item.Version}</td>
             <td>{this.props.item.UserName}</td>
-            <td>{prettyDate(this.props.item.StartDate)}</td>
+            <td> <span title={('00' + date.getHours()).slice(-2) +":"+('00' + date.getMinutes()).slice(-2)+":"+('00' + date.getSeconds()).slice(-2) + " - "+ ('00' + date.getDate()).slice(-2) + "/" + ('00' + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()}>{prettyDate(this.props.item.StartDate)}</span></td>
         </tr>
     }
 });

@@ -37829,6 +37829,7 @@
 	        }
 	    },
 	    render: function render() {
+	        var date = new Date(this.props.item.StartDate);
 	        return _react2.default.createElement(
 	            "tr",
 	            { onClick: this.navigate },
@@ -37857,7 +37858,12 @@
 	            _react2.default.createElement(
 	                "td",
 	                null,
-	                prettyDate(this.props.item.StartDate)
+	                " ",
+	                _react2.default.createElement(
+	                    "span",
+	                    { title: ('00' + date.getHours()).slice(-2) + ":" + ('00' + date.getMinutes()).slice(-2) + ":" + ('00' + date.getSeconds()).slice(-2) + " - " + ('00' + date.getDate()).slice(-2) + "/" + ('00' + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear() },
+	                    prettyDate(this.props.item.StartDate)
+	                )
 	            )
 	        );
 	    }
