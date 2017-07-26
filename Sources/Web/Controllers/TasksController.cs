@@ -13,7 +13,7 @@ namespace Web.Controllers
 
         public ICollection<TaskDto> Get(int enviromentId, int applicationId)
         {
-            return db.Tasks.Where(x => x.EnviromentId == enviromentId & x.ApplicationId == applicationId).ToList();
+            return db.Tasks.Where(x => x.EnviromentId == enviromentId & x.ApplicationId == applicationId).OrderBy(x => x.Position).ToList();
         }
 
         [HttpPost]

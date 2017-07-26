@@ -486,22 +486,22 @@ namespace DataAccess.Write
             switch (type)
             {
                 case TaskType.Deploy:
-                    this.DeployTasks.Remove(this.DeployTasks.Single(x => x.Id == taskId));
+                    this.DeployTasks.Single(x => x.Id == taskId).Deleted = true;
                     break;
                 case TaskType.Mail:
-                    this.MailTasks.Remove(this.MailTasks.Single(x => x.Id == taskId));
+                    this.MailTasks.Single(x => x.Id == taskId).Deleted = true;
                     break;
                 case TaskType.RemoteScript:
-                    this.RemoteScriptTasks.Remove(this.RemoteScriptTasks.Single(x => x.Id == taskId));
+                    this.RemoteScriptTasks.Single(x => x.Id == taskId).Deleted = true;
                     break;
                 case TaskType.LocalScript:
-                    this.LocalScriptTasks.Remove(this.LocalScriptTasks.Single(x => x.Id == taskId));
+                    this.LocalScriptTasks.Single(x => x.Id == taskId).Deleted = true;
                     break;
                 case TaskType.Database:
-                    this.DatabaseTasks.Remove(this.DatabaseTasks.Single(x => x.Id == taskId));
+                    this.DatabaseTasks.Single(x => x.Id == taskId).Deleted = true;
                     break;
                 case TaskType.Templated:
-                    this.TemplatedTasks.Remove(this.TemplatedTasks.Single(x => x.Id == taskId));
+                    this.TemplatedTasks.Single(x => x.Id == taskId).Deleted = true;
                     break;
 
                 default:
