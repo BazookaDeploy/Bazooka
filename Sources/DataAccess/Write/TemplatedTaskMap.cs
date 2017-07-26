@@ -30,6 +30,7 @@ namespace DataAccess.Write
             Property(x => x.TaskTemplateVersionId);
             Property(x => x.PackageName);
             Property(x => x.Repository);
+            Property(x => x.CurrentlyDeployedVersion);
 
             Bag(x => x.Prameters, map =>
             {

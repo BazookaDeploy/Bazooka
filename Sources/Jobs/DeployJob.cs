@@ -420,28 +420,23 @@
                             });
                         });
 
+                        session.Flush();
+                    }
+
+
+                    if (!ret.Success)
+                    {
+                        throw new Exception("Deploy failed: " + ret.Exception);
+                    }
+
+                    using (var session = Store.OpenSession())
+                    {
                         var task = session.Load<TemplatedTask>(unit.Id);
                         task.CurrentlyDeployedVersion = version;
                         session.Update(task);
                         session.Flush();
-
-
-                        if (!ret.Success && ret.Exception != null)
-                        {
-                            session.Save(new DataAccess.Write.LogEntry()
-                            {
-                                DeploymentId = deploymentId,
-                                Error = true,
-                                TaskName = unit.Name,
-                                Text = ret.Exception,
-                                TimeStamp = DateTime.UtcNow
-                            });
-                        }
-
-
-                        session.Flush();
                     }
-
+                    
                 }
 
             }
