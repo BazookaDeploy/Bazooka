@@ -23,7 +23,8 @@ var EditPage = React.createClass({
 		this.update(this.props.params.taskId, this.props.params.enviromentId);
 	},
 
-  componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
+        debugger;
     if(this.props.params.taskId!=nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId){
         this.update(nextProps.params.taskId,nextProps.params.enviromentId);
     }
@@ -76,9 +77,9 @@ var EditPage = React.createClass({
 
             <Button primary block onClick={this.rename}>Rename</Button>
 
-            <Input title="Package" placeholder="PackageName" value={this.state.PackageName} onChange={(e) => this.setState({ PackageName: e.target.value })} />
+            <Input title="Package" placeholder="PackageName" value={this.state.PackageName || ""} onChange={(e) => this.setState({ PackageName: e.target.value })} />
 
-            <Input title="Repository" placeholder="Repository" value={this.state.Repository} onChange={(e) => this.setState({ Repository: e.target.value })} />
+            <Input title="Repository" placeholder="Repository" value={this.state.Repository || ""} onChange={(e) => this.setState({ Repository: e.target.value })} />
 
 
 											<Select title="Agent"  value={this.state.AgentId} onChange={(e)=>this.setState({AgentId:e.target.value})}>
@@ -98,7 +99,7 @@ var EditPage = React.createClass({
                                                 <Table.Body>
                                                     {this.state.Parameters.map(x => <tr>
                                                         <td>{x.Name}</td>
-                                                        <td><Input placeholder="Value" value={x.Value} onChange={(e) => this.setParameter(e.target.value, x.TaskTemplateParameterId)} /></td>
+                                                        <td><Input type={x.Encrypted ? "password" : "text" } placeholder="Value" value={x.Value} onChange={(e) => this.setParameter(e.target.value, x.TaskTemplateParameterId)} /></td>
                                                         <td>{!x.Optional && <span>Required</span>}</td>
                                                     </tr>)}
                                                 </Table.Body>

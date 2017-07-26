@@ -36366,181 +36366,182 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var EditPage = _react2.default.createClass({
-	  displayName: "EditPage",
+	    displayName: "EditPage",
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      Id: 0,
-	      EnviromentId: 0,
-	      Name: "",
-	      AgentId: "",
-	      Agents: [],
-	      Parameters: []
-	    };
-	  },
+	    getInitialState: function getInitialState() {
+	        return {
+	            Id: 0,
+	            EnviromentId: 0,
+	            Name: "",
+	            AgentId: "",
+	            Agents: [],
+	            Parameters: []
+	        };
+	    },
 
-	  componentDidMount: function componentDidMount() {
-	    this.update(this.props.params.taskId, this.props.params.enviromentId);
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (this.props.params.taskId != nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId) {
-	      this.update(nextProps.params.taskId, nextProps.params.enviromentId);
-	    }
-	  },
+	    componentDidMount: function componentDidMount() {
+	        this.update(this.props.params.taskId, this.props.params.enviromentId);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        debugger;
+	        if (this.props.params.taskId != nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId) {
+	            this.update(nextProps.params.taskId, nextProps.params.enviromentId);
+	        }
+	    },
 
 
-	  update: function update(taskId, enviromentId) {
-	    var _this = this;
+	    update: function update(taskId, enviromentId) {
+	        var _this = this;
 
-	    _Actions2.default.getTemplatedTask(taskId).then(function (x) {
-	      _this.setState(x);
-	    });
-	    _Actions2.default.getAgents(enviromentId).then(function (x) {
-	      _this.setState({ Agents: x });
-	    });
-	  },
+	        _Actions2.default.getTemplatedTask(taskId).then(function (x) {
+	            _this.setState(x);
+	        });
+	        _Actions2.default.getAgents(enviromentId).then(function (x) {
+	            _this.setState({ Agents: x });
+	        });
+	    },
 
-	  save: function save() {
-	    if (this.state.Name != "") {
-	      _Actions2.default.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.PackageName, this.state.Repository, this.state.Parameters).then(function (x) {
-	        _Notifications2.default.Notify(x);
-	      });
-	    }
-	  },
+	    save: function save() {
+	        if (this.state.Name != "") {
+	            _Actions2.default.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.PackageName, this.state.Repository, this.state.Parameters).then(function (x) {
+	                _Notifications2.default.Notify(x);
+	            });
+	        }
+	    },
 
-	  updateToLatest: function updateToLatest() {
-	    if (this.state.Name != "") {
-	      _Actions2.default.updateTemplatedTasks(this.state.Id, this.state.ApplicationId, this.state.LastKnownVersion).then(function (x) {
-	        _Notifications2.default.Notify(x);
-	      });
-	    }
-	  },
+	    updateToLatest: function updateToLatest() {
+	        if (this.state.Name != "") {
+	            _Actions2.default.updateTemplatedTasks(this.state.Id, this.state.ApplicationId, this.state.LastKnownVersion).then(function (x) {
+	                _Notifications2.default.Notify(x);
+	            });
+	        }
+	    },
 
-	  rename: function rename() {
-	    if (this.state.Name != "") {
-	      _Actions2.default.renameTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.Name).then(function (x) {
-	        _Notifications2.default.Notify(x);
-	      });
-	    }
-	  },
+	    rename: function rename() {
+	        if (this.state.Name != "") {
+	            _Actions2.default.renameTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.Name).then(function (x) {
+	                _Notifications2.default.Notify(x);
+	            });
+	        }
+	    },
 
-	  setParameter: function setParameter(value, id) {
-	    this.state.Parameters.filter(function (x) {
-	      return x.TaskTemplateParameterId == id;
-	    })[0].Value = value;
-	    this.setState({ Parameters: this.state.Parameters });
-	  },
+	    setParameter: function setParameter(value, id) {
+	        this.state.Parameters.filter(function (x) {
+	            return x.TaskTemplateParameterId == id;
+	        })[0].Value = value;
+	        this.setState({ Parameters: this.state.Parameters });
+	    },
 
-	  render: function render() {
-	    var _this2 = this;
+	    render: function render() {
+	        var _this2 = this;
 
-	    return _react2.default.createElement(
-	      "div",
-	      null,
-	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
-	          return _this2.setState({ Name: e.target.value });
-	        } }),
-	      _react2.default.createElement(
-	        _Button2.default,
-	        { primary: true, block: true, onClick: this.rename },
-	        "Rename"
-	      ),
-	      _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "PackageName", value: this.state.PackageName, onChange: function onChange(e) {
-	          return _this2.setState({ PackageName: e.target.value });
-	        } }),
-	      _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
-	          return _this2.setState({ Repository: e.target.value });
-	        } }),
-	      _react2.default.createElement(
-	        _Select2.default,
-	        { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
-	            return _this2.setState({ AgentId: e.target.value });
-	          } },
-	        this.state.Agents.map(function (x) {
-	          return _react2.default.createElement(
-	            "option",
-	            { value: x.Id },
-	            x.Name,
-	            "- ",
-	            x.Address
-	          );
-	        })
-	      ),
-	      _react2.default.createElement(
-	        "h3",
-	        null,
-	        "Parameters "
-	      ),
-	      _react2.default.createElement(
-	        _Table2.default,
-	        null,
-	        _react2.default.createElement(
-	          _Table2.default.Head,
-	          null,
-	          _react2.default.createElement(
-	            "tr",
+	        return _react2.default.createElement(
+	            "div",
 	            null,
+	            _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
+	                    return _this2.setState({ Name: e.target.value });
+	                } }),
 	            _react2.default.createElement(
-	              "th",
-	              null,
-	              "Parameter"
+	                _Button2.default,
+	                { primary: true, block: true, onClick: this.rename },
+	                "Rename"
+	            ),
+	            _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "PackageName", value: this.state.PackageName || "", onChange: function onChange(e) {
+	                    return _this2.setState({ PackageName: e.target.value });
+	                } }),
+	            _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository || "", onChange: function onChange(e) {
+	                    return _this2.setState({ Repository: e.target.value });
+	                } }),
+	            _react2.default.createElement(
+	                _Select2.default,
+	                { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
+	                        return _this2.setState({ AgentId: e.target.value });
+	                    } },
+	                this.state.Agents.map(function (x) {
+	                    return _react2.default.createElement(
+	                        "option",
+	                        { value: x.Id },
+	                        x.Name,
+	                        "- ",
+	                        x.Address
+	                    );
+	                })
 	            ),
 	            _react2.default.createElement(
-	              "th",
-	              null,
-	              "Value"
+	                "h3",
+	                null,
+	                "Parameters "
 	            ),
 	            _react2.default.createElement(
-	              "th",
-	              null,
-	              "Required"
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _Table2.default.Body,
-	          null,
-	          this.state.Parameters.map(function (x) {
-	            return _react2.default.createElement(
-	              "tr",
-	              null,
-	              _react2.default.createElement(
-	                "td",
+	                _Table2.default,
 	                null,
-	                x.Name
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                null,
-	                _react2.default.createElement(_Input2.default, { placeholder: "Value", value: x.Value, onChange: function onChange(e) {
-	                    return _this2.setParameter(e.target.value, x.TaskTemplateParameterId);
-	                  } })
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                null,
-	                !x.Optional && _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Required"
+	                _react2.default.createElement(
+	                    _Table2.default.Head,
+	                    null,
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Parameter"
+	                        ),
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Value"
+	                        ),
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Required"
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Table2.default.Body,
+	                    null,
+	                    this.state.Parameters.map(function (x) {
+	                        return _react2.default.createElement(
+	                            "tr",
+	                            null,
+	                            _react2.default.createElement(
+	                                "td",
+	                                null,
+	                                x.Name
+	                            ),
+	                            _react2.default.createElement(
+	                                "td",
+	                                null,
+	                                _react2.default.createElement(_Input2.default, { type: x.Encrypted ? "password" : "text", placeholder: "Value", value: x.Value, onChange: function onChange(e) {
+	                                        return _this2.setParameter(e.target.value, x.TaskTemplateParameterId);
+	                                    } })
+	                            ),
+	                            _react2.default.createElement(
+	                                "td",
+	                                null,
+	                                !x.Optional && _react2.default.createElement(
+	                                    "span",
+	                                    null,
+	                                    "Required"
+	                                )
+	                            )
+	                        );
+	                    })
 	                )
-	              )
-	            );
-	          })
-	        )
-	      ),
-	      _react2.default.createElement(
-	        _Button2.default,
-	        { primary: true, block: true, onClick: this.save },
-	        "Save"
-	      ),
-	      _react2.default.createElement(
-	        _Button2.default,
-	        { primary: true, block: true, onClick: this.updateToLatest },
-	        "Update to latest version"
-	      )
-	    );
-	  }
+	            ),
+	            _react2.default.createElement(
+	                _Button2.default,
+	                { primary: true, block: true, onClick: this.save },
+	                "Save"
+	            ),
+	            _react2.default.createElement(
+	                _Button2.default,
+	                { primary: true, block: true, onClick: this.updateToLatest },
+	                "Update to latest version"
+	            )
+	        );
+	    }
 	});
 
 	module.exports = EditPage;
