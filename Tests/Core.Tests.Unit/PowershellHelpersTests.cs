@@ -89,8 +89,49 @@ namespace Core.Tests.Unit
             {
                 var logger = new StringLogger();
                 var parameters = new Dictionary<string, string>();
+                parameters.Add("username", "paolo");
+
+                PowershellHelpers.ExecuteScript(".", "Write-Output $username", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("paolo");
+                logger.Logs.ElementAt(0).Error.Should().Be.False();
+            }
+
+            [TestMethod]
+            public void ShouldLogOutputIfWriteHostParams()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+                parameters.Add("username", "paolo");
+
+                PowershellHelpers.ExecuteScript(".", "Write-Host $username", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("paolo");
+                logger.Logs.ElementAt(0).Error.Should().Be.False();
+            }
+
+            [TestMethod]
+            public void ShouldLogOutputIfWriteOutputParameters()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
 
                 PowershellHelpers.ExecuteScript(".", "Write-Output 'test'", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("test");
+                logger.Logs.ElementAt(0).Error.Should().Be.False();
+            }
+
+            [TestMethod]
+            public void ShouldLogOutputIfWriteHost()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+
+                PowershellHelpers.ExecuteScript(".", "Write-Host 'test'", logger, parameters);
 
                 logger.Logs.Count.Should().Be.EqualTo(1);
                 logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("test");
@@ -144,6 +185,24 @@ Write-Output 'test3'";
                 PowershellHelpers.Execute(path, fileName + ".ps1", "test", logger, parameters);
 
                 logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Error.Should().Be.False();
+            }
+
+            [TestMethod]
+            public void ShouldRunScriptPassingParameters()
+            {
+                var logger = new StringLogger();
+                var parameters = new Dictionary<string, string>();
+                parameters.Add("username", "paolo");
+                parameters.Add("password", "240686pn");
+
+                var path = Path.GetTempPath();
+                var fileName = Path.GetRandomFileName();
+                File.WriteAllText(Path.Combine(path, fileName + ".ps1"), "Write-Output $username");
+                PowershellHelpers.Execute(path, fileName + ".ps1", "test", logger, parameters);
+
+                logger.Logs.Count.Should().Be.EqualTo(1);
+                logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("paolo");
                 logger.Logs.ElementAt(0).Error.Should().Be.False();
             }
 
