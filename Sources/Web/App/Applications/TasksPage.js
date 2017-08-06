@@ -185,6 +185,13 @@ var TasksPage = React.createClass({
 
     render:function(){
 
+        var childrenWithProps = React.Children.map(this.props.children,
+            (child) => React.cloneElement(child, {
+                onChange: () => this.update(this.props.params.enviromentId)
+            })
+        );
+
+
         return (<div>
 
         {this.state.show && <CloneDialog show={this.state.show}  onClose={() => this.setState({show:false})} onCreate={() => this.update(this.props.params.enviromentId)} EnviromentId={this.props.params.enviromentId} ApplicationId={this.props.params.id}/>}
@@ -214,7 +221,7 @@ var TasksPage = React.createClass({
                     </div>
                 </Grid.Col>
                 <Grid.Col md={8}>
-                    {this.props.children || <div className="defaultTask">Choose a task on the left to edit it</div>}
+                        {childrenWithProps || <div className="defaultTask">Choose a task on the left to edit it</div>}
                 </Grid.Col>
             </Grid.Row>
         </Grid>

@@ -44,7 +44,8 @@ var EditPage = React.createClass({
   save:function(){
     if(this.state.Name!="" && this.state.ConnectionString!=""&& this.state.Pack!=""&& this.state.DatabaseName!=""&& this.state.Repository!=""&& this.state.Machine!=""){
       Actions.updateDatabaseTask(this.state.Id,this.state.Name, this.state.ConnectionString,this.state.Pack,this.state.DatabaseName, this.state.EnviromentId, this.state.Repository,this.state.AgentId, this.state.ApplicationId).then(x => {
-        Notification.Notify(x);
+          Notification.Notify(x);
+          this.props.onChange();
       })
     }
   },

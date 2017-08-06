@@ -118,7 +118,11 @@ var EditPage = React.createClass({
 			this.state.ConfigTransform,
 			this.state.Configuration,
 			this.props.params.id
-			).then(x => Notification.Notify(x));
+			).then(x => {
+                Notification.Notify(x);
+                debugger;
+                this.props.onChange();
+            });
 
     return false;
 	},

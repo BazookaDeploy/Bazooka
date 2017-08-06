@@ -33933,6 +33933,14 @@
 	    render: function render() {
 	        var _this6 = this;
 
+	        var childrenWithProps = _react2.default.Children.map(this.props.children, function (child) {
+	            return _react2.default.cloneElement(child, {
+	                onChange: function onChange() {
+	                    return _this6.update(_this6.props.params.enviromentId);
+	                }
+	            });
+	        });
+
 	        return _react2.default.createElement(
 	            "div",
 	            null,
@@ -33999,7 +34007,7 @@
 	                    _react2.default.createElement(
 	                        _Grid2.default.Col,
 	                        { md: 8 },
-	                        this.props.children || _react2.default.createElement(
+	                        childrenWithProps || _react2.default.createElement(
 	                            "div",
 	                            { className: "defaultTask" },
 	                            "Choose a task on the left to edit it"
@@ -35574,32 +35582,35 @@
 	  },
 
 	  save: function save() {
+	    var _this2 = this;
+
 	    if (this.state.Name != "" && this.state.ConnectionString != "" && this.state.Pack != "" && this.state.DatabaseName != "" && this.state.Repository != "" && this.state.Machine != "") {
 	      _Actions2.default.updateDatabaseTask(this.state.Id, this.state.Name, this.state.ConnectionString, this.state.Pack, this.state.DatabaseName, this.state.EnviromentId, this.state.Repository, this.state.AgentId, this.state.ApplicationId).then(function (x) {
 	        _Notifications2.default.Notify(x);
+	        _this2.props.onChange();
 	      });
 	    }
 	  },
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    return _react2.default.createElement(
 	      "div",
 	      null,
 	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
-	          return _this2.setState({ Name: e.target.value });
+	          return _this3.setState({ Name: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Input2.default, { title: "Connection string", placeholder: "ConnectionString", value: this.state.ConnectionString, onChange: function onChange(e) {
-	          return _this2.setState({ ConnectionString: e.target.value });
+	          return _this3.setState({ ConnectionString: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "Package", value: this.state.Pack, onChange: function onChange(e) {
-	          return _this2.setState({ Pack: e.target.value });
+	          return _this3.setState({ Pack: e.target.value });
 	        } }),
 	      _react2.default.createElement(
 	        _Select2.default,
 	        { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
-	            return _this2.setState({ AgentId: e.target.value });
+	            return _this3.setState({ AgentId: e.target.value });
 	          } },
 	        this.state.Agents.map(function (x) {
 	          return _react2.default.createElement(
@@ -35612,10 +35623,10 @@
 	        })
 	      ),
 	      _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
-	          return _this2.setState({ Repository: e.target.value });
+	          return _this3.setState({ Repository: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Input2.default, { title: "DatabaseName", placeholder: "Database Name", value: this.state.DatabaseName, onChange: function onChange(e) {
-	          return _this2.setState({ DatabaseName: e.target.value });
+	          return _this3.setState({ DatabaseName: e.target.value });
 	        } }),
 	      _react2.default.createElement(
 	        _Button2.default,
@@ -35770,15 +35781,19 @@
 		},
 
 		save: function save() {
+			var _this3 = this;
+
 			_ActionsCreator2.default.modifyDeployUnit(this.state.Id, this.state.Enviroment, this.state.Name, this.state.AgentId, this.state.PackageName, this.state.Directory, this.state.Repository, this.state.Parameters, this.state.UninstallationScript, this.state.InstallationScript, this.state.ConfigurationFile, this.state.ConfigTransform, this.state.Configuration, this.props.params.id).then(function (x) {
-				return _Notifications2.default.Notify(x);
+				_Notifications2.default.Notify(x);
+				debugger;
+				_this3.props.onChange();
 			});
 
 			return false;
 		},
 
 		render: function render() {
-			var _this3 = this;
+			var _this4 = this;
 
 			return _react2.default.createElement(
 				"div",
@@ -35790,12 +35805,12 @@
 						_Tabs2.default.Tab,
 						{ title: "Settings" },
 						_react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", value: this.state.Name, onChange: function onChange(e) {
-								return _this3.setState({ Name: e.target.value });
+								return _this4.setState({ Name: e.target.value });
 							} }),
 						_react2.default.createElement(
 							_Select2.default,
 							{ title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
-									return _this3.setState({ AgentId: e.target.value });
+									return _this4.setState({ AgentId: e.target.value });
 								} },
 							this.state.Agents.map(function (x) {
 								return _react2.default.createElement(
@@ -35826,7 +35841,7 @@
 									_react2.default.createElement(
 										_Button2.default,
 										{ onClick: function onClick() {
-												return _this3.remove(a.Name);
+												return _this4.remove(a.Name);
 											} },
 										"Remove"
 									)
@@ -35843,14 +35858,14 @@
 									_Grid2.default.Col,
 									{ md: 3 },
 									_react2.default.createElement(_Input2.default, { title: "Key", placeholder: "Key", value: this.state.key, onChange: function onChange(e) {
-											return _this3.setState({ key: e.target.value });
+											return _this4.setState({ key: e.target.value });
 										} })
 								),
 								_react2.default.createElement(
 									_Grid2.default.Col,
 									{ md: 3 },
 									_react2.default.createElement(_Input2.default, { title: "Value", placeholder: "Value", value: this.state.value, onChange: function onChange(e) {
-											return _this3.setState({ value: e.target.value });
+											return _this4.setState({ value: e.target.value });
 										} })
 								),
 								_react2.default.createElement(
@@ -35863,7 +35878,7 @@
 									),
 									_react2.default.createElement("br", null),
 									_react2.default.createElement("input", { type: "checkbox", id: "Encrypted", value: this.state.Encrypted, onChange: function onChange(e) {
-											return _this3.setState({ Encrypted: e.target.checked });
+											return _this4.setState({ Encrypted: e.target.checked });
 										} })
 								),
 								_react2.default.createElement(
@@ -35879,36 +35894,36 @@
 							)
 						),
 						_react2.default.createElement(_Input2.default, { title: "PackageName", placeholder: "PackageName", value: this.state.PackageName, onChange: function onChange(e) {
-								return _this3.setState({ PackageName: e.target.value });
+								return _this4.setState({ PackageName: e.target.value });
 							} }),
 						_react2.default.createElement(_Input2.default, { title: "Directory", placeholder: "Directory", value: this.state.Directory, onChange: function onChange(e) {
-								return _this3.setState({ Directory: e.target.value });
+								return _this4.setState({ Directory: e.target.value });
 							} }),
 						_react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository, onChange: function onChange(e) {
-								return _this3.setState({ Repository: e.target.value });
+								return _this4.setState({ Repository: e.target.value });
 							} })
 					),
 					_react2.default.createElement(
 						_Tabs2.default.Tab,
 						{ title: "Scripts" },
 						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Installation script", placeholder: "Installation Script", value: this.state.InstallationScript || "", onChange: function onChange(e) {
-								return _this3.setState({ InstallationScript: e.target.value });
+								return _this4.setState({ InstallationScript: e.target.value });
 							} }),
 						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Uninstallation script", placeholder: "Uninstallation Script", value: this.state.UninstallationScript || "", onChange: function onChange(e) {
-								return _this3.setState({ UninstallationScript: e.target.value });
+								return _this4.setState({ UninstallationScript: e.target.value });
 							} })
 					),
 					_react2.default.createElement(
 						_Tabs2.default.Tab,
 						{ title: "Configurations" },
 						_react2.default.createElement(_Input2.default, { title: "Configuration", placeholder: "Specific configuration (optional)", value: this.state.Configuration || "", onChange: function onChange(e) {
-								return _this3.setState({ Configuration: e.target.value });
+								return _this4.setState({ Configuration: e.target.value });
 							} }),
 						_react2.default.createElement(_Input2.default, { title: "Configuration File", placeholder: "Configuration File", value: this.state.ConfigurationFile || "", onChange: function onChange(e) {
-								return _this3.setState({ ConfigurationFile: e.target.value });
+								return _this4.setState({ ConfigurationFile: e.target.value });
 							} }),
 						_react2.default.createElement(_Textarea2.default, { rows: "10", title: "Config transform", placeholder: "Config Transform", value: this.state.ConfigTransform || "", onChange: function onChange(e) {
-								return _this3.setState({ ConfigTransform: e.target.value });
+								return _this4.setState({ ConfigTransform: e.target.value });
 							} })
 					)
 				),
@@ -36069,24 +36084,27 @@
 
 
 	  save: function save() {
+	    var _this2 = this;
+
 	    if (this.state.Name != "" && this.state.Script != "") {
 	      _Actions2.default.updateLocalScriptTask(this.state.Id, this.state.Name, this.state.Script, this.state.EnviromentId, this.state.ApplicationId).then(function (x) {
 	        _Notifications2.default.Notify(x);
+	        _this2.props.onChange();
 	      });
 	    }
 	  },
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    return _react2.default.createElement(
 	      "div",
 	      null,
 	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
-	          return _this2.setState({ Name: e.target.value });
+	          return _this3.setState({ Name: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", value: this.state.Script, onChange: function onChange(e) {
-	          return _this2.setState({ Script: e.target.value });
+	          return _this3.setState({ Script: e.target.value });
 	        } }),
 	      _react2.default.createElement(
 	        _Button2.default,
@@ -36168,30 +36186,33 @@
 
 
 	  save: function save() {
+	    var _this2 = this;
+
 	    if (this.state.Name != "" && this.state.Recipients != "" && this.state.Sender != "") {
 	      _Actions2.default.updateMailTask(this.state.Id, this.state.Name, this.state.Text, this.state.Recipients, this.state.Sender, this.state.EnviromentId, this.state.ApplicationId).then(function (x) {
 	        _Notifications2.default.Notify(x);
+	        _this2.props.onChange();
 	      });
 	    }
 	  },
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    return _react2.default.createElement(
 	      "div",
 	      null,
 	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
-	          return _this2.setState({ Name: e.target.value });
+	          return _this3.setState({ Name: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Input2.default, { title: "Recipients", placeholder: "Recipients", value: this.state.Recipients, onChange: function onChange(e) {
-	          return _this2.setState({ Recipients: e.target.value });
+	          return _this3.setState({ Recipients: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Input2.default, { title: "Sender", placeholder: "Sender", value: this.state.Sender, onChange: function onChange(e) {
-	          return _this2.setState({ Sender: e.target.value });
+	          return _this3.setState({ Sender: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Textarea2.default, { title: "Text", placeholder: "Text", value: this.state.Text, onChange: function onChange(e) {
-	          return _this2.setState({ Text: e.target.value });
+	          return _this3.setState({ Text: e.target.value });
 	        } }),
 	      _react2.default.createElement(
 	        _Button2.default,
@@ -36277,26 +36298,29 @@
 
 
 	  save: function save() {
+	    var _this2 = this;
+
 	    if (this.state.Name != "" && this.state.Script != "" && this.state.Machine != "" && this.state.Folder != "") {
 	      _Actions2.default.updateRemoteScriptTask(this.state.Id, this.state.Name, this.state.Script, this.state.AgentId, this.state.Folder, this.state.EnviromentId, this.state.ApplicationId).then(function (x) {
-	        return _Notifications2.default.Notify(x);
+	        _Notifications2.default.Notify(x);
+	        _this2.props.onChange();
 	      });
 	    }
 	  },
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    return _react2.default.createElement(
 	      "div",
 	      null,
 	      _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
-	          return _this2.setState({ Name: e.target.value });
+	          return _this3.setState({ Name: e.target.value });
 	        } }),
 	      _react2.default.createElement(
 	        _Select2.default,
 	        { title: "Agent", className: "form-control", value: this.state.AgentId, onChange: function onChange(e) {
-	            return _this2.setState({ AgentId: e.target.value });
+	            return _this3.setState({ AgentId: e.target.value });
 	          } },
 	        this.state.Agents.map(function (x) {
 	          return _react2.default.createElement(
@@ -36309,10 +36333,10 @@
 	        })
 	      ),
 	      _react2.default.createElement(_Input2.default, { title: "Folder", placeholder: "Folder", value: this.state.Folder, onChange: function onChange(e) {
-	          return _this2.setState({ Folder: e.target.value });
+	          return _this3.setState({ Folder: e.target.value });
 	        } }),
 	      _react2.default.createElement(_Textarea2.default, { title: "Script", placeholder: "Script", value: this.state.Script, onChange: function onChange(e) {
-	          return _this2.setState({ Script: e.target.value });
+	          return _this3.setState({ Script: e.target.value });
 	        } }),
 	      _react2.default.createElement(
 	        _Button2.default,
@@ -36402,9 +36426,12 @@
 	    },
 
 	    save: function save() {
+	        var _this2 = this;
+
 	        if (this.state.Name != "") {
 	            _Actions2.default.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.PackageName, this.state.Repository, this.state.Parameters).then(function (x) {
 	                _Notifications2.default.Notify(x);
+	                _this2.props.onChange();
 	            });
 	        }
 	    },
@@ -36418,9 +36445,12 @@
 	    },
 
 	    rename: function rename() {
+	        var _this3 = this;
+
 	        if (this.state.Name != "") {
 	            _Actions2.default.renameTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.Name).then(function (x) {
 	                _Notifications2.default.Notify(x);
+	                _this3.props.onChange();
 	            });
 	        }
 	    },
@@ -36433,13 +36463,13 @@
 	    },
 
 	    render: function render() {
-	        var _this2 = this;
+	        var _this4 = this;
 
 	        return _react2.default.createElement(
 	            "div",
 	            null,
 	            _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
-	                    return _this2.setState({ Name: e.target.value });
+	                    return _this4.setState({ Name: e.target.value });
 	                } }),
 	            _react2.default.createElement(
 	                _Button2.default,
@@ -36447,15 +36477,15 @@
 	                "Rename"
 	            ),
 	            _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "PackageName", value: this.state.PackageName || "", onChange: function onChange(e) {
-	                    return _this2.setState({ PackageName: e.target.value });
+	                    return _this4.setState({ PackageName: e.target.value });
 	                } }),
 	            _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository || "", onChange: function onChange(e) {
-	                    return _this2.setState({ Repository: e.target.value });
+	                    return _this4.setState({ Repository: e.target.value });
 	                } }),
 	            _react2.default.createElement(
 	                _Select2.default,
 	                { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
-	                        return _this2.setState({ AgentId: e.target.value });
+	                        return _this4.setState({ AgentId: e.target.value });
 	                    } },
 	                this.state.Agents.map(function (x) {
 	                    return _react2.default.createElement(
@@ -36514,7 +36544,7 @@
 	                                "td",
 	                                null,
 	                                _react2.default.createElement(_Input2.default, { type: x.Encrypted ? "password" : "text", placeholder: "Value", value: x.Value, onChange: function onChange(e) {
-	                                        return _this2.setParameter(e.target.value, x.TaskTemplateParameterId);
+	                                        return _this4.setParameter(e.target.value, x.TaskTemplateParameterId);
 	                                    } })
 	                            ),
 	                            _react2.default.createElement(

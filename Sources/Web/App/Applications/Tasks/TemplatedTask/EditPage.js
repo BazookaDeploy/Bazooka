@@ -42,7 +42,7 @@ var EditPage = React.createClass({
   save:function(){
       if (this.state.Name != "") {
           Actions.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.PackageName, this.state.Repository, this.state.Parameters).then(x => {
-        Notification.Notify(x);
+              Notification.Notify(x);
       })
     }
   },
@@ -59,6 +59,7 @@ var EditPage = React.createClass({
       if (this.state.Name != "") {
           Actions.renameTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.Name).then(x => {
               Notification.Notify(x);
+              this.props.onChange();
           })
       }
   },
