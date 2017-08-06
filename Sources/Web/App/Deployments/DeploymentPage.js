@@ -136,7 +136,7 @@ var DeploymentPage = React.createClass({
 
     render: function () {
 
-        var groups = groupBy(this.state.deployments.Logs || [{ TaskName: "" }]);
+        var groups = groupBy((this.state.deployments.Logs == null || this.state.deployments.Logs.length == 0) ? [{ TaskName: "" }] : this.state.deployments.Logs );
 
         var logs = this.state.deployments.Logs == null ? (<span />) :
             groups.map((x, index) =>

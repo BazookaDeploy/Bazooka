@@ -38242,6 +38242,9 @@
 	    displayName: 'FormattedTime',
 
 	    render: function render() {
+	        if (this.props.value == null) {
+	            return _react2.default.createElement('span', null);
+	        }
 	        var date = new Date(this.props.value);
 	        return _react2.default.createElement(
 	            'span',
@@ -38457,7 +38460,7 @@
 	    render: function render() {
 	        var _this4 = this;
 
-	        var groups = groupBy(this.state.deployments.Logs || [{ TaskName: "" }]);
+	        var groups = groupBy(this.state.deployments.Logs == null || this.state.deployments.Logs.length == 0 ? [{ TaskName: "" }] : this.state.deployments.Logs);
 
 	        var logs = this.state.deployments.Logs == null ? _react2.default.createElement("span", null) : groups.map(function (x, index) {
 	            return x.length == 0 ? _react2.default.createElement("span", null) : _react2.default.createElement(Container, { TaskName: x[0].TaskName, Logs: x, open: _this4.state.deployments.Status == 1 && index == groups.length - 1 || groups.length == 1 });
