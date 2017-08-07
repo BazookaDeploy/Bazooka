@@ -59,6 +59,12 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        public ExecutionResult Delete(DeleteTaskTemplate command)
+        {
+            return Execute(command);
+        }
+
+        [HttpPost]
         public ExecutionResult CreateNewVersion(CreateNewTaskTemplateVersion command)
         {
             return Execute(command);

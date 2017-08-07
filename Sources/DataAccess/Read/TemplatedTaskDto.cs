@@ -11,7 +11,7 @@ namespace DataAccess.Read
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
         public virtual int EnviromentId { get; set; }
-
+        public virtual int TaskTemplateId { get; set; }
         public virtual int ApplicationId { get; set; }
 
         public virtual int AgentId { get; set; }

@@ -69,7 +69,15 @@ var TemplatedTasksPage= React.createClass({
     open(id) {
         this.props.router.push("/Configuration/TemplatedTasks/" + id);
     },
-    
+
+    deleteTask: function (evt, id) {
+        evt.stopPropagation();
+        Actions.deleteTaskTemplate(id).then(x => {
+            Notification.Notify(x);
+            this.update();
+        });
+    },
+
     render(){
         return (<div>
 
@@ -78,7 +86,7 @@ var TemplatedTasksPage= React.createClass({
 
             <Grid fluid>
                 <Grid.Row>
-                    {this.state.tasks.map(x => (<Grid.Col className="taskTemplate" md={3} > <div onClick={() => this.open(x.Id)}><Card title={x.Name}>{x.Description}</Card></div></Grid.Col>))}
+                    {this.state.tasks.map(x => (<Grid.Col className="taskTemplate" md={3} > <div onClick={() => this.open(x.Id)}><Card title={x.Name}>{x.Description} <br /> <br /><Button onClick={(evt)=>this.deleteTask(evt,x.Id)}>Delete</Button></Card></div></Grid.Col>))}
                 </Grid.Row>
             </Grid>
             </div>

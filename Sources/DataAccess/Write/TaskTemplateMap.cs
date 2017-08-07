@@ -18,7 +18,7 @@
                 });
             Property(x => x.Name);
             Property(x => x.Description);
-            Property(x => x.Name);
+            Property(x => x.Deleted);
 
             Bag(x => x.Versions, map =>
             {

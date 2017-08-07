@@ -1,6 +1,6 @@
 ﻿CREATE VIEW rd.[TemplatedTasks]
 	AS SELECT T.[Id], T.[EnviromentId], T.[Name], [AgentId], [CurrentlyDeployedVersion], [ApplicationId], [Position], T.[Deleted], [TaskTemplateVersionId], Agents.Address as AgentName,
-	(Select max(version) from  dbo.TaskTemplateVersions AS TTV2 where TTV2.TaskTemplateId = TT2.Id) as LastKnownVersion, TTV.Script, PackageName, Repository,
+	(Select max(version) from  dbo.TaskTemplateVersions AS TTV2 where TTV2.TaskTemplateId = TT2.Id) as LastKnownVersion, TTV.Script, PackageName, Repository,TT2.Id as TaskTemplateId,
 			  Applications.Name AS ApplicationName,
 			  ApplicationGroups.Name AS GroupName,
 			  Enviroments.Name as EnviromentName

@@ -293,6 +293,7 @@
     <Compile Include="CommandHandlers\TaskTemplate\ChangeTemplatedTaskDescriptionHandler.cs" />
     <Compile Include="CommandHandlers\TaskTemplate\CreateNewTemplatedTaskVersionHandler.cs" />
     <Compile Include="CommandHandlers\TaskTemplate\CreateTemplatedTaskHandler.cs" />
+    <Compile Include="CommandHandlers\TaskTemplate\DeleteTaskTemplateHandler.cs" />
     <Compile Include="CommandHandlers\TaskTemplate\RenameTemplatedTaskHandler.cs" />
     <Compile Include="Commands\Application\DeleteApplication.cs" />
     <Compile Include="Commands\Application\RenameApplication.cs" />
@@ -303,6 +304,8 @@
     <Compile Include="Commands\TemplatedTasks\CreateNewTaskTemplateVersion.cs" />
     <Compile Include="Commands\TemplatedTasks\CreateTaskTemplate.cs" />
     <Compile Include="Commands\ICanBeRunByApplicationAdministrator.cs" />
+    <Compile Include="Commands\TemplatedTasks\DeleteTaskTemplate.cs" />
+    <Compile Include="Commands\TemplatedTasks\DeleteTaskTemplateRule.cs" />
     <Compile Include="Commands\TemplatedTasks\RenameTaskTemplate.cs" />
     <Compile Include="Commands\Application\UpdateTemplatedTask.cs" />
     <Compile Include="Controllers\TemplatedTaskController.cs" />

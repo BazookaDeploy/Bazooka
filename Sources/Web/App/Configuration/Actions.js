@@ -52,6 +52,11 @@ module.exports = {
         });
     }, 
 
+    deleteTaskTemplate: function (id,) {
+        return Net.post("/api/TaskTemplate/Delete/", { TemplatedTaskId: id});
+    },
+
+
     loadTemplatedTasks: function () {
         return Net.get("/api/TaskTemplate/");
     },

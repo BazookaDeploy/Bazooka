@@ -19,6 +19,11 @@
         public virtual string Name { get; set; }
 
         /// <summary>
+        ///     The task was deleted
+        /// </summary>
+        public virtual bool Deleted { get; set; }
+
+        /// <summary>
         ///     An optional description of the template
         /// </summary>
         public virtual string Description { get; set; }
@@ -82,6 +87,14 @@
 
             version.Parameters.ToList().ForEach(x => x.Version = version);
             this.Versions.Add(version);
+        }
+
+        /// <summary>
+        ///     marks the task as deleted
+        /// </summary>
+        public virtual void Delete()
+        {
+            Deleted = true;
         }
     }
 }

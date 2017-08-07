@@ -36426,12 +36426,9 @@
 	    },
 
 	    save: function save() {
-	        var _this2 = this;
-
 	        if (this.state.Name != "") {
 	            _Actions2.default.modifyTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.AgentId, this.state.PackageName, this.state.Repository, this.state.Parameters).then(function (x) {
 	                _Notifications2.default.Notify(x);
-	                _this2.props.onChange();
 	            });
 	        }
 	    },
@@ -36445,12 +36442,12 @@
 	    },
 
 	    rename: function rename() {
-	        var _this3 = this;
+	        var _this2 = this;
 
 	        if (this.state.Name != "") {
 	            _Actions2.default.renameTemplatedTask(this.state.Id, this.state.EnviromentId, this.state.ApplicationId, this.state.Name).then(function (x) {
 	                _Notifications2.default.Notify(x);
-	                _this3.props.onChange();
+	                _this2.props.onChange();
 	            });
 	        }
 	    },
@@ -36463,13 +36460,13 @@
 	    },
 
 	    render: function render() {
-	        var _this4 = this;
+	        var _this3 = this;
 
 	        return _react2.default.createElement(
 	            "div",
 	            null,
 	            _react2.default.createElement(_Input2.default, { title: "Name", placeholder: "Name", autoFocus: true, value: this.state.Name, onChange: function onChange(e) {
-	                    return _this4.setState({ Name: e.target.value });
+	                    return _this3.setState({ Name: e.target.value });
 	                } }),
 	            _react2.default.createElement(
 	                _Button2.default,
@@ -36477,15 +36474,15 @@
 	                "Rename"
 	            ),
 	            _react2.default.createElement(_Input2.default, { title: "Package", placeholder: "PackageName", value: this.state.PackageName || "", onChange: function onChange(e) {
-	                    return _this4.setState({ PackageName: e.target.value });
+	                    return _this3.setState({ PackageName: e.target.value });
 	                } }),
 	            _react2.default.createElement(_Input2.default, { title: "Repository", placeholder: "Repository", value: this.state.Repository || "", onChange: function onChange(e) {
-	                    return _this4.setState({ Repository: e.target.value });
+	                    return _this3.setState({ Repository: e.target.value });
 	                } }),
 	            _react2.default.createElement(
 	                _Select2.default,
 	                { title: "Agent", value: this.state.AgentId, onChange: function onChange(e) {
-	                        return _this4.setState({ AgentId: e.target.value });
+	                        return _this3.setState({ AgentId: e.target.value });
 	                    } },
 	                this.state.Agents.map(function (x) {
 	                    return _react2.default.createElement(
@@ -36544,7 +36541,7 @@
 	                                "td",
 	                                null,
 	                                _react2.default.createElement(_Input2.default, { type: x.Encrypted ? "password" : "text", placeholder: "Value", value: x.Value, onChange: function onChange(e) {
-	                                        return _this4.setParameter(e.target.value, x.TaskTemplateParameterId);
+	                                        return _this3.setParameter(e.target.value, x.TaskTemplateParameterId);
 	                                    } })
 	                            ),
 	                            _react2.default.createElement(
@@ -36856,8 +36853,20 @@
 	    open: function open(id) {
 	        this.props.router.push("/Configuration/TemplatedTasks/" + id);
 	    },
-	    render: function render() {
+
+
+	    deleteTask: function deleteTask(evt, id) {
 	        var _this4 = this;
+
+	        evt.stopPropagation();
+	        _Actions2.default.deleteTaskTemplate(id).then(function (x) {
+	            _Notifications2.default.Notify(x);
+	            _this4.update();
+	        });
+	    },
+
+	    render: function render() {
+	        var _this5 = this;
 
 	        return _react2.default.createElement(
 	            "div",
@@ -36869,13 +36878,13 @@
 	                _react2.default.createElement(
 	                    _Button2.default,
 	                    { onClick: function onClick() {
-	                            return _this4.setState({ show: true });
+	                            return _this5.setState({ show: true });
 	                        } },
 	                    "Create new template"
 	                )
 	            ),
 	            _react2.default.createElement(TemplatedTaskCreationDialog, { show: this.state.show, onClose: function onClose() {
-	                    return _this4.setState({ show: false });
+	                    return _this5.setState({ show: false });
 	                }, onCreate: this.update }),
 	            _react2.default.createElement(
 	                _Grid2.default,
@@ -36891,12 +36900,23 @@
 	                            _react2.default.createElement(
 	                                "div",
 	                                { onClick: function onClick() {
-	                                        return _this4.open(x.Id);
+	                                        return _this5.open(x.Id);
 	                                    } },
 	                                _react2.default.createElement(
 	                                    _Card2.default,
 	                                    { title: x.Name },
-	                                    x.Description
+	                                    x.Description,
+	                                    " ",
+	                                    _react2.default.createElement("br", null),
+	                                    " ",
+	                                    _react2.default.createElement("br", null),
+	                                    _react2.default.createElement(
+	                                        _Button2.default,
+	                                        { onClick: function onClick(evt) {
+	                                                return _this5.deleteTask(evt, x.Id);
+	                                            } },
+	                                        "Delete"
+	                                    )
 	                                )
 	                            )
 	                        );
@@ -36975,6 +36995,10 @@
 				Name: name,
 				Description: description
 			});
+		},
+
+		deleteTaskTemplate: function deleteTaskTemplate(id) {
+			return _Net2.default.post("/api/TaskTemplate/Delete/", { TemplatedTaskId: id });
 		},
 
 		loadTemplatedTasks: function loadTemplatedTasks() {
