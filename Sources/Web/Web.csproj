@@ -287,6 +287,8 @@
     <Compile Include="CommandHandlers\Application\CreateTemplatedTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\DeleteApplicationHandler.cs" />
     <Compile Include="CommandHandlers\Application\DeleteTaskHandler.cs" />
+    <Compile Include="CommandHandlers\Application\MoveTaskDownHandler.cs" />
+    <Compile Include="CommandHandlers\Application\MoveTaskUpHandler.cs" />
     <Compile Include="CommandHandlers\Application\RenameApplicationHandler.cs" />
     <Compile Include="CommandHandlers\Application\UpdateTemplatedTaskHandler.cs" />
     <Compile Include="CommandHandlers\Application\RenameTemplatedTaskHandler.cs" />
@@ -296,6 +298,8 @@
     <Compile Include="CommandHandlers\TaskTemplate\DeleteTaskTemplateHandler.cs" />
     <Compile Include="CommandHandlers\TaskTemplate\RenameTemplatedTaskHandler.cs" />
     <Compile Include="Commands\Application\DeleteApplication.cs" />
+    <Compile Include="Commands\Application\MoveTaskDown.cs" />
+    <Compile Include="Commands\Application\MoveTaskUp.cs" />
     <Compile Include="Commands\Application\RenameApplication.cs" />
     <Compile Include="Commands\Application\CreateTemplatedTask.cs" />
     <Compile Include="Commands\Application\ModifyTemplatedTask.cs" />

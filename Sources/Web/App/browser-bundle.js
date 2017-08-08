@@ -32883,6 +32883,22 @@
 	      ApplicationId: applicationId,
 	      ApplicationGroupId: groupId
 	    });
+	  },
+
+	  moveTaskDown: function moveTaskDown(applicationId, enviromentId, position) {
+	    return _Net2.default.post("/api/applications/MoveTaskDown", {
+	      ApplicationId: applicationId,
+	      EnviromentId: enviromentId,
+	      Position: position
+	    });
+	  },
+
+	  moveTaskUp: function moveTaskUp(applicationId, enviromentId, position) {
+	    return _Net2.default.post("/api/applications/MoveTaskUp", {
+	      ApplicationId: applicationId,
+	      EnviromentId: enviromentId,
+	      Position: position
+	    });
 	  }
 	};
 
@@ -33622,6 +33638,18 @@
 
 	var _reactRedux = __webpack_require__(245);
 
+	var _ArrowUpIcon = __webpack_require__(300);
+
+	var _ArrowUpIcon2 = _interopRequireDefault(_ArrowUpIcon);
+
+	var _ArrowDownIcon = __webpack_require__(302);
+
+	var _ArrowDownIcon2 = _interopRequireDefault(_ArrowDownIcon);
+
+	var _EraseIcon = __webpack_require__(354);
+
+	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
+
 	var _CreateDialog = __webpack_require__(319);
 
 	var _CreateDialog2 = _interopRequireDefault(_CreateDialog);
@@ -33848,17 +33876,40 @@
 	            });
 	        }
 	    },
+	    up: function up() {
+	        var _this5 = this;
+
+	        _Actions2.default.moveTaskUp(this.props.params.id, this.props.task.EnviromentId, this.props.task.Position).then(function (x) {
+	            return _this5.props.update();
+	        });
+	    },
+	    down: function down() {
+	        var _this6 = this;
+
+	        _Actions2.default.moveTaskDown(this.props.params.id, this.props.task.EnviromentId, this.props.task.Position).then(function (x) {
+	            return _this6.props.update();
+	        });
+	    },
 	    render: function render() {
 	        if (this.props.edit) {
 	            return _react2.default.createElement(
 	                "a",
 	                null,
 	                this.props.task.Name,
-	                " ",
 	                _react2.default.createElement(
-	                    _Button2.default,
-	                    { onClick: this.confirmDelete },
-	                    "Delete"
+	                    "span",
+	                    { style: { float: "right" }, onClick: this.up },
+	                    _react2.default.createElement(_ArrowUpIcon2.default, { small: true })
+	                ),
+	                _react2.default.createElement(
+	                    "span",
+	                    { style: { float: "right" }, onClick: this.down },
+	                    _react2.default.createElement(_ArrowDownIcon2.default, { small: true })
+	                ),
+	                _react2.default.createElement(
+	                    "span",
+	                    { style: { float: "right" }, onClick: this.confirmDelete },
+	                    _react2.default.createElement(_EraseIcon2.default, { small: true })
 	                )
 	            );
 	        }
@@ -33919,10 +33970,10 @@
 	        }
 	    },
 	    update: function update(id) {
-	        var _this5 = this;
+	        var _this7 = this;
 
 	        _Actions2.default.getTasks(id, this.props.params.id).then(function (x) {
-	            return _this5.setState({ tasks: x });
+	            return _this7.setState({ tasks: x });
 	        });
 	    },
 	    toggleEditMode: function toggleEditMode() {
@@ -33931,12 +33982,12 @@
 
 
 	    render: function render() {
-	        var _this6 = this;
+	        var _this8 = this;
 
 	        var childrenWithProps = _react2.default.Children.map(this.props.children, function (child) {
 	            return _react2.default.cloneElement(child, {
 	                onChange: function onChange() {
-	                    return _this6.update(_this6.props.params.enviromentId);
+	                    return _this8.update(_this8.props.params.enviromentId);
 	                }
 	            });
 	        });
@@ -33945,14 +33996,14 @@
 	            "div",
 	            null,
 	            this.state.show && _react2.default.createElement(CloneDialog, { show: this.state.show, onClose: function onClose() {
-	                    return _this6.setState({ show: false });
+	                    return _this8.setState({ show: false });
 	                }, onCreate: function onCreate() {
-	                    return _this6.update(_this6.props.params.enviromentId);
+	                    return _this8.update(_this8.props.params.enviromentId);
 	                }, EnviromentId: this.props.params.enviromentId, ApplicationId: this.props.params.id }),
 	            this.state.showCreateDialog && _react2.default.createElement(TaskSelectDialog, { onClose: function onClose() {
-	                    return _this6.setState({ showCreateDialog: false });
+	                    return _this8.setState({ showCreateDialog: false });
 	                }, onCreate: function onCreate() {
-	                    return _this6.update(_this6.props.params.enviromentId);
+	                    return _this8.update(_this8.props.params.enviromentId);
 	                }, show: this.state.showCreateDialog, EnviromentId: this.props.params.enviromentId, ApplicationId: this.props.params.id }),
 	            _react2.default.createElement(
 	                _Grid2.default,
@@ -33967,8 +34018,8 @@
 	                            "div",
 	                            { className: "applicationTasks" },
 	                            this.state.tasks.map(function (x) {
-	                                return _react2.default.createElement(TaskLine, { task: x, params: _this6.props.params, edit: _this6.state.editMode, update: function update() {
-	                                        return _this6.update(_this6.props.params.enviromentId);
+	                                return _react2.default.createElement(TaskLine, { task: x, params: _this8.props.params, edit: _this8.state.editMode, update: function update() {
+	                                        return _this8.update(_this8.props.params.enviromentId);
 	                                    } });
 	                            }),
 	                            this.state.tasks.length == 0 && _react2.default.createElement(
@@ -33977,7 +34028,7 @@
 	                                _react2.default.createElement(
 	                                    _Button2.default,
 	                                    { onClick: function onClick() {
-	                                            return _this6.setState({ show: true });
+	                                            return _this8.setState({ show: true });
 	                                        }, primary: true, block: true },
 	                                    " Clone from another enviroment"
 	                                )
@@ -33988,7 +34039,7 @@
 	                                _react2.default.createElement(
 	                                    _Button2.default,
 	                                    { onClick: function onClick() {
-	                                            return _this6.setState({ showCreateDialog: true });
+	                                            return _this8.setState({ showCreateDialog: true });
 	                                        }, primary: true, block: true },
 	                                    " Add new task"
 	                                )

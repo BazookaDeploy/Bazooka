@@ -35,41 +35,67 @@ namespace DataAccess.Write
 
         public virtual IList<ApplicationAdministrator> Administrators { get; set; }
 
-        public virtual IList<IMovable> AllTasks()
+        public virtual IList<IMovable> AllTasks(int enviromentId)
         {
             var list = new List<IMovable>();
 
             if (DatabaseTasks != null)
             {
-                list.AddRange(DatabaseTasks.Select(x => (IMovable)x).ToList());
+                list.AddRange(DatabaseTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
             }
 
             if (DeployTasks != null)
             {
-                list.AddRange(DeployTasks.Select(x => (IMovable)x).ToList());
+                list.AddRange(DeployTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
             }
 
             if (MailTasks != null)
             {
-                list.AddRange(MailTasks.Select(x => (IMovable)x).ToList());
+                list.AddRange(MailTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
             }
 
             if (LocalScriptTasks != null)
             {
-                list.AddRange(LocalScriptTasks.Select(x => (IMovable)x).ToList());
+                list.AddRange(LocalScriptTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
             }
 
             if (RemoteScriptTasks != null)
             {
-                list.AddRange(RemoteScriptTasks.Select(x => (IMovable)x).ToList());
+                list.AddRange(RemoteScriptTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
             }
 
             if (TemplatedTasks != null)
             {
-                list.AddRange(TemplatedTasks.Select(x => (IMovable)x).ToList());
+                list.AddRange(TemplatedTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
             }
 
             return list;
+        }
+
+        public virtual void MoveUp(int position, int enviromentId)
+        {
+            var tasks = this.AllTasks(enviromentId);
+            var toMove = tasks.Single(x => x.Position == position);
+            var before = tasks.SingleOrDefault(x => x.Position == position - 1);
+
+            if (before != null)
+            {
+                toMove.MoveUp();
+                before.MoveDown();
+            }
+        }
+
+        public virtual void MoveDown(int position, int enviromentId)
+        {
+            var tasks = this.AllTasks(enviromentId);
+            var toMove = tasks.Single(x => x.Position == position);
+            var before = tasks.SingleOrDefault(x => x.Position == position + 1);
+
+            if (before != null)
+            {
+                before.MoveUp();
+                toMove.MoveDown();
+            }
         }
 
         public virtual void ModifyTemplatedTask(int id, int agentId, int enviromentId, string packageName, string repository,  IEnumerable<TemplatedTaskParameter> enumerable)
@@ -120,7 +146,7 @@ namespace DataAccess.Write
                 Name = name,
                 TaskTemplateVersionId = version,
                 Deleted = false,
-                Position = this.NewTaskNumber()
+                Position = this.NewTaskNumber(enviromentId)
             };
 
             a.Prameters = enumerable.Select(x => new TemplatedTaskParameter()
@@ -169,7 +195,7 @@ namespace DataAccess.Write
                     Name = x.Name,
                     Package = x.Package,
                     Repository = x.Repository,
-                    Position = this.NewTaskNumber()
+                    Position = this.NewTaskNumber(enviromentId)
                 }).ToList();
 
                 foreach (var task in tasks) { this.DatabaseTasks.Add(task); }
@@ -191,7 +217,7 @@ namespace DataAccess.Write
                     PackageName = x.PackageName,
                     Repository = x.Repository,
                     UninstallScript = x.UninstallScript,
-                    Position = this.NewTaskNumber()
+                    Position = this.NewTaskNumber(enviromentId)
                 }).ToList();
 
                 foreach (var task in tasks) { this.DeployTasks.Add(task); }
@@ -204,7 +230,7 @@ namespace DataAccess.Write
                     ApplicationId = x.ApplicationId,
                     EnviromentId = enviromentId,
                     Name = x.Name,
-                    Position = this.NewTaskNumber(),
+                    Position = this.NewTaskNumber(enviromentId),
                     Recipients = x.Recipients,
                     Sender = x.Sender,
                     Text = x.Text
@@ -220,7 +246,7 @@ namespace DataAccess.Write
                     ApplicationId = x.ApplicationId,
                     EnviromentId = enviromentId,
                     Name = x.Name,
-                    Position = this.NewTaskNumber(),
+                    Position = this.NewTaskNumber(enviromentId),
                     Script = x.Script
                 }).ToList();
 
@@ -235,7 +261,7 @@ namespace DataAccess.Write
                     EnviromentId = enviromentId,
                     Folder = x.Folder,
                     Name = x.Name,
-                    Position = this.NewTaskNumber(),
+                    Position = this.NewTaskNumber(enviromentId),
                     Script = x.Script,
                     ApplicationId = x.ApplicationId
                 }).ToList();
@@ -250,7 +276,7 @@ namespace DataAccess.Write
                     AgentId = machineId,
                     EnviromentId = enviromentId,
                     Name = x.Name,
-                    Position = this.NewTaskNumber(),
+                    Position = this.NewTaskNumber(enviromentId),
                     ApplicationId = x.ApplicationId
                 }).ToList();
 
@@ -321,7 +347,7 @@ namespace DataAccess.Write
                 Name = name,
                 Package = package,
                 Repository = repository,
-                Position = this.NewTaskNumber()
+                Position = this.NewTaskNumber(enviromentId)
             });
         }
 
@@ -350,7 +376,7 @@ namespace DataAccess.Write
                 PackageName = package,
                 Repository = repository,
                 AdditionalParameters = parameters,
-                Position = this.NewTaskNumber()
+                Position = this.NewTaskNumber(enviromentId)
             });
         }
 
@@ -410,7 +436,7 @@ namespace DataAccess.Write
                 EnviromentId = enviromentId,
                 Name = name,
                 Script = script,
-                Position = this.NewTaskNumber()
+                Position = this.NewTaskNumber(enviromentId)
             });
         }
 
@@ -431,7 +457,7 @@ namespace DataAccess.Write
                 Recipients = recipients,
                 Sender = sender,
                 Text = text,
-                Position = this.NewTaskNumber()
+                Position = this.NewTaskNumber(enviromentId)
             });
         }
 
@@ -444,14 +470,14 @@ namespace DataAccess.Write
             task.Text = text;
         }
 
-        private int NewTaskNumber()
+        private int NewTaskNumber(int enviromentId)
         {
-            var a = (this.DatabaseTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new DatabaseTask()).Position;
-            var b = (this.DeployTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new DeployTask()).Position;
-            var c = (this.LocalScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new LocalScriptTask()).Position;
-            var d = (this.MailTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new MailTask()).Position;
-            var e = (this.RemoteScriptTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new RemoteScriptTask()).Position;
-            var f = (this.TemplatedTasks.OrderByDescending(x => x.Position).FirstOrDefault() ?? new TemplatedTask()).Position;
+            var a = (this.DatabaseTasks.Where(x => x.EnviromentId == enviromentId).OrderByDescending(x => x.Position).FirstOrDefault() ?? new DatabaseTask()).Position;
+            var b = (this.DeployTasks.Where(x => x.EnviromentId == enviromentId).OrderByDescending(x => x.Position).FirstOrDefault() ?? new DeployTask()).Position;
+            var c = (this.LocalScriptTasks.Where(x => x.EnviromentId == enviromentId).OrderByDescending(x => x.Position).FirstOrDefault() ?? new LocalScriptTask()).Position;
+            var d = (this.MailTasks.Where(x => x.EnviromentId == enviromentId).OrderByDescending(x => x.Position).FirstOrDefault() ?? new MailTask()).Position;
+            var e = (this.RemoteScriptTasks.Where(x => x.EnviromentId == enviromentId).OrderByDescending(x => x.Position).FirstOrDefault() ?? new RemoteScriptTask()).Position;
+            var f = (this.TemplatedTasks.Where(x => x.EnviromentId == enviromentId).OrderByDescending(x => x.Position).FirstOrDefault() ?? new TemplatedTask()).Position;
 
             var position = (new int[] { a, b, c, d, e, f }).ToList().Max();
 
@@ -468,7 +494,7 @@ namespace DataAccess.Write
                 Script = script,
                 AgentId = agentId,
                 Folder = folder,
-                Position = this.NewTaskNumber()
+                Position = this.NewTaskNumber(enviromentId)
             });
         }
 

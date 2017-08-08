@@ -148,5 +148,17 @@ namespace Web.Controllers
         {
             return Execute(command);
         }
+
+        [HttpPost]
+        public ExecutionResult MoveTaskUp(MoveTaskUp command)
+        {
+            return Execute(command);
+        }
+
+        [HttpPost]
+        public ExecutionResult MoveTaskDown(MoveTaskDown command)
+        {
+            return Execute(command);
+        }
     }
 }

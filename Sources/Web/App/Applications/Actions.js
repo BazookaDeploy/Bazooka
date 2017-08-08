@@ -144,5 +144,21 @@ module.exports = {
       ApplicationId: applicationId,
       ApplicationGroupId: groupId
     });
-  }
+  },
+
+  moveTaskDown: function (applicationId, enviromentId, position) {
+      return Net.post("/api/applications/MoveTaskDown", {
+          ApplicationId: applicationId,
+          EnviromentId: enviromentId,
+          Position:position
+      });
+  },
+
+  moveTaskUp: function (applicationId, enviromentId, position) {
+      return Net.post("/api/applications/MoveTaskUp", {
+          ApplicationId: applicationId,
+          EnviromentId: enviromentId,
+          Position: position
+      });
+  },
 };

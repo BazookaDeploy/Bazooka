@@ -6,7 +6,9 @@ import Modal from "../Shared/Modal";
 import Select from "../Shared/Select";
 import {Link} from "react-router";
 import {connect} from "react-redux";
-
+import ArrowUpIcon from "../Shared/Icon/ArrowUpIcon";
+import ArrowDownIcon from "../Shared/Icon/ArrowDownIcon";
+import EraseIcon from "../Shared/Icon/EraseIcon";
 
 import RemoteScriptTaskCreationDialog from "./Tasks/RemoteScriptTask/CreateDialog";
 import MailTaskCreationDialog from "./Tasks/MailTask/CreateDialog";
@@ -136,9 +138,25 @@ var TaskLine = React.createClass({
         }
     },
 
+    up() {
+        Actions.moveTaskUp(this.props.params.id, this.props.task.EnviromentId, this.props.task.Position).then(x =>
+            this.props.update()
+        );
+    },
+
+    down() {
+        Actions.moveTaskDown(this.props.params.id, this.props.task.EnviromentId, this.props.task.Position).then(x =>
+            this.props.update()
+        );
+    },
+
     render(){
         if(this.props.edit){
-            return <a>{this.props.task.Name} <Button onClick={this.confirmDelete}>Delete</Button></a>;
+            return <a>{this.props.task.Name}
+                <span style={{float:"right"}} onClick={this.up}><ArrowUpIcon small /></span>
+                <span style={{ float: "right" }} onClick={this.down}><ArrowDownIcon small /></span>
+                <span style={{ float: "right" }} onClick={this.confirmDelete}><EraseIcon small /></span>
+            </a>;
         }
 
         switch( this.props.task.Type){
