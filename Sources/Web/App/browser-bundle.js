@@ -31727,9 +31727,11 @@
 	    return {
 	      loading: true,
 	      scheduled: false,
+	      chooseTasks: false,
 	      versions: [],
 	      version: null,
 	      tasks: [],
+	      chosenTasks: [],
 	      date: new Date()
 	    };
 	  },
@@ -31767,10 +31769,10 @@
 	    var version = this.refs.version.value();
 	    if (version != null) {
 	      if (!this.state.scheduled) {
-	        _Actions2.default.startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version);
+	        _Actions2.default.startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version, this.state.chosenTasks);
 	        this.props.onClose();
 	      } else {
-	        _Actions2.default.scheduleDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version, this.state.date);
+	        _Actions2.default.scheduleDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version, this.state.date, this.state.chosenTasks);
 	        this.props.onClose();
 	      }
 	    }
@@ -31780,6 +31782,16 @@
 	    this.setState({
 	      scheduled: !this.state.scheduled
 	    });
+	  },
+
+	  addTask: function addTask(e, task) {
+	    if (e.target.checked) {
+	      this.setState({ chosenTasks: this.state.chosenTasks.concat(task) });
+	    } else {
+	      this.setState({ chosenTasks: this.state.chosenTasks.filter(function (z) {
+	          return z.DeployTaskId != task.DeployTaskId;
+	        }) });
+	    }
 	  },
 
 	  render: function render() {
@@ -31824,14 +31836,38 @@
 	        _react2.default.createElement(
 	          "label",
 	          { htmlFor: "Schedule", className: "input__title" },
-	          "Do you want to schedule the deploy: ",
+	          "Do you want to schedule the deploy? ",
 	          _react2.default.createElement("input", { type: "checkbox", checked: this.state.scheduled, onChange: this.setScheduled })
 	        ),
 	        _react2.default.createElement("br", null),
 	        _react2.default.createElement("br", null),
 	        this.state.scheduled && _react2.default.createElement(_DateTimePicker2.default, { value: this.state.date, onChange: function onChange(e) {
 	            return _this2.setState({ date: e });
-	          } })
+	          } }),
+	        _react2.default.createElement(
+	          "label",
+	          { htmlFor: "singleTasks", className: "input__title" },
+	          "Do you want execute only specific tasks? ",
+	          _react2.default.createElement("input", { type: "checkbox", checked: this.state.chooseTasks, onChange: function onChange() {
+	              return _this2.setState({ chooseTasks: !_this2.state.chooseTasks });
+	            } })
+	        ),
+	        _react2.default.createElement("br", null),
+	        this.state.chooseTasks && _react2.default.createElement(
+	          "ul",
+	          { className: "deploy__taskList" },
+	          this.state.tasks.map(function (x) {
+	            return _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement("input", { type: "checkbox", onClick: function onClick(e) {
+	                  return _this2.addTask(e, x);
+	                } }),
+	              " ",
+	              x.Name
+	            );
+	          })
+	        )
 	      ),
 	      _react2.default.createElement(
 	        _Modal2.default.Footer,
@@ -31880,7 +31916,7 @@
 		},
 
 		startDeploy: function startDeploy(enviromentId, applicationId, version, tasks) {
-			return _Net2.default.post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, { tasks: tasks });
+			return _Net2.default.post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, tasks);
 		},
 
 		rollback: function rollback(enviromentId, applicationId) {
@@ -31888,7 +31924,7 @@
 		},
 
 		scheduleDeploy: function scheduleDeploy(enviromentId, applicationId, version, date, tasks) {
-			return _Net2.default.post("/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version + "&start=" + date.toISOString(), { tasks: tasks });
+			return _Net2.default.post("/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version + "&start=" + date.toISOString(), tasks);
 		},
 
 		updateEnviroments: function updateEnviroments() {

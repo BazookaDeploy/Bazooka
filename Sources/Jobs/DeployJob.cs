@@ -35,6 +35,7 @@
             int appId;
             string version;
             string config;
+            ICollection<DeploymentTask> TasksToDo = new List<DeploymentTask>();
             using (var session = Store.OpenSession())
             {
                 var dep = session.Load<Deployment>(deploymentId);
@@ -56,6 +57,7 @@
                 });
                 envId = dep.EnviromentId;
                 appId = dep.ApplicationId;
+                TasksToDo = dep.Tasks;
                 session.Update(dep);
                 session.Flush();
             }
@@ -90,6 +92,11 @@
                 tasks = dc.Tasks.Where(x => x.EnviromentId == envId && x.ApplicationId == appId).OrderBy(x => x.Position).ToList();
             }
 
+            // if speccific tasks were set instead of all filter only chosen tasks
+            if(TasksToDo!=null && TasksToDo.Count > 0)
+            {
+                tasks = tasks.Where(x => TasksToDo.Any(z => z.DeployTaskId == x.Id && z.DeployType == (int)x.Type)).ToList();
+            }
 
             try
             {

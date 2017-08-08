@@ -10,7 +10,7 @@ module.exports = {
 	},
 
 	startDeploy: function (enviromentId, applicationId, version, tasks) {
-		return Net.post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, { tasks: tasks });
+		return Net.post("/api/deploy/deploy?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" + version, tasks );
     },
 
     rollback: function (enviromentId, applicationId) {
@@ -18,7 +18,7 @@ module.exports = {
     },
 
 	scheduleDeploy: function (enviromentId, applicationId, version, date, tasks) {
-		return Net.post("/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" +	version + "&start=" + date.toISOString(), { tasks: tasks });
+		return Net.post("/api/deploy/schedule?enviromentId=" + enviromentId + "&applicationId=" + applicationId + "&version=" +	version + "&start=" + date.toISOString(),  tasks );
 	},
 
   updateEnviroments: function () {

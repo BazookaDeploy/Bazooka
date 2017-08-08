@@ -50,7 +50,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public void Deploy(int enviromentId, int applicationId, string version, ICollection<DeploymentTasksDto> tasks)
+        public void Deploy(int enviromentId, int applicationId, string version, [FromBody]IList<DeploymentTasksDto> tasks)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
@@ -63,6 +63,8 @@ namespace Web.Controllers
                     UserId = User.Identity.GetUserId()
                 };
 
+                session.Save(deploy);
+
                 if (tasks != null && tasks.Count > 0)
                 {
                     foreach (var task in tasks)
@@ -70,7 +72,8 @@ namespace Web.Controllers
                         deploy.Tasks.Add(new DeploymentTask()
                         {
                             DeployTaskId = task.DeployTaskId,
-                            DeployType = (int)task.DeployType
+                            DeployType = (int)task.DeployType,
+                            DeploymentId = deploy.Id
                         });
                     }
                 }

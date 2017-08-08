@@ -1994,3 +1994,8 @@ body {
   cursor: pointer; }
   .taskTemplate .card:hover {
     background-color: whitesmoke; }
+
+.deploy__taskList {
+    list-style-type: none;
+    padding-left: 10px;
+}

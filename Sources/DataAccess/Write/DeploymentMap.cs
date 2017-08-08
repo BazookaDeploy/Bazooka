@@ -23,6 +23,17 @@ namespace DataAccess.Write
             Property(x => x.Version, x => x.NotNullable(true));
             Property(x => x.UserId, x => x.NotNullable(true));
             Property(x => x.Scheduled, x => x.NotNullable(true));
+
+            Bag(
+                x => x.Tasks,
+                map =>
+                {
+                    map.Key(km => km.Column("DeploymentId"));
+                    map.Cascade(Cascade.All | Cascade.DeleteOrphans);
+                    map.Inverse(true);
+                },
+                x => x.OneToMany()
+            );
         }
     }
 }

@@ -10,9 +10,11 @@ var DeployDialog = React.createClass({
     return {
       loading: true,
       scheduled: false,
+      chooseTasks:false,
       versions: [],
       version:null,
       tasks: [],
+      chosenTasks: [],
       date: new Date()
     };
   },
@@ -48,10 +50,10 @@ var DeployDialog = React.createClass({
     var version = this.refs.version.value();
     if (version != null) {
       if (!this.state.scheduled) {
-        Actions.startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version);
+          Actions.startDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version, this.state.chosenTasks);
         this.props.onClose();
       } else {
-        Actions.scheduleDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version,this.state.date);
+          Actions.scheduleDeploy(this.props.Enviroment.Id, this.props.ApplicationId, version, this.state.date, this.state.chosenTasks);
         this.props.onClose();
       }
     }
@@ -61,6 +63,14 @@ var DeployDialog = React.createClass({
     this.setState({
       scheduled: !this.state.scheduled
     });
+  },
+
+  addTask: function (e, task) {
+      if (e.target.checked) {
+          this.setState({ chosenTasks: this.state.chosenTasks.concat(task)})
+      } else {
+          this.setState({ chosenTasks: this.state.chosenTasks.filter(z => z.DeployTaskId != task.DeployTaskId) })
+      }
   },
 
   render: function () {
@@ -82,11 +92,18 @@ var DeployDialog = React.createClass({
                   </Select>
               }
 
-              <label htmlFor="Schedule" className="input__title">Do you want to schedule the deploy: <input type="checkbox" checked={this.state.scheduled} onChange={this.setScheduled}/></label><br /><br />
+              <label htmlFor="Schedule" className="input__title">Do you want to schedule the deploy? <input type="checkbox" checked={this.state.scheduled} onChange={this.setScheduled}/></label><br /><br />
             {
               this.state.scheduled && <DateTimePicker value={this.state.date} onChange={(e) => this.setState({date:e})} />
             }
-        </Modal.Body>
+
+            <label htmlFor="singleTasks" className="input__title">Do you want execute only specific tasks? <input type="checkbox" checked={this.state.chooseTasks} onChange={() => this.setState({ chooseTasks: !this.state.chooseTasks })} /></label><br />
+            {this.state.chooseTasks && <ul className="deploy__taskList">
+                    {this.state.tasks.map(x => <li><input type="checkbox" onClick={(e) => this.addTask(e,x)} /> {x.Name}</li>)}
+                </ul>
+            }
+
+            </Modal.Body>
         <Modal.Footer>
 
           <Button onClick={this.rollback}>Rollback last deploy</Button>
