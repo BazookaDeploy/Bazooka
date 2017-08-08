@@ -20,6 +20,7 @@
             Property(x => x.Name);
             Property(x => x.Optional);
             Property(x => x.Encrypted);
+            Property(x => x.Description);
             this.ManyToOne(x => x.Version, z => {
                 z.Column("TaskTemplateVersionId");
             });

@@ -36535,7 +36535,13 @@
 	                            _react2.default.createElement(
 	                                "td",
 	                                null,
-	                                x.Name
+	                                x.Name,
+	                                " ",
+	                                _react2.default.createElement(
+	                                    "span",
+	                                    { title: x.Description },
+	                                    "\u24D8"
+	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                "td",
@@ -37134,11 +37140,13 @@
 	                Parameters: this.state.Parameters.concat({
 	                    Name: this.state.temporaryName,
 	                    Optional: this.state.temporaryOptional,
-	                    Encrypted: this.state.temporaryEncrypted
+	                    Encrypted: this.state.temporaryEncrypted,
+	                    Description: this.state.temporaryDescription
 	                }),
 	                temporaryName: "",
 	                temporaryOptional: false,
-	                temporaryEncrypted: false
+	                temporaryEncrypted: false,
+	                temporaryDescription: ""
 	            });
 	        }
 	    },
@@ -37146,7 +37154,6 @@
 	    save: function save() {
 	        var _this4 = this;
 
-	        debugger;
 	        _Actions2.default.createNewVersion(this.props.params.id, this.state.Script, this.state.Parameters).then(function (x) {
 	            return _this4.update();
 	        });
@@ -37215,6 +37222,11 @@
 	                                _react2.default.createElement(
 	                                    "td",
 	                                    null,
+	                                    "Description"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
 	                                    "Optional"
 	                                ),
 	                                _react2.default.createElement(
@@ -37236,6 +37248,11 @@
 	                                        "td",
 	                                        null,
 	                                        x.Name
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "td",
+	                                        null,
+	                                        x.Description
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        "td",
@@ -37276,6 +37293,13 @@
 	                                    null,
 	                                    _react2.default.createElement(_Input2.default, { value: this.state.temporaryName, onChange: function onChange(e) {
 	                                            return _this5.setState({ temporaryName: e.target.value });
+	                                        } })
+	                                ),
+	                                _react2.default.createElement(
+	                                    "td",
+	                                    null,
+	                                    _react2.default.createElement(_Textarea2.default, { rows: 1, value: this.state.temporaryDescription, onChange: function onChange(e) {
+	                                            return _this5.setState({ temporaryDescription: e.target.value });
 	                                        } })
 	                                ),
 	                                _react2.default.createElement(

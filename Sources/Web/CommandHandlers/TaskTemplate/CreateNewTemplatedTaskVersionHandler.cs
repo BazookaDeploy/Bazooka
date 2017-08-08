@@ -13,6 +13,7 @@ namespace Web.CommandHandlers
             {
                 Encrypted = x.Encrypted,
                 Name = x.Name,
+                Description = x.Description,
                 Optional = x.Optional
             }).ToList());
             Repository.Save(task);

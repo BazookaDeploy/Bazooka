@@ -50,17 +50,18 @@ var TemplatedTaskPage= React.createClass({
                 Parameters: this.state.Parameters.concat({
                     Name: this.state.temporaryName,
                     Optional: this.state.temporaryOptional,
-                    Encrypted: this.state.temporaryEncrypted
+                    Encrypted: this.state.temporaryEncrypted,
+                    Description: this.state.temporaryDescription
                 }),
                 temporaryName: "",
                 temporaryOptional: false,
-                temporaryEncrypted:false
+                temporaryEncrypted: false,
+                temporaryDescription:""
             });
         }
     },
 
     save: function () {
-        debugger;
         Actions.createNewVersion(this.props.params.id, this.state.Script, this.state.Parameters).then(x => this.update());
     },
 
@@ -80,7 +81,8 @@ var TemplatedTaskPage= React.createClass({
                 <Table>
                     <Table.Head>
                         <tr>
-                            <td>Name</td>
+                                <td>Name</td>
+                                <td>Description</td>
                             <td>Optional</td>
                             <td>Encrypted</td>
                             <td></td>
@@ -90,6 +92,7 @@ var TemplatedTaskPage= React.createClass({
                         {this.state.Parameters.map((x,i) => 
                             <tr>
                                 <td>{x.Name}</td>
+                                <td>{x.Description}</td>
                                 <td>{x.Optional && <span>&#x2714;</span>}</td>
                                 <td>{x.Encrypted && <span>&#x2714;</span>}</td>
                                 <td><Button onClick={() => this.removeParameter(i)}>Delete</Button></td>
@@ -97,6 +100,7 @@ var TemplatedTaskPage= React.createClass({
                         )}
                         <tr>
                                 <td><Input value={this.state.temporaryName} onChange={(e) => this.setState({ temporaryName: e.target.value })} /></td>
+                                <td><Textarea rows={1} value={this.state.temporaryDescription} onChange={(e) => this.setState({ temporaryDescription: e.target.value })} /></td>
                                 <td><input type="checkbox" checked={this.state.temporaryOptional} onClick={(e) => this.setState({ temporaryOptional: !this.state.temporaryOptional})} /></td>
                                 <td><input type="checkbox" checked={this.state.temporaryEncrypted} onClick={(e) => this.setState({ temporaryEncrypted: !this.state.temporaryEncrypted })} /></td>
                                 <td><Button onClick={this.addParameter}>Add</Button></td>

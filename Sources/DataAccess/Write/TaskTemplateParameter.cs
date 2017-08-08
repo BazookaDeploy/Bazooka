@@ -37,5 +37,10 @@
         ///     Indicates if a parameter has to be Encrypted
         /// </summary>
         public virtual bool Encrypted { get; set; }
+
+        /// <summary>
+        ///     The description of the parameter
+        /// </summary>
+        public virtual string Description { get; set; }
     }
 }

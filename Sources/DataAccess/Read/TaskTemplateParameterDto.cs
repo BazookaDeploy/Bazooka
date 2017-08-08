@@ -18,6 +18,11 @@ namespace DataAccess.Read
         public virtual string Name { get; set; }
 
         /// <summary>
+        ///     Description of the parameter
+        /// </summary>
+        public virtual string Description { get; set; }
+
+        /// <summary>
         ///     Indicates if a parameter is optional
         /// </summary>
         public virtual bool Optional { get; set; }
