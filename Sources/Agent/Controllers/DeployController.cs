@@ -54,7 +54,7 @@
                 PackageInstaller.Install(packageInfo2, new string[] { installOptions.Repository }, installOptions.AdditionalParameters, installOptions.InstallScript, installOptions.ConfigurationFile, installOptions.ConfigurationTransform);
                 return new ExecutionResult()
                 {
-                    Success = true,
+                    Success = logger.Logs.All(x => !x.Error),
                     Log = logger.Logs
                 };
             }
@@ -90,7 +90,7 @@
 
                 return new ExecutionResult()
                 {
-                    Success = true,
+                    Success = logger.Logs.All(x => !x.Error),
                     Log = logger.Logs
                 };
             }
@@ -132,7 +132,7 @@
 
                 return new ExecutionResult()
                 {
-                    Success = true,
+                    Success = logger.Logs.All(x => !x.Error),
                     Log = logger.Logs
                 };
             }
@@ -167,7 +167,7 @@
             }
             return new ExecutionResult()
             {
-                Success = true,
+                Success = logger.Logs.All(x => !x.Error),
                 Log = logger.Logs
             };
         }
@@ -191,7 +191,7 @@
             }
             return new ExecutionResult()
             {
-                Success = true,
+                Success = logger.Logs.All(x => !x.Error),
                 Log = logger.Logs
             };
         }
@@ -217,7 +217,7 @@
             }
             return new ExecutionResult()
             {
-                Success = true,
+                Success = logger.Logs.All(x => !x.Error),
                 Log = logger.Logs
             };
         }
