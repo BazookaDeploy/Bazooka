@@ -39,6 +39,7 @@ namespace Web.Controllers
                 x.Name
             })).ToList();
 
+            var lastDate = db.Query<DeploymentDto>().Where(x => deployableApps.Contains(x.ApplicationId)).GroupBy(x => new { x.ApplicationId, x.EnviromentId }).Select(x => new { x.Key.ApplicationId, x.Key.EnviromentId, Date = x.Max(z => z.StartDate) }).ToList();
 
             return new
             {
@@ -56,6 +57,7 @@ namespace Web.Controllers
                                                       Enviroment = envKey,
                                                       Name = y.Key,
                                                       Configuration = envKey,
+                                                      LastDeploymentDate = lastDate.SingleOrDefault(zz => zz.ApplicationId == y.First().ApplicationId && zz.EnviromentId == ele2.FirstOrDefault().EnviromentId).Date,
                                                       Id = ele2.FirstOrDefault().EnviromentId,
                                                       Versions = ele2.Select(yy => new
                                                       {

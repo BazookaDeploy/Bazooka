@@ -12,3 +12,7 @@
 	CONSTRAINT [FK_Deployments_ToEnviroments] FOREIGN KEY (EnviromentId) REFERENCES [Enviroments]([Id]),
 	CONSTRAINT [FK_Deployments_ToApplications] FOREIGN KEY (ApplicationId) REFERENCES Applications([Id])
 )
+
+GO
+
+CREATE INDEX [IX_Deployments_Application] ON [dbo].[Deployments] (ApplicationId,EnviromentId,StartDate)

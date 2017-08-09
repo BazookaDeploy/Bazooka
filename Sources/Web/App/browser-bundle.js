@@ -62,101 +62,101 @@
 
 	var _Homepage2 = _interopRequireDefault(_Homepage);
 
-	var _ApplicationsPage = __webpack_require__(309);
+	var _ApplicationsPage = __webpack_require__(310);
 
 	var _ApplicationsPage2 = _interopRequireDefault(_ApplicationsPage);
 
-	var _ApplicationPage = __webpack_require__(314);
+	var _ApplicationPage = __webpack_require__(315);
 
 	var _ApplicationPage2 = _interopRequireDefault(_ApplicationPage);
 
-	var _PermissionsPage = __webpack_require__(315);
+	var _PermissionsPage = __webpack_require__(316);
 
 	var _PermissionsPage2 = _interopRequireDefault(_PermissionsPage);
 
-	var _OverviewPage = __webpack_require__(317);
+	var _OverviewPage = __webpack_require__(318);
 
 	var _OverviewPage2 = _interopRequireDefault(_OverviewPage);
 
-	var _TasksPage = __webpack_require__(318);
+	var _TasksPage = __webpack_require__(319);
 
 	var _TasksPage2 = _interopRequireDefault(_TasksPage);
 
-	var _AllowedUserPage = __webpack_require__(332);
+	var _AllowedUserPage = __webpack_require__(334);
 
 	var _AllowedUserPage2 = _interopRequireDefault(_AllowedUserPage);
 
-	var _EditPage = __webpack_require__(333);
+	var _EditPage = __webpack_require__(335);
 
 	var _EditPage2 = _interopRequireDefault(_EditPage);
 
-	var _DeployUnitEditPage = __webpack_require__(334);
+	var _DeployUnitEditPage = __webpack_require__(336);
 
 	var _DeployUnitEditPage2 = _interopRequireDefault(_DeployUnitEditPage);
 
-	var _EditPage3 = __webpack_require__(336);
+	var _EditPage3 = __webpack_require__(338);
 
 	var _EditPage4 = _interopRequireDefault(_EditPage3);
 
-	var _EditPage5 = __webpack_require__(337);
+	var _EditPage5 = __webpack_require__(339);
 
 	var _EditPage6 = _interopRequireDefault(_EditPage5);
 
-	var _EditPage7 = __webpack_require__(338);
+	var _EditPage7 = __webpack_require__(340);
 
 	var _EditPage8 = _interopRequireDefault(_EditPage7);
 
-	var _EditPage9 = __webpack_require__(339);
+	var _EditPage9 = __webpack_require__(341);
 
 	var _EditPage10 = _interopRequireDefault(_EditPage9);
 
-	var _ConfigurationPage = __webpack_require__(340);
+	var _ConfigurationPage = __webpack_require__(342);
 
 	var _ConfigurationPage2 = _interopRequireDefault(_ConfigurationPage);
 
-	var _ConfigPage = __webpack_require__(341);
+	var _ConfigPage = __webpack_require__(343);
 
 	var _ConfigPage2 = _interopRequireDefault(_ConfigPage);
 
-	var _TemplatedTasksPage = __webpack_require__(342);
+	var _TemplatedTasksPage = __webpack_require__(344);
 
 	var _TemplatedTasksPage2 = _interopRequireDefault(_TemplatedTasksPage);
 
-	var _TemplatedTaskPage = __webpack_require__(344);
+	var _TemplatedTaskPage = __webpack_require__(346);
 
 	var _TemplatedTaskPage2 = _interopRequireDefault(_TemplatedTaskPage);
 
-	var _GroupsPage = __webpack_require__(345);
+	var _GroupsPage = __webpack_require__(347);
 
 	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
 
-	var _ApplicationGroupsPage = __webpack_require__(346);
+	var _ApplicationGroupsPage = __webpack_require__(348);
 
 	var _ApplicationGroupsPage2 = _interopRequireDefault(_ApplicationGroupsPage);
 
-	var _DeploymentsPage = __webpack_require__(347);
+	var _DeploymentsPage = __webpack_require__(349);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(357);
+	var _DeploymentPage = __webpack_require__(358);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(359);
+	var _EnviromentsPage = __webpack_require__(360);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(362);
+	var _AgentPage = __webpack_require__(363);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(364);
+	var _StatisticsPage = __webpack_require__(365);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Store = __webpack_require__(366);
+	var _Store = __webpack_require__(367);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -30993,6 +30993,10 @@
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
+	var _PrettyDate = __webpack_require__(309);
+
+	var _PrettyDate2 = _interopRequireDefault(_PrettyDate);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Enviroment = _react2.default.createClass({
@@ -31026,6 +31030,18 @@
 	          "b",
 	          null,
 	          version
+	        ),
+	        " \xA0 ",
+	        this.props.Enviroment.LastDeploymentDate != null && _react2.default.createElement(
+	          "span",
+	          { title: this.props.Enviroment.LastDeploymentDate },
+	          _react2.default.createElement(
+	            "small",
+	            null,
+	            "(",
+	            (0, _PrettyDate2.default)(this.props.Enviroment.LastDeploymentDate),
+	            ")"
+	          )
 	        ),
 	        " ",
 	        _react2.default.createElement("br", null),
@@ -31065,6 +31081,17 @@
 	        "ul",
 	        { className: "application__versionList" },
 	        units
+	      ),
+	      this.props.Enviroment.LastDeploymentDate != null && _react2.default.createElement(
+	        "span",
+	        { title: this.props.Enviroment.LastDeploymentDate },
+	        _react2.default.createElement(
+	          "small",
+	          null,
+	          "(",
+	          (0, _PrettyDate2.default)(this.props.Enviroment.LastDeploymentDate),
+	          ")"
+	        )
 	      ),
 	      _react2.default.createElement("br", null),
 	      _react2.default.createElement(_DeployDialog2.default, { show: this.state.show, onClose: function onClose() {
@@ -32403,6 +32430,36 @@
 
 /***/ }),
 /* 309 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	function prettyDate(time) {
+	    var date = new Date(time || ""),
+	        diff = (new Date().getTime() - date.getTime()) / 1000,
+	        day_diff = Math.floor(diff / 86400);
+
+	    if (!isNaN(day_diff) && day_diff < 0) return React.createElement(
+	        "span",
+	        null,
+	        React.createElement(FormattedTime, { value: date }),
+	        " - ",
+	        React.createElement(FormattedDate, { value: date }),
+	        " "
+	    );
+
+	    if (isNaN(day_diff) || day_diff < 0) return;
+
+	    return day_diff == 0 && (diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago" || day_diff >= 31 && Math.ceil(day_diff / 30) + " months ago";
+	}
+
+	exports.default = prettyDate;
+
+/***/ }),
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32431,7 +32488,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -32439,17 +32496,17 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _ApplicationIcon = __webpack_require__(311);
+	var _ApplicationIcon = __webpack_require__(312);
 
 	var _ApplicationIcon2 = _interopRequireDefault(_ApplicationIcon);
 
-	var _Actions = __webpack_require__(312);
+	var _Actions = __webpack_require__(313);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
 	var _reactRouter = __webpack_require__(178);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -32690,7 +32747,7 @@
 	exports.default = ApplicationsPage;
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32739,7 +32796,7 @@
 	exports.default = Input;
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32763,7 +32820,7 @@
 	exports.default = ApplicationIcon;
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32939,7 +32996,7 @@
 	};
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33052,7 +33109,7 @@
 	exports.default = Notificator;
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33175,7 +33232,7 @@
 	exports.default = ApplicationPage;
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33200,17 +33257,17 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Card = __webpack_require__(316);
+	var _Card = __webpack_require__(317);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(312);
+	var _Actions = __webpack_require__(313);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -33326,7 +33383,7 @@
 	exports.default = PermissionsPage;
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33364,7 +33421,7 @@
 	exports.default = Card;
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33385,11 +33442,11 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _Card = __webpack_require__(316);
+	var _Card = __webpack_require__(317);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
@@ -33397,11 +33454,11 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(312);
+	var _Actions = __webpack_require__(313);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -33637,7 +33694,7 @@
 	exports.default = OverviewPage;
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33658,7 +33715,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(312);
+	var _Actions = __webpack_require__(313);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -33682,31 +33739,31 @@
 
 	var _ArrowDownIcon2 = _interopRequireDefault(_ArrowDownIcon);
 
-	var _EraseIcon = __webpack_require__(354);
+	var _EraseIcon = __webpack_require__(320);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
-	var _CreateDialog = __webpack_require__(319);
+	var _CreateDialog = __webpack_require__(321);
 
 	var _CreateDialog2 = _interopRequireDefault(_CreateDialog);
 
-	var _CreateDialog3 = __webpack_require__(322);
+	var _CreateDialog3 = __webpack_require__(324);
 
 	var _CreateDialog4 = _interopRequireDefault(_CreateDialog3);
 
-	var _CreateDialog5 = __webpack_require__(324);
+	var _CreateDialog5 = __webpack_require__(326);
 
 	var _CreateDialog6 = _interopRequireDefault(_CreateDialog5);
 
-	var _CreateDialog7 = __webpack_require__(326);
+	var _CreateDialog7 = __webpack_require__(328);
 
 	var _CreateDialog8 = _interopRequireDefault(_CreateDialog7);
 
-	var _DeployUnitsDialog = __webpack_require__(328);
+	var _DeployUnitsDialog = __webpack_require__(330);
 
 	var _DeployUnitsDialog2 = _interopRequireDefault(_DeployUnitsDialog);
 
-	var _CreateDialog9 = __webpack_require__(330);
+	var _CreateDialog9 = __webpack_require__(332);
 
 	var _CreateDialog10 = _interopRequireDefault(_CreateDialog9);
 
@@ -34109,7 +34166,31 @@
 	exports.default = TasksPage;
 
 /***/ }),
-/* 319 */
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Icon = __webpack_require__(301);
+
+	var _Icon2 = _interopRequireDefault(_Icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EraseIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 32.59375 4.03125 C 31.809125 4.03125 31.03875 4.2985 30.46875 4.875 L 3.875 31.75 C 2.705 32.933 2.704 34.8765 3.875 36.0625 L 13.4375 45.71875 C 13.6275 45.90975 13.88725 46 14.15625 46 L 17.1875 46 L 22.625 46 L 41 46 A 1.010601 1.010601 0 1 0 41 44 L 25.03125 44 L 34.5 34.4375 L 47.125 21.6875 C 48.296 20.5025 48.297 18.558 47.125 17.375 L 34.75 4.875 C 34.1785 4.2985 33.378375 4.03125 32.59375 4.03125 z M 18 20.375 L 32.3125 33.78125 L 22.21875 44 L 17.125 44 L 14.5625 44 L 5.3125 34.625 C 4.9165 34.224 4.9175 33.5865 5.3125 33.1875 L 18 20.375 z" }));
+
+	exports.default = EraseIcon;
+
+/***/ }),
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34118,7 +34199,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(320);
+	var _Actions = __webpack_require__(322);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -34130,7 +34211,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -34138,11 +34219,11 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -34242,7 +34323,7 @@
 	module.exports = RemoteScriptTaskCreateDialog;
 
 /***/ }),
-/* 320 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34291,7 +34372,7 @@
 	};
 
 /***/ }),
-/* 321 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34331,7 +34412,7 @@
 	exports.default = Textarea;
 
 /***/ }),
-/* 322 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34340,7 +34421,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(323);
+	var _Actions = __webpack_require__(325);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -34352,7 +34433,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -34360,11 +34441,11 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -34442,7 +34523,7 @@
 	module.exports = MailTaskCreateDialog;
 
 /***/ }),
-/* 323 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34487,7 +34568,7 @@
 	};
 
 /***/ }),
-/* 324 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34496,7 +34577,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(325);
+	var _Actions = __webpack_require__(327);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -34508,7 +34589,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -34516,11 +34597,11 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -34590,7 +34671,7 @@
 	module.exports = LocalScriptTaskCreateDialog;
 
 /***/ }),
-/* 325 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34631,7 +34712,7 @@
 	};
 
 /***/ }),
-/* 326 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34640,7 +34721,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(327);
+	var _Actions = __webpack_require__(329);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -34652,7 +34733,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -34660,11 +34741,11 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -34772,7 +34853,7 @@
 	module.exports = DatabaseTaskCreateDialog;
 
 /***/ }),
-/* 327 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34825,7 +34906,7 @@
 	};
 
 /***/ }),
-/* 328 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -34838,7 +34919,7 @@
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	var _ActionsCreator = __webpack_require__(329);
+	var _ActionsCreator = __webpack_require__(331);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -34850,7 +34931,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -34858,11 +34939,11 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -34971,7 +35052,7 @@
 	module.exports = CreateDialog;
 
 /***/ }),
-/* 329 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35043,7 +35124,7 @@
 	};
 
 /***/ }),
-/* 330 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35052,7 +35133,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(331);
+	var _Actions = __webpack_require__(333);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -35064,7 +35145,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -35080,11 +35161,11 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -35291,7 +35372,7 @@
 	module.exports = TemplatedTaskCreateDialog;
 
 /***/ }),
-/* 331 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35366,7 +35447,7 @@
 	};
 
 /***/ }),
-/* 332 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35379,7 +35460,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Card = __webpack_require__(316);
+	var _Card = __webpack_require__(317);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
@@ -35387,7 +35468,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(312);
+	var _Actions = __webpack_require__(313);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -35401,7 +35482,7 @@
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -35594,7 +35675,7 @@
 	exports.default = AllowedUsersPage;
 
 /***/ }),
-/* 333 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35607,7 +35688,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -35615,15 +35696,15 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Actions = __webpack_require__(327);
+	var _Actions = __webpack_require__(329);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -35727,7 +35808,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 334 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35736,7 +35817,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ActionsCreator = __webpack_require__(329);
+	var _ActionsCreator = __webpack_require__(331);
 
 	var _ActionsCreator2 = _interopRequireDefault(_ActionsCreator);
 
@@ -35744,7 +35825,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -35752,7 +35833,7 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -35760,11 +35841,11 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(335);
+	var _Tabs = __webpack_require__(337);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -36026,7 +36107,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 335 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36097,7 +36178,7 @@
 	exports.default = Tabs;
 
 /***/ }),
-/* 336 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36110,7 +36191,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -36118,7 +36199,7 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -36126,15 +36207,15 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(335);
+	var _Tabs = __webpack_require__(337);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _Actions = __webpack_require__(325);
+	var _Actions = __webpack_require__(327);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -36205,7 +36286,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 337 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36218,7 +36299,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -36226,15 +36307,15 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Actions = __webpack_require__(323);
+	var _Actions = __webpack_require__(325);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -36313,7 +36394,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 338 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36326,7 +36407,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -36334,15 +36415,15 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
-	var _Actions = __webpack_require__(320);
+	var _Actions = __webpack_require__(322);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -36437,7 +36518,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 339 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36450,7 +36531,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -36458,7 +36539,7 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -36466,11 +36547,11 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(331);
+	var _Actions = __webpack_require__(333);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -36667,7 +36748,7 @@
 	module.exports = EditPage;
 
 /***/ }),
-/* 340 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36756,7 +36837,7 @@
 	exports.default = ConfigurationPage;
 
 /***/ }),
-/* 341 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36804,7 +36885,7 @@
 	exports.default = ConfigPage;
 
 /***/ }),
-/* 342 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36823,7 +36904,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(343);
+	var _Actions = __webpack_require__(345);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -36843,21 +36924,21 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _Card = __webpack_require__(316);
+	var _Card = __webpack_require__(317);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -37025,7 +37106,7 @@
 	exports.default = TemplatedTasksPage;
 
 /***/ }),
-/* 343 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37116,7 +37197,7 @@
 	};
 
 /***/ }),
-/* 344 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37133,7 +37214,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(343);
+	var _Actions = __webpack_require__(345);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37153,7 +37234,7 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -37161,17 +37242,17 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Card = __webpack_require__(316);
+	var _Card = __webpack_require__(317);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
-	var _Textarea = __webpack_require__(321);
+	var _Textarea = __webpack_require__(323);
 
 	var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -37438,7 +37519,7 @@
 	exports.default = TemplatedTaskPage;
 
 /***/ }),
-/* 345 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37457,7 +37538,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(343);
+	var _Actions = __webpack_require__(345);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37477,17 +37558,17 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _Card = __webpack_require__(316);
+	var _Card = __webpack_require__(317);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -37703,7 +37784,7 @@
 	exports.default = GroupsPage;
 
 /***/ }),
-/* 346 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37722,7 +37803,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Actions = __webpack_require__(343);
+	var _Actions = __webpack_require__(345);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37742,17 +37823,17 @@
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _Card = __webpack_require__(316);
+	var _Card = __webpack_require__(317);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
 	var _reactRedux = __webpack_require__(245);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -37883,7 +37964,7 @@
 	exports.default = ApplicationsGroupsPage;
 
 /***/ }),
-/* 347 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37912,64 +37993,49 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(348);
+	var _Actions = __webpack_require__(350);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(349);
+	var _ListIcon = __webpack_require__(351);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(350);
+	var _PlayIcon = __webpack_require__(352);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(351);
+	var _CircleOkIcon = __webpack_require__(353);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(352);
+	var _CircleRemoveIcon = __webpack_require__(354);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(353);
+	var _WatchIcon = __webpack_require__(355);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
-	var _EraseIcon = __webpack_require__(354);
+	var _EraseIcon = __webpack_require__(320);
 
 	var _EraseIcon2 = _interopRequireDefault(_EraseIcon);
 
 	var _reactRouter = __webpack_require__(178);
 
-	var _FormattedDate = __webpack_require__(355);
+	var _FormattedDate = __webpack_require__(356);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(356);
+	var _FormattedTime = __webpack_require__(357);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
+	var _PrettyDate = __webpack_require__(309);
+
+	var _PrettyDate2 = _interopRequireDefault(_PrettyDate);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function prettyDate(time) {
-	    var date = new Date(time || ""),
-	        diff = (new Date().getTime() - date.getTime()) / 1000,
-	        day_diff = Math.floor(diff / 86400);
-
-	    if (!isNaN(day_diff) && day_diff < 0) return _react2.default.createElement(
-	        "span",
-	        null,
-	        _react2.default.createElement(_FormattedTime2.default, { value: date }),
-	        " - ",
-	        _react2.default.createElement(_FormattedDate2.default, { value: date }),
-	        " "
-	    );
-
-	    if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) return;
-
-	    return day_diff == 0 && (diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago";
-	}
 
 	var Deployment = _react2.default.createClass({
 	    displayName: "Deployment",
@@ -38028,7 +38094,7 @@
 	                _react2.default.createElement(
 	                    "span",
 	                    { title: ('00' + date.getHours()).slice(-2) + ":" + ('00' + date.getMinutes()).slice(-2) + ":" + ('00' + date.getSeconds()).slice(-2) + " - " + ('00' + date.getDate()).slice(-2) + "/" + ('00' + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear() },
-	                    prettyDate(this.props.item.StartDate)
+	                    (0, _PrettyDate2.default)(this.props.item.StartDate)
 	                )
 	            )
 	        );
@@ -38160,7 +38226,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ }),
-/* 348 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38213,7 +38279,7 @@
 	};
 
 /***/ }),
-/* 349 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38237,7 +38303,7 @@
 	exports.default = ListIcon;
 
 /***/ }),
-/* 350 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38261,7 +38327,7 @@
 	exports.default = PlayIcon;
 
 /***/ }),
-/* 351 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38285,7 +38351,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 352 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38309,7 +38375,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ }),
-/* 353 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38333,31 +38399,7 @@
 	exports.default = WatchIcon;
 
 /***/ }),
-/* 354 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Icon = __webpack_require__(301);
-
-	var _Icon2 = _interopRequireDefault(_Icon);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var EraseIcon = (0, _Icon2.default)(_react2.default.createElement("path", { d: "M 32.59375 4.03125 C 31.809125 4.03125 31.03875 4.2985 30.46875 4.875 L 3.875 31.75 C 2.705 32.933 2.704 34.8765 3.875 36.0625 L 13.4375 45.71875 C 13.6275 45.90975 13.88725 46 14.15625 46 L 17.1875 46 L 22.625 46 L 41 46 A 1.010601 1.010601 0 1 0 41 44 L 25.03125 44 L 34.5 34.4375 L 47.125 21.6875 C 48.296 20.5025 48.297 18.558 47.125 17.375 L 34.75 4.875 C 34.1785 4.2985 33.378375 4.03125 32.59375 4.03125 z M 18 20.375 L 32.3125 33.78125 L 22.21875 44 L 17.125 44 L 14.5625 44 L 5.3125 34.625 C 4.9165 34.224 4.9175 33.5865 5.3125 33.1875 L 18 20.375 z" }));
-
-	exports.default = EraseIcon;
-
-/***/ }),
-/* 355 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38388,7 +38430,7 @@
 	exports.default = FormattedDate;
 
 /***/ }),
-/* 356 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38426,7 +38468,7 @@
 	exports.default = FormattedTime;
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38447,7 +38489,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(348);
+	var _Actions = __webpack_require__(350);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -38455,15 +38497,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(358);
+	var _Panel = __webpack_require__(359);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
-	var _FormattedDate = __webpack_require__(355);
+	var _FormattedDate = __webpack_require__(356);
 
 	var _FormattedDate2 = _interopRequireDefault(_FormattedDate);
 
-	var _FormattedTime = __webpack_require__(356);
+	var _FormattedTime = __webpack_require__(357);
 
 	var _FormattedTime2 = _interopRequireDefault(_FormattedTime);
 
@@ -38724,7 +38766,7 @@
 	exports.default = DeploymentPage;
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38768,7 +38810,7 @@
 	exports.default = Panel;
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38791,7 +38833,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(360);
+	var _Actions = __webpack_require__(361);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -38803,15 +38845,15 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(361);
+	var _ServerIcon = __webpack_require__(362);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -39094,7 +39136,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39166,7 +39208,7 @@
 	};
 
 /***/ }),
-/* 361 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39190,7 +39232,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 362 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39207,7 +39249,7 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Input = __webpack_require__(310);
+	var _Input = __webpack_require__(311);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -39215,11 +39257,11 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Card = __webpack_require__(316);
+	var _Card = __webpack_require__(317);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(360);
+	var _Actions = __webpack_require__(361);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -39227,11 +39269,11 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(363);
+	var _FileUpload = __webpack_require__(364);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
-	var _Notifications = __webpack_require__(313);
+	var _Notifications = __webpack_require__(314);
 
 	var _Notifications2 = _interopRequireDefault(_Notifications);
 
@@ -39377,7 +39419,7 @@
 	exports.default = AgentPage;
 
 /***/ }),
-/* 363 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39423,7 +39465,7 @@
 	exports.default = FileUpload;
 
 /***/ }),
-/* 364 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39448,7 +39490,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Tabs = __webpack_require__(335);
+	var _Tabs = __webpack_require__(337);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -39456,7 +39498,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(365);
+	var _Actions = __webpack_require__(366);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -39808,7 +39850,7 @@
 	exports.default = StatisticsPage;
 
 /***/ }),
-/* 365 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39849,7 +39891,7 @@
 	};
 
 /***/ }),
-/* 366 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";

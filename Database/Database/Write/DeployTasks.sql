@@ -20,3 +20,7 @@
     CONSTRAINT [FK_DeployUnits_Applications] FOREIGN KEY (ApplicationId) REFERENCES Applications([Id]), 
     CONSTRAINT [FK_DeployTasks_Agents] FOREIGN KEY (AgentId) REFERENCES Agents(Id)
 )
+
+GO
+
+CREATE INDEX [IX_DeployTasks_Application] ON [dbo].[DeployTasks] (ApplicationId,EnviromentId)
