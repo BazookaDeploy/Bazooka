@@ -76,9 +76,9 @@ namespace Web.Controllers
                             DeploymentId = deploy.Id
                         });
                     }
+                    session.Save(deploy);
                 }
 
-                session.Save(deploy);
                 session.Flush();
 
                 BackgroundJob.Enqueue(() => DeployJob.Execute(deploy.Id));
@@ -270,9 +270,9 @@ namespace Web.Controllers
                             DeploymentId = deploy.Id
                         });
                     }
+                    session.Save(deploy);
                 }
 
-                session.Save(deploy);
                 session.Flush();
 
                 BackgroundJob.Schedule(() => DeployJob.Execute(deploy.Id), start.ToUniversalTime() - DateTime.UtcNow);
