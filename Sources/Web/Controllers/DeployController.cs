@@ -242,7 +242,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public void Schedule(int enviromentId, int applicationId, string version, DateTime start, ICollection<DeploymentTasksDto> tasks)
+        public void Schedule(int enviromentId, int applicationId, string version, DateTime start, [FromBody]IList<DeploymentTasksDto> tasks)
         {
             using (var session = WebApiApplication.Store.OpenSession())
             {
@@ -255,7 +255,9 @@ namespace Web.Controllers
                     UserId = User.Identity.GetUserId(),
                     StartDate = start.ToUniversalTime(),
                     Scheduled = true
-                };   
+                };
+
+                session.Save(deploy);
 
                 if (tasks != null && tasks.Count > 0)
                 {
@@ -264,7 +266,8 @@ namespace Web.Controllers
                         deploy.Tasks.Add(new DeploymentTask()
                         {
                             DeployTaskId = task.DeployTaskId,
-                            DeployType = (int)task.DeployType
+                            DeployType = (int)task.DeployType,
+                            DeploymentId = deploy.Id
                         });
                     }
                 }
