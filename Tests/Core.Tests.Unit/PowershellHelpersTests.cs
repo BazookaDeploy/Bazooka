@@ -163,11 +163,11 @@ Write-Output 'test3'";
 
                 logger.Logs.Count.Should().Be.EqualTo(3);
                 logger.Logs.ElementAt(0).Text.Should().Be.EqualTo("test");
-                logger.Logs.ElementAt(1).Text.Should().Be.EqualTo("test3");
-                logger.Logs.ElementAt(2).Text.Should().Be.EqualTo("test2");
+                logger.Logs.ElementAt(1).Text.Should().Be.EqualTo("test2");
+                logger.Logs.ElementAt(2).Text.Should().Be.EqualTo("test3");
                 logger.Logs.ElementAt(0).Error.Should().Be.False();
-                logger.Logs.ElementAt(1).Error.Should().Be.False();
-                logger.Logs.ElementAt(2).Error.Should().Be.True();
+                logger.Logs.ElementAt(1).Error.Should().Be.True();
+                logger.Logs.ElementAt(2).Error.Should().Be.False();
             }
 
 

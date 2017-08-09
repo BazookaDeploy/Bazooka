@@ -23,40 +23,7 @@
         /// <param name="parameters">Parameters for the script</param>
         public static void Execute(string folder, string file, string configuration, ILogger log, Dictionary<string, string> parameters)
         {
-            RunspaceConfiguration runspaceConfiguration = RunspaceConfiguration.Create();
-            Runspace runspace = RunspaceFactory.CreateRunspace(new Host(), runspaceConfiguration);
-            runspace.Open();
-            runspace.SessionStateProxy.Path.SetLocation(folder);
-
-            RunspaceInvoke scriptInvoker = new RunspaceInvoke(runspace);
-            scriptInvoker.Invoke("Set-ExecutionPolicy Unrestricted");
-            Pipeline pipeline = runspace.CreatePipeline();
-
-            Command myCommand = new Command(Path.Combine(folder, file));
-     
-            foreach (var param in parameters.Keys)
-            {
-                myCommand.Parameters.Add(new CommandParameter("-" + param, parameters[param]));
-            }
-
-            myCommand.Parameters.Add(new CommandParameter("-Verb", "RunAs"));
-            pipeline.Commands.Add(myCommand);
-
-            Collection<PSObject> results = new Collection<PSObject>();
-            try
-            {
-                results = pipeline.Invoke();
-            }
-            catch (RuntimeException e)
-            {
-                log.Log(e.Message, true);
-            }
-            finally
-            {
-                results.ToList().ForEach(x => log.Log(x.ToString()));
-                pipeline.Error.ReadToEnd().ToList().ForEach(x => log.Log(x.ToString(), true));
-            }
-
+            ExecuteScript(folder, File.ReadAllText(Path.Combine(folder, file)), log, parameters);
         }
 
         /// <summary>
@@ -87,15 +54,39 @@
 
                 Collection<PSObject> results = new Collection<PSObject>();
                 try {
-                    results = PowerShellInstance.Invoke();
+
+                    PSDataCollection<PSObject> output = new PSDataCollection<PSObject>();
+                    output.DataAdded += (sender, e) =>
+                    {
+                        PSDataCollection<PSObject> myp = (PSDataCollection<PSObject>)sender;
+
+                        Collection<PSObject> res = myp.ReadAll();
+                        foreach (PSObject result in res)
+                        {
+                            log.Log(result.ToString(), false);
+                        }
+                    };
+                    PowerShellInstance.Streams.Error.DataAdded += (sender,e) => {
+                        var  newRecord = ((PSDataCollection<ErrorRecord>)sender)[e.Index];
+                        log.Log(newRecord.ToString(), true);
+                    };
+                    PowerShellInstance.Streams.Debug.DataAdded += (sender, e) => {
+                        var newRecord = ((PSDataCollection<DebugRecord>)sender)[e.Index];
+                        log.Log(newRecord.ToString(), false);
+                    };
+                    PowerShellInstance.Streams.Verbose.DataAdded += (sender, e) => {
+                        var newRecord = ((PSDataCollection<VerboseRecord>)sender)[e.Index];
+                        log.Log(newRecord.ToString(), false);
+                    };
+                    PowerShellInstance.Streams.Warning.DataAdded += (sender, e) => {
+                        var newRecord = ((PSDataCollection<WarningRecord>)sender)[e.Index];
+                        log.Log(newRecord.ToString(), false);
+                    };
+
+                    PowerShellInstance.Invoke<PSObject, PSObject>(null,output, new PSInvocationSettings() { });
                 }catch(RuntimeException e)
                 {
                     log.Log(e.Message, true);
-                }
-                finally
-                {
-                    results.Where(x => x!=null).ToList().ForEach(x => log.Log(x.ToString()));
-                    PowerShellInstance.Streams.Error.ToList().ForEach(x => log.Log(x.ToString(), true));
                 }
             }
         }
