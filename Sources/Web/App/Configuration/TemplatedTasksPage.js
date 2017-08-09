@@ -72,10 +72,14 @@ var TemplatedTasksPage= React.createClass({
 
     deleteTask: function (evt, id) {
         evt.stopPropagation();
-        Actions.deleteTaskTemplate(id).then(x => {
-            Notification.Notify(x);
-            this.update();
-        });
+        var confirm = window.confirm("Are you sure you want to delete this task template ?");
+
+        if (confirm) {
+            Actions.deleteTaskTemplate(id).then(x => {
+                Notification.Notify(x);
+                this.update();
+            });
+        }
     },
 
     render(){
