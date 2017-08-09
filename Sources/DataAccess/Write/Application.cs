@@ -112,7 +112,7 @@ namespace DataAccess.Write
             });
         }
 
-        public virtual void UpdateTemplatedTask(int id, int version, ICollection<Tuple<int,int>> newVersions)
+        public virtual void UpdateTemplatedTask(int id, int version, ICollection<Tuple<int,int>> newVersions, ICollection<int> newParams)
         {
             var task = this.TemplatedTasks.Single(x => x.Id == id);
 
@@ -126,6 +126,16 @@ namespace DataAccess.Write
                         param.TaskTemplateParameterId = par.Item2;
                     }
                 }
+            }
+
+            foreach (var par in newParams)
+            {
+                task.Prameters.Add(new TemplatedTaskParameter()
+                {
+                    TaskTemplateParameterId = par,
+                    TemplatedTask = task,
+                    Value = ""
+                });
             }
         }
 

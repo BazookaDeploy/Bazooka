@@ -24,7 +24,6 @@ var EditPage = React.createClass({
 	},
 
     componentWillReceiveProps(nextProps) {
-        debugger;
     if(this.props.params.taskId!=nextProps.params.taskId || this.props.params.enviromentId != nextProps.params.enviromentId){
         this.update(nextProps.params.taskId,nextProps.params.enviromentId);
     }
@@ -51,6 +50,8 @@ var EditPage = React.createClass({
       if (this.state.Name != "") {
           Actions.updateTemplatedTasks(this.state.Id, this.state.ApplicationId, this.state.LastKnownVersion).then(x => {
               Notification.Notify(x);
+
+              this.update(this.props.params.taskId, this.props.params.enviromentId);
           })
       }
   },

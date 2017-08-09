@@ -120,7 +120,6 @@ var EditPage = React.createClass({
 			this.props.params.id
 			).then(x => {
                 Notification.Notify(x);
-                debugger;
                 this.props.onChange();
             });
 

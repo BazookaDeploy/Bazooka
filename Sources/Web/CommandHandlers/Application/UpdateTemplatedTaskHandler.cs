@@ -19,8 +19,9 @@
             var last = db.Query<TaskTemplateVersionDto>().Where(x => x.TaskTemplateId == temp.TaskTemplateId).OrderByDescending(x => x.Version).First();
             var parameters = db.Query<TaskTemplateParameterDto>().Where(x => x.TaskTemplateVersionId == last.Id).ToList();
             var oldparameters = db.Query<TaskTemplateParameterDto>().Where(x => x.TaskTemplateVersionId == task.TaskTemplateVersionId).ToList();
+            var newParams = parameters.Where(x =>!oldparameters.Select(z => z.Name).Contains( x.Name)).Select(x => x.Id).ToList().Except(oldparameters.Select(x => x.Id)).ToList();
 
-            application.UpdateTemplatedTask(command.Id, last.Id, oldparameters.Select(x =>  new Tuple<int, int>(x.Id,parameters.Single(z => z.Name == x.Name).Id)).ToList());
+            application.UpdateTemplatedTask(command.Id, last.Id, oldparameters.Select(x =>  new Tuple<int, int>(x.Id,parameters.Single(z => z.Name == x.Name).Id)).ToList(), newParams);
             Repository.Save<Application>(application);
         }
     }
