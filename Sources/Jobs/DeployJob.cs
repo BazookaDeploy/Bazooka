@@ -1,4 +1,4 @@
-﻿namespace Jobs
+namespace Jobs
 {
     using Bazooka.Core;
     using Bazooka.Core.Dto;
@@ -57,7 +57,7 @@
                 });
                 envId = dep.EnviromentId;
                 appId = dep.ApplicationId;
-                TasksToDo = dep.Tasks;
+                TasksToDo = dep.Tasks.ToList();
                 session.Update(dep);
                 session.Flush();
             }
