@@ -39,7 +39,7 @@ namespace Web.Controllers
                 x.Name
             })).ToList();
 
-            var lastDate = db.Query<DeploymentDto>().Where(x => deployableApps.Contains(x.ApplicationId)).GroupBy(x => new { x.ApplicationId, x.EnviromentId }).Select(x => new { x.Key.ApplicationId, x.Key.EnviromentId, Date = x.Max(z => z.StartDate) }).ToList();
+            var lastDate = db.Query<DeploymentDto>().Where(x => deployableApps.Contains(x.ApplicationId) && x.Status != DataAccess.Write.Status.Scheduled).GroupBy(x => new { x.ApplicationId, x.EnviromentId }).Select(x => new { x.Key.ApplicationId, x.Key.EnviromentId, Date = x.Max(z => z.StartDate) }).ToList();
 
             return new
             {
