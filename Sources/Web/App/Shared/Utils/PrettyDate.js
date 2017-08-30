@@ -1,4 +1,8 @@
-﻿function prettyDate(time) {
+import React from "react";
+import FormattedTime from "./FormattedTime";
+import FormattedDate from "./FormattedDate";
+
+function prettyDate(time) {
     var date = new Date(time || ""),
         diff = (((new Date()).getTime() - date.getTime()) / 1000),
         day_diff = Math.floor(diff / 86400);
