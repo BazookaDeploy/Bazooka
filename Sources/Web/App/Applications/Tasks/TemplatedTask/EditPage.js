@@ -100,7 +100,7 @@ var EditPage = React.createClass({
                                                 </Table.Head>
                                                 <Table.Body>
                                                     {this.state.Parameters.map(x => <tr>
-                        <td>{x.Name} <span title={x.Description}>&#9432;</span></td>
+                        <td>{x.Name} {x.Description && <span title={x.Description}>&#9432;</span>}</td>
                                                         <td><Input type={x.Encrypted ? "password" : "text" } placeholder="Value" value={x.Value} onChange={(e) => this.setParameter(e.target.value, x.TaskTemplateParameterId)} /></td>
                                                         <td>{!x.Optional && <span>Required</span>}</td>
                                                     </tr>)}
