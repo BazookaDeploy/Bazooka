@@ -23,7 +23,39 @@
         /// <param name="parameters">Parameters for the script</param>
         public static void Execute(string folder, string file, string configuration, ILogger log, Dictionary<string, string> parameters)
         {
-            ExecuteScript(folder, File.ReadAllText(Path.Combine(folder, file)), log, parameters);
+            RunspaceConfiguration runspaceConfiguration = RunspaceConfiguration.Create();
+            Runspace runspace = RunspaceFactory.CreateRunspace(new Host(), runspaceConfiguration);
+            runspace.Open();
+            runspace.SessionStateProxy.Path.SetLocation(folder);
+
+            RunspaceInvoke scriptInvoker = new RunspaceInvoke(runspace);
+            scriptInvoker.Invoke("Set-ExecutionPolicy Unrestricted");
+            Pipeline pipeline = runspace.CreatePipeline();
+
+            Command myCommand = new Command(Path.Combine(folder, file));
+
+            foreach (var param in parameters.Keys)
+            {
+                myCommand.Parameters.Add(new CommandParameter("-" + param, parameters[param]));
+            }
+
+            myCommand.Parameters.Add(new CommandParameter("-Verb", "RunAs"));
+            pipeline.Commands.Add(myCommand);
+
+            Collection<PSObject> results = new Collection<PSObject>();
+            try
+            {
+                results = pipeline.Invoke();
+            }
+            catch (RuntimeException e)
+            {
+                log.Log(e.Message, true);
+            }
+            finally
+            {
+                results.ToList().ForEach(x => log.Log(x.ToString()));
+                pipeline.Error.ReadToEnd().ToList().ForEach(x => log.Log(x.ToString(), true));
+            }
         }
 
         /// <summary>
