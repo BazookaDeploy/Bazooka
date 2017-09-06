@@ -41,47 +41,48 @@ namespace DataAccess.Write
 
             if (DatabaseTasks != null)
             {
-                list.AddRange(DatabaseTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
+                list.AddRange(DatabaseTasks.Where(x => x.EnviromentId == enviromentId && !x.Deleted).Select(x => (IMovable)x).ToList());
             }
 
             if (DeployTasks != null)
             {
-                list.AddRange(DeployTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
+                list.AddRange(DeployTasks.Where(x => x.EnviromentId == enviromentId && !x.Deleted).Select(x => (IMovable)x).ToList());
             }
 
             if (MailTasks != null)
             {
-                list.AddRange(MailTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
+                list.AddRange(MailTasks.Where(x => x.EnviromentId == enviromentId && !x.Deleted).Select(x => (IMovable)x).ToList());
             }
 
             if (LocalScriptTasks != null)
             {
-                list.AddRange(LocalScriptTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
+                list.AddRange(LocalScriptTasks.Where(x => x.EnviromentId == enviromentId && !x.Deleted).Select(x => (IMovable)x).ToList());
             }
 
             if (RemoteScriptTasks != null)
             {
-                list.AddRange(RemoteScriptTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
+                list.AddRange(RemoteScriptTasks.Where(x => x.EnviromentId == enviromentId && !x.Deleted).Select(x => (IMovable)x).ToList());
             }
 
             if (TemplatedTasks != null)
             {
-                list.AddRange(TemplatedTasks.Where(x => x.EnviromentId == enviromentId).Select(x => (IMovable)x).ToList());
+                list.AddRange(TemplatedTasks.Where(x => x.EnviromentId == enviromentId && !x.Deleted).Select(x => (IMovable)x).ToList());
             }
 
-            return list;
+            return list.OrderBy(x => x.Position).ToList();
         }
 
         public virtual void MoveUp(int position, int enviromentId)
         {
             var tasks = this.AllTasks(enviromentId);
             var toMove = tasks.Single(x => x.Position == position);
-            var before = tasks.SingleOrDefault(x => x.Position == position - 1);
+            var before = tasks.LastOrDefault(x => x.Position < toMove.Position);
 
             if (before != null)
             {
-                toMove.MoveUp();
-                before.MoveDown();
+                var tPos = toMove.Position;
+                toMove.Position = before.Position;
+                before.Position = tPos;
             }
         }
 
@@ -89,12 +90,13 @@ namespace DataAccess.Write
         {
             var tasks = this.AllTasks(enviromentId);
             var toMove = tasks.Single(x => x.Position == position);
-            var before = tasks.SingleOrDefault(x => x.Position == position + 1);
+            var before = tasks.FirstOrDefault(x => x.Position > toMove.Position);
 
             if (before != null)
             {
-                before.MoveUp();
-                toMove.MoveDown();
+                var tPos = toMove.Position;
+                toMove.Position = before.Position;
+                before.Position = tPos;
             }
         }
 
