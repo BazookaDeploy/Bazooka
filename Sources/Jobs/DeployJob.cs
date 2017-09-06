@@ -427,6 +427,15 @@ namespace Jobs
                             });
                         });
 
+                        session.Save(new DataAccess.Write.LogEntry()
+                        {
+                            DeploymentId = deploymentId,
+                            Error = false,
+                            TaskName = unit.Name,
+                            Text = "Templated task " + unit.Name + " executed",
+                            TimeStamp = DateTime.UtcNow
+                        });
+
                         session.Flush();
                     }
 
