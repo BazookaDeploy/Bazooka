@@ -85,6 +85,8 @@
                 Parameters = parameters.ToList()
             };
 
+            // sometimes unwanted spaces are copy pasted
+            version.Parameters.ToList().ForEach(x => x.Name = x.Name.Trim());
             version.Parameters.ToList().ForEach(x => x.Version = version);
             this.Versions.Add(version);
         }
