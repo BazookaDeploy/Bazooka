@@ -28687,6 +28687,7 @@
 	        this.props.Enviroment.LastDeploymentDate != null && _react2.default.createElement(
 	          "span",
 	          { title: this.props.Enviroment.LastDeploymentDate },
+	          _react2.default.createElement("br", null),
 	          _react2.default.createElement(
 	            "small",
 	            null,
@@ -28737,6 +28738,7 @@
 	      this.props.Enviroment.LastDeploymentDate != null && _react2.default.createElement(
 	        "span",
 	        { title: this.props.Enviroment.LastDeploymentDate },
+	        _react2.default.createElement("br", null),
 	        _react2.default.createElement(
 	          "small",
 	          null,

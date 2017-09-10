@@ -1836,7 +1836,7 @@ body {
   border-top: 1px solid #ccc; }
 
 .enviroment__agent {
-  width: 200px;
+  width: 150px;
   padding: 5px;
   transition: all 0.25s ease-in-out;
   cursor: pointer;
@@ -1851,8 +1851,8 @@ body {
   margin-bottom: 5px; }
 
 .enviroment__agent__icon svg {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   fill: #aaa; }
 
 .applicationGroup {
@@ -1996,6 +1996,5 @@ body {
     background-color: whitesmoke; }
 
 .deploy__taskList {
-    list-style-type: none;
-    padding-left: 10px;
-}
+  list-style-type: none;
+  padding-left: 10px; }

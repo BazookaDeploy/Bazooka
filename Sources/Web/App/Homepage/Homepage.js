@@ -30,7 +30,7 @@ var Enviroment = React.createClass({
     if (oneVersion) {
       var version = this.props.Enviroment.Versions[0].CurrentlyDeployedVersion || "None";
       return (<td>
-          <b>{version}</b> &nbsp; {this.props.Enviroment.LastDeploymentDate != null && <span title={this.props.Enviroment.LastDeploymentDate}><small>({prettyDate(this.props.Enviroment.LastDeploymentDate)})</small></span>} <br /><br /> <DeployDialog onClose={() => this.setState({ show: false })} show={this.state.show} Enviroment={this.props.Enviroment} ApplicationId={this.props.ApplicationId} />
+          <b>{version}</b> &nbsp; {this.props.Enviroment.LastDeploymentDate != null && <span title={this.props.Enviroment.LastDeploymentDate}><br /><small>({prettyDate(this.props.Enviroment.LastDeploymentDate)})</small></span>} <br /><br /> <DeployDialog onClose={() => this.setState({ show: false })} show={this.state.show} Enviroment={this.props.Enviroment} ApplicationId={this.props.ApplicationId} />
           <Button primary onClick={() => this.setState({show:true})}>Deploy</Button>
       </td>);
     }
@@ -43,7 +43,7 @@ var Enviroment = React.createClass({
       <ul className="application__versionList">
         {units}
       </ul>
-      {this.props.Enviroment.LastDeploymentDate != null && <span title={this.props.Enviroment.LastDeploymentDate}><small>({prettyDate(this.props.Enviroment.LastDeploymentDate)})</small></span>}
+      {this.props.Enviroment.LastDeploymentDate != null && <span title={this.props.Enviroment.LastDeploymentDate}><br /><small>({prettyDate(this.props.Enviroment.LastDeploymentDate)})</small></span>}
       <br />
       <DeployDialog show={this.state.show} onClose={() => this.setState({show:false})} Enviroment={this.props.Enviroment} ApplicationId={this.props.ApplicationId} />
           <Button primary onClick={() => this.setState({show:true})}>Deploy</Button>
