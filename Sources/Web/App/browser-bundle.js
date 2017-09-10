@@ -126,37 +126,37 @@
 
 	var _TemplatedTaskPage2 = _interopRequireDefault(_TemplatedTaskPage);
 
-	var _GroupsPage = __webpack_require__(316);
+	var _GroupsPage = __webpack_require__(317);
 
 	var _GroupsPage2 = _interopRequireDefault(_GroupsPage);
 
-	var _ApplicationGroupsPage = __webpack_require__(317);
+	var _ApplicationGroupsPage = __webpack_require__(318);
 
 	var _ApplicationGroupsPage2 = _interopRequireDefault(_ApplicationGroupsPage);
 
-	var _DeploymentsPage = __webpack_require__(318);
+	var _DeploymentsPage = __webpack_require__(319);
 
 	var _DeploymentsPage2 = _interopRequireDefault(_DeploymentsPage);
 
-	var _DeploymentPage = __webpack_require__(325);
+	var _DeploymentPage = __webpack_require__(326);
 
 	var _DeploymentPage2 = _interopRequireDefault(_DeploymentPage);
 
-	var _EnviromentsPage = __webpack_require__(327);
+	var _EnviromentsPage = __webpack_require__(328);
 
 	var _EnviromentsPage2 = _interopRequireDefault(_EnviromentsPage);
 
-	var _AgentPage = __webpack_require__(330);
+	var _AgentPage = __webpack_require__(331);
 
 	var _AgentPage2 = _interopRequireDefault(_AgentPage);
 
-	var _StatisticsPage = __webpack_require__(332);
+	var _StatisticsPage = __webpack_require__(333);
 
 	var _StatisticsPage2 = _interopRequireDefault(_StatisticsPage);
 
 	var _reactRedux = __webpack_require__(229);
 
-	var _Store = __webpack_require__(334);
+	var _Store = __webpack_require__(335);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -35004,6 +35004,10 @@
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
+	var _reactMonacoEditor = __webpack_require__(316);
+
+	var _reactMonacoEditor2 = _interopRequireDefault(_reactMonacoEditor);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var TemplatedTaskPage = _react2.default.createClass({
@@ -35105,7 +35109,7 @@
 	                                { primary: true, block: true, onClick: this.rename },
 	                                "Rename"
 	                            ),
-	                            _react2.default.createElement(_Textarea2.default, { title: "Description", rows: 5, value: this.state.Description, onChange: function onChange(e) {
+	                            _react2.default.createElement(_Textarea2.default, { title: "Description", rows: 10, value: this.state.Description, onChange: function onChange(e) {
 	                                    return _this5.setState({ Description: e.target.value });
 	                                } }),
 	                            _react2.default.createElement(
@@ -35260,7 +35264,7 @@
 	                                    null,
 	                                    "Note:"
 	                                ),
-	                                " Some parameters are pre-defined and avilable to your sccript like ",
+	                                " Some parameters are pre-defined and available to your script like ",
 	                                _react2.default.createElement(
 	                                    "b",
 	                                    null,
@@ -35288,9 +35292,15 @@
 	                            ),
 	                            _react2.default.createElement("br", null),
 	                            _react2.default.createElement("br", null),
-	                            _react2.default.createElement(_Textarea2.default, { title: "Script", rows: 20, value: this.state.Script, onChange: function onChange(e) {
-	                                    return _this5.setState({ Script: e.target.value });
-	                                } })
+	                            _react2.default.createElement(_reactMonacoEditor2.default, {
+	                                height: "400",
+	                                language: "powershell",
+	                                theme: "vs-light     ",
+	                                value: this.state.Script,
+	                                onChange: function onChange(e) {
+	                                    return _this5.setState({ Script: e });
+	                                }
+	                            })
 	                        )
 	                    )
 	                ),
@@ -35321,6 +35331,254 @@
 
 /***/ }),
 /* 316 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _propTypes = __webpack_require__(173);
+
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function noop() {}
+
+	var MonacoEditor = function (_React$Component) {
+	  _inherits(MonacoEditor, _React$Component);
+
+	  function MonacoEditor(props) {
+	    _classCallCheck(this, MonacoEditor);
+
+	    var _this = _possibleConstructorReturn(this, (MonacoEditor.__proto__ || Object.getPrototypeOf(MonacoEditor)).call(this, props));
+
+	    _this.__current_value = props.value;
+	    return _this;
+	  }
+
+	  _createClass(MonacoEditor, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.afterViewInit();
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps) {
+	      var context = this.props.context || window;
+	      if (this.props.value !== this.__current_value) {
+	        // Always refer to the latest value
+	        this.__current_value = this.props.value;
+	        // Consider the situation of rendering 1+ times before the editor mounted
+	        if (this.editor) {
+	          this.__prevent_trigger_change_event = true;
+	          this.editor.setValue(this.__current_value);
+	          this.__prevent_trigger_change_event = false;
+	        }
+	      }
+	      if (prevProps.language !== this.props.language) {
+	        context.monaco.editor.setModelLanguage(this.editor.getModel(), this.props.language);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.destroyMonaco();
+	    }
+	  }, {
+	    key: 'editorWillMount',
+	    value: function editorWillMount(monaco) {
+	      var editorWillMount = this.props.editorWillMount;
+
+	      editorWillMount(monaco);
+	    }
+	  }, {
+	    key: 'editorDidMount',
+	    value: function editorDidMount(editor, monaco) {
+	      var _this2 = this;
+
+	      var _props = this.props,
+	          editorDidMount = _props.editorDidMount,
+	          onChange = _props.onChange;
+
+	      editorDidMount(editor, monaco);
+	      editor.onDidChangeModelContent(function (event) {
+	        var value = editor.getValue();
+
+	        // Always refer to the latest value
+	        _this2.__current_value = value;
+
+	        // Only invoking when user input changed
+	        if (!_this2.__prevent_trigger_change_event) {
+	          onChange(value, event);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'afterViewInit',
+	    value: function afterViewInit() {
+	      var _this3 = this;
+
+	      var context = this.props.context || window;
+	      if (context.monaco !== undefined) {
+	        this.initMonaco();
+	        return;
+	      }
+	      var requireConfig = this.props.requireConfig;
+
+	      var loaderUrl = requireConfig.url || 'vs/loader.js';
+	      var onGotAmdLoader = function onGotAmdLoader() {
+	        if (context.__REACT_MONACO_EDITOR_LOADER_ISPENDING__) {
+	          // Do not use webpack
+	          if (requireConfig.paths && requireConfig.paths.vs) {
+	            context.require.config(requireConfig);
+	          }
+	        }
+
+	        // Load monaco
+	        context.require(['vs/editor/editor.main'], function () {
+	          _this3.initMonaco();
+	        });
+
+	        // Call the delayed callbacks when AMD loader has been loaded
+	        if (context.__REACT_MONACO_EDITOR_LOADER_ISPENDING__) {
+	          context.__REACT_MONACO_EDITOR_LOADER_ISPENDING__ = false;
+	          var loaderCallbacks = context.__REACT_MONACO_EDITOR_LOADER_CALLBACKS__;
+	          if (loaderCallbacks && loaderCallbacks.length) {
+	            var currentCallback = loaderCallbacks.shift();
+	            while (currentCallback) {
+	              currentCallback.fn.call(currentCallback.context);
+	              currentCallback = loaderCallbacks.shift();
+	            }
+	          }
+	        }
+	      };
+
+	      // Load AMD loader if necessary
+	      if (context.__REACT_MONACO_EDITOR_LOADER_ISPENDING__) {
+	        // We need to avoid loading multiple loader.js when there are multiple editors loading
+	        // concurrently, delay to call callbacks except the first one
+	        // eslint-disable-next-line max-len
+	        context.__REACT_MONACO_EDITOR_LOADER_CALLBACKS__ = context.__REACT_MONACO_EDITOR_LOADER_CALLBACKS__ || [];
+	        context.__REACT_MONACO_EDITOR_LOADER_CALLBACKS__.push({
+	          context: this,
+	          fn: onGotAmdLoader
+	        });
+	      } else if (typeof context.require === 'undefined') {
+	        var loaderScript = context.document.createElement('script');
+	        loaderScript.type = 'text/javascript';
+	        loaderScript.src = loaderUrl;
+	        loaderScript.addEventListener('load', onGotAmdLoader);
+	        context.document.body.appendChild(loaderScript);
+	        context.__REACT_MONACO_EDITOR_LOADER_ISPENDING__ = true;
+	      } else {
+	        onGotAmdLoader();
+	      }
+	    }
+	  }, {
+	    key: 'initMonaco',
+	    value: function initMonaco() {
+	      var value = this.props.value !== null ? this.props.value : this.props.defaultValue;
+	      var _props2 = this.props,
+	          language = _props2.language,
+	          theme = _props2.theme,
+	          options = _props2.options;
+
+	      var containerElement = this.refs.container; // eslint-disable-line react/no-string-refs
+	      var context = this.props.context || window;
+	      if (containerElement && typeof context.monaco !== 'undefined') {
+	        // Before initializing monaco editor
+	        this.editorWillMount(context.monaco);
+	        this.editor = context.monaco.editor.create(containerElement, _extends({
+	          value: value,
+	          language: language
+	        }, options));
+	        if (theme) {
+	          context.monaco.editor.setTheme(theme);
+	        }
+	        // After initializing monaco editor
+	        this.editorDidMount(this.editor, context.monaco);
+	      }
+	    }
+	  }, {
+	    key: 'destroyMonaco',
+	    value: function destroyMonaco() {
+	      if (typeof this.editor !== 'undefined') {
+	        this.editor.dispose();
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props3 = this.props,
+	          width = _props3.width,
+	          height = _props3.height;
+
+	      var fixedWidth = width.toString().indexOf('%') !== -1 ? width : width + 'px';
+	      var fixedHeight = height.toString().indexOf('%') !== -1 ? height : height + 'px';
+	      var style = {
+	        width: fixedWidth,
+	        height: fixedHeight
+	      };
+	      return (
+	        // eslint-disable-next-line react/no-string-refs
+	        _react2.default.createElement('div', { ref: 'container', style: style, className: 'react-monaco-editor-container' })
+	      );
+	    }
+	  }]);
+
+	  return MonacoEditor;
+	}(_react2.default.Component);
+
+	MonacoEditor.propTypes = {
+	  width: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+	  height: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+	  value: _propTypes2.default.string,
+	  defaultValue: _propTypes2.default.string,
+	  language: _propTypes2.default.string,
+	  theme: _propTypes2.default.string,
+	  options: _propTypes2.default.object,
+	  editorDidMount: _propTypes2.default.func,
+	  editorWillMount: _propTypes2.default.func,
+	  onChange: _propTypes2.default.func,
+	  requireConfig: _propTypes2.default.object,
+	  context: _propTypes2.default.object // eslint-disable-line react/require-default-props
+	};
+
+	MonacoEditor.defaultProps = {
+	  width: '100%',
+	  height: '100%',
+	  value: null,
+	  defaultValue: '',
+	  language: 'javascript',
+	  theme: null,
+	  options: {},
+	  editorDidMount: noop,
+	  editorWillMount: noop,
+	  onChange: noop,
+	  requireConfig: {}
+	};
+
+	exports.default = MonacoEditor;
+
+/***/ }),
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35585,7 +35843,7 @@
 	exports.default = GroupsPage;
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35765,7 +36023,7 @@
 	exports.default = ApplicationsGroupsPage;
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35794,27 +36052,27 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(319);
+	var _Actions = __webpack_require__(320);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
-	var _ListIcon = __webpack_require__(320);
+	var _ListIcon = __webpack_require__(321);
 
 	var _ListIcon2 = _interopRequireDefault(_ListIcon);
 
-	var _PlayIcon = __webpack_require__(321);
+	var _PlayIcon = __webpack_require__(322);
 
 	var _PlayIcon2 = _interopRequireDefault(_PlayIcon);
 
-	var _CircleOkIcon = __webpack_require__(322);
+	var _CircleOkIcon = __webpack_require__(323);
 
 	var _CircleOkIcon2 = _interopRequireDefault(_CircleOkIcon);
 
-	var _CircleRemoveIcon = __webpack_require__(323);
+	var _CircleRemoveIcon = __webpack_require__(324);
 
 	var _CircleRemoveIcon2 = _interopRequireDefault(_CircleRemoveIcon);
 
-	var _WatchIcon = __webpack_require__(324);
+	var _WatchIcon = __webpack_require__(325);
 
 	var _WatchIcon2 = _interopRequireDefault(_WatchIcon);
 
@@ -36027,7 +36285,7 @@
 	exports.default = DeploymentsPage;
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36080,7 +36338,7 @@
 	};
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36104,7 +36362,7 @@
 	exports.default = ListIcon;
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36128,7 +36386,7 @@
 	exports.default = PlayIcon;
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36152,7 +36410,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36176,7 +36434,7 @@
 	exports.default = CircleRemoveIcon;
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36200,7 +36458,7 @@
 	exports.default = WatchIcon;
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36221,7 +36479,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(319);
+	var _Actions = __webpack_require__(320);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -36229,7 +36487,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Panel = __webpack_require__(326);
+	var _Panel = __webpack_require__(327);
 
 	var _Panel2 = _interopRequireDefault(_Panel);
 
@@ -36498,7 +36756,7 @@
 	exports.default = DeploymentPage;
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36542,7 +36800,7 @@
 	exports.default = Panel;
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36565,7 +36823,7 @@
 
 	var _Grid2 = _interopRequireDefault(_Grid);
 
-	var _Actions = __webpack_require__(328);
+	var _Actions = __webpack_require__(329);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -36585,7 +36843,7 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _ServerIcon = __webpack_require__(329);
+	var _ServerIcon = __webpack_require__(330);
 
 	var _ServerIcon2 = _interopRequireDefault(_ServerIcon);
 
@@ -36868,7 +37126,7 @@
 	exports.default = EnviromentsPage;
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36940,7 +37198,7 @@
 	};
 
 /***/ }),
-/* 329 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36964,7 +37222,7 @@
 	exports.default = CircleOkIcon;
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36993,7 +37251,7 @@
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _Actions = __webpack_require__(328);
+	var _Actions = __webpack_require__(329);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37001,7 +37259,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FileUpload = __webpack_require__(331);
+	var _FileUpload = __webpack_require__(332);
 
 	var _FileUpload2 = _interopRequireDefault(_FileUpload);
 
@@ -37151,7 +37409,7 @@
 	exports.default = AgentPage;
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37197,7 +37455,7 @@
 	exports.default = FileUpload;
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37230,7 +37488,7 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Actions = __webpack_require__(333);
+	var _Actions = __webpack_require__(334);
 
 	var _Actions2 = _interopRequireDefault(_Actions);
 
@@ -37582,7 +37840,7 @@
 	exports.default = StatisticsPage;
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37623,7 +37881,7 @@
 	};
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";

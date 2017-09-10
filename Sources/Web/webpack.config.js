@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     cache: true,
@@ -13,7 +14,13 @@ module.exports = {
                     // This has effect on the react lib size
                     'NODE_ENV': JSON.stringify('production'),
                 }
-            }),
+        }),
+            new CopyWebpackPlugin([
+                {
+                    from: 'node_modules/monaco-editor/min/vs',
+                    to: 'vs',
+                }
+            ])
     ],
     module: {
         loaders: [

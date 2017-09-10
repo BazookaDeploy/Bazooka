@@ -13,6 +13,7 @@ import Notification from "../Shared/Notifications";
 import Textarea from "../Shared/Textarea";
 import { withRouter } from "react-router";
 import Tabs from "../Shared/Tabs";
+import MonacoEditor from 'react-monaco-editor';
 
 var TemplatedTaskPage= React.createClass({
     getInitialState(){
@@ -76,7 +77,7 @@ var TemplatedTaskPage= React.createClass({
                         <Grid.Row>
                             <Input title="Name" value={this.state.Name} onChange={(e) => this.setState({ Name: e.target.value })} />
                             <Button primary block onClick={this.rename}>Rename</Button>
-                            <Textarea title="Description" rows={5} value={this.state.Description} onChange={(e) => this.setState({ Description: e.target.value })} />
+                            <Textarea title="Description" rows={10} value={this.state.Description} onChange={(e) => this.setState({ Description: e.target.value })} />
                             <Button primary onClick={this.changeDescription} block >Change description</Button>                         
                         </Grid.Row>
                     </Tabs.Tab>
@@ -117,11 +118,17 @@ var TemplatedTaskPage= React.createClass({
 
                         <Grid.Row>
                             <div>
-                                <b>Note:</b> Some parameters are pre-defined and avilable to your sccript like <b>$version</b>, <b>$config</b>, <b>$repository</b> and <b>$packageName</b>.
+                                <b>Note:</b> Some parameters are pre-defined and available to your script like <b>$version</b>, <b>$config</b>, <b>$repository</b> and <b>$packageName</b>.
                             </div>
                             <br />
                             <br />
-                            <Textarea title="Script" rows={20} value={this.state.Script} onChange={(e) => this.setState({ Script: e.target.value })} />
+                            <MonacoEditor
+                                height="400"
+                                language="powershell"
+                                theme="vs-light     "
+                                value={this.state.Script}
+                                onChange={(e) => this.setState({Script: e })}
+                              />
                         </Grid.Row>
                     </Tabs.Tab>
                 </Tabs>
