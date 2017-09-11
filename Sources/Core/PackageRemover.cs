@@ -27,7 +27,7 @@
             logger.Log(string.Format("Uninstalling application {0} version {1}", info.Name, info.Version));
 
 
-            DeleteFiles(info, new List<string>() { repository }, logger);
+            DeleteFiles(info, new List<string>() { directory }, logger);
 
             logger.Log(string.Format("Uninstalled application {0} version {1}", info.Name, info.Version));
         }
