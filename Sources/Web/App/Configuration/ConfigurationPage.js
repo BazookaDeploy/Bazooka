@@ -17,7 +17,7 @@ var ConfigurationPage = React.createClass({
                             <IndexLink className="configurationLinks__link" activeClassName="active" to="/Configuration">Overview</IndexLink>                   
                             <Link className="configurationLinks__link" activeClassName="active" to="/Configuration/Groups">Groups</Link>   
                             <Link className="configurationLinks__link" activeClassName="active" to="/Configuration/ApplicationGroups">Application Groups</Link>             
-                            <Link className="configurationLinks__link" activeClassName="active" to="/Configuration/TemplatedTasks">Templated tasks</Link>
+                            <Link className="configurationLinks__link" activeClassName="active" to="/Configuration/TemplatedTasks">Task templates</Link>
                         </div>
                     </Grid.Col>
                     <Grid.Col md={10}>
