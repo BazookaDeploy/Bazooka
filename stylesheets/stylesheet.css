@@ -81,3 +81,49 @@ html, body, .container, .left-col {
 .main-navigation a {
   color:#606c71;
 }
+
+nav {
+    height: 40px;
+    background-color: rgba(56, 56, 56, 0.85);
+    text-align: center;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    position: fixed;
+    width: 100%;  
+}
+
+nav a {
+    padding: 10px;
+    display: inline-block;
+    font-size: 20px;
+    margin: 0;
+    line-height: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.19);  
+}
+
+nav ~ div {
+  margin-top:40px;
+  width:100%;
+}
+
+#Bazooka {
+  width:100%;
+}
+
+#Bazooka h1 {
+  font-size: 64px;
+  margin-bottom: 0px;
+  line-height: 50px;
+}
+
+#Bazooka h3 {
+  margin-top: 0;
+}
+  
+
