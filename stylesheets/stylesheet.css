@@ -105,6 +105,12 @@ nav ~ div {
     margin-bottom: 75px;
 }
 
+#Resources div a {
+  display: inline-block;
+    padding: 10px;
+  color:#1e6bb8;
+}
+
 #Resources div a:hover {
   text-decoration: none;
     background-color: rgba(179, 174, 174, 0.35);
