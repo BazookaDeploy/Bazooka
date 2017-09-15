@@ -111,6 +111,11 @@ nav ~ div {
   color:#1e6bb8;
 }
 
+#Resources div a svg{
+  height:80px;
+  fill:#1e6bb8;
+}
+
 #Resources div a:hover {
   text-decoration: none;
     background-color: rgba(179, 174, 174, 0.35);
