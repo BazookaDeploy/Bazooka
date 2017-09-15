@@ -91,4 +91,21 @@ nav ~ div {
     margin-bottom: 30px;
 }
   
+#Resources {
+  color: white;
+    margin-top: 75px;
+}
 
+#Resources div {
+    width: 33%;
+    display: inline-block;
+    text-align: center;
+    font-size: 26px;
+    padding: 30px;
+    margin-bottom: 75px;
+}
+
+#Resources div a:hover {
+  text-decoration: none;
+    background-color: rgba(179, 174, 174, 0.35);
+}
