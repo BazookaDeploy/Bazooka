@@ -15,19 +15,6 @@ a {
   a:hover {
     text-decoration: underline; }
 
-img {
-  width: 100%;
-}
-
-
-
-
-.fullImage {
-  width:600px;
-  padding:30px;
-}
-
-
 
 nav {
     height: 40px;
