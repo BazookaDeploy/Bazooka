@@ -25,6 +25,8 @@ namespace Web.CommandHandlers
             app.LocalScriptTasks = new List<LocalScriptTask>();
             app.MailTasks = new List<MailTask>();
             app.RemoteScriptTasks = new List<RemoteScriptTask>();
+            app.TemplatedTasks = new List<TemplatedTask>();
+
             foreach (var task in originalApp.DatabaseTasks.Where(x => !x.Deleted))
             {
                 app.AddDatabaseTask(task.Name, task.ConnectionString, task.Package, task.DatabaseName, task.EnviromentId, task.Repository, task.AgentId);
@@ -48,6 +50,11 @@ namespace Web.CommandHandlers
             foreach (var task in originalApp.RemoteScriptTasks.Where(x => !x.Deleted))
             {
                 app.CreateRemoteScriptTask(task.EnviromentId, task.Script, task.Name, task.Folder, task.AgentId);
+            }
+
+            foreach (var task in originalApp.TemplatedTasks.Where(x => !x.Deleted))
+            {
+                app.AddTemplatedTask(task.AgentId, task.EnviromentId, task.TaskTemplateVersionId, task.Name, task.Prameters);
             }
 
             app.Administrators = new List<ApplicationAdministrator>();
