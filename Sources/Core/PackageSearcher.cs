@@ -20,7 +20,8 @@
          var factory = new PackageRepositoryFactory();
             var globalRepo = new AggregateRepository(factory, repositories.Distinct(), true);
             var packages = globalRepo.FindPackagesById(packageName);
-            return packages.Select(x => x.Version)
+            return packages.Where(x => x.Listed)
+                           .Select(x => x.Version)
                            .OrderByDescending(x => x)
                            .Select(x => x.ToString())
                            .ToList()
