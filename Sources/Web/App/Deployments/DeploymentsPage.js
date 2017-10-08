@@ -31,7 +31,7 @@ var Deployment = React.createClass({
             return <CircleOkIcon style={{ fill: "#17EF43" }} />
         } else if (this.props.item.Status == 3) {
                 return <CircleRemoveIcon style={{ fill: "#FF3B3B" }} />
-        } else if (this.props.item.Status == 3) {
+        } else if (this.props.item.Status == 4) {
             return <WatchIcon />
         } else {
             return <EraseIcon />
