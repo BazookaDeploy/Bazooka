@@ -285,6 +285,8 @@ namespace DataAccess.Write
             {
                 var tasks = this.TemplatedTasks.Where(x => x.EnviromentId == originalEnviromentId && !x.Deleted).Select(x => new TemplatedTask()
                 {
+                    Deleted =false,
+                    TaskTemplateVersionId = x.TaskTemplateVersionId,
                     AgentId = machineId,
                     EnviromentId = enviromentId,
                     Name = x.Name,
