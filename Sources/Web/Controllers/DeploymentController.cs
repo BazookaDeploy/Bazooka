@@ -33,7 +33,21 @@ namespace Web.Controllers
         {
             var dep =  db.Deployments.AsNoTracking().Include("Tasks").Single(x => x.Id == id);
             //dep.Logs = dep.Logs.OrderBy(x => x.TimeStamp).ToList();
-            return dep;
+            return new DeploymentDto() {
+                ApplicationId = dep.ApplicationId,
+                Configuration = dep.Configuration,
+                EndDate = dep.EndDate,
+                EnviromentId = dep.EnviromentId,
+                Id = dep.Id,
+                Logs = dep.Logs.OrderBy(x => x.TimeStamp).ToList(),
+                Name = dep.Name,
+                StartDate = dep.StartDate,
+                Status = dep.Status,
+                Tasks = dep.Tasks.ToList(),
+                UserId = dep.UserId,
+                UserName = dep.UserName,
+                Version = dep.Version
+            };
         }
 
 
