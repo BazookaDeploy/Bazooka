@@ -23,10 +23,9 @@ namespace Jobs
                            .ToList();
             }
 
-            foreach (var agent in agents)
+            using (var client = new HttpClient())
             {
-
-                using (var client = new HttpClient())
+                foreach (var agent in agents)
                 {
                     try
                     {
