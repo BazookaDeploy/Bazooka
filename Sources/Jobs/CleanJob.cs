@@ -1,4 +1,5 @@
 ﻿using DataAccess.Read;
+using Hangfire.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,10 @@ namespace Jobs
                         client.BaseAddress = new Uri(agent);
                         var result2 = client.GetAsync("/api/deploy/clean").Result;
                     }
-                    catch (Exception e) { 
+                    catch (Exception e) {
+
+                        LogProvider.GetCurrentClassLogger().WarnException(e.Message, e);
+
                         // do nothing, an agent may be unavailable at this time 
                         // or the network down. Just pass to the next
                     }
