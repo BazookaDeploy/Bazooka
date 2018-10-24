@@ -7,6 +7,8 @@ import Select from "../Shared/Select";
 
 var DeployDialog = React.createClass({
   getInitialState: function () {
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
     return {
       loading: true,
       scheduled: false,
@@ -15,7 +17,7 @@ var DeployDialog = React.createClass({
       version:null,
       tasks: [],
       chosenTasks: [],
-      date: new Date()
+      date: tomorrow
     };
   },
 
