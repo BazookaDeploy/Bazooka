@@ -23,6 +23,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -220,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\MaintenanceTask\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Applications\Actions.js" />
@@ -257,6 +259,10 @@
     <Content Include="App\Enviroments\EnviromentsPage.js" />
     <Content Include="App\Homepage\Actions.js" />
     <Content Include="App\Homepage\DeployDialog.js" />
+    <Content Include="App\Maintenance\Actions.js" />
+    <Content Include="App\Maintenance\NewTaskPage.js" />
+    <Content Include="App\Maintenance\MaintenanceTaskPage.js" />
+    <Content Include="App\Maintenance\MaintenanceTasksPage.js" />
     <Content Include="App\Shared\Button\index.js" />
     <Content Include="App\Shared\Card\index.js" />
     <Content Include="App\Shared\DateTimePicker\index.js" />
@@ -304,6 +310,7 @@
     <Compile Include="Commands\Application\CreateTemplatedTask.cs" />
     <Compile Include="Commands\Application\ModifyTemplatedTask.cs" />
     <Compile Include="Commands\Application\RenameTemplatedTask.cs" />
+    <Compile Include="Commands\ICanBeRunByConfigurationManager.cs" />
     <Compile Include="Commands\TemplatedTasks\ChangeTaskTemplateDescription.cs" />
     <Compile Include="Commands\TemplatedTasks\CreateNewTaskTemplateVersion.cs" />
     <Compile Include="Commands\TemplatedTasks\CreateTaskTemplate.cs" />
@@ -312,6 +319,7 @@
     <Compile Include="Commands\TemplatedTasks\DeleteTaskTemplateRule.cs" />
     <Compile Include="Commands\TemplatedTasks\RenameTaskTemplate.cs" />
     <Compile Include="Commands\Application\UpdateTemplatedTask.cs" />
+    <Compile Include="Controllers\MaintenanceTaskController.cs" />
     <Compile Include="Controllers\TemplatedTaskController.cs" />
     <Compile Include="Controllers\TaskTemplateController.cs" />
     <Compile Include="DataServices\Routes.cs" />

@@ -120,6 +120,10 @@
     <Build Include="Write\TemplatedTaskParameters.sql" />
     <Build Include="Read\TemplatedTasks.sql" />
     <Build Include="Read\TemplatedTaskParameters.sql" />
+    <Build Include="Write\MaintenanceTasks.sql" />
+    <Build Include="Write\MaintenanceLogEntries.sql" />
+    <Build Include="Read\MaintenanceTasks.sql" />
+    <Build Include="Read\MaintenanceLogEntries.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />

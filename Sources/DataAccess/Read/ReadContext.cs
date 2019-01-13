@@ -32,6 +32,10 @@ namespace DataAccess.Read
         public DbSet<AllowedGroupsDto> AllowedGroups { get; set; }
         public DbSet<ApplicationAdministratorDto> ApplicationAdministrators { get; set; }
 
+        public DbSet<TasKTemplateDto> Tasktemplates { get; set; }
+        public DbSet<TaskTemplateVersionDto> TaskTemplatesVersion { get; set; }
+
+        public DbSet<AgentDto> Agents { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("rd");
@@ -62,6 +66,9 @@ namespace DataAccess.Read
             modelBuilder.Configurations.Add(new TaskTemplateParameterDtoConfiguration());
             modelBuilder.Configurations.Add(new TemplatedTaskDtoDtoConfiguration());
             modelBuilder.Configurations.Add(new TemplatedTaskParameterDtoConfiguration());
+            modelBuilder.Configurations.Add(new MaintenanceTaskDtoConfiguration());
+            modelBuilder.Configurations.Add(new MaintenanceLogEntryDtoConfiguration());
+
 
             base.OnModelCreating(modelBuilder);
         }
@@ -71,6 +78,26 @@ namespace DataAccess.Read
             return this.Set<T>().AsQueryable();
         }
     }
+
+    public class MaintenanceTaskDtoConfiguration : EntityTypeConfiguration<MaintenanceTaskDto>
+    {
+        public MaintenanceTaskDtoConfiguration()
+        {
+            ToTable("MaintenanceTasks","rd");
+            HasKey(x => x.Id);
+            HasMany(x => x.Logs).WithRequired().HasForeignKey(x => x.MaintenanceTaskId);
+        }
+    }
+
+    public class MaintenanceLogEntryDtoConfiguration : EntityTypeConfiguration<MaintenanceLogEntryDto>
+    {
+        public MaintenanceLogEntryDtoConfiguration()
+        {
+            ToTable("MaintenanceLogEntries", "rd");
+            HasKey(x => x.Id);
+        }
+    }
+
 
     public class DeployersDtoConfiguration : EntityTypeConfiguration<DeployersDto>
     {

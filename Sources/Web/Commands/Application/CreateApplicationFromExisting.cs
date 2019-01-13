@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Web.Commands
 {
-    public class CreateApplicationFromExisting : ICommand,ICanBeRunOnlyByAdministrator
+    public class CreateApplicationFromExisting : ICommand,ICanBeRunByConfigurationManager
     {
         public string Name { get; set; }
 

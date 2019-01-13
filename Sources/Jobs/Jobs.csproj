@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MaintenanceJob.cs" />
     <Compile Include="HealthCheckJob.cs" />
     <Compile Include="CleanJob.cs" />
     <Compile Include="DeployJob.cs" />

@@ -17,6 +17,10 @@ import MailTaskEditPage from "./Applications/Tasks/MailTask/EditPage";
 import RemoteScriptTaskEditPage from "./Applications/Tasks/RemoteScriptTask/EditPage";
 import TemplatedTaskEditPage from "./Applications/Tasks/TemplatedTask/EditPage";
 
+import MaintenanceTasksPage from "./Maintenance/MaintenanceTasksPage";
+import MaintenanceTaskPage from "./Maintenance/MaintenanceTaskPage";
+import NewTaskPage from "./Maintenance/NewTaskPage";
+
 
 import ConfigurationPage from "./Configuration/ConfigurationPage";
 import ConfigPage from "./Configuration/ConfigPage";
@@ -58,13 +62,18 @@ var route = <Provider store={store} >
         <Route path="Groups" component={GroupsPage} />
         <Route path="ApplicationGroups" component={ApplicationGroupsPage} />
         <Route path="TemplatedTasks">
-                    <IndexRoute component={TemplatedTasksPage} />
-                    <Route path=":id" component={TemplatedTaskPage} />
+          <IndexRoute component={TemplatedTasksPage} />
+          <Route path=":id" component={TemplatedTaskPage} />
         </Route>
       </Route>
       <Route path="Enviroments">
         <IndexRoute  component={EnviromentsPage} />
         <Route path="Agent/:id" component={AgentPage} />
+      </Route>
+      <Route path="Maintenance">
+         <IndexRoute component={MaintenanceTasksPage} />
+         <Route path="NewTask" component={NewTaskPage} />
+         <Route path="Task/:id" component={MaintenanceTaskPage} />
       </Route>
       <Route path="Deployments">
         <IndexRoute component={DeploymentsPage}/>

@@ -65,6 +65,8 @@
     <Compile Include="Read\DeployersDto.cs" />
     <Compile Include="Read\DeploymentDto.cs" />
     <Compile Include="Read\DeploymentTasksDto.cs" />
+    <Compile Include="Read\MaintenanceLogEntryDto.cs" />
+    <Compile Include="Read\MaintenanceTaskDto.cs" />
     <Compile Include="Read\TaskTemplateParameterDto.cs" />
     <Compile Include="Read\TasKTemplateDto.cs" />
     <Compile Include="Read\DeployTaskDto.cs" />
@@ -95,6 +97,9 @@
     <Compile Include="Write\ApplicationGroup.cs" />
     <Compile Include="Write\ApplicationGroupMap.cs" />
     <Compile Include="Write\ApplicationMap.cs" />
+    <Compile Include="Write\MaintenanceLogEntry.cs" />
+    <Compile Include="Write\MaintenanceLogEntryMap.cs" />
+    <Compile Include="Write\MaintenanceTask.cs" />
     <Compile Include="Write\DatabaseTask.cs" />
     <Compile Include="Write\DatabaseTaskMap.cs" />
     <Compile Include="Write\Deployment.cs" />
@@ -112,6 +117,7 @@
     <Compile Include="Write\LogEntryMap.cs" />
     <Compile Include="Write\MailTask.cs" />
     <Compile Include="Write\MailTaskMap.cs" />
+    <Compile Include="Write\MaintenanceTaskMap.cs" />
     <Compile Include="Write\ParameterMap.cs" />
     <Compile Include="Write\RemoteScriptTask.cs" />
     <Compile Include="Write\RemoteScriptTaskMap.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class CreateApplication : ICommand, ICanBeRunOnlyByAdministrator
+    public class CreateApplication : ICommand, ICanBeRunByConfigurationManager
     {
         public string Name { get; set; }
     }

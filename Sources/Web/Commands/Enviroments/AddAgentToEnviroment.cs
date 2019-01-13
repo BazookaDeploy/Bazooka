@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class AddAgentToEnviroment : ICommand, ICanBeRunOnlyByAdministrator
+    public class AddAgentToEnviroment : ICommand, ICanBeRunByConfigurationManager
     {
         public int EnviromentId { get; set; }
 

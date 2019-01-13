@@ -1,10 +1,7 @@
 ﻿using DataAccess.Read;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Web.Infrastructure;
 using Web.Commands;
+using Web.Infrastructure;
 
 namespace Web.CommandHandlers
 {
@@ -24,6 +21,21 @@ namespace Web.CommandHandlers
                 }
 
                 if (!user.Administrator)
+                {
+                    return false;
+                }
+            }
+
+            if (command is ICanBeRunByConfigurationManager)
+            {
+                var user = ReadContext.Query<UserDto>().SingleOrDefault(x => x.Id == command.CurrentUserId.ToString());
+
+                if (user == null)
+                {
+                    return false;
+                }
+
+                if (!user.Administrator && !user.ConfigurationManager)
                 {
                     return false;
                 }

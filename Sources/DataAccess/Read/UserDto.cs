@@ -11,5 +11,7 @@ namespace DataAccess.Read
         public string UserName { get; set; }
 
         public bool Administrator { get; set; }
+
+        public bool ConfigurationManager { get; set; }
     }
 }

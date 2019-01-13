@@ -1,6 +1,6 @@
 ﻿namespace Web.Commands
 {
-    public class ChangeAgentAddress : ICommand, ICanBeRunOnlyByAdministrator
+    public class ChangeAgentAddress : ICommand, ICanBeRunByConfigurationManager
     {
         public int EnviromentId { get; set; }
 

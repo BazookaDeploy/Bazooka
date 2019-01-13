@@ -2,5 +2,6 @@
 	SELECT	[Id], 
 			[Email], 
 			[UserName] ,
-			Administrator
+			Administrator,
+			ConfigurationManager
 	FROM [dbo].AspNetUsers

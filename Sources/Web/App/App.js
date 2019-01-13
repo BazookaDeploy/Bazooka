@@ -21,7 +21,8 @@ var App = React.createClass({
                      <IndexLink className="application__header__link" activeClassName="active" to="/">Dashboard</IndexLink>                   
                      <Link className="application__header__link" activeClassName="active" to="/Deployments">Deployments</Link>
                      <Link className="application__header__link" activeClassName="active" to="/Enviroments">Enviroments</Link>
-                     <Link className="application__header__link" activeClassName="active" to="/Applications">Applications</Link> 
+                     <Link className="application__header__link" activeClassName="active" to="/Applications">Applications</Link>
+                     <Link className="application__header__link" activeClassName="active" to="/Maintenance">Maintenance</Link>
                      <Link className="application__header__link" activeClassName="active" to="/Statistics">Statistics</Link>
                      <Link className="application__header__link" activeClassName="active" to="/Configuration">Configuration</Link>
                 </div> 
