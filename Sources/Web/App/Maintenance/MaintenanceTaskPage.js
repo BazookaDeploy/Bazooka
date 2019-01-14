@@ -15,7 +15,8 @@ var LogLine = React.createClass({
 
                     <span 
                         dangerouslySetInnerHTML={{ __html: (this.props.Text || "").replace(/(?:\r\n|\r|\n)/g, '<br />') }}>
-                    </span>
+                </span>
+                <br />
             </span>)
     }
 });

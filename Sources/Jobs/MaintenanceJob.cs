@@ -94,8 +94,8 @@ namespace Jobs
             using (var dc = new ReadContext())
             {
                 var unit = dc.Tasktemplates.Single(x => x.Id == id);
-                var version = dc.TaskTemplatesVersion.Where(x => x.TaskTemplateId == id).Last();
-                var agent = dc.Agents.Single(x => x.Id == id);
+                var version = dc.TaskTemplatesVersion.Where(x => x.TaskTemplateId == id).ToList().Last();
+                var agent = dc.Agents.Single(x => x.Id == agentId);
 
                 var res = new List<string>();
                 ExecutionResult ret;

@@ -6,6 +6,10 @@ module.exports = {
         return Net.get("/api/TaskTemplate/");
     },
 
+    loadTemplatedTask: function (id) {
+        return Net.get("/api/Tasktemplate/LastVersion/" + id);
+    },
+
     getTask: function (id) {
         return Net.get("/api/MaintenanceTask?id=" + id);
     },
@@ -15,6 +19,6 @@ module.exports = {
     },
 
     run: function (agentId, taskId, params) {
-        return Net.post("/api/MaintenanceTask/Run?agentId=" + agentId + "&taskId=" + taskId, new { parameters : params } );
+        return Net.post("/api/MaintenanceTask/Run?agentId=" + agentId + "&taskId=" + taskId, params );
     },
 };

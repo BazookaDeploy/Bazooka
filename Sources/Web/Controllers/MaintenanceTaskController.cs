@@ -29,8 +29,18 @@
 
 
         [HttpPost]
-        public void Run(int agentId, int taskId,[System.Web.Http.FromBody]Dictionary<string,string> parameters)
+        public object Run(int agentId, int taskId,[System.Web.Http.FromBody]Dictionary<string,string> parameters)
         {
+            var id = User.Identity.GetUserId();
+            var user = db.Query<UserDto>().Single(x => x.Id == id);
+
+            if(!user.ConfigurationManager && !user.Administrator)
+            {
+                return new { Success = false, Error = "Only an administrator or configuration manager can execute tasks" };
+
+            }
+
+
             using (var session = WebApiApplication.Store.OpenSession())
             {
                 var deploy = new MaintenanceTask()
@@ -38,6 +48,7 @@
                     TemplatedTaskId = taskId,
                     AgentId = agentId,
                     Status = Status.Queud,
+                    StartDate = System.DateTime.UtcNow,
                     UserId = User.Identity.GetUserId()
                 };
 
@@ -46,6 +57,7 @@
                 session.Flush();
 
                 BackgroundJob.Enqueue(() => MaintenanceJob.Execute(deploy.Id, parameters));
+                return new { Success = true };
             };
         }
 

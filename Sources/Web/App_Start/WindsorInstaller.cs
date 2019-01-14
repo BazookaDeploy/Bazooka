@@ -69,6 +69,8 @@ namespace Web.App_Start
             mapper.AddMapping<TaskTemplateParameterMap>();
             mapper.AddMapping<TemplatedTaskMap>();
             mapper.AddMapping<TemplatedTaskParameterMap>();
+            mapper.AddMapping<MaintenanceTaskMap>();
+            mapper.AddMapping<MaintenanceLogEntryMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 

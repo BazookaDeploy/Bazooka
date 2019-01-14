@@ -87,11 +87,14 @@
             mapper.AddMapping<TaskTemplateParameterMap>();
             mapper.AddMapping<TemplatedTaskMap>();
             mapper.AddMapping<TemplatedTaskParameterMap>();
+            mapper.AddMapping<MaintenanceTaskMap>();
+            mapper.AddMapping<MaintenanceLogEntryMap>();
 
             config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 
             DeployJob.Store = config.BuildSessionFactory();
             LogsCompactionJob.Store = DeployJob.Store;
+            MaintenanceJob.Store = DeployJob.Store;
             HealthCheckJob.Store = DeployJob.Store;
         }
 
