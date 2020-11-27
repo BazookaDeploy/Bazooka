@@ -239,6 +239,11 @@ namespace Jobs
                     }
                     session.Flush();
                 }
+
+                if (!ret.Success)
+                {
+                    throw new Exception("Deploy failed: " + ret.Exception);
+                }
             }
         }
 
