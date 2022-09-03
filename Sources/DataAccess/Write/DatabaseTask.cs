@@ -13,6 +13,8 @@
         public virtual int AgentId { get; set; }
         public virtual int Position { get; set; }
 
+        public virtual bool Partial { get; set; }
+
         public virtual bool Deleted { get; set; }
 
         public virtual void MoveUp()

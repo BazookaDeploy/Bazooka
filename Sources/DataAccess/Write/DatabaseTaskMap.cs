@@ -26,6 +26,7 @@ namespace DataAccess.Write
             Property(x => x.AgentId);
             Property(x => x.Position);
             Property(x => x.Deleted);
+            Property(x => x.Partial);
         }
     }
 }

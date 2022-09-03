@@ -6,7 +6,7 @@
 
     public static class DacpacHelpers
     {
-        public static void ApplyDacpac(Stream dacpac, string connectionString, string databaseName, ILogger log)
+        public static void ApplyDacpac(Stream dacpac, string connectionString, string databaseName, ILogger log, bool partialDeploy = false)
         {
             var options = new DacDeployOptions()
             {
@@ -18,10 +18,10 @@
                 DropRoleMembersNotInSource = false,
 
                 // cambiati rispetto al progetto originale di paonic
-                DropConstraintsNotInSource = true, // vengono inseriti solo in prod ?
-                DropExtendedPropertiesNotInSource = true,
-                DropIndexesNotInSource = true, // ci sono indici creati da altri e non presenti nei source?
-                DropObjectsNotInSource = true, // li schema e le viste della BI sono sempre nei source?
+                DropConstraintsNotInSource = partialDeploy ? false: true, // vengono inseriti solo in prod ?
+                DropExtendedPropertiesNotInSource = partialDeploy ? false : true,
+                DropIndexesNotInSource = partialDeploy ? false : true, // ci sono indici creati da altri e non presenti nei source?
+                DropObjectsNotInSource = partialDeploy ? false : true, // li schema e le viste della BI sono sempre nei source?
 
                 // aggiunti rispetto al progetto originale di paonic
                 CreateNewDatabase = false,

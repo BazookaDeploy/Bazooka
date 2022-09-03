@@ -365,7 +365,7 @@ namespace DataAccess.Write
             });
         }
 
-        public virtual void ModifyDatabaseTask(int taskId, string name, string connectionString, string package, string dbName, string repository, int agentId)
+        public virtual void ModifyDatabaseTask(int taskId, string name, string connectionString, string package, string dbName, string repository, int agentId, bool partial)
         {
             var task = this.DatabaseTasks.Single(x => x.Id == taskId);
 
@@ -375,6 +375,7 @@ namespace DataAccess.Write
             task.Name = name;
             task.Package = package;
             task.Repository = repository;
+            this.Partial = partial;
         }
 
         public virtual void AddDeployTask(int enviromentId, string name, int agentID, string package, string directory, string repository, string configuration, IList<Parameter> parameters)

@@ -23,7 +23,7 @@ module.exports = {
     });
   },
 
-  updateDatabaseTask: function (id, name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId) {
+  updateDatabaseTask: function (id, name, connectionString, pack, databaseName, enviromentId, repository, agentId, applicationId, partial) {
     return Net.post("/api/DatabaseTasks/ModifyDatabaseTask", {
       DatabaseTaskId: id,
       EnviromentId: enviromentId,
@@ -33,7 +33,8 @@ module.exports = {
       DatabaseName: databaseName,
       Repository: repository,
       AgentId: agentId,
-      ApplicationId: applicationId
+      ApplicationId: applicationId,
+      Partial: partial
     });
   }
 }

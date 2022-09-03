@@ -8,6 +8,7 @@
 			  [Repository], 
 			  [AgentId],
 			  Agents.Name as AgentName, 
-			  [ApplicationId] 
+			  [ApplicationId] ,
+			  Partial
 		FROM dbo.DatabaseTasks JOIN dbo.Agents ON AgentId = Agents.Id
 		WHERE Deleted  = 0 

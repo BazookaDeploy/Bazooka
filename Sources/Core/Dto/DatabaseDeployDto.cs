@@ -7,5 +7,7 @@
         public string Repository { get; set; }
         public string ConnectionString { get; set; }
         public string DataBase { get; set; }
+
+        public bool Partial { get; set; }
     }
 }

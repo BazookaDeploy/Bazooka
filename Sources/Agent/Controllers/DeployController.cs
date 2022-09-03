@@ -204,7 +204,7 @@
             try
             {
                 var stream = PackageHelpers.DownloadDacpac(options.PackageName, options.Version, options.Repository);
-                DacpacHelpers.ApplyDacpac(stream, options.ConnectionString, options.DataBase, logger);
+                DacpacHelpers.ApplyDacpac(stream, options.ConnectionString, options.DataBase, logger, options.Partial);
             }
             catch (Exception e)
             {

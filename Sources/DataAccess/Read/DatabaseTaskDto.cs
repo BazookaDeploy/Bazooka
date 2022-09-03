@@ -13,5 +13,7 @@
         public virtual string Repository { get; set; }
         public virtual int AgentId { get; set; }
         public virtual string AgentName { get; set; }
+
+        public virtual bool Partial { get; set; }
     }
 }

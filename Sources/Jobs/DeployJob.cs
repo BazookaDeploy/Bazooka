@@ -199,7 +199,8 @@ namespace Jobs
                         DataBase = unit.DatabaseName,
                         PackageName = unit.Package,
                         Repository = unit.Repository,
-                        Version = version
+                        Version = version,
+                        Partial = unit.Partial
                     });
 
                     var result = result2.Result;
