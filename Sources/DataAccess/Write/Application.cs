@@ -375,7 +375,7 @@ namespace DataAccess.Write
             task.Name = name;
             task.Package = package;
             task.Repository = repository;
-            this.Partial = partial;
+            task.Partial = partial;
         }
 
         public virtual void AddDeployTask(int enviromentId, string name, int agentID, string package, string directory, string repository, string configuration, IList<Parameter> parameters)
