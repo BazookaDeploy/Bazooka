@@ -63,7 +63,7 @@ var EditPage = React.createClass({
 											</Select>
 											<Input title="Repository" placeholder="Repository" value={this.state.Repository}  onChange={(e)=>this.setState({Repository:e.target.value})}  />
 										<Input title="DatabaseName" placeholder="Database Name"value={this.state.DatabaseName}  onChange={(e)=>this.setState({DatabaseName:e.target.value})}  />
-            <Select title="Partial deploy" value={thi.state.Partial} onChange={(e) => this.setState({ Partial: e.target.value })}>
+            <Select title="Partial deploy" value={this.state.Partial} onChange={(e) => this.setState({ Partial: e.target.value })}>
                 <option value={"false"}>Full deploy</option>
                 <option value={"true"}>Partial deploy</option>
             </Select>
