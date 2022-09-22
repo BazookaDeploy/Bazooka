@@ -16,32 +16,37 @@ namespace Jobs
 
             using (var db = new ReadContext())
             {
-                agents = db.Enviroments
-                           .ToList()
+                var ev = db.Enviroments
+                           .ToList();
+                agents = ev
                            .SelectMany(x => x.Agents)
                            .Select(x => x.Address)
                            .Distinct()
                            .ToList();
             }
 
-            using (var client = new HttpClient())
+
+            foreach (var agent in agents)
             {
-                foreach (var agent in agents)
+                try
                 {
-                    try
+                    LogProvider.GetCurrentClassLogger().Log(LogLevel.Warn, () => "Cleaning " + agent);
+                    using (var client = new HttpClient())
                     {
                         client.BaseAddress = new Uri(agent);
                         var result2 = client.GetAsync("/api/deploy/clean").Result;
                     }
-                    catch (Exception e) {
+                }
+                catch (Exception e)
+                {
 
-                        LogProvider.GetCurrentClassLogger().WarnException(e.Message, e);
+                    LogProvider.GetCurrentClassLogger().WarnException(e.Message, e);
 
-                        // do nothing, an agent may be unavailable at this time 
-                        // or the network down. Just pass to the next
-                    }
+                    // do nothing, an agent may be unavailable at this time 
+                    // or the network down. Just pass to the next
                 }
             }
+
         }
     }
 }
