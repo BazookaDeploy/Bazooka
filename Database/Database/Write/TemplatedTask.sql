@@ -3,7 +3,7 @@
 	[EnviromentId] INT NOT NULL,
     [Name] NVARCHAR(50) NOT NULL, 
     [AgentId] INT NOT NULL, 
-    [CurrentlyDeployedVersion] NVARCHAR(50) NULL, 
+    [CurrentlyDeployedVersion] NVARCHAR(75) NULL, 
     [ApplicationId] INT NOT NULL, 
     [Position] INT NOT NULL DEFAULT 1, 
     [Deleted] BIT NOT NULL DEFAULT 0, 
