@@ -7,7 +7,7 @@
     [PackageName] NVARCHAR(256) NOT NULL, 
     [Directory] NVARCHAR(MAX) NOT NULL, 
     [Repository] NVARCHAR(256) NOT NULL, 
-    [CurrentlyDeployedVersion] NVARCHAR(50) NULL, 
+    [CurrentlyDeployedVersion] NVARCHAR(75) NULL, 
     [InstallScript] NVARCHAR(MAX) NULL, 
     [UninstallScript] NVARCHAR(MAX) NULL, 
     [ConfigurationFile] NVARCHAR(250) NULL, 
